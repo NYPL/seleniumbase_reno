@@ -1,5 +1,5 @@
 # QA Env for Reno Project
-name: CI build
+name: QA Env
 
 on:
   push:
