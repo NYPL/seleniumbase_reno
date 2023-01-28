@@ -1,5 +1,5 @@
-# QA Environment Github Actions build for RENO Project 
-name: CI build
+# QA Env Tests for Reno Project
+name: QA Env
 
 on:
   push:
@@ -61,61 +61,61 @@ jobs:
         
     
     
-   # NYPL tests start here
+    # NYPL tests start here
     # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, online resources
     
     
-    #- name: Run pytest examples/nypl_tests/test_footer.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/nypl_tests/test_footer.py --browser=chrome --headless -v -s
-    
-    
-    #- name: Run pytest examples/nypl_tests/test_header.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/nypl_tests/test_header.py --browser=chrome --headless -v -s 
-    
-    
-    #- name: Run pytest examples/nypl_tests/test_blog.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/nypl_tests/test_blog.py --browser=chrome --headless -v -s
-    
-    
-    #- name: Run pytest examples/nypl_tests/test_blog_all.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/nypl_tests/test_blog_all.py --browser=chrome --headless -v -s 
-    
-    
-    #- name: Run pytest examples/nypl_tests/test_book_lists.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/nypl_tests/test_book_lists.py --browser=chrome --headless -v -s 
-    
-        
-    #- name: Run pytest examples/nypl_tests/test_campaigns.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/nypl_tests/test_campaigns.py --browser=chrome --headless -v -s 
-    
-    
-    #- name: Run pytest examples/nypl_tests/test_exhibitions.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/nypl_tests/test_exhibitions.py --browser=chrome --headless -v -s 
-        
-        
-    #- name: Run pytest examples/nypl_tests/test_locations.py --browser=chrome --xvfb
-    #  continue-on-error: true
-    #  run: |
-    #    pytest examples/nypl_tests/test_locations.py --browser=chrome --headless -v -s 
-        
-        
-    #- name: Run pytest examples/nypl_tests/test_online_resources.py --browser=chrome --env=qa --xvfb
-    #  continue-on-error: true
-    #  run: |
-    #    pytest examples/nypl_tests/test_online_resources.py --browser=chrome --headless -v -s  
-    
-    
-    - name: Run pytest examples/nypl_tests/test_footer.py --browser=chrome --xvfb
+    - name: Run pytest examples/nypl_tests/test_footer.py --browser=chrome --xvfb --env=qa
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests/test_footer.py --browser=chrome --headless -v -s
+        pytest examples/nypl_tests/test_footer.py --browser=chrome --headless -v -s --env=qa
     
+    
+    - name: Run pytest examples/nypl_tests/test_header.py --browser=chrome --xvfb --env=qa
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_header.py --browser=chrome --headless -v -s --env=qa
+    
+    
+    - name: Run pytest examples/nypl_tests/test_blog.py --browser=chrome --xvfb --env=qa
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_blog.py --browser=chrome --headless -v -s --env=qa
+    
+    
+    - name: Run pytest examples/nypl_tests/test_blog_all.py --browser=chrome --xvfb --env=qa
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_blog_all.py --browser=chrome --headless -v -s --env=qa
+    
+    
+    - name: Run pytest examples/nypl_tests/test_book_lists.py --browser=chrome --xvfb --env=qa
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_book_lists.py --browser=chrome --headless -v -s --env=qa
+    
+        
+    - name: Run pytest examples/nypl_tests/test_campaigns.py --browser=chrome --xvfb --env=qa
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_campaigns.py --browser=chrome --headless -v -s --env=qa
+    
+    
+    - name: Run pytest examples/nypl_tests/test_exhibitions.py --browser=chrome --xvfb --env=qa
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_exhibitions.py --browser=chrome --headless -v -s --env=qa
+        
+        
+    - name: Run pytest examples/nypl_tests/test_locations.py --browser=chrome --xvfb --env=qa
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_locations.py --browser=chrome --headless -v -s --env=qa
+        
+        
+    - name: Run pytest examples/nypl_tests/test_online_resources.py --browser=chrome --xvfb --env=qa
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_online_resources.py --browser=chrome --headless -v -s --env=qa
     
     
