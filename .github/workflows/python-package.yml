@@ -58,102 +58,64 @@ jobs:
         nosetests nothing2.py
         
         
-    #- name: Run pytest examples/unit_tests/verify_framework.py --browser=chrome --headless
-    #  run: |
-    #    pytest examples/unit_tests/verify_framework.py --browser=chrome --headless -v -s --junit-xml=junit/test-results.xml
-    #- name: Run pytest examples/boilerplate_test.py --browser=chrome --headless
-    #  run: |
-    #    pytest examples/boilerplates/boilerplate_test.py --browser=chrome --headless -v -s --junit-xml=junit/test-results.xml
-    #- name: Run pytest examples/test_demo_site.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/test_demo_site.py --browser=chrome --xvfb -v -s --junit-xml=junit/test-results.xml
-    #- name: Run pytest examples/test_iframes.py --browser=chrome --xvfb --rs --crumbs
-    #  run: |
-    #    pytest examples/test_iframes.py --browser=chrome --xvfb --rs --crumbs -v -s --junit-xml=junit/test-results.xml
-    #- name: Run pytest examples/test_mfa_login.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/test_mfa_login.py --browser=chrome --xvfb -v -s --junit-xml=junit/test-results.xml
-    #- name: Run pytest examples/test_iframes.py --browser=chrome --xvfb --rs
-    #  run: |
-    #    pytest examples/test_iframes.py --browser=chrome --xvfb --rs -v -s --junit-xml=junit/test-results.xml
-    #- name: Run pytest examples/test_window_switching.py --browser=chrome --headless
-    #  run: |
-    #    pytest examples/test_window_switching.py --browser=chrome --headless -v -s --junit-xml=junit/test-results.xml
-    #- name: Run pytest examples/my_first_test.py --browser=chrome --headless
-    #  run: |
-    #    pytest examples/my_first_test.py --browser=chrome --headless -v -s --junit-xml=junit/test-results.xml
-    #- name: Run pytest examples/test_inspect_html.py --browser=chrome --headless
-    #  run: |
-    #    pytest examples/test_inspect_html.py --browser=chrome --headless -v -s --junit-xml=junit/test-results.xml
-    #- name: Run pytest examples/test_mfa_login.py --browser=firefox --headless
-    #  run: |
-    #    pytest examples/test_mfa_login.py --browser=firefox --headless -v -s --junit-xml=junit/test-results.xml
-    #- name: Run pytest examples/test_mfa_login.py --browser=firefox --xvfb
-    #  run: |
-    #    pytest examples/test_mfa_login.py --browser=firefox --xvfb -v -s --junit-xml=junit/test-results.xml
-    #- name: Run behave examples/behave_bdd/features/calculator.feature -D rs -D crumbs -D xvfb
-    #  run: |
-    #    behave examples/behave_bdd/features/calculator.feature -D rs -D crumbs -D xvfb -T -k
-    #- name: Run behave examples/behave_bdd/features/realworld.feature -D rs -D crumbs -D xvfb
-    #  run: |
-    #    behave examples/behave_bdd/features/realworld.feature -D rs -D crumbs -D xvfb -T -k
     
     
-    # NYPL tests start here
+    # NYPL tests for the folllowing pages;
     # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, online resources
-    
-    
-    #- name: Run pytest examples/nypl_tests/test_footer.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/nypl_tests/test_footer.py --browser=chrome --headless -v -s
-    
-    
-    #- name: Run pytest examples/nypl_tests/test_header.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/nypl_tests/test_header.py --browser=chrome --headless -v -s 
-    
-    
-    #- name: Run pytest examples/nypl_tests/test_blog.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/nypl_tests/test_blog.py --browser=chrome --headless -v -s
-    
-    
-    #- name: Run pytest examples/nypl_tests/test_blog_all.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/nypl_tests/test_blog_all.py --browser=chrome --headless -v -s 
-    
-    
-    #- name: Run pytest examples/nypl_tests/test_book_lists.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/nypl_tests/test_book_lists.py --browser=chrome --headless -v -s 
-    
-        
-    #- name: Run pytest examples/nypl_tests/test_campaigns.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/nypl_tests/test_campaigns.py --browser=chrome --headless -v -s 
-    
-    
-    #- name: Run pytest examples/nypl_tests/test_exhibitions.py --browser=chrome --xvfb
-    #  run: |
-    #    pytest examples/nypl_tests/test_exhibitions.py --browser=chrome --headless -v -s 
-        
-        
-    #- name: Run pytest examples/nypl_tests/test_locations.py --browser=chrome --xvfb
-    #  continue-on-error: true
-    #  run: |
-    #    pytest examples/nypl_tests/test_locations.py --browser=chrome --headless -v -s 
-        
-        
-    #- name: Run pytest examples/nypl_tests/test_online_resources.py --browser=chrome --env=qa --xvfb
-    #  continue-on-error: true
-    #  run: |
-    #    pytest examples/nypl_tests/test_online_resources.py --browser=chrome --headless -v -s 
     
     
     - name: Run pytest examples/nypl_tests/test_footer.py --browser=chrome --xvfb
       continue-on-error: true
       run: |
         pytest examples/nypl_tests/test_footer.py --browser=chrome --headless -v -s
+    
+    
+    - name: Run pytest examples/nypl_tests/test_header.py --browser=chrome --xvfb
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_header.py --browser=chrome --headless -v -s 
+    
+    
+    - name: Run pytest examples/nypl_tests/test_blog.py --browser=chrome --xvfb
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_blog.py --browser=chrome --headless -v -s
+    
+    
+    - name: Run pytest examples/nypl_tests/test_blog_all.py --browser=chrome --xvfb
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_blog_all.py --browser=chrome --headless -v -s 
+    
+    
+    - name: Run pytest examples/nypl_tests/test_book_lists.py --browser=chrome --xvfb
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_book_lists.py --browser=chrome --headless -v -s 
+    
+        
+    - name: Run pytest examples/nypl_tests/test_campaigns.py --browser=chrome --xvfb
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_campaigns.py --browser=chrome --headless -v -s 
+    
+    
+    - name: Run pytest examples/nypl_tests/test_exhibitions.py --browser=chrome --xvfb
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_exhibitions.py --browser=chrome --headless -v -s 
+        
+        
+    - name: Run pytest examples/nypl_tests/test_locations.py --browser=chrome --xvfb
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_locations.py --browser=chrome --headless -v -s 
+        
+        
+    - name: Run pytest examples/nypl_tests/test_online_resources.py --browser=chrome --env=qa --xvfb
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_online_resources.py --browser=chrome --headless -v -s 
     
     
     
