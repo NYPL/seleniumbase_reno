@@ -1,0 +1,121 @@
+# QA Environment Github Actions build for RENO Project 
+name: CI build
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    env:
+      PY_COLORS: "1"
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        python-version: ["3.10"] 
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade wheel
+        pip install -r requirements.txt
+    - name: Install SeleniumBase
+      run: |
+        python setup.py install
+    # - name: Lint with flake8
+      # run: |
+        # pip install flake8
+        # Stop the build if there are flake8 issues
+        # flake8 . --count --show-source --statistics --exclude=temp
+    - name: Install Chrome and Firefox
+      run: |
+        sudo apt install google-chrome-stable
+        sudo apt-get install firefox
+    - name: Check the console scripts interface
+      run: |
+        seleniumbase
+        sbase
+    - name: Install chromedriver and geckodriver (Firefox Webdriver)
+      run: |
+        seleniumbase install chromedriver
+        seleniumbase install geckodriver
+    - name: Make sure pytest is working
+      run: |
+        echo "def test_1(): pass" > nothing.py
+        pytest nothing.py
+    - name: Make sure nosetests is working
+      run: |
+        echo "def test_2(): pass" > nothing2.py
+        nosetests nothing2.py
+        
+        
+    
+    
+   # NYPL tests start here
+    # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, online resources
+    
+    
+    #- name: Run pytest examples/nypl_tests/test_footer.py --browser=chrome --xvfb
+    #  run: |
+    #    pytest examples/nypl_tests/test_footer.py --browser=chrome --headless -v -s
+    
+    
+    #- name: Run pytest examples/nypl_tests/test_header.py --browser=chrome --xvfb
+    #  run: |
+    #    pytest examples/nypl_tests/test_header.py --browser=chrome --headless -v -s 
+    
+    
+    #- name: Run pytest examples/nypl_tests/test_blog.py --browser=chrome --xvfb
+    #  run: |
+    #    pytest examples/nypl_tests/test_blog.py --browser=chrome --headless -v -s
+    
+    
+    #- name: Run pytest examples/nypl_tests/test_blog_all.py --browser=chrome --xvfb
+    #  run: |
+    #    pytest examples/nypl_tests/test_blog_all.py --browser=chrome --headless -v -s 
+    
+    
+    #- name: Run pytest examples/nypl_tests/test_book_lists.py --browser=chrome --xvfb
+    #  run: |
+    #    pytest examples/nypl_tests/test_book_lists.py --browser=chrome --headless -v -s 
+    
+        
+    #- name: Run pytest examples/nypl_tests/test_campaigns.py --browser=chrome --xvfb
+    #  run: |
+    #    pytest examples/nypl_tests/test_campaigns.py --browser=chrome --headless -v -s 
+    
+    
+    #- name: Run pytest examples/nypl_tests/test_exhibitions.py --browser=chrome --xvfb
+    #  run: |
+    #    pytest examples/nypl_tests/test_exhibitions.py --browser=chrome --headless -v -s 
+        
+        
+    #- name: Run pytest examples/nypl_tests/test_locations.py --browser=chrome --xvfb
+    #  continue-on-error: true
+    #  run: |
+    #    pytest examples/nypl_tests/test_locations.py --browser=chrome --headless -v -s 
+        
+        
+    #- name: Run pytest examples/nypl_tests/test_online_resources.py --browser=chrome --env=qa --xvfb
+    #  continue-on-error: true
+    #  run: |
+    #    pytest examples/nypl_tests/test_online_resources.py --browser=chrome --headless -v -s  
+    
+    
+    - name: Run pytest examples/nypl_tests/test_footer.py --browser=chrome --xvfb
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_footer.py --browser=chrome --headless -v -s
+    
+    
+    
