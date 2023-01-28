@@ -4,7 +4,7 @@ This is the repo for Python/SeleniumBase testing of nypl.org. The goal of this r
 
 # Setup
 
-Download Pycharm CE and create a new project and clone this repo.
+Download Pycharm CE and create a new project and clone this repo. 
 
 Go to terminal in PyCharm, and run command “pip3 install seleniumbase”. Sbase must be at least 4.11.3. To upgrade, use “pip3 install seleniumbase --upgrade” 
 
