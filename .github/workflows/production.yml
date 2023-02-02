@@ -64,55 +64,55 @@ jobs:
     # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, online resources
     
     
-    - name: Run pytest examples/nypl_tests/test_footer.py --browser=chrome --xvfb
+    - name: Run pytest test_footer.py
       continue-on-error: true
       run: |
         pytest examples/nypl_tests/test_footer.py --browser=chrome --headless -v -s
     
     
-    - name: Run pytest examples/nypl_tests/test_header.py --browser=chrome --xvfb
+    - name: Run pytest test_header.py
       continue-on-error: true
       run: |
         pytest examples/nypl_tests/test_header.py --browser=chrome --headless -v -s 
     
     
-    - name: Run pytest examples/nypl_tests/test_blog.py --browser=chrome --xvfb
+    - name: Run pytest test_blog.py
       continue-on-error: true
       run: |
         pytest examples/nypl_tests/test_blog.py --browser=chrome --headless -v -s
     
     
-    - name: Run pytest examples/nypl_tests/test_blog_all.py --browser=chrome --xvfb
+    - name: Run pytest test_blog_all.py
       continue-on-error: true
       run: |
         pytest examples/nypl_tests/test_blog_all.py --browser=chrome --headless -v -s 
     
     
-    - name: Run pytest examples/nypl_tests/test_book_lists.py --browser=chrome --xvfb
+    - name: Run pytest test_book_lists.py
       continue-on-error: true
       run: |
         pytest examples/nypl_tests/test_book_lists.py --browser=chrome --headless -v -s 
     
         
-    - name: Run pytest examples/nypl_tests/test_campaigns.py --browser=chrome --xvfb
+    - name: Run pytest test_campaigns.py
       continue-on-error: true
       run: |
         pytest examples/nypl_tests/test_campaigns.py --browser=chrome --headless -v -s 
     
     
-    - name: Run pytest examples/nypl_tests/test_exhibitions.py --browser=chrome --xvfb
+    - name: Run pytest test_exhibitions.py
       continue-on-error: true
       run: |
         pytest examples/nypl_tests/test_exhibitions.py --browser=chrome --headless -v -s 
         
         
-    - name: Run pytest examples/nypl_tests/test_locations.py --browser=chrome --xvfb
+    - name: Run pytest test_locations.py
       continue-on-error: true
       run: |
         pytest examples/nypl_tests/test_locations.py --browser=chrome --headless -v -s 
         
         
-    - name: Run pytest examples/nypl_tests/test_online_resources.py --browser=chrome --xvfb
+    - name: Run pytest test_online_resources.py
       continue-on-error: true
       run: |
         pytest examples/nypl_tests/test_online_resources.py --browser=chrome --headless -v -s 
