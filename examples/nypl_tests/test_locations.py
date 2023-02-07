@@ -23,7 +23,8 @@ class Locations(LocationsPage):
 
     def test_main_page_elements(self):
         print("test_main_page_elements()\n")
-        # assert page elements
+        # assert breadcrumbs and page elements
+        self.assert_element(self.home)
         self.assert_element(self.locations)
         self.assert_element(self.welcome_text)
         self.assert_element(self.find_your_library)
@@ -37,7 +38,6 @@ class Locations(LocationsPage):
         self.click(self.borough)
         self.click(self.bronx)
         self.click(self.apply_boro)
-        self.assert_element(self.clear_all_search)
         self.click(self.borough)
         self.click(self.clear_boro)
 
@@ -62,42 +62,37 @@ class Locations(LocationsPage):
         self.switch_to_default_content()
 
         # lower page elements
-        # 2 locations assertion and BK and Queens web-elements. Checking if the web-elements exist
-        self.assert_element('/html/body/div[1]/div/div[2]/main/div[2]/div[2]/div[1]/div/div[1]/div/div['
-                            '1]/a/figure/figcaption/div')
-        self.assert_element(
-            '//*[@id="main-content"]/div[2]/div[2]/div[1]/div/div[1]/div/div[2]/a/figure/figcaption/div')
-        self.assert_element('//*[@id="main-content"]/div[2]/div[2]/div[1]/div/div[2]')
+        # asserting 3 bottom elements. 2 midtown locations assertion and BK and Queens web-elements.
+        self.assert_element(self.bottom_1)
+        self.assert_element(self.bottom_2)
+        self.assert_element(self.bottom_3)
 
     def test_borough(self):
         print("test_borough()\n")
         self.assert_element(self.borough)
 
-        # assert bronx for a random(randrange(1, 35)) location
+        # assert 'Bronx' text from a random(randrange(1, 35)) Bronx location
         self.click(self.borough)
         self.click(self.bronx)
         self.click(self.apply_boro)
-
         print(self.get_text('//*[@id="locations-list"]/div[2]/ul/li[' + str(randrange(1, 35)) + ']/div/div[1]'))
         self.assert_true("Bronx" in self.get_text(self.bronx_location))
         self.click(self.borough)
         self.click(self.clear_boro)
 
-        # assert manhattan for a random(randrange(1, 76)) location
+        # assert 'Manhattan' text from a random(randrange(1, 76)) Manhattan location
         self.click(self.borough)
         self.click(self.manhattan)
         self.click(self.apply_boro)
-
         print(self.get_text('//*[@id="locations-list"]/div[2]/ul/li[' + str(randrange(1, 76)) + ']/div/div[1]'))
         self.assert_true("New York" in self.get_text(self.manhattan_location))
         self.click(self.borough)
         self.click(self.clear_boro)
 
-        # assert Staten Island for a random(randrange(1, 14)) location
+        # assert 'Staten Island' text from a random(randrange(1, 14)) 'Staten Island' location
         self.click(self.borough)
         self.click(self.richmond)
         self.click(self.apply_boro)
-
         print(self.get_text('//*[@id="locations-list"]/div[2]/ul/li[' + str(randrange(1, 14)) + ']/div/div[1]'))
         self.assert_true("Staten" in self.get_text(self.richmond_location))
         self.click(self.borough)
@@ -125,8 +120,8 @@ class Locations(LocationsPage):
                     '/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div/div[1]/div[2]/ul/li[' + str(x) + ']/div/h2/a'))
                 count += 1
 
-        if count >= 1 :
-            print("\n" + str(count) + " libraries don't have full access yet listed on the 'Fully Accessible' filter")
+        if count >= 1:
+            print("\nAbove " + str(count) + " libraries don't have full access yet listed on the 'Fully Accessible' filter")
         self.assert_(count < 1)
 
     def test_partial_accessibility(self):
@@ -148,7 +143,8 @@ class Locations(LocationsPage):
         count = 0
         for x in range(1, total_partial_lib + 1):
             text = self.get_text('//*[@id="locations-list"]/div[2]/ul/li[' + str(x) + ']/div/div[3]/div[2]')
-            print(self.get_text('/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div/div[1]/div[2]/ul/li[' + str(x) + ']/div/h2/a'))
+            print(self.get_text(
+                '/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div/div[1]/div[2]/ul/li[' + str(x) + ']/div/h2/a'))
             print(text)
             self.assert_("Partially Accessible" in text)
             count += 1
@@ -230,7 +226,8 @@ class Locations(LocationsPage):
         self.assert_(self.social_sciences)
 
         # length of the filter
-        social_length = len(self.find_elements('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div[2]/div[2]/div/div[1]/div/div/div[1]/ul/li'))
+        social_length = len(self.find_elements(
+            '/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div[2]/div[2]/div/div[1]/div/div/div[1]/ul/li'))
 
         # assert social science's length, as of June 2022 it is 10
         print("Social Sciences length is " + str(social_length))
@@ -271,5 +268,3 @@ class Locations(LocationsPage):
         just to check if there is something valid there. it should be either "CLOSED" or "* AM–* PM" (edited)"
         :return:
         """
-
-
