@@ -14,6 +14,8 @@ class ExhibitionsPage(BaseCase):
     online_exhibitions = '//*[@id="7132-online-exhibitions"]'
     past_exhibitions = '//*[@id="46-past-exhibitions"]'
 
+    no_community_showcase = '/html/body/div[1]/div/main/div[2]/div/div/div/div/p'
+
     # /upcoming elements
     exhibitions = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[3]/a'
     upcoming_exhibitions_h1 = '//*[@id="block-pagetitle"]/div/div/h1'
