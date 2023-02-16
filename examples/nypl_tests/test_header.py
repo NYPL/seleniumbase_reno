@@ -1,9 +1,10 @@
 import pytest
 
+from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.header_page import Header
 
 
-class HeaderTest(Header):
+class HeaderTest(NyplUtils):
 
     # https://www.nypl.org/
 
@@ -111,20 +112,12 @@ class HeaderTest(Header):
         self.click(self.search)
         self.assert_text("Close")
 
-    @pytest.mark.skip(reason="Chris Mulholland covering this in his own test suite")
+    # @pytest.mark.skip(reason="Chris Mulholland covering this in his own test suite")
     def test_login_catalog(self):
         print("test_login_catalog()\n")
 
-        # click login button
-        self.click(self.login)
-        # click 'log into the catalog'
-        self.click(self.login_catalog)
-        # enter username
-        self.send_keys(self.username, "qatester")
-        # enter password
-        self.send_keys(self.password, "1234")
-        # click submit
-        self.click(self.submit)
+        # using nypl_login_catalog method to login
+        self.nypl_login_catalog("qatester", "1234")
 
         # assert title 'NYPL catalog'
         self.assert_title('NYPL Catalog')
@@ -137,40 +130,24 @@ class HeaderTest(Header):
 
         print(self.get_current_url())
 
-    @pytest.mark.skip(reason="test")
+    # @pytest.mark.skip(reason="test")
     def test_login_research_catalog(self):
         print("test_login_research_catalog()\n")
 
-        # click login button
-        self.click(self.login)
-        # click log into the research catalog
-        self.click(self.login_research_catalog)
-        # enter username
-        self.send_keys(self.username, "qatester")
-        # enter password
-        self.send_keys(self.password, "1234")
-        # click submit
-        self.click(self.submit)
+        # using nypl_login_research method to login
+        self.nypl_login_research("qatester", "1234")
 
         # assert title 'Account | Research Catalog | NYPL'
         self.assert_title('Account | Research Catalog | NYPL')
         # assert 'My Account' element for Research Catalog
         self.assert_element(self.my_account_research_catalog)
 
-    @pytest.mark.skip(reason="test")
+    # @pytest.mark.skip(reason="test")
     def test_search_functionality(self):
         print("test_search_functionality()\n")
 
-        # click login button
-        self.click(self.login)
-        # click log into the research catalog
-        self.click(self.login_research_catalog)
-        # enter username
-        self.send_keys(self.username, "qatester")
-        # enter password
-        self.send_keys(self.password, "1234")
-        # click submit
-        self.click(self.submit)
+        # using nypl_login_research method to login
+        self.nypl_login_research("qatester", "1234")
 
         # assert search functionality
         self.click(self.search_research_catalog)
@@ -186,18 +163,3 @@ class HeaderTest(Header):
         self.click(self.next_button)
         # click/assert 'previous' button
         self.click(self.previous_button)
-
-    @pytest.mark.skip(reason="sample tests")
-    def test_sample(self):
-        def drupal_login():
-            self.open("https://pr1032-nypl1.pantheonsite.io/user/login?bypass")
-
-            self.send_keys('//*[@id="edit-name"]', "alkimcevik")
-            self.send_keys('//*[@id="edit-pass"]', "Ifwt1984")
-            self.click('//*[@id="edit-submit"]')
-            self.open("https://pr1032-nypl1.pantheonsite.io/node/add")
-            for x in range(1, 21):
-                print(self.get_text("/html/body/div[2]/div/main/div[4]/div/ul/li[" + str(x) + "]/a/span"))
-                print(" ")
-        print("\ncalling backend login function\n")
-        drupal_login()

@@ -118,9 +118,9 @@ class OnlineResources(OnlineResourcesPage):
         # click every filter and apply filters
         for x in range(1, subject_filter_length + 1):
             self.click(self.subjects_button)
-            self.click('//*[@id="multiselect-subject"]/div/ul/li[' + str(x) + ']/label/span[2]')
+            self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[1]/div/ul/li[' + str(x) + ']/div/label/span[2]')
             # sub-filter texts
-            sub_filter = self.get_text('//*[@id="multiselect-subject"]/div/ul/li[' + str(x) + ']/label/span[2]')
+            sub_filter = self.get_text('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[1]/div/ul/li[' + str(x) + ']/div/label/span[2]')
 
             # for loop to assert lengths of the sub-filters, will pass if they are greater than 1
             sub_filter_length = len(
@@ -144,10 +144,10 @@ class OnlineResources(OnlineResourcesPage):
         # more than given (1000) amount
         for x in range(1, 4):
             self.click(self.audience_button)
-            self.click('//*[@id="multiselect-audience_by_age"]/div/ul/li[' + str(x) + ']/label/span[2]')
+            self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[2]/div/ul/li[' + str(x) + ']/div/label/span[2]')
             # getting filter text to use it later
             filter_text = self.get_text(
-                '//*[@id="multiselect-audience_by_age"]/div/ul/li[' + str(x) + ']/label/span[2]')
+                '/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[2]/div/ul/li[' + str(x) + ']/div/label/span[2]')
             self.click(self.apply_audience)
             self.wait(3)
 
@@ -175,7 +175,7 @@ class OnlineResources(OnlineResourcesPage):
         count = 0  # optional counter to see if the for loop is a success
         for x in range(1, 4):
             self.click(self.availability_button)
-            self.click('//*[@id="multiselect-availability"]/div/ul/li[' + str(x) + ']/label/span[2]')
+            self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[3]/div/ul/li[' + str(x) + ']/div/label/span[2]/span')
             self.click(self.apply_availability)
             count += 1
             print(str(count) + "st/nd/rd round")  # optional print of the counter with the loop items
