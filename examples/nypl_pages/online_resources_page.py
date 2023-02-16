@@ -38,7 +38,7 @@ class OnlineResourcesPage(BaseCase):
 
     featured_resources = '//*[@id="featured-resources"]'
     most_popular = '//*[@id="most-popular"]'
-    a_z_database = '//*[@id="A-Z Articles & Databases"]'
+    a_z_database = '/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div[3]/nav/div/h2'
 
     more_research = '//*[@id="more-research-tools"]'
 
