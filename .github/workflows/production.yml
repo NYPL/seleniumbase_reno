@@ -67,52 +67,52 @@ jobs:
     - name: Run pytest test_footer.py
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests/test_footer.py --browser=chrome --headless -v -s
+        pytest examples/nypl_tests/test_footer.py --browser=chrome --headless -v -s n=6 --reruns=2
     
     
     - name: Run pytest test_header.py
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests/test_header.py --browser=chrome --headless -v -s 
+        pytest examples/nypl_tests/test_header.py --browser=chrome --headless -v -s n=4 --reruns=2
     
     
     - name: Run pytest test_blog.py
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests/test_blog.py --browser=chrome --headless -v -s
+        pytest examples/nypl_tests/test_blog.py --browser=chrome --headless -v -s n=6 --reruns=2
     
     
     - name: Run pytest test_blog_all.py
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests/test_blog_all.py --browser=chrome --headless -v -s 
+        pytest examples/nypl_tests/test_blog_all.py --browser=chrome --headless -v -s n=6 --reruns=2
     
     
     - name: Run pytest test_book_lists.py
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests/test_book_lists.py --browser=chrome --headless -v -s 
+        pytest examples/nypl_tests/test_book_lists.py --browser=chrome --headless -v -s n=6 --reruns=2
     
         
     - name: Run pytest test_campaigns.py
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests/test_campaigns.py --browser=chrome --headless -v -s 
+        pytest examples/nypl_tests/test_campaigns.py --browser=chrome --headless -v -s n=6 --reruns=2
     
     
     - name: Run pytest test_exhibitions.py
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests/test_exhibitions.py --browser=chrome --headless -v -s 
+        pytest examples/nypl_tests/test_exhibitions.py --browser=chrome --headless -v -s n=6 --reruns=2
         
         
     - name: Run pytest test_locations.py
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests/test_locations.py --browser=chrome --headless -v -s 
+        pytest examples/nypl_tests/test_locations.py --browser=chrome --headless -v -s n=6 --reruns=2
         
         
     - name: Run pytest test_online_resources.py
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests/test_online_resources.py --browser=chrome --headless -v -s 
+        pytest examples/nypl_tests/test_online_resources.py --browser=chrome --headless -v -s n=6 --reruns=2
