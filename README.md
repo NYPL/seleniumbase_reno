@@ -32,7 +32,7 @@ Base interpreter is Python 3.10 for this test suite.
  
  Click on the Green arrow next to the 'test_' files or right click anywhere and choose 'Run'.
  
- ## Github Actons CI/CD
+ ## Github Actions CI/CD
  
  Click on the "Actions" tab at the top of the repository.
  Select the workflow you want to run from the list of workflows on the left.
