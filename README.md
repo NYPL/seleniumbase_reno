@@ -35,7 +35,9 @@ Base interpreter is Python 3.10 for this test suite.
  ## Github Actions CI/CD
  
  Click on the "Actions" tab at the top of the repository.
+ 
  Select the workflow you want to run from the list of workflows on the left.
+ 
  Click the "Run workflow" button on the right.
  
  # Note
