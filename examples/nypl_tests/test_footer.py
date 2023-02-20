@@ -1,4 +1,4 @@
-from examples.nypl_pages.footer_page import Footer
+from examples.nypl_pages.page_footer import Footer
 
 
 class FooterTest(Footer):
