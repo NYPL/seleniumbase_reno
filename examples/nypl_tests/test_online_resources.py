@@ -115,7 +115,7 @@ class OnlineResources(OnlineResourcesPage):
         self.assert_true(subject_filter_length > 10, "subject filter amount is not greater than 10")
         self.click(self.subjects_button)
 
-        # click every filter and apply filters
+        # click every filter and apply filters and assert lengths of the sub-filters
         for x in range(1, subject_filter_length + 1):
             self.click(self.subjects_button)
             self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[1]/div/ul/li[' + str(x) + ']/div/label/span[2]')
@@ -219,7 +219,7 @@ class OnlineResources(OnlineResourcesPage):
         else:
             self.open("https://www.nypl.org/research/collections/articles-databases/search?q=&page=1")
 
-        # assert h3 headings elements amount and if they are queal or greater than 10
+        # assert h3 headings elements amount and if they are equal to or greater than 10
 
         h3_length = len(self.find_elements('/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div/div[2]/div'))
         print("h3 headings count is = " + str(h3_length))  # optional print of the h3 count

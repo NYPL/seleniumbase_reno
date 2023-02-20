@@ -195,7 +195,7 @@ class Locations(LocationsPage):
         self.click(self.art)
         self.click(self.apply_specialties)
 
-        # length of the filter == 10 aas of June 2022
+        # length of the filter == 10 as of June 2022
         art_filter_len = len(self.find_elements('/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div/div[1]/div['
                                                 '2]/ul/li'))
 
