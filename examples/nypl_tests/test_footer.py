@@ -10,7 +10,7 @@ class FooterTest(Footer):
         print("\n=================================")
         print("RUNNING BEFORE EACH TEST")
 
-        # open blog page
+        # open main page
         self.open_home_page()
 
     def tearDown(self):

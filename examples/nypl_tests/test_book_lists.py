@@ -1,7 +1,7 @@
 # from test.s_base.pages.book_lists_page import BookListsPage
 import pytest
 
-from examples.nypl_pages.book_lists_page import BookListsPage
+from examples.nypl_pages.page_book_lists import BookListsPage
 
 
 class BookLists(BookListsPage):
@@ -15,7 +15,7 @@ class BookLists(BookListsPage):
         print("\n=================================")
         print("RUNNING BEFORE EACH TEST")
 
-        # open locations page
+        # open book lists page
         self.open_book_lists_page()
 
     def tearDown(self):

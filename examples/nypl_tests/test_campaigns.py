@@ -1,4 +1,4 @@
-from examples.nypl_pages.campaigns_page import CampaignsPage
+from examples.nypl_pages.page_campaigns import CampaignsPage
 
 
 class Campaigns(CampaignsPage):

@@ -1,4 +1,4 @@
-from examples.nypl_pages.exhibitions_page import ExhibitionsPage
+from examples.nypl_pages.page_exhibitions import ExhibitionsPage
 from random import randrange
 
 
