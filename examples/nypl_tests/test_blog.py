@@ -1,6 +1,6 @@
 import time
 
-from examples.nypl_pages.blog_page import BlogPage
+from examples.nypl_pages.page_blog import BlogPage
 from selenium.common.exceptions import NoSuchElementException
 
 

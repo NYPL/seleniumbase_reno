@@ -27,7 +27,6 @@ class Header(BaseCase):
     advanced_search_research_submit = '//*[@id="advancedSearchSubmit"]'
     submit_warning = '//*[@id="advancedSearchAside"]'
 
-
     locations = ".locationsTopLink"
     get_a_library_card = ".libraryCardButton"
     get_email_updates = ".subscribeButton-wrapper"

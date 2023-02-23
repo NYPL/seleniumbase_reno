@@ -1,5 +1,5 @@
 from seleniumbase import BaseCase
-from examples.nypl_pages.header_page import Header
+from examples.nypl_pages.page_header import Header
 
 
 class NyplUtils(Header):

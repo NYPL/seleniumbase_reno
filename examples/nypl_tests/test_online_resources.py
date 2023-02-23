@@ -1,4 +1,4 @@
-from examples.nypl_pages.online_resources_page import OnlineResourcesPage
+from examples.nypl_pages.page_online_resources import OnlineResourcesPage
 
 
 class OnlineResources(OnlineResourcesPage):
@@ -9,7 +9,7 @@ class OnlineResources(OnlineResourcesPage):
         print("\n=================================")
         print("RUNNING BEFORE EACH TEST")
 
-        # open exhibitions page
+        # open articles and databases page
         self.open_online_resources_page()
 
     def tearDown(self):

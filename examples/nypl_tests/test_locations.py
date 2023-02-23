@@ -1,6 +1,6 @@
 import pytest
 
-from examples.nypl_pages.locations_page import LocationsPage
+from examples.nypl_pages.page_locations import LocationsPage
 from random import randrange
 import time
 

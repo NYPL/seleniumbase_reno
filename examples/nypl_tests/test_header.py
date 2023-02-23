@@ -1,21 +1,19 @@
 import pytest
 
 from examples.nypl_utility.utility import NyplUtils
-from examples.nypl_pages.header_page import Header
+from examples.nypl_pages.page_header import Header
 
 
 class HeaderTest(NyplUtils):
 
     # https://www.nypl.org/
 
-    # todo: add Login functionality
-
     def setUp(self):
         super().setUp()
         print("\n=================================")
         print("RUNNING BEFORE EACH TEST")
 
-        # open blog page
+        # open main page
         self.open_home_page()
 
     def tearDown(self):

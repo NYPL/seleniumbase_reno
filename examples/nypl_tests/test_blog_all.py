@@ -1,4 +1,4 @@
-from examples.nypl_pages.blog_all_page import BlogAllPage
+from examples.nypl_pages.page_blog_all import BlogAllPage
 import random
 
 
@@ -11,7 +11,7 @@ class BlogAllTests(BlogAllPage):
         print("=================================")
         print("\nRUNNING BEFORE EACH TEST")
 
-        # open blog page
+        # open blog/all page
         self.open_blog_page()
 
     def tearDown(self):
