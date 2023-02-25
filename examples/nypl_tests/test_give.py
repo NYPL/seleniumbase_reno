@@ -46,5 +46,4 @@ class Give(GivePage):
                 self.go_back()  # go to the previous page
                 self.assert_element(
                     f'/html/body/div[1]/div/div[2]/main/div[2]/div/div/div[{x}]/ul/li[{y}]/div/div[1]/div/div/span/img')
-                self.hover_on_element(
-                    f'/html/body/div[1]/div/div[2]/main/div[2]/div/div/div[{x}]/ul/li[{y}]/div/div[1]/div/div/span/img')
+
