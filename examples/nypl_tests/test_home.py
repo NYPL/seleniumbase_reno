@@ -36,7 +36,6 @@ class HomePageTest(HomePage):
 
         h2_length = len(self.find_elements('/html/body/div[1]/div/div[2]/main/div[2]/div'))  # getting the length
         for x in range(1, h2_length + 1):
-            # print("x == " + str(x))  # optional print
             # excluding 'New & Noteworthy' h2 since it has a different layout
             if x == 5:
                 print("skipping x = 5\n")  # optional print
