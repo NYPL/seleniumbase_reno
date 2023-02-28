@@ -29,17 +29,17 @@ class BookLists(BookListsPage):
         print('test_125_adults()\n')
 
         # assert breadcrumbs and page elements
-        self.assert_element(self.home)
-        self.assert_element(self.books_and_more)
-        self.assert_element(self.recommendations)
-        self.assert_element(self.hero_header_h1)
-        self.assert_element(self.adults)
-        self.assert_element(self.teens)
-        self.assert_element(self.kids)
-        self.assert_element(self.filter_results_below)
-        self.assert_element(self.additional_info)
+        self.assert_element(BookListsPage.home)
+        self.assert_element(BookListsPage.books_and_more)
+        self.assert_element(BookListsPage.recommendations)
+        self.assert_element(BookListsPage.hero_header_h1)
+        self.assert_element(BookListsPage.adults)
+        self.assert_element(BookListsPage.teens)
+        self.assert_element(BookListsPage.kids)
+        self.assert_element(BookListsPage.filter_results_below)
+        self.assert_element(BookListsPage.additional_info)
         self.wait(2)
-        self.hover_and_click(self.additional_info, self.learn_more)
+        self.hover_and_click(BookListsPage.additional_info, BookListsPage.learn_more)
         self.wait(2)
         self.go_back()
 
@@ -75,8 +75,8 @@ class BookLists(BookListsPage):
         print('test_125_teens\n')
 
         # asserting teens tab
-        self.click(self.teens)
-        teens_tab_h1_text = self.get_text(self.hero_header_h1)
+        self.click(BookListsPage.teens)
+        teens_tab_h1_text = self.get_text(BookListsPage.hero_header_h1)
         # print(teens_tab_h1_text)
         self.assert_true("Teens" in teens_tab_h1_text, "Teens was not found in the heading")
 
@@ -112,8 +112,8 @@ class BookLists(BookListsPage):
         print('test_125_kids()\n')
 
         # asserting kids tab
-        self.click(self.kids)
-        kids_tab_h1_text = self.get_text(self.hero_header_h1)
+        self.click(BookListsPage.kids)
+        kids_tab_h1_text = self.get_text(BookListsPage.hero_header_h1)
         # print(kids_tab_h1_text)
         self.assert_true("Kids" in kids_tab_h1_text, "Kids was not found in the heading")
 
@@ -154,17 +154,17 @@ class BookLists(BookListsPage):
             self.open('https://www.nypl.org/books-more/recommendations/best-books/adults')
 
         # assert breadcrumbs and page elements
-        self.assert_element(self.home)
-        self.assert_element(self.books_and_more)
-        self.assert_element(self.recommendations)
-        self.assert_element(self.hero_header_h1)
-        self.assert_true("Best Books" in self.get_text(self.hero_header_h1))
-        self.assert_element(self.adults)
-        self.assert_element(self.teens)
-        self.assert_element(self.kids)
-        self.assert_element(self.submit)
-        self.assert_element(self.filter_results_below)
-        self.assert_element(self.additional_info)
+        self.assert_element(BookListsPage.home)
+        self.assert_element(BookListsPage.books_and_more)
+        self.assert_element(BookListsPage.recommendations)
+        self.assert_element(BookListsPage.hero_header_h1)
+        self.assert_true("Best Books" in self.get_text(BookListsPage.hero_header_h1))
+        self.assert_element(BookListsPage.adults)
+        self.assert_element(BookListsPage.teens)
+        self.assert_element(BookListsPage.kids)
+        self.assert_element(BookListsPage.submit)
+        self.assert_element(BookListsPage.filter_results_below)
+        self.assert_element(BookListsPage.additional_info)
         self.wait(1)
 
         # assert 'Additional Information' Section by clicking all the links
@@ -219,17 +219,17 @@ class BookLists(BookListsPage):
             self.open('https://www.nypl.org/books-more/recommendations/best-books/teens')
 
         # assert breadcrumbs and page elements
-        self.assert_element(self.home)
-        self.assert_element(self.books_and_more)
-        self.assert_element(self.recommendations)
-        self.assert_element(self.hero_header_h1)
-        self.assert_true("Best Books" in self.get_text(self.hero_header_h1))
-        self.assert_element(self.adults)
-        self.assert_element(self.teens)
-        self.assert_element(self.kids)
-        self.assert_element(self.submit)
-        self.assert_element(self.filter_results_below)
-        self.assert_element(self.additional_info)
+        self.assert_element(BookListsPage.home)
+        self.assert_element(BookListsPage.books_and_more)
+        self.assert_element(BookListsPage.recommendations)
+        self.assert_element(BookListsPage.hero_header_h1)
+        self.assert_true("Best Books" in self.get_text(BookListsPage.hero_header_h1))
+        self.assert_element(BookListsPage.adults)
+        self.assert_element(BookListsPage.teens)
+        self.assert_element(BookListsPage.kids)
+        self.assert_element(BookListsPage.submit)
+        self.assert_element(BookListsPage.filter_results_below)
+        self.assert_element(BookListsPage.additional_info)
         self.wait(1)
 
         # assert 'Additional Information' Section by clicking all the links
@@ -282,17 +282,17 @@ class BookLists(BookListsPage):
             self.open('https://www.nypl.org/books-more/recommendations/best-books/kids')
 
         # assert breadcrumbs and page elements
-        self.assert_element(self.home)
-        self.assert_element(self.books_and_more)
-        self.assert_element(self.recommendations)
-        self.assert_element(self.hero_header_h1)
-        self.assert_true("Best Books" in self.get_text(self.hero_header_h1))
-        self.assert_element(self.adults)
-        self.assert_element(self.teens)
-        self.assert_element(self.kids)
-        self.assert_element(self.submit)
-        self.assert_element(self.filter_results_below)
-        self.assert_element(self.additional_info)
+        self.assert_element(BookListsPage.home)
+        self.assert_element(BookListsPage.books_and_more)
+        self.assert_element(BookListsPage.recommendations)
+        self.assert_element(BookListsPage.hero_header_h1)
+        self.assert_true("Best Books" in self.get_text(BookListsPage.hero_header_h1))
+        self.assert_element(BookListsPage.adults)
+        self.assert_element(BookListsPage.teens)
+        self.assert_element(BookListsPage.kids)
+        self.assert_element(BookListsPage.submit)
+        self.assert_element(BookListsPage.filter_results_below)
+        self.assert_element(BookListsPage.additional_info)
         self.wait(1)
 
         # assert 'Additional Information' Section by clicking all the links
@@ -359,12 +359,12 @@ class BookLists(BookListsPage):
         else:
             self.open(
                 'https://www.nypl.org/books-more/recommendations/best-books/adults')  # getting the year from h2 heading
-        h2_heading_year = (self.get_text(self.h2_heading_year).split())
+        h2_heading_year = (self.get_text(BookListsPage.h2_heading_year).split())
         # getting the selected year
-        selected_year = self.get_text(self.selected_year)
+        selected_year = self.get_text(BookListsPage.selected_year)
         # optional printing both years to see
         print(h2_heading_year)
-        print(self.get_text(self.selected_year))
+        print(self.get_text(BookListsPage.selected_year))
 
         # asserting both years
         self.assert_true(selected_year in h2_heading_year, "selected year was not found in the h2 heading")
@@ -375,12 +375,12 @@ class BookLists(BookListsPage):
         else:
             self.open('https://www.nypl.org/books-more/recommendations/best-books/teens')
         # getting the year from h2 heading
-        h2_heading_year = (self.get_text(self.h2_heading_year).split())
+        h2_heading_year = (self.get_text(BookListsPage.h2_heading_year).split())
         # getting the selected year
-        selected_year = self.get_text(self.selected_year)
+        selected_year = self.get_text(BookListsPage.selected_year)
         # optional printing both years to see
         print(h2_heading_year)
-        print(self.get_text(self.selected_year))
+        print(self.get_text(BookListsPage.selected_year))
 
         # asserting both years
         self.assert_true(selected_year in h2_heading_year, "selected year was not found in the h2 heading")
@@ -391,12 +391,12 @@ class BookLists(BookListsPage):
         else:
             self.open('https://www.nypl.org/books-more/recommendations/best-books/kids')
         # getting the year from h2 heading
-        h2_heading_year = (self.get_text(self.h2_heading_year).split())
+        h2_heading_year = (self.get_text(BookListsPage.h2_heading_year).split())
         # getting the selected year
-        selected_year = self.get_text(self.selected_year)
+        selected_year = self.get_text(BookListsPage.selected_year)
         # optional printing both years to see
         print(h2_heading_year)
-        print(self.get_text(self.selected_year))
+        print(self.get_text(BookListsPage.selected_year))
 
         # asserting both years
         self.assert_true(selected_year in h2_heading_year, "selected year was not found in the h2 heading")
@@ -410,8 +410,8 @@ class BookLists(BookListsPage):
         else:
             self.open('https://www.nypl.org/books-more/recommendations/staff-picks/adults')
         # assert Hero h1 element
-        self.assert_element(self.hero_header_h1)
-        self.assert_true("Staff Picks" in self.get_text(self.hero_header_h1))
+        self.assert_element(BookListsPage.hero_header_h1)
+        self.assert_true("Staff Picks" in self.get_text(BookListsPage.hero_header_h1))
 
         left_filter_length = len(self.find_elements('//*[@id="block-booklistsappealterms"]/div/nav/ul/li'))
         # optional print of the length of left side filter, 14 as of June 2022
@@ -466,8 +466,8 @@ class BookLists(BookListsPage):
         else:
             self.open('https://www.nypl.org/books-more/recommendations/staff-picks/teens')
         # assert Hero h1 element
-        self.assert_element(self.hero_header_h1)
-        self.assert_true("Staff Picks" in self.get_text(self.hero_header_h1))
+        self.assert_element(BookListsPage.hero_header_h1)
+        self.assert_true("Staff Picks" in self.get_text(BookListsPage.hero_header_h1))
 
         left_filter_length = len(self.find_elements('//*[@id="block-booklistsappealterms"]/div/nav/ul/li'))
         # optional print of the length of left side filter, 14 as of June 2022
@@ -521,8 +521,8 @@ class BookLists(BookListsPage):
         else:
             self.open('https://www.nypl.org/books-more/recommendations/staff-picks/kids')
         # assert Hero h1 element
-        self.assert_element(self.hero_header_h1)
-        self.assert_true("Staff Picks" in self.get_text(self.hero_header_h1))
+        self.assert_element(BookListsPage.hero_header_h1)
+        self.assert_true("Staff Picks" in self.get_text(BookListsPage.hero_header_h1))
 
         left_filter_length = len(self.find_elements('//*[@id="block-booklistsappealterms"]/div/nav/ul/li'))
         # optional print of the length of left side filter, 14 as of June 2022
@@ -588,7 +588,7 @@ class BookLists(BookListsPage):
         print(selected_time)  # optional print
 
         # getting the text from the h2 heading
-        h2_heading = self.get_text(self.h2_heading_year)
+        h2_heading = self.get_text(BookListsPage.h2_heading_year)
         print(h2_heading)  # optional print
 
         self.assert_true(selected_time in h2_heading)
@@ -606,7 +606,7 @@ class BookLists(BookListsPage):
         print(selected_time)  # optional print
 
         # getting the text from the h2 heading
-        h2_heading = self.get_text(self.h2_heading_year)
+        h2_heading = self.get_text(BookListsPage.h2_heading_year)
         print(h2_heading)  # optional print
 
         self.assert_true(selected_time in h2_heading)
@@ -623,7 +623,7 @@ class BookLists(BookListsPage):
         print(selected_time)  # optional print
 
         # getting the text from the h2 heading
-        h2_heading = self.get_text(self.h2_heading_year)
+        h2_heading = self.get_text(BookListsPage.h2_heading_year)
         print(h2_heading)  # optional print
 
         self.assert_true(selected_time in h2_heading)
@@ -666,14 +666,14 @@ class BookLists(BookListsPage):
                 # clicking on the Season element
                 self.click('//*[@id="season"]')
                 self.click('//*[@id="season"]/option[' + str(x) + ']')
-                self.click(self.submit)  # submitting the selection
+                self.click(BookListsPage.submit)  # submitting the selection
 
                 # getting the season and year text
                 selected_season = self.get_text('//*[@id="season"]/option[' + str(x) + ']')
                 print("Selected season " + selected_season)
 
                 # getting the text from the h2 heading
-                h2_heading = self.get_text(self.h2_heading_year)
+                h2_heading = self.get_text(BookListsPage.h2_heading_year)
                 print("h2 heading = " + h2_heading)  # optional print
 
                 # asserting both texts

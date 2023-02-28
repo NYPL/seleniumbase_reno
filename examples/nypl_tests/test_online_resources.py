@@ -20,36 +20,36 @@ class OnlineResources(OnlineResourcesPage):
     def test_online_resources_breadcrumbs(self):
         print("test_online_resources_breadcrumbs()\n")
         # assert breadcrumbs
-        self.assert_element(self.home)
-        self.assert_element(self.research)
-        self.assert_element(self.collections)
-        self.assert_element(self.articles_databases)
-        self.assert_element(self.h1_heading)
-        self.assert_element(self.h1_paragraph)
+        self.assert_element(OnlineResourcesPage.home)
+        self.assert_element(OnlineResourcesPage.research)
+        self.assert_element(OnlineResourcesPage.collections)
+        self.assert_element(OnlineResourcesPage.articles_databases)
+        self.assert_element(OnlineResourcesPage.h1_heading)
+        self.assert_element(OnlineResourcesPage.h1_paragraph)
 
         # asserting search element
-        self.assert_element(self.search_text)
-        self.assert_element(self.search_bar)
-        self.assert_element(self.search_button)
+        self.assert_element(OnlineResourcesPage.search_text)
+        self.assert_element(OnlineResourcesPage.search_bar)
+        self.assert_element(OnlineResourcesPage.search_button)
 
         # assert search button works when submitted, and then cleared
-        self.click(self.search_button)
-        self.assert_element(self.search_bar)
-        self.is_element_visible(self.search_results)
-        self.click(self.clear_search)
+        self.click(OnlineResourcesPage.search_button)
+        self.assert_element(OnlineResourcesPage.search_bar)
+        self.is_element_visible(OnlineResourcesPage.search_results)
+        self.click(OnlineResourcesPage.clear_search)
         print(self.get_current_url())
-        self.click(self.articles_databases)
+        self.click(OnlineResourcesPage.articles_databases)
         print(self.get_current_url())
 
         # assert 'filter by'
-        self.assert_element(self.subjects_button)
-        self.assert_element(self.audience_button)
-        self.assert_element(self.availability_button)
+        self.assert_element(OnlineResourcesPage.subjects_button)
+        self.assert_element(OnlineResourcesPage.audience_button)
+        self.assert_element(OnlineResourcesPage.availability_button)
 
     def test_online_resources_main_page_elements(self):
         print("test_online_main_page_elements()\n")
         # asserting h2 heading and its elements
-        self.assert_element(self.featured_resources)
+        self.assert_element(OnlineResourcesPage.featured_resources)
 
         # getting the length of the list of elements on the 'Featured Resources'
         featured_list_length = len(self.find_elements('/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div[1]/ul/li'))
@@ -69,7 +69,7 @@ class OnlineResources(OnlineResourcesPage):
                 self.open("https://www.nypl.org/research/collections/articles-databases")
 
         # asserting 'most popular' h2
-        self.assert_element(self.most_popular)
+        self.assert_element(OnlineResourcesPage.most_popular)
 
         # length of the 'most popular'
         most_pop_length = len(self.find_elements('/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div[2]/ul/li'))
@@ -85,7 +85,7 @@ class OnlineResources(OnlineResourcesPage):
                 self.open("https://www.nypl.org/research/collections/articles-databases")
 
         # assert bottom a-z article & databases element
-        self.assert_element(self.a_z_database)
+        self.assert_element(OnlineResourcesPage.a_z_database)
 
         # assert the letters/alphabet
 
@@ -108,16 +108,16 @@ class OnlineResources(OnlineResourcesPage):
         print("test_online_resources_subjects_filter()\n")
         # asserting the 'Subjects' filter
         # clicking every filter in the Subjects filter and asserting their lengths
-        self.click(self.subjects_button)
+        self.click(OnlineResourcesPage.subjects_button)
         subject_filter_length = len(self.find_elements('//*[@id="multiselect-subject"]/div/ul/li'))
         # optional print of the subject filter
         print("subject filter length is = " + str(subject_filter_length))
         self.assert_true(subject_filter_length > 10, "subject filter amount is not greater than 10")
-        self.click(self.subjects_button)
+        self.click(OnlineResourcesPage.subjects_button)
 
         # click every filter and apply filters and assert lengths of the sub-filters
         for x in range(1, subject_filter_length + 1):
-            self.click(self.subjects_button)
+            self.click(OnlineResourcesPage.subjects_button)
             self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[1]/div/ul/li[' + str(x) + ']/div/label/span[2]')
             # sub-filter texts
             sub_filter = self.get_text('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[1]/div/ul/li[' + str(x) + ']/div/label/span[2]')
@@ -132,23 +132,23 @@ class OnlineResources(OnlineResourcesPage):
                     self.assert_true(sub_filter_length >= 1, "sub-filter length is not greater than 1")
             print(str(sub_filter_length) + " sub-filter for " + sub_filter)
 
-            self.click(self.apply_subject)
+            self.click(OnlineResourcesPage.apply_subject)
             self.wait(1)
             # clearing/unchecking filters for the next filter
-            self.click(self.subjects_button)
-            self.click(self.clear_subject)
+            self.click(OnlineResourcesPage.subjects_button)
+            self.click(OnlineResourcesPage.clear_subject)
 
     def test_online_resources_audience(self):
         print("test_online_resources_audience()\n")
         # asserting the 3 audience filters, 'adults, kids, teens' by checking if the char count is
         # more than given (1000) amount
         for x in range(1, 4):
-            self.click(self.audience_button)
+            self.click(OnlineResourcesPage.audience_button)
             self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[2]/div/ul/li[' + str(x) + ']/div/label/span[2]')
             # getting filter text to use it later
             filter_text = self.get_text(
                 '/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[2]/div/ul/li[' + str(x) + ']/div/label/span[2]')
-            self.click(self.apply_audience)
+            self.click(OnlineResourcesPage.apply_audience)
             self.wait(3)
 
             # finding the total characters in the page to assert later
@@ -162,8 +162,8 @@ class OnlineResources(OnlineResourcesPage):
             self.wait(2)
             self.assert_true(adults_content_char_length > 1000, "Adults page contains fewer than 1000 characters")
 
-            self.click(self.audience_button)
-            self.click(self.clear_audience)
+            self.click(OnlineResourcesPage.audience_button)
+            self.click(OnlineResourcesPage.clear_audience)
         print("---------------------------------------------------------------------")
 
     def test_online_resources_availability(self):
@@ -174,21 +174,21 @@ class OnlineResources(OnlineResourcesPage):
         # no need to un-click items since they are radio buttons
         count = 0  # optional counter to see if the for loop is a success
         for x in range(1, 4):
-            self.click(self.availability_button)
+            self.click(OnlineResourcesPage.availability_button)
             self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[3]/div/ul/li[' + str(x) + ']/div/label/span[2]/span')
-            self.click(self.apply_availability)
+            self.click(OnlineResourcesPage.apply_availability)
             count += 1
             print(str(count) + "st/nd/rd round")  # optional print of the counter with the loop items
             self.wait(2)  # using wait element to resolve the sync issue
 
         # asserting the 'clear' button
-        self.click(self.availability_button)
-        self.click(self.clear_availability)
+        self.click(OnlineResourcesPage.availability_button)
+        self.click(OnlineResourcesPage.clear_availability)
 
     def test_online_resources_right_side_tab(self):
         print("test_online_resources_right_side_tab()\n")
         # assert ' more research tools' h2
-        self.assert_element(self.more_research)
+        self.assert_element(OnlineResourcesPage.more_research)
 
         # assert list underneath 'more research' h2
 

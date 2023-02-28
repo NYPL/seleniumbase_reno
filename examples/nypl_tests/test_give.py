@@ -33,7 +33,7 @@ class Give(GivePage):
         self.click(self.monthly_donation)
         self.go_back()
 
-        # asserting all h3 links in the page by clicking, using a nested loop.
+        # asserting all h3 links on the page by clicking, using a nested loop.
         # Loop over each h3 section
         for x in range(2, 6):
             # Find the number of child links in the current h3 section
