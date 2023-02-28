@@ -1,7 +1,7 @@
-from examples.nypl_pages.page_footer import Footer
+from examples.nypl_pages.page_footer import FooterPage
 
 
-class FooterTest(Footer):
+class FooterTest(FooterPage):
 
     # https://www.nypl.org/
 
@@ -21,9 +21,9 @@ class FooterTest(Footer):
     def test_footer(self):
         print("test_footer()\n")
         # assert nypl logo
-        self.assert_element(self.nypl_logo)
+        self.assert_element(FooterPage.nypl_logo)
         # assert main building image
-        self.assert_element(self.main_building_image)
+        self.assert_element(FooterPage.main_building_image)
 
         # assert links
         links_list = ["accessibility", "press", "careers", "space_rental", "privacy_policy"
@@ -35,27 +35,27 @@ class FooterTest(Footer):
 
         x = 0
         while x < len(links_list):
-            self.assert_element(self.footer_links_dic["" + links_list[x] + ""])
+            self.assert_element(FooterPage.footer_links_dic["" + links_list[x] + ""])
             x += 1
 
-        # social media assertions
+        # social media assertions list for a for loop
         social_media = ["facebook", "twitter", "instagram", "youtube"]
 
-        self.assert_element(self.facebook)
-        self.click(self.facebook)
+        self.assert_element(FooterPage.facebook)
+        self.click(FooterPage.facebook)
         self.assert_true('https://www.facebook.com/nypl' in self.get_current_url())
         # self.go_back()
         self.open_home_page()
 
-        self.assert_element(self.twitter)
-        self.click(self.twitter)
+        self.assert_element(FooterPage.twitter)
+        self.click(FooterPage.twitter)
         self.assert_true('https://twitter.com/nypl' in self.get_current_url())
         print(self.get_current_url())
         # self.go_back()
         self.open_home_page()
 
-        self.assert_element(self.instagram)
-        self.click(self.instagram)
+        self.assert_element(FooterPage.instagram)
+        self.click(FooterPage.instagram)
         print(self.get_current_url())
 
         self.assert_true('instagram.com/' in self.get_current_url())
@@ -63,8 +63,8 @@ class FooterTest(Footer):
         # self.go_back()
         self.open_home_page()
 
-        self.assert_element(self.youtube)
-        self.click(self.youtube)
+        self.assert_element(FooterPage.youtube)
+        self.click(FooterPage.youtube)
         self.assert_true('https://www.youtube.com/user/NewYorkPublicLibrary' in self.get_current_url())
         # self.go_back()
         self.open_home_page()

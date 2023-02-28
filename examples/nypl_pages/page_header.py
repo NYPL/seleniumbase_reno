@@ -1,7 +1,7 @@
 from seleniumbase import BaseCase
 
 
-class Header(BaseCase):
+class HeaderPage(BaseCase):
     lion_logo = '//*[@id="Logo"]'
 
     login = ".myNyplButton-wrapper"

@@ -24,27 +24,27 @@ class Locations(LocationsPage):
     def test_main_page_elements(self):
         print("test_main_page_elements()\n")
         # assert breadcrumbs and page elements
-        self.assert_element(self.home)
-        self.assert_element(self.locations)
-        self.assert_element(self.welcome_text)
-        self.assert_element(self.find_your_library)
-        self.assert_element(self.search_text)
-        self.assert_element(self.search)
-        self.assert_element(self.open_now)
-        self.assert_element(self.filters)
-        self.assert_element(self.research_filters)
+        self.assert_element(LocationsPage.home)
+        self.assert_element(LocationsPage.locations)
+        self.assert_element(LocationsPage.welcome_text)
+        self.assert_element(LocationsPage.find_your_library)
+        self.assert_element(LocationsPage.search_text)
+        self.assert_element(LocationsPage.search)
+        self.assert_element(LocationsPage.open_now)
+        self.assert_element(LocationsPage.filters)
+        self.assert_element(LocationsPage.research_filters)
 
         # asserting 'Clear all search terms' Web-element
-        self.click(self.borough)
-        self.click(self.bronx)
-        self.click(self.apply_boro)
-        self.click(self.borough)
-        self.click(self.clear_boro)
+        self.click(LocationsPage.borough)
+        self.click(LocationsPage.bronx)
+        self.click(LocationsPage.apply_boro)
+        self.click(LocationsPage.borough)
+        self.click(LocationsPage.clear_boro)
 
         # assert if the 'Open now' check box works by...
         # ...comparing the total number of libraries vs open libraries
         total_library_number = len(self.find_elements('//*[@id="locations-list"]/div/ul/li'))
-        self.click(self.open_now)
+        self.click(LocationsPage.open_now)
         open_library_number = len(self.find_elements('//*[@id="locations-list"]/div[2]/ul/li'))
         time.sleep(3)
         self.wait_for_element('//*[@id="locations-list"]/div[2]/ul/li')
@@ -53,8 +53,8 @@ class Locations(LocationsPage):
         self.assert_true(total_library_number > open_library_number)
 
         # clear all search terms
-        self.click(self.clear_all_search)
-        self.check_if_unchecked(self.open_now_check_box)
+        self.click(LocationsPage.clear_all_search)
+        self.check_if_unchecked(LocationsPage.open_now_check_box)
         self.assert_true(total_library_number > open_library_number)
 
         # map iframe, switch to iframe
@@ -63,47 +63,47 @@ class Locations(LocationsPage):
 
         # lower page elements
         # asserting 3 bottom elements. 2 midtown locations assertion and BK and Queens web-elements.
-        self.assert_element(self.bottom_1)
-        self.assert_element(self.bottom_2)
-        self.assert_element(self.bottom_3)
+        self.assert_element(LocationsPage.bottom_1)
+        self.assert_element(LocationsPage.bottom_2)
+        self.assert_element(LocationsPage.bottom_3)
 
     def test_borough(self):
         print("test_borough()\n")
-        self.assert_element(self.borough)
+        self.assert_element(LocationsPage.borough)
 
         # assert 'Bronx' text from a random(randrange(1, 35)) Bronx location
-        self.click(self.borough)
-        self.click(self.bronx)
-        self.click(self.apply_boro)
+        self.click(LocationsPage.borough)
+        self.click(LocationsPage.bronx)
+        self.click(LocationsPage.apply_boro)
         print(self.get_text('//*[@id="locations-list"]/div[2]/ul/li[' + str(randrange(1, 35)) + ']/div/div[1]'))
-        self.assert_true("Bronx" in self.get_text(self.bronx_location))
-        self.click(self.borough)
-        self.click(self.clear_boro)
+        self.assert_true("Bronx" in self.get_text(LocationsPage.bronx_location))
+        self.click(LocationsPage.borough)
+        self.click(LocationsPage.clear_boro)
 
         # assert 'Manhattan' text from a random(randrange(1, 76)) Manhattan location
-        self.click(self.borough)
-        self.click(self.manhattan)
-        self.click(self.apply_boro)
+        self.click(LocationsPage.borough)
+        self.click(LocationsPage.manhattan)
+        self.click(LocationsPage.apply_boro)
         print(self.get_text('//*[@id="locations-list"]/div[2]/ul/li[' + str(randrange(1, 76)) + ']/div/div[1]'))
-        self.assert_true("New York" in self.get_text(self.manhattan_location))
-        self.click(self.borough)
-        self.click(self.clear_boro)
+        self.assert_true("New York" in self.get_text(LocationsPage.manhattan_location))
+        self.click(LocationsPage.borough)
+        self.click(LocationsPage.clear_boro)
 
         # assert 'Staten Island' text from a random(randrange(1, 14)) 'Staten Island' location
-        self.click(self.borough)
-        self.click(self.richmond)
-        self.click(self.apply_boro)
+        self.click(LocationsPage.borough)
+        self.click(LocationsPage.richmond)
+        self.click(LocationsPage.apply_boro)
         print(self.get_text('//*[@id="locations-list"]/div[2]/ul/li[' + str(randrange(1, 14)) + ']/div/div[1]'))
-        self.assert_true("Staten" in self.get_text(self.richmond_location))
-        self.click(self.borough)
-        self.click(self.clear_boro)
+        self.assert_true("Staten" in self.get_text(LocationsPage.richmond_location))
+        self.click(LocationsPage.borough)
+        self.click(LocationsPage.clear_boro)
 
     def test_accessibility(self):
         print("test_accessibility()\n")
         # assert fully access
-        self.click(self.accessibility)
-        self.click(self.full_access)
-        self.click(self.apply_access)
+        self.click(LocationsPage.accessibility)
+        self.click(LocationsPage.full_access)
+        self.click(LocationsPage.apply_access)
         time.sleep(2)
 
         # total number of libraries with full accessibility
@@ -127,12 +127,12 @@ class Locations(LocationsPage):
     def test_partial_accessibility(self):
         print("test_partial_accessibility()\n")
         # assert "Partially Accessibility"
-        self.assert_(self.accessibility)
+        self.assert_(LocationsPage.accessibility)
 
         # assert partial access
-        self.click(self.accessibility)
-        self.click(self.partial_access)
-        self.click(self.apply_access)
+        self.click(LocationsPage.accessibility)
+        self.click(LocationsPage.partial_access)
+        self.click(LocationsPage.apply_access)
         time.sleep(1)
 
         # total number of libraries with partial accessibility
@@ -156,9 +156,9 @@ class Locations(LocationsPage):
         print("test_not_accessible()\n")
         # TODO: update this after the bug fixed for
         #  https://jira.nypl.org/browse/RENO-2961
-        self.click(self.accessibility)
-        self.click(self.not_access)
-        self.click(self.apply_access)
+        self.click(LocationsPage.accessibility)
+        self.click(LocationsPage.not_access)
+        self.click(LocationsPage.apply_access)
         time.sleep(1)
 
         # fill the locator after the bugs fixed
@@ -176,7 +176,7 @@ class Locations(LocationsPage):
     def test_amenities(self):
         print("test_amenities()\n")
         # assert amenities
-        self.assert_(self.amenities)
+        self.assert_(LocationsPage.amenities)
 
         # assert 'amenities' length, which is 42 as of June 2022
         amenities_len = len(self.find_elements('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div['
@@ -188,12 +188,12 @@ class Locations(LocationsPage):
     def test_subject_specialties(self):
         print("test_subject_specialties()\n")
         # assert subject_specialties
-        self.assert_(self.subject_specialties)
+        self.assert_(LocationsPage.subject_specialties)
 
         # assert 'art' filter number
-        self.click(self.subject_specialties)
-        self.click(self.art)
-        self.click(self.apply_specialties)
+        self.click(LocationsPage.subject_specialties)
+        self.click(LocationsPage.art)
+        self.click(LocationsPage.apply_specialties)
 
         # length of the filter == 10 as of June 2022
         art_filter_len = len(self.find_elements('/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div/div[1]/div['
@@ -203,13 +203,13 @@ class Locations(LocationsPage):
         print("Art filter length is " + str(art_filter_len))
         self.assert_true(art_filter_len > 8)
 
-        self.click(self.subject_specialties)
-        self.click(self.clear_specialties)
+        self.click(LocationsPage.subject_specialties)
+        self.click(LocationsPage.clear_specialties)
 
         # assert history filter
-        self.click(self.subject_specialties)
-        self.click(self.history)
-        self.click(self.apply_specialties)
+        self.click(LocationsPage.subject_specialties)
+        self.click(LocationsPage.history)
+        self.click(LocationsPage.apply_specialties)
 
         history_filter_len = len(self.find_elements('/html/body/div[1]/div/div[2]/main/div[1]/div['
                                                     '2]/div/div/form/div[2]/div[2]/div[2]/div/div[1]/div/div/div['
@@ -218,12 +218,12 @@ class Locations(LocationsPage):
         # assert history filter length greater than 8, currently 11 as of June 2022
         self.assert_true(history_filter_len > 8)
         print("History filter length is " + str(history_filter_len))
-        self.click(self.subject_specialties)
-        self.click(self.clear_specialties)
+        self.click(LocationsPage.subject_specialties)
+        self.click(LocationsPage.clear_specialties)
 
         # assert social sciences filter
-        self.click(self.subject_specialties)
-        self.assert_(self.social_sciences)
+        self.click(LocationsPage.subject_specialties)
+        self.assert_(LocationsPage.social_sciences)
 
         # length of the filter
         social_length = len(self.find_elements(
@@ -232,26 +232,26 @@ class Locations(LocationsPage):
         # assert social science's length, as of June 2022 it is 10
         print("Social Sciences length is " + str(social_length))
         self.assert_true(social_length > 8)
-        self.click(self.clear_specialties)
+        self.click(LocationsPage.clear_specialties)
 
     def test_media_types(self):
         print("test_media_types()\n")
         # assert media types button
-        self.assert_(self.media_types)
+        self.assert_(LocationsPage.media_types)
 
         # assert 'Manuscripts and Archives Division' is listed after 'Archives' clicked
-        self.click(self.media_types)
-        self.click(self.archives)
-        self.click(self.apply_media)
+        self.click(LocationsPage.media_types)
+        self.click(LocationsPage.archives)
+        self.click(LocationsPage.apply_media)
         self.assert_element('//*[@id="lid-manuscripts-division"]/a')
 
         # assert 'media types' filter length, as of June 2022 it is 13
-        self.click(self.media_types)
+        self.click(LocationsPage.media_types)
         media_types_len = len(self.find_elements('//*[@id="search-form"]/div[2]/div[2]/div[2]/div/div[2]/div/div/div['
                                                  '1]/ul/li'))
         print("Media types length is " + str(media_types_len))
         self.assert_true(media_types_len > 10)
-        self.click(self.clear_media)
+        self.click(LocationsPage.clear_media)
 
     @pytest.mark.skip(reason="Wait for developer input on how to test")
     def test_open_hours(self):

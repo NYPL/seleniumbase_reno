@@ -22,7 +22,7 @@ class BlogAllTests(BlogAllPage):
     def test_page_elements(self):
         print("test_page_elements()\n")
         # assert Explore By:
-        self.assert_element(self.explore_by)
+        self.assert_element(BlogAllPage.explore_by)
 
     def test_channels(self):
         print("test_channels()\n")
@@ -42,10 +42,10 @@ class BlogAllTests(BlogAllPage):
                     'Romance', 'Science Fiction', 'Librarian', 'Women', 'Work/Cited', 'Chinese']
         # assertion for first 6 channels
         for x in range(1, 6):
-            self.click(self.channels)
+            self.click(BlogAllPage.channels)
             self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[1]/div/ul/li[' + str(
                 x) + ']/div/label/span[1]')
-            self.click(self.apply_channel)
+            self.click(BlogAllPage.apply_channel)
             self.wait(1)
 
             search_results = self.get_text('//*[@id="search-results-details"]')
@@ -55,7 +55,7 @@ class BlogAllTests(BlogAllPage):
             self.assert_true(int(result) >= 5)
 
             self.wait(1)
-            self.click(self.clear_all_search_terms)
+            self.click(BlogAllPage.clear_all_search_terms)
 
     def test_subjects(self):
         print("test_subjects()\n")
@@ -64,26 +64,26 @@ class BlogAllTests(BlogAllPage):
         """
 
         # assert subjects button
-        self.click(self.subjects)
-        self.assert_element(self.subjects)
+        self.click(BlogAllPage.subjects)
+        self.assert_element(BlogAllPage.subjects)
 
         # length of the subjects children
         children_subject = len(
             self.find_elements('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[2]/div/ul/li'))
-        self.click(self.subjects)
+        self.click(BlogAllPage.subjects)
 
         print("Total child elements = " + str(children_subject))
 
         # asserting that we can click each child element
         for x in range(1, children_subject + 1):
             #
-            self.click(self.subjects)
+            self.click(BlogAllPage.subjects)
             self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[2]/div/ul/li[' + str(
                 x) + ']/div/label/span[2]')
-            self.click(self.apply_subject)
-            self.assert_true(self.search_results)
+            self.click(BlogAllPage.apply_subject)
+            self.assert_true(BlogAllPage.search_results)
             print("Child element = " + str(x))
-            self.click(self.clear_all_search_terms)
+            self.click(BlogAllPage.clear_all_search_terms)
 
     def test_libraries(self):
         print("test_libraries()\n")
@@ -91,13 +91,13 @@ class BlogAllTests(BlogAllPage):
         button and if they are clickable """
 
         # assert libraries button
-        self.assert_element(self.libraries)
+        self.assert_element(BlogAllPage.libraries)
 
         # length of the libraries children
-        self.click(self.libraries)
+        self.click(BlogAllPage.libraries)
         children_amount = len(
             self.find_elements('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[3]/div/ul/li'))
-        self.click(self.libraries)
+        self.click(BlogAllPage.libraries)
 
         print("Total child elements = " + str(children_amount))
 
@@ -108,13 +108,13 @@ class BlogAllTests(BlogAllPage):
 
         # asserting (randomly) that we can click each child element
         for x in random_elements:
-            self.click(self.libraries)
+            self.click(BlogAllPage.libraries)
             self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[3]/div/ul/li[' + str(
                 x) + ']/div/label/span[2]')
-            self.click(self.apply_library)
-            self.assert_true(self.search_results)
+            self.click(BlogAllPage.apply_library)
+            self.assert_true(BlogAllPage.search_results)
             print("Child element " + str(x))
-            self.click(self.clear_all_search_terms)
+            self.click(BlogAllPage.clear_all_search_terms)
 
     def test_divisions(self):
         print("test_divisions()\n")
@@ -122,13 +122,13 @@ class BlogAllTests(BlogAllPage):
         button and if they are clickable """
 
         # assert divisions button
-        self.assert_element(self.divisions)
+        self.assert_element(BlogAllPage.divisions)
 
         # length of the divisions children
-        self.click(self.divisions)
+        self.click(BlogAllPage.divisions)
         children_amount = len(
             self.find_elements('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[4]/div/ul/li'))
-        self.click(self.divisions)
+        self.click(BlogAllPage.divisions)
 
         print("Total child elements = " + str(children_amount))
 
@@ -139,64 +139,64 @@ class BlogAllTests(BlogAllPage):
         # asserting that we can click each child element
         for x in random_elements:
             #
-            self.click(self.divisions)
+            self.click(BlogAllPage.divisions)
             self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[4]/div/ul/li[' + str(
                 x) + ']/div/label/span[2]')
-            self.click(self.apply_division)
-            self.assert_true(self.search_results)
+            self.click(BlogAllPage.apply_division)
+            self.assert_true(BlogAllPage.search_results)
             print("Child element " + str(x))
-            self.click(self.clear_all_search_terms)
+            self.click(BlogAllPage.clear_all_search_terms)
 
         print("\n========================================\n")
 
     def test_audience(self):
         print("test_audience()\n")
         # assert Audience button
-        self.assert_element(self.audience)
+        self.assert_element(BlogAllPage.audience)
 
         # click 'Audience' tab
-        self.click(self.audience)
+        self.click(BlogAllPage.audience)
 
         # click 'Adults' filter
-        self.click(self.adults)
-        self.click(self.apply_audience)
+        self.click(BlogAllPage.adults)
+        self.click(BlogAllPage.apply_audience)
         self.wait(1)
         # wait for the next page, see the results (this is for sync issues)
-        self.wait_for_element(self.search_results)
+        self.wait_for_element(BlogAllPage.search_results)
         # url text for the filter
         url_text = self.get_current_url()
         print(self.get_current_url())
         # assert the url has the given text
         self.wait(1)
         self.assert_true('audience_by_age=216' in url_text)
-        self.click(self.audience)
+        self.click(BlogAllPage.audience)
         self.wait(1)
         # unclick 'adults'
-        self.click(self.adults)
+        self.click(BlogAllPage.adults)
 
         # click 'Kids' filter
-        self.click(self.kids)
-        self.click(self.apply_audience)
+        self.click(BlogAllPage.kids)
+        self.click(BlogAllPage.apply_audience)
         self.wait(1)
         # wait for the next page, see the results (this is for sync issues)
-        self.wait_for_element(self.search_results)
+        self.wait_for_element(BlogAllPage.search_results)
         # url text for the filter
         url_text = self.get_current_url()
         print(self.get_current_url())
         # assert the url has the given text
         self.wait(1)
         self.assert_true('audience_by_age=217' in url_text)
-        self.click(self.audience)
+        self.click(BlogAllPage.audience)
         self.wait(1)
         # unclick 'kids'
-        self.click(self.kids)
+        self.click(BlogAllPage.kids)
 
         # click 'Teens' filter
-        self.click(self.teens)
-        self.click(self.apply_audience)
+        self.click(BlogAllPage.teens)
+        self.click(BlogAllPage.apply_audience)
         self.wait(1)
         # wait for the next page, see the results (this is for sync issues)
-        self.wait_for_element(self.search_results)
+        self.wait_for_element(BlogAllPage.search_results)
         # url text for the filter
         url_text = self.get_current_url()
         print(self.get_current_url())

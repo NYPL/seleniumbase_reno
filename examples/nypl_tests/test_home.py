@@ -27,9 +27,9 @@ class HomePageTest(HomePage):
         # self.goto('https://qa-www.nypl.org/')
 
         # assert title
-        self.assert_title(self.home_title)
+        self.assert_title(HomePage.home_title)
         # assert hero
-        self.assert_element(self.hero)
+        self.assert_element(HomePage.hero)
 
         # assert all the h2  and 'See More' buttons ("Spotlight", "What's on", "Discover", "Staff Picks",
         # "New & Noteworthy", "From Our Blog", "Updates") in a loop
@@ -73,17 +73,17 @@ class HomePageTest(HomePage):
         # assert the 'New & Noteworthy' h2
         self.assert_element('/html/body/div[1]/div/div[2]/main/div[2]/div[5]/div/div[1]/div/h2')
         # getting the length of the slide and asserting it is more than X amount
-        slide_length = len(self.find_elements(self.new_noteworthy_slide))
+        slide_length = len(self.find_elements(HomePage.new_noteworthy_slide))
         self.assert_true(slide_length > 5)
         # asserting we can click next button and go forward
 
         # asserting that we can click next button
         for i in range(5):
-            self.click(self.slide_next)
+            self.click(HomePage.slide_next)
 
         # asserting we can click previous button
         for i in range(5):
-            self.click(self.slide_prev)
+            self.click(HomePage.slide_prev)
 
         print("========\n")
 

@@ -1,7 +1,7 @@
 from seleniumbase import BaseCase
 
 
-class Footer(BaseCase):
+class FooterPage(BaseCase):
 
     nypl_logo = '//*[@id="footer"]/span'
     main_building_image = '//*[@id="footer"]/div[2]/div[1]/img'
