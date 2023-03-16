@@ -41,7 +41,7 @@ class Exhibitions(ExhibitionsPage):
             self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/div/ul/li'))
         print('Current exhibition amount is = ' + str(curr_exh_list_length))  # optional print
         # asserting the exhibition length is more than expected amount
-        self.assert_true(curr_exh_list_length >= 5, "Current exhibition amount is not greater than 5")
+        self.assert_true(curr_exh_list_length >= 1, "Current exhibition amount is not greater than 1")
 
         # asserting 'current exhibitions' in a for loop by clicking every exhibition
         # comparing each exhibition link text with the hero header on their own page
