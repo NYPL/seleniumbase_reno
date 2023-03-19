@@ -3,11 +3,15 @@ from examples.nypl_pages.page_header import HeaderPage
 from examples.nypl_pages.page_schwarzman import SchwarzmanPage
 from examples.nypl_pages.page_give import GivePage
 
+from selenium.webdriver.common.by import By
+
+
 import requests
 import urllib3
 
 
 class NyplUtils(HeaderPage, SchwarzmanPage, GivePage):
+
     """nypl login method for the catalog,
        taking 2 parameters, 'username' and 'password' """
 
@@ -38,18 +42,56 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage):
         # click submit
         self.click(self.submit)
 
-    """click a link and assert the text in the URL,
+    """ link assertion:
+       click a link and assert the text in the URL,
        taking 2 parameters, 'link' to be clicked and 'text' to be checked"""
 
     def link_assertion(self, link, text):
         self.click(link)
         # assert the text in the URL
-        self.assert_true(text in self.get_current_url(), "link and url texts did not match")
+        self.assert_true(text in self.get_current_url(), "link and url texts did not match- expected = " + text + ", "
+                                                                                                                  "actual = " + self.get_current_url())
         # go to the previous page
         self.go_back()
 
-    """a method to assert all the images on a  page,
-       will use the default URL to test, or, a parameter can be added for URL,
+        """ dynamic element link assertion:
+        using link_assertion() method, click a link and assert the text in the URL,
+        taking 2 parameters, 'locator' to be clicked and 'text' to be checked"""
+
+    def dynamic_element_link_assertion(self, locator, text):
+        # find the element with the locator and get the length
+        exhibitions_locator = locator
+        exhibitions_length = len(self.find_elements(exhibitions_locator))
+
+        # for loop to iterate over every element and asserting the link and text with link_assertion() method
+        for x in range(1, exhibitions_length + 1):
+            self.link_assertion(
+                locator + '[' + str(x) + ']', text)
+
+    """assert links valid:
+       A method to assert the links are not broken in a Web Element using HTTP method HEAD,
+       and checks if the response is between the acceptable limits (200-400)
+       """
+
+    def assert_links_valid(self, locator):
+        block_length = len(
+            self.find_elements(locator))
+        for x in range(1, block_length + 1):
+            link = (self.find_element(locator + '[' + str(
+                x) + ']')).find_element(By.TAG_NAME, "a")
+
+            url = link.get_attribute('href')
+            print("\nurl: " + url)
+            response = requests.head(url)
+            if response.status_code == 301:
+                print(
+                    f"WARNING: The requested resource at {url} has been definitively moved to the URL given by the "
+                    f"Location headers")
+            assert response.status_code < 400, f"Link {url} is broken"
+        print("\n=====================================================\n")
+
+    """a method to assert all the images on a  page.
+       Using the default URL to test, or, a parameter can be added for URL,
        and then call method signature with the 'url' argument, e.g. image_assertion(self, url):"""
 
     def image_assertion(self):
@@ -59,7 +101,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage):
 
         image_list = self.find_elements('img')  # getting the images with the 'img' tag
 
-        print('Total number of images on ' + self.get_current_url() + ' are ' + str(len(image_list)))
+        print('Total number of images on ' + self.get_current_url() + ' are = ' + str(len(image_list)))
 
         x = 1  # variable to use in the loop for image number iteration
 
@@ -82,4 +124,4 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage):
             except:
                 print("Encountered Some other Exception")
 
-        print('The page ' + self.get_current_url() + ' has ' + str(broken_image_count) + ' broken images')
+        print('\nThe page ' + self.get_current_url() + ' has ' + str(broken_image_count) + ' broken images')
