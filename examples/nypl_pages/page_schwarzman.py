@@ -21,16 +21,14 @@ class SchwarzmanPage(BaseCase):
     featured_at_sasb_2 = '/html/body/div[1]/div/main/div[3]/div/div[1]/div/div/div[5]/ul/li[2]/div[1]'
     featured_at_sasb_3 = '/html/body/div[1]/div/main/div[3]/div/div[1]/div/div/div[5]/ul/li[3]/div[1]'
 
-    current_exhibitions_list = ('//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[1]/div/div/div[2]/ul/li')
-
-    current_exhibitions_1 = '/html/body/div[1]/div/main/div[3]/div/div[1]/div/div/div[6]/div[1]/div/div/div[2]/ul/li[1]'
-    current_exhibitions_2 = '/html/body/div[1]/div/main/div[3]/div/div[1]/div/div/div[6]/div[1]/div/div/div[2]/ul/li[2]'
-    current_exhibitions_3 = '/html/body/div[1]/div/main/div[3]/div/div[1]/div/div/div[6]/div[1]/div/div/div[2]/ul/li[3]'
-    current_exhibitions_4 = '/html/body/div[1]/div/main/div[3]/div/div[1]/div/div/div[6]/div[1]/div/div/div[2]/ul/li[4]'
-
     events_see_all = '//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[2]/div/div/div/div/a'
 
     about_the_sasb = '//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[3]/h2'
+
+    research_main_paragraph = '//*[@id="block-nypl-emulsify-content"]/div/div/div[1]'
+    explore_division_centers = '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div/div/ul/li'
+    further_resources = '//*[@id="block-nypl-emulsify-content"]/div/div/div[3]/ul/li'
+    more_nypl_resources = '//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/ul/li'
 
     def open_schwarzman_page(self):
         # self.open("https://www.nypl.org/locations/schwarzman")
