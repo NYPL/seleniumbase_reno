@@ -60,8 +60,8 @@ jobs:
         
     
     
-    # NYPL tests for the folllowing pages;
-    # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, online resources
+    # NYPL tests for the following pages;
+    # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, online resources, home, give, schwarzman
     
     
     - name: Run pytest test_footer.py

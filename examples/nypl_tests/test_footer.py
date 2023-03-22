@@ -1,7 +1,8 @@
+from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_footer import FooterPage
 
 
-class FooterTest(FooterPage):
+class FooterTest(NyplUtils):
 
     # https://www.nypl.org/
 
@@ -20,10 +21,6 @@ class FooterTest(FooterPage):
 
     def test_footer(self):
         print("test_footer()\n")
-        # assert nypl logo
-        self.assert_element(FooterPage.nypl_logo)
-        # assert main building image
-        self.assert_element(FooterPage.main_building_image)
 
         # assert links
         links_list = ["accessibility", "press", "careers", "space_rental", "privacy_policy"

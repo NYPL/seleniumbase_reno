@@ -51,6 +51,8 @@ class FooterPage(BaseCase):
     instagram = '//*[@id="SocialMediaList"]/li[3]/a'
     youtube = '//*[@id="SocialMediaList"]/li[4]/a'
 
+    # footer is using same page as page_home
+    """
     def open_home_page(self):
         # self.open("https://www.nypl.org/")
 
@@ -61,3 +63,4 @@ class FooterPage(BaseCase):
         else:
             print("Running on Production Env")
             self.open("https://www.nypl.org/")
+    """

@@ -1,7 +1,8 @@
+from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_research import ResearchPage
 
 
-class ResearchTest(ResearchPage):
+class ResearchTest(NyplUtils):
 
     # https://www.nypl.org/research
 
@@ -18,4 +19,8 @@ class ResearchTest(ResearchPage):
         print("=================================")
         super().tearDown()
 
-    #def test_main_page
+    def test_main_page(self):
+        print("test_research()\n")
+
+        # asserting the images on the page
+        self.image_assertion()

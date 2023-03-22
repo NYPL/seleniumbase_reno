@@ -1,7 +1,8 @@
+from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_campaigns import CampaignsPage
 
 
-class Campaigns(CampaignsPage):
+class Campaigns(NyplUtils):
 
     # https://www.nypl.org/125
     # https://www.nypl.org/125/timeline
@@ -21,8 +22,10 @@ class Campaigns(CampaignsPage):
         super().tearDown()
 
     def test_125(self):
-        # https://www.nypl.org/125
         print("test_125()\n")
+
+        # asserting the images on the page
+        self.image_assertion()
 
         # assert home element
         self.assert_element(CampaignsPage.home)
@@ -44,11 +47,11 @@ class Campaigns(CampaignsPage):
         # asserting the slides in 'The New York Public Library Through the Years'
         for y in range(1, 11):
             print(self.get_image_url(
-                '/html/body/div[1]/div/main/div[2]/div/div/div/div/div[14]/div[3]/div/div/div/div[' + str(
+                '//*[@id="block-nypl-emulsify-content"]/div/div/div[14]/div[2]/div/div/div/div[' + str(
                     y) + ']/div/li/button/img'))
 
         slide_length = len(
-            self.find_elements('/html/body/div[1]/div/main/div[2]/div/div/div/div/div[14]/div[3]/div/div/div/div'))
+            self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div[14]/div[2]/div/div/div/div'))
 
         # assert slide number more than 9, currently 28 (10 as unique) as of June 2022
         print("\nSlide amount is " + str(slide_length))

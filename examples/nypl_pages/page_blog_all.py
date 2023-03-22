@@ -97,7 +97,7 @@ class BlogAllPage(BaseCase):
                     'The Rodgers and Hammerstein Archives of Recorded Sound': 'The New York Public Library for the Performing Arts',
                     'Theatre on Film and Tape Archive': 'The New York Public Library for the Performing Arts'}
 
-    def open_blog_page(self):
+    def open_blog_page_all(self):
         # self.open("https://www.nypl.org/blog/all")
 
         if self.env == "qa":

@@ -1,11 +1,12 @@
-import pytest
-
+from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_locations import LocationsPage
+
+import pytest
 from random import randrange
 import time
 
 
-class Locations(LocationsPage):
+class Locations(NyplUtils):
     # https://www.nypl.org/locations
 
     def setUp(self):
@@ -23,6 +24,10 @@ class Locations(LocationsPage):
 
     def test_main_page_elements(self):
         print("test_main_page_elements()\n")
+
+        # asserting the images on the page
+        self.image_assertion()
+
         # assert breadcrumbs and page elements
         self.assert_element(LocationsPage.home)
         self.assert_element(LocationsPage.locations)

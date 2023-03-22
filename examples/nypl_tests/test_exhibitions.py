@@ -1,8 +1,9 @@
+from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_exhibitions import ExhibitionsPage
 from random import randrange
 
 
-class Exhibitions(ExhibitionsPage):
+class Exhibitions(NyplUtils):
     # https://www.nypl.org/events/exhibitions
     # https://www.nypl.org/events/exhibitions/upcoming
     # https://www.nypl.org/events/exhibitions/past
@@ -25,8 +26,10 @@ class Exhibitions(ExhibitionsPage):
         super().tearDown()
 
     def test_exhibitions_main_page_elements(self):
-        # https://www.nypl.org/events/exhibitions
         print("test_exhibitions_main_page_elements()\n")
+
+        # asserting the images on the page
+        self.image_assertion()
 
         # assert breadcrumbs and page elements
         self.assert_element(ExhibitionsPage.home)

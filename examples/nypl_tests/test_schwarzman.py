@@ -32,8 +32,10 @@ class Schwarzman(NyplUtils):
         super().tearDown()
 
     def test_schwarzman(self):
-        # https://www.nypl.org/locations/schwarzman
         print("test_schwarzman()\n")
+
+        # asserting the images on the page
+        self.image_assertion()
 
         # assert breadcrumbs and hero
         self.assert_element(SchwarzmanPage.home)
@@ -105,8 +107,6 @@ class Schwarzman(NyplUtils):
         self.assert_links_valid(SchwarzmanPage.further_resources)  # Further Resources
         self.assert_links_valid(SchwarzmanPage.more_nypl_resources)  # More NYPL Resources
 
-        # asserting the images on the page
-        self.image_assertion()
 
 
 
