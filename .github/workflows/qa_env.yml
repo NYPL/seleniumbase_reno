@@ -61,7 +61,7 @@ jobs:
     
     
     # NYPL tests start here
-    # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, online resources
+    # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, online resources, home, give, schwarzman
     
     
     - name: Run pytest test_footer.py

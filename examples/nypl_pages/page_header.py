@@ -53,6 +53,8 @@ class HeaderPage(BaseCase):
     get_help_title = 'Get Help | The New York Public Library'
     search = '//*[@id="header-navMenu-searchButton"]/span'
 
+    # header is using same page as page_home
+    """
     def open_home_page(self):
         # self.open("https://www.nypl.org/")
 
@@ -63,3 +65,4 @@ class HeaderPage(BaseCase):
         else:
             print("Running on Production Env")
             self.open("https://www.nypl.org/")
+    """

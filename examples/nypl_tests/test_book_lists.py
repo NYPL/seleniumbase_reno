@@ -1,10 +1,9 @@
-# from test.s_base.pages.book_lists_page import BookListsPage
+from examples.nypl_utility.utility import NyplUtils
+from examples.nypl_pages.page_book_lists import BookListsPage
 import pytest
 
-from examples.nypl_pages.page_book_lists import BookListsPage
 
-
-class BookLists(BookListsPage):
+class BookLists(NyplUtils):
 
     # https://www.nypl.org/books-more/recommendations/125/adults
     # https://www.nypl.org/books-more/recommendations/best-books/adults
@@ -25,8 +24,10 @@ class BookLists(BookListsPage):
         super().tearDown()
 
     def test_125_adults(self):
-        # https://www.nypl.org/books-more/recommendations/125/adults
         print('test_125_adults()\n')
+
+        # asserting the images on the page
+        self.image_assertion()
 
         # assert breadcrumbs and page elements
         self.assert_element(BookListsPage.home)

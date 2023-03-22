@@ -1,10 +1,11 @@
-import time
-
+from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_blog import BlogPage
+
+import time
 from selenium.common.exceptions import NoSuchElementException
 
 
-class BlogTests(BlogPage):
+class BlogTests(NyplUtils):
 
     # https://www.nypl.org/blog
 
@@ -22,11 +23,13 @@ class BlogTests(BlogPage):
         super().tearDown()
 
     def test_nypl_blog(self):
-        # https://www.nypl.org/blog
         print("test_nypl_blog()\n")
 
+        # asserting the images on the page
+        self.image_assertion()
+
         # Home button
-        self.click_xpath(BlogPage.home_button)
+        self.click(BlogPage.home_button)
         self.assert_title(BlogPage.home_title)
         self.go_back()
 

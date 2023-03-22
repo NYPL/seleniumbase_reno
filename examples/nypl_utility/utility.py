@@ -1,17 +1,26 @@
-from seleniumbase import BaseCase
 from examples.nypl_pages.page_header import HeaderPage
 from examples.nypl_pages.page_schwarzman import SchwarzmanPage
 from examples.nypl_pages.page_give import GivePage
+from examples.nypl_pages.page_home import HomePage
+
+from examples.nypl_pages.page_blog import BlogPage
+from examples.nypl_pages.page_blog_all import BlogAllPage
+from examples.nypl_pages.page_book_lists import BookListsPage
+from examples.nypl_pages.page_campaigns import CampaignsPage
+from examples.nypl_pages.page_exhibitions import ExhibitionsPage
+from examples.nypl_pages.page_footer import FooterPage
+from examples.nypl_pages.page_locations import LocationsPage
+from examples.nypl_pages.page_online_resources import OnlineResourcesPage
+from examples.nypl_pages.page_research import ResearchPage
 
 from selenium.webdriver.common.by import By
-
 
 import requests
 import urllib3
 
 
-class NyplUtils(HeaderPage, SchwarzmanPage, GivePage):
-
+class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAllPage, BookListsPage, CampaignsPage,
+                ExhibitionsPage, FooterPage, LocationsPage, OnlineResourcesPage, ResearchPage):
     """nypl login method for the catalog,
        taking 2 parameters, 'username' and 'password' """
 
@@ -106,6 +115,9 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage):
         x = 1  # variable to use in the loop for image number iteration
 
         # using HTTP method 'get', asserting if the status code of the images == 200, which means image exist
+
+        encountered_exceptions = []  # List to keep track of encountered exceptions to only print once
+
         for img in image_list:
             try:
                 response = requests.get(img.get_attribute('src'), stream=True)
@@ -118,10 +130,16 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage):
                     x += 1
 
             except requests.exceptions.MissingSchema:
-                print("Encountered MissingSchema Exception")
+                if 'MissingSchema' not in encountered_exceptions:  # checking if the exception in the list
+                    print("\nEncountered MissingSchema Exception")
+                    encountered_exceptions.append('MissingSchema')  # adding to the dictionary if not added before
             except requests.exceptions.InvalidSchema:
-                print("Encountered InvalidSchema Exception")
+                if 'InvalidSchema' not in encountered_exceptions:  # checking if the exception in the list
+                    print("\nEncountered InvalidSchema Exception")
+                    encountered_exceptions.append('InvalidSchema')  # adding to the dictionary if not added before
             except:
-                print("Encountered Some other Exception")
+                if 'OtherException' not in encountered_exceptions:  # checking if the exception in the list
+                    print("\nEncountered Some other Exception")
+                    encountered_exceptions.append('OtherException')  # adding to the dictionary if not added before
 
-        print('\nThe page ' + self.get_current_url() + ' has ' + str(broken_image_count) + ' broken images')
+        print('\nThe page ' + self.get_current_url() + ' has ' + str(broken_image_count) + ' broken images\n')

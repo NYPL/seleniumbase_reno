@@ -1,5 +1,5 @@
-from examples.nypl_pages.page_give import GivePage
 from examples.nypl_utility.utility import NyplUtils
+from examples.nypl_pages.page_give import GivePage
 
 
 class Give(NyplUtils):
@@ -21,6 +21,10 @@ class Give(NyplUtils):
 
     def test_give_page(self):
         print("test_give()\n")
+
+        # check images on the page
+        self.image_assertion()
+
         # asserting breadcrumbs and page elements
         self.assert_element(GivePage.home)
         self.assert_element(GivePage.h1)
@@ -48,4 +52,3 @@ class Give(NyplUtils):
                 self.assert_element(
                     f'/html/body/div[1]/div/div[2]/main/div[2]/div/div/div[{x}]/ul/li[{y}]/div/div[1]/div/div/span/img')
 
-        self.image_assertion()

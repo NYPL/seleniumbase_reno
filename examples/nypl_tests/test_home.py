@@ -1,9 +1,9 @@
+from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_home import HomePage
-from seleniumbase import BaseCase
 from selenium.webdriver.common.action_chains import ActionChains
 
 
-class HomePageTest(HomePage):
+class HomePageTest(NyplUtils):
 
     # https://www.nypl.org/
 
@@ -24,7 +24,8 @@ class HomePageTest(HomePage):
     def test_home_page(self):
         print("test_home_page()\n")
 
-        # self.goto('https://qa-www.nypl.org/')
+        # check images on the page
+        self.image_assertion()
 
         # assert title
         self.assert_title(HomePage.home_title)

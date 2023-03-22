@@ -1,8 +1,9 @@
+from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_blog_all import BlogAllPage
 import random
 
 
-class BlogAllTests(BlogAllPage):
+class BlogAllTests(NyplUtils):
 
     # https://www.nypl.org/blog/all
 
@@ -12,7 +13,7 @@ class BlogAllTests(BlogAllPage):
         print("\nRUNNING BEFORE EACH TEST")
 
         # open blog/all page
-        self.open_blog_page()
+        self.open_blog_page_all()
 
     def tearDown(self):
         print("RUNNING AFTER EACH TEST")
@@ -21,13 +22,17 @@ class BlogAllTests(BlogAllPage):
 
     def test_page_elements(self):
         print("test_page_elements()\n")
+
+        # asserting the images on the page
+        self.image_assertion()
+
         # assert Explore By:
         self.assert_element(BlogAllPage.explore_by)
 
     def test_channels(self):
         print("test_channels()\n")
-        # asserting 'Channels' tab
 
+        # asserting 'Channels' tab
         # asserting channel categories
         # creating a list for Channel Filters
         li = ["asian_american", "biography", "black_culture", "book_lists", "comics_graphic", "digital_collections",

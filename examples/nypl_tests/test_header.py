@@ -1,5 +1,3 @@
-import pytest
-
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_header import HeaderPage
 

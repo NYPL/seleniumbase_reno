@@ -1,7 +1,8 @@
+from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_online_resources import OnlineResourcesPage
 
 
-class OnlineResources(OnlineResourcesPage):
+class OnlineResources(NyplUtils):
     # https://www.nypl.org/research/collections/articles-databases
 
     def setUp(self):
@@ -19,6 +20,10 @@ class OnlineResources(OnlineResourcesPage):
 
     def test_online_resources_breadcrumbs(self):
         print("test_online_resources_breadcrumbs()\n")
+
+        # asserting the images on the page
+        self.image_assertion()
+
         # assert breadcrumbs
         self.assert_element(OnlineResourcesPage.home)
         self.assert_element(OnlineResourcesPage.research)
