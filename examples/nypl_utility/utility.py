@@ -12,6 +12,7 @@ from examples.nypl_pages.page_footer import FooterPage
 from examples.nypl_pages.page_locations import LocationsPage
 from examples.nypl_pages.page_online_resources import OnlineResourcesPage
 from examples.nypl_pages.page_research import ResearchPage
+from examples.nypl_pages.page_research_support import ResearchSupportPage
 
 from selenium.webdriver.common.by import By
 
@@ -20,7 +21,7 @@ import urllib3
 
 
 class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAllPage, BookListsPage, CampaignsPage,
-                ExhibitionsPage, FooterPage, LocationsPage, OnlineResourcesPage, ResearchPage):
+                ExhibitionsPage, FooterPage, LocationsPage, OnlineResourcesPage, ResearchPage, ResearchSupportPage):
     """nypl login method for the catalog,
        taking 2 parameters, 'username' and 'password' """
 
@@ -69,8 +70,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
     def dynamic_element_link_assertion(self, locator, text):
         # find the element with the locator and get the length
-        exhibitions_locator = locator
-        exhibitions_length = len(self.find_elements(exhibitions_locator))
+        exhibitions_length = len(self.find_elements(locator))
 
         # for loop to iterate over every element and asserting the link and text with link_assertion() method
         for x in range(1, exhibitions_length + 1):
@@ -78,13 +78,14 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 locator + '[' + str(x) + ']', text)
 
     """assert links valid:
-       A method to assert the links are not broken in a Web Element using HTTP method HEAD,
-       and checks if the response is between the acceptable limits (200-400)
+       A method to assert the child links are not broken in a list item ('li' tag),
+       using HTTP method HEAD, and checks if the response is between the acceptable limits (200-400)
        """
 
     def assert_links_valid(self, locator):
         block_length = len(
             self.find_elements(locator))
+        print(f"Number of links found: {block_length}")
         for x in range(1, block_length + 1):
             link = (self.find_element(locator + '[' + str(
                 x) + ']')).find_element(By.TAG_NAME, "a")
@@ -98,6 +99,27 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                     f"Location headers")
             assert response.status_code < 400, f"Link {url} is broken"
         print("\n=====================================================\n")
+
+    """a method to assert all the links on a page.
+    pros: asserts all the links on a page with the given 'url' parameter.
+    cons: asserts header and footer links as well.
+    """
+
+    def assert_all_links(self, url):
+        self.open(url)
+        link_elements = self.find_elements('a')
+        num_links = len(link_elements)
+        print(f"Number of links on the page: {num_links}")
+        for index, link_element in enumerate(link_elements):
+            url = link_element.get_attribute('href')
+            print(f"\nLink {index + 1} of {num_links}: {url}")
+            response = requests.head(url)
+            if response.status_code == 301:
+                print(
+                    f"WARNING: The requested resource at {url} has been definitively moved to the URL given by the "
+                    f"Location headers")
+            assert response.status_code < 400, f"Link {url} is broken"
+        print("\nAll links on the page are valid!")
 
     """a method to assert all the images on a  page.
        Using the default URL to test, or, a parameter can be added for URL,
@@ -122,7 +144,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             try:
                 response = requests.get(img.get_attribute('src'), stream=True)
                 if response.status_code != 200:
-                    print(img.get_attribute('outerHTML') + " is broken.")
+                    print("\n" + img.get_attribute('outerHTML') + " is broken.")
                     broken_image_count = (broken_image_count + 1)
                 # else clause is optional to print the images
                 else:
