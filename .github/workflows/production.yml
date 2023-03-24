@@ -61,7 +61,8 @@ jobs:
     
     
     # NYPL tests for the following pages;
-    # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, online resources, home, give, schwarzman
+    # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, online resources, home, give,
+    # schwarzman, research,
     
     
     - name: Run pytest test_footer.py
@@ -134,4 +135,17 @@ jobs:
       continue-on-error: true
       run: |
         pytest examples/nypl_tests/test_schwarzman.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2
+        
+
+    - name: Run pytest test_research.py
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_research.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2
+        
+
+    - name: Run pytest test_research_support.py
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests/test_research_support.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2
+
 
