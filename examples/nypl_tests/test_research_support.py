@@ -23,7 +23,7 @@ class ResearchSupportTest(NyplUtils):
         super().tearDown()
 
     def test_main_page(self):
-        print("test_research_support()\n")
+        print("test_main_page()\n")
 
         # asserting the images on the page
         self.image_assertion()

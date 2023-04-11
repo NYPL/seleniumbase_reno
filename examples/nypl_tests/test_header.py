@@ -146,9 +146,10 @@ class HeaderTest(NyplUtils):
         self.nypl_login_research("qatester", "1234")
 
         # assert search functionality
-        self.click(HeaderPage.search_research_catalog)
+        self.send_keys(HeaderPage.search_bar, "book")  # search for a book
+        self.click(HeaderPage.search_research_catalog)  # click the search button
         # self.wait(3)
-        print(self.get_current_url())
+        print(self.get_current_url())  # get the current URL printed
         # assert title
         self.assert_title('Search Results | Research Catalog | NYPL')
         # assert the h2 result display

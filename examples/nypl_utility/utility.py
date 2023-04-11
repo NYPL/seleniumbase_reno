@@ -13,6 +13,7 @@ from examples.nypl_pages.page_locations import LocationsPage
 from examples.nypl_pages.page_online_resources import OnlineResourcesPage
 from examples.nypl_pages.page_research import ResearchPage
 from examples.nypl_pages.page_research_support import ResearchSupportPage
+from examples.nypl_pages.page_snfl import SnflPage
 
 from selenium.webdriver.common.by import By
 
@@ -21,7 +22,7 @@ import urllib3
 
 
 class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAllPage, BookListsPage, CampaignsPage,
-                ExhibitionsPage, FooterPage, LocationsPage, OnlineResourcesPage, ResearchPage, ResearchSupportPage):
+                ExhibitionsPage, FooterPage, LocationsPage, OnlineResourcesPage, ResearchPage, ResearchSupportPage, SnflPage):
     """nypl login method for the catalog,
        taking 2 parameters, 'username' and 'password' """
 

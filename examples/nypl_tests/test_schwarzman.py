@@ -31,8 +31,8 @@ class Schwarzman(NyplUtils):
         print("=================================")
         super().tearDown()
 
-    def test_schwarzman(self):
-        print("test_schwarzman()\n")
+    def test_schwarzman_main(self):
+        print("test_schwarzman_main()\n")
 
         # asserting the images on the page
         self.image_assertion()
@@ -47,6 +47,12 @@ class Schwarzman(NyplUtils):
         self.assert_element(SchwarzmanPage.research)
         # asserting title
         self.assert_title("Stephen A. Schwarzman Building | The New York Public Library")
+
+        # assert address in the left panel
+        expected_address = "Fifth Avenue and 42nd Street"
+        actual_address = self.get_text(SchwarzmanPage.address)
+        self.assert_true(expected_address in actual_address,
+                         "Actual " + expected_address + " doesn't match the expected " + actual_address)
 
         # assert that clicking on 'directions', '202x holiday hours' and links on the page will open the correct pages
         # using 'link_assertion' method from utility.py
@@ -78,13 +84,11 @@ class Schwarzman(NyplUtils):
             self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[2]/div/div/ul/li'))
         # for loop to go over every event
         for x in range(1, h3_length + 1):
-            if x == 5:  # skipping the 5th problematic element
-                continue
             # getting the link text and assert if it is in the page title
             h3_link_text = self.get_text(
                 f'//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[2]/div/div/ul/li[{x}]/div[2]/h3/a')
             print("\n1: " + h3_link_text)
-            self.click(f'//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[2]/div/div/ul/li[{x}]/div[2]/h3')
+            self.click(f'//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[2]/div/div/ul/li[{x}]/div[2]/h3/a')
 
             # getting the page title element
             h1_title = self.get_text('//*[@id="page-title"]')
@@ -98,16 +102,18 @@ class Schwarzman(NyplUtils):
         self.assert_true(self.get_text(SchwarzmanPage.about_the_sasb) == "About the Stephen A. Schwarzman Building")
 
     def test_schwarzman_research(self):
+        print("test_schwarzman_research()")
 
         # clicking the 'Research' tab
         self.click(SchwarzmanPage.research)
+
+        # assert title
+        self.assert_title("Research at Stephen A. Schwarzman Building | The New York Public Library")
+
+        # asserting the images on the page
+        self.image_assertion()
 
         # using assert_links_valid method, asserting the links in the web elements
         self.assert_links_valid(SchwarzmanPage.explore_division_centers)  # Explore Division Centers
         self.assert_links_valid(SchwarzmanPage.further_resources)  # Further Resources
         self.assert_links_valid(SchwarzmanPage.more_nypl_resources)  # More NYPL Resources
-
-
-
-
-
