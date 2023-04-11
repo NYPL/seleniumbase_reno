@@ -8,18 +8,21 @@ class SchwarzmanPage(BaseCase):
 
     visit = '//*[@id="audience-navigation--"]/li[1]/a'
     research = '//*[@id="audience-navigation--"]/li[2]/a'
+
     directions = '//*[@id="block-entityviewcontent"]/div/div/div/a'
     holiday_closings = '//*[@id="block-entityviewcontent"]/div/div/div/div[5]/a'
+    address = '//*[@id="location-info--fifth-avenue-and-42nd-street<br>new-york-ny-10018"]'
+
     learn_more_1 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[1]/div/p[2]/a'
     learn_more_2 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/p/a'
     daily_guided_tours = '//*[@id="block-nypl-emulsify-content"]/div/div/div[3]/div[2]/p/a'
 
-    in_the_spotlight_1 = '/html/body/div[1]/div/main/div[3]/div/div[1]/div/div/div[4]/ul/li[1]/div[1]'
-    in_the_spotlight_2 = '/html/body/div[1]/div/main/div[3]/div/div[1]/div/div/div[4]/ul/li[2]/div[1]'
+    in_the_spotlight_1 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/ul/li[1]/div[1]/h3/a'
+    in_the_spotlight_2 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/ul/li[2]/div[1]/h3/a'
 
-    featured_at_sasb_1 = '/html/body/div[1]/div/main/div[3]/div/div[1]/div/div/div[5]/ul/li[1]/div[1]'
-    featured_at_sasb_2 = '/html/body/div[1]/div/main/div[3]/div/div[1]/div/div/div[5]/ul/li[2]/div[1]'
-    featured_at_sasb_3 = '/html/body/div[1]/div/main/div[3]/div/div[1]/div/div/div[5]/ul/li[3]/div[1]'
+    featured_at_sasb_1 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/ul/li[1]/div[1]/h3/a'
+    featured_at_sasb_2 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/ul/li[2]/div[1]/h3/a'
+    featured_at_sasb_3 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/ul/li[3]/div[1]/h3/a'
 
     events_see_all = '//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[2]/div/div/div/div/a'
 

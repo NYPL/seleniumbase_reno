@@ -109,28 +109,23 @@ class Campaigns(NyplUtils):
             self.assert_element(
                 '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/ul/li[' + str(x) + ']/div[1]/div/p[1]')
             # asserting by clicking the link on the top 3 grid h2 elements
-            self.hover_and_click(
-                '/html/body/div[1]/div/main/div[2]/div/div/div/div/div[2]/ul/li[' + str(x) + ']/div[1]/h2/a',
+            self.click(
                 '/html/body/div[1]/div/main/div[2]/div/div/div/div/div[2]/ul/li[' + str(x) + ']/div[1]/h2/a')
             self.wait(0.2)
             self.go_back()
             # asserting same 3 elements with their image-card links
-            self.hover_and_click(
-                '/html/body/div[1]/div/main/div[2]/div/div/div/div/div[2]/ul/li[' + str(x) + ']/div[2]',
+            self.click(
                 '/html/body/div[1]/div/main/div[2]/div/div/div/div/div[2]/ul/li[' + str(x) + ']/div[2]')
             self.wait(0.2)
             self.go_back()
             # asserting 'Explore the List' elements
-            self.hover_and_click(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/ul/li[' + str(x) + ']/div[1]/a',
+            self.click(
                 '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/ul/li[' + str(x) + ']/div[1]/a')
             self.wait(0.2)
             self.go_back()
             # asserting grid elements in a nested for loop
             for y in range(1, 3):
                 self.assert_element(
-                    '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/ul/li[' + str(x) + ']/div[' + str(y) + ']')
-                self.hover_on_element(
                     '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/ul/li[' + str(x) + ']/div[' + str(y) + ']')
 
         # asserting h2 header 'Honorable Mention'
@@ -161,10 +156,8 @@ class Campaigns(NyplUtils):
         for y in range(1, top_checkout_number + 1):
             self.assert_element(
                 '//*[@id="block-nypl-emulsify-content"]/div/div/ol/li[' + str(y) + ']/div[1]/div[2]/div[3]/a[1]')
-            self.hover_and_click('//*[@id="block-nypl-emulsify-content"]/div/div/ol/li[' + str(y) + ']/div[1]/div['
-                                                                                                    '2]/div[3]/a[1]',
-                                 '//*[@id="block-nypl-emulsify-content"]/div/div/ol/li[' + str(y) + ']/div[1]/div['
-                                                                                                    '2]/div[3]/a[1]')
+            self.click('//*[@id="block-nypl-emulsify-content"]/div/div/ol/li[' + str(y) + ']/div[1]/div['
+                                                                                          '2]/div[3]/a[1]')
 
             print("Request Book for the book " + str(y) + " is verified")
             self.go_back()
@@ -177,8 +170,7 @@ class Campaigns(NyplUtils):
                 self.assert_element('//*[@id="block-nypl-emulsify-content"]/div/div/ol/li[' + str(y) + ']/div[1]/div['
                                                                                                        '2]/div[3]/a['
                                                                                                        '2]')
-                self.hover_and_click(
-                    '//*[@id="block-nypl-emulsify-content"]/div/div/ol/li[' + str(y) + ']/div[1]/div[2]/div[3]/a[2]',
+                self.click(
                     '//*[@id="block-nypl-emulsify-content"]/div/div/ol/li[' + str(y) + ']/div[1]/div[2]/div[3]/a[2]')
                 print("Request E-Book for the book " + str(y) + " is verified")
                 self.go_back()
