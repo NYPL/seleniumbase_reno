@@ -241,7 +241,7 @@ class Exhibitions(NyplUtils):
 
         # getting the length of the list to use it in the for loop
         exhibition_length = len(
-            self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div/li'))
+            self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div'))
         # asserting each exhibition by clicking and comparing their own page
         for x in range(1, exhibition_length + 1):
             print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
@@ -252,9 +252,9 @@ class Exhibitions(NyplUtils):
 
             # asserting exhibition contents
             exhibition_link_text = self.get_text(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div/li[' + str(x) + ']/h3/a/span')
+                '//*[@id="block-nypl-emulsify-content"]/div/div/div[' + str(x) + ']/li/h3/a/span')
             print(exhibition_link_text)
-            self.click('//*[@id="block-nypl-emulsify-content"]/div/div/div/li[' + str(x) + ']/h3/a/span')
+            self.click('//*[@id="block-nypl-emulsify-content"]/div/div/div[' + str(x) + ']/li/h3/a/span')
             exhibition_hero_text = self.get_text('//*[@id="block-content-hero-header"]/div/div[2]/div[1]/h1/span')
             print(exhibition_hero_text)
             self.assert_true(exhibition_link_text in exhibition_hero_text)
@@ -513,3 +513,4 @@ class Exhibitions(NyplUtils):
             self.go_back()
 
         print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+

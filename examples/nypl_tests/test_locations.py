@@ -52,7 +52,6 @@ class Locations(NyplUtils):
         self.click(LocationsPage.open_now)
         open_library_number = len(self.find_elements('//*[@id="locations-list"]/div[2]/ul/li'))
         time.sleep(3)
-        self.wait_for_element('//*[@id="locations-list"]/div[2]/ul/li')
         print("total library number = " + str(total_library_number),
               "open library number = " + str(open_library_number))
         self.assert_true(total_library_number > open_library_number)
