@@ -14,6 +14,7 @@ from examples.nypl_pages.page_online_resources import OnlineResourcesPage
 from examples.nypl_pages.page_research import ResearchPage
 from examples.nypl_pages.page_research_support import ResearchSupportPage
 from examples.nypl_pages.page_snfl import SnflPage
+from examples.nypl_pages.page_snfl_teen import SnflTeenPage
 
 from selenium.webdriver.common.by import By
 
@@ -22,7 +23,7 @@ import urllib3
 
 
 class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAllPage, BookListsPage, CampaignsPage,
-                ExhibitionsPage, FooterPage, LocationsPage, OnlineResourcesPage, ResearchPage, ResearchSupportPage, SnflPage):
+                ExhibitionsPage, FooterPage, LocationsPage, OnlineResourcesPage, ResearchPage, ResearchSupportPage, SnflPage, SnflTeenPage):
     """nypl login method for the catalog,
        taking 2 parameters, 'username' and 'password' """
 
@@ -136,6 +137,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         print('Total number of images on ' + self.get_current_url() + ' are = ' + str(len(image_list)))
 
         x = 1  # variable to use in the loop for image number iteration
+        y = 0  # counter to add up the failed image amount
 
         # using HTTP method 'get', asserting if the status code of the images == 200, which means image exist
 
@@ -147,6 +149,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 if response.status_code != 200:
                     print("\n" + img.get_attribute('outerHTML') + " is broken.")
                     broken_image_count = (broken_image_count + 1)
+                    y += 1
                 # else clause is optional to print the images
                 else:
                     # print('\nImage ' + str(x) + ' URL: ' + img.get_attribute('src'))
@@ -164,5 +167,11 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 if 'OtherException' not in encountered_exceptions:  # checking if the exception in the list
                     print("\nEncountered Some other Exception")
                     encountered_exceptions.append('OtherException')  # adding to the dictionary if not added before
+
+        # Check if any images failed to load
+        if y >= 1:
+            raise ValueError(f"{y} images failed to load.")
+            # or suggest a failed state with a print statement
+            # print(f"{y} images failed to load. Please check the broken image links.")
 
         print('\nThe page ' + self.get_current_url() + ' has ' + str(broken_image_count) + ' broken images\n')

@@ -28,7 +28,7 @@ class SnflTest(NyplUtils):
         # assert images on the page
         self.image_assertion()
 
-        # assert breadcrumbs
+        # assert breadcrumbs and tabs
         self.assert_element(SnflPage.home)
         self.assert_element(SnflPage.locations)
         self.assert_element(SnflPage.visit)
@@ -65,7 +65,7 @@ class SnflTest(NyplUtils):
     def test_snfl_events(self):
         print("test_snfl_events()")
 
-        # asserting 'Kids, Teens and Adults - See All' web element
+        # asserting 'Kids, Teens and Adults - See All' web elements
         self.assert_element(SnflPage.kids_see_all)
         self.assert_element(SnflPage.teens_see_all)
         self.assert_element(SnflPage.adults_see_all)
