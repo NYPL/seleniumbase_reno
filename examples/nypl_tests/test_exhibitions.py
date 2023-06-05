@@ -28,6 +28,9 @@ class Exhibitions(NyplUtils):
     def test_exhibitions_main_page_elements(self):
         print("test_exhibitions_main_page_elements()\n")
 
+        # assert title
+        self.assert_title('Exhibitions | The New York Public Library')
+
         # asserting the images on the page
         self.image_assertion()
 

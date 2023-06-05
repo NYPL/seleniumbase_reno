@@ -64,8 +64,9 @@ class Schwarzman(NyplUtils):
         self.link_assertion(SchwarzmanPage.daily_guided_tours, "nypl.org/events/tours/schwarzman")
 
         # 'in the spotlight' and 'featured' h3 content don't change often, therefore, full endpoints being asserted
-        self.link_assertion(SchwarzmanPage.in_the_spotlight_1, "nypl.org/appointments/schwarzman")
-        self.link_assertion(SchwarzmanPage.in_the_spotlight_2, "databases")
+        self.link_assertion(SchwarzmanPage.in_the_spotlight_1, "schwarzman-plan-your-visit")
+        self.link_assertion(SchwarzmanPage.in_the_spotlight_2, "schwarzman")
+        self.link_assertion(SchwarzmanPage.in_the_spotlight_3, "databases")
 
         self.link_assertion(SchwarzmanPage.featured_at_sasb_1, "nypl.org/locations/schwarzman/research")
         self.link_assertion(SchwarzmanPage.featured_at_sasb_2, "nypl.org/about/locations/schwarzman/shop-cafe")
@@ -117,3 +118,4 @@ class Schwarzman(NyplUtils):
         self.assert_links_valid(SchwarzmanPage.explore_division_centers)  # Explore Division Centers
         self.assert_links_valid(SchwarzmanPage.further_resources)  # Further Resources
         self.assert_links_valid(SchwarzmanPage.more_nypl_resources)  # More NYPL Resources
+

@@ -19,22 +19,22 @@ class SnflPage(BaseCase):
     learn_more_2 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/p/a'
     daily_guided_tours = '//*[@id="block-nypl-emulsify-content"]/div/div/div[3]/div[2]/p/a'
 
-    in_the_spotlight_1 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/ul/li[1]/div[1]/h3/a'
-    in_the_spotlight_2 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/ul/li[2]/div[1]/h3/a'
-    in_the_spotlight_3 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/ul/li[3]/div[1]/h3/a'
-    in_the_spotlight_4 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/ul/li[4]/div[1]/h3/a'
-    in_the_spotlight_5 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/ul/li[5]/div[1]/h3/a'
+    in_the_spotlight_1 = "//*[contains(text(), 'In the Spotlight')]//parent::*//parent::*//following-sibling::ul//li[1]"
+    in_the_spotlight_2 = "//*[contains(text(), 'In the Spotlight')]//parent::*//parent::*//following-sibling::ul//li[2]"
+    in_the_spotlight_3 = "//*[contains(text(), 'In the Spotlight')]//parent::*//parent::*//following-sibling::ul//li[3]"
+    in_the_spotlight_4 = "//*[contains(text(), 'In the Spotlight')]//parent::*//parent::*//following-sibling::ul//li[4]"
+    in_the_spotlight_5 = "//*[contains(text(), 'In the Spotlight')]//parent::*//parent::*//following-sibling::ul//li[5]"
 
-    kids_see_all = '//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[1]/div/div/div/a'
-    teens_see_all = '//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[2]/div/div/div/a'
-    adults_see_all = '//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[3]/div/div/div/a'
+    kids_see_all = "//*[@id='block-nypl-emulsify-content']//*[contains(text(), 'For Kids')]/following-sibling::a[1]"
+    teens_see_all = "//*[@id='block-nypl-emulsify-content']//*[contains(text(), 'For Teens')]/following-sibling::a[1]"
+    adults_see_all = "//*[@id='block-nypl-emulsify-content']//*[contains(text(), 'For Adults')]/following-sibling::a[1]"
 
-    remote_resources_1 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[8]/ul/li[1]/div[1]/h3/a'
-    remote_resources_2 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[8]/ul/li[2]/div[1]/h3/a'
-    remote_resources_3 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[8]/ul/li[3]/div[1]/h3/a'
-    remote_resources_4 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[8]/ul/li[4]/div[1]/h3/a'
+    remote_resources_1 = "//*[contains(text(), 'Remote Resources')]//parent::*//parent::*//following-sibling::ul//li[1]"
+    remote_resources_2 = "//*[contains(text(), 'Remote Resources')]//parent::*//parent::*//following-sibling::ul//li[2]"
+    remote_resources_3 = "//*[contains(text(), 'Remote Resources')]//parent::*//parent::*//following-sibling::ul//li[3]"
+    remote_resources_4 = "//*[contains(text(), 'Remote Resources')]//parent::*//parent::*//following-sibling::ul//li[4]"
 
-    about_the_snfl = '//*[@id="block-nypl-emulsify-content"]/div/div/div[9]/h2'
+    about_the_snfl = "//*[contains(text(), 'About the Stavros')]"
 
     # "Explore" tab locators
     centers = '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div/div/ul/li'

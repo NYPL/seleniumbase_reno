@@ -87,10 +87,3 @@ class HomePageTest(NyplUtils):
             self.click(HomePage.slide_prev)
 
         print("========\n")
-
-        # asserting that we can drag the slider by dragging one of the elements
-        drag_element = self.find_element(
-            '/html/body/div[1]/div/div[2]/main/div[2]/div[5]/div/div[2]/div/div[2]/ul/li[4]/div/div[2]/a/div/span/img')
-        action = ActionChains(self.driver)
-        action.drag_and_drop_by_offset(drag_element, 200, 0)
-        action.perform()

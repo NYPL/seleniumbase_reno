@@ -15,6 +15,10 @@ from examples.nypl_pages.page_research import ResearchPage
 from examples.nypl_pages.page_research_support import ResearchSupportPage
 from examples.nypl_pages.page_snfl import SnflPage
 from examples.nypl_pages.page_snfl_teen import SnflTeenPage
+from examples.nypl_pages.page_billy_rose import BillyRosePage
+from examples.nypl_pages.page_request_visit import RequestVisitPage
+
+#from examples.nypl_tests.test_dxp_images import FrontendImages
 
 from selenium.webdriver.common.by import By
 
@@ -23,7 +27,8 @@ import urllib3
 
 
 class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAllPage, BookListsPage, CampaignsPage,
-                ExhibitionsPage, FooterPage, LocationsPage, OnlineResourcesPage, ResearchPage, ResearchSupportPage, SnflPage, SnflTeenPage):
+                ExhibitionsPage, FooterPage, LocationsPage, OnlineResourcesPage, ResearchPage, ResearchSupportPage,
+                SnflPage, SnflTeenPage, BillyRosePage, RequestVisitPage):
     """nypl login method for the catalog,
        taking 2 parameters, 'username' and 'password' """
 
@@ -66,9 +71,9 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         # go to the previous page
         self.go_back()
 
-        """ dynamic element link assertion:
-        using link_assertion() method, click a link and assert the text in the URL,
-        taking 2 parameters, 'locator' to be clicked and 'text' to be checked"""
+    """ dynamic element link assertion:
+    using link_assertion() method, click a link and assert the text in the URL,
+    taking 2 parameters, 'locator' to be clicked and 'text' to be checked"""
 
     def dynamic_element_link_assertion(self, locator, text):
         # find the element with the locator and get the length
@@ -80,7 +85,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 locator + '[' + str(x) + ']', text)
 
     """assert links valid:
-       A method to assert the child links are not broken in a list item ('li' tag),
+       A method to assert that the child links are not broken in a list item ('li' tag),
        using HTTP method HEAD, and checks if the response is between the acceptable limits (200-400)
        """
 
@@ -147,6 +152,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             try:
                 response = requests.get(img.get_attribute('src'), stream=True)
                 if response.status_code != 200:
+                    print(self.get_current_url())
                     print("\n" + img.get_attribute('outerHTML') + " is broken.")
                     broken_image_count = (broken_image_count + 1)
                     y += 1
