@@ -8,6 +8,7 @@ class LocationsPage(BaseCase):
     welcome_text = '//*[@id="main-content"]/div[1]/div[1]/div/div[2]'
     find_your_library = '//*[@id="location-finder__title"]'
     search_text = '//*[@id="search-form__search-input-label"]'
+    search_bar = '//*[@id="search-form__search-input"]'
     search = '//*[@id="search-form__submit"]'
     open_now = '//*[@id="search-form"]/div[2]/div[1]'
     open_now_check_box = '//*[@id="checkbox-open-now"]'

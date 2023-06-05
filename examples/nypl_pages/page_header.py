@@ -19,7 +19,7 @@ class HeaderPage(BaseCase):
     next_button = '//*[@id="SccContainer-content-primary"]/div[3]/nav/a'
     previous_button = '//*[@id="SccContainer-content-primary"]/div[3]/nav/a[1]'
 
-    my_account = '//*[@id="patronAccountExternalLinkComponent"]'
+    my_bookshelf = '//*[@id="bookshelf-title"]'
     logout = '//*[@id="Insert_2"]'
     login_back = '//*[@id="Insert_0"]'
 

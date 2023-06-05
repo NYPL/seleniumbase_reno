@@ -59,7 +59,7 @@ class SnflTest(NyplUtils):
 
         # asserting 'About the Stephen A. ....'
         expected = 'About the Stavros Niarchos Foundation Library (SNFL)'
-        actual = self.get_text((SnflPage.about_the_snfl))
+        actual = self.get_text(SnflPage.about_the_snfl)
         self.assert_true(expected == actual, "Expected = " + expected + ", Actual = " + actual)
 
     def test_snfl_events(self):

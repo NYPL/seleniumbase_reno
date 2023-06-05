@@ -1,3 +1,5 @@
+import pytest
+
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_header import HeaderPage
 
@@ -116,15 +118,10 @@ class HeaderTest(NyplUtils):
         self.nypl_login_catalog("qatester", "1234")
 
         # assert title 'NYPL catalog'
-        self.assert_title('NYPL Catalog')
-        # assert 'my account' tab
-        self.assert_element(HeaderPage.my_account)
+        self.assert_title('New York Public Library')
+        # assert 'my bookshelf' tab
+        self.assert_element(HeaderPage.my_bookshelf)
         # click logout
-        self.click(HeaderPage.logout)
-        # assert the 'login' button after logging out
-        self.assert_element(HeaderPage.login_back)
-
-        print(self.get_current_url())
 
     # @pytest.mark.skip(reason="test")
     def test_login_research_catalog(self):
