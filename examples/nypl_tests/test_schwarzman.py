@@ -60,7 +60,7 @@ class Schwarzman(NyplUtils):
         self.link_assertion(SchwarzmanPage.holiday_closings, "nypl.org/help/closings")
         self.link_assertion(SchwarzmanPage.research, "nypl.org/locations/schwarzman/research")
         self.link_assertion(SchwarzmanPage.learn_more_1, "nypl.org/locations/schwarzman/research")
-        self.link_assertion(SchwarzmanPage.learn_more_2, "nypl.org/spotlight/treasures")
+        self.link_assertion(SchwarzmanPage.learn_more_2, "nypl.org/spotlight/visitor-center")
         self.link_assertion(SchwarzmanPage.daily_guided_tours, "nypl.org/events/tours/schwarzman")
 
         # 'in the spotlight' and 'featured' h3 content don't change often, therefore, full endpoints being asserted

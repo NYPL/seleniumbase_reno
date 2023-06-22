@@ -79,13 +79,12 @@ class Locations(NyplUtils):
         self.click(LocationsPage.search)
 
         # search result for the first result
-        search_result_text = self.get_text('//*[@id="locations-list"]/div[2]/ul/li[1]')
+        search_result_text = self.get_text('//*[@id="locations-list"]/div[2]/ul/li[1]/div/h2')
         print(search_result_text)
 
         expected_text = "The New York Public Library for the Performing Arts"
 
-        self.assert_true(expected_text in search_result_text, ' "Expected text "' + expected_text + '" is not in ' + search_result_text)
-
+        self.assert_true(expected_text in search_result_text, 'Expected result = "' + expected_text + '" vs Actual result = "' + search_result_text + '"')
     def test_borough(self):
         print("test_borough()\n")
         self.assert_element(LocationsPage.borough)
