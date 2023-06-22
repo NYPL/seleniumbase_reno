@@ -65,53 +65,19 @@ class Exhibitions(NyplUtils):
                              "Exhibition Page title does not match Exhibition link text")
             self.go_back()
 
-            # checking if the images on the exhibition links are present/visible
-            self.assert_element_visible(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/div/ul/li[' + str(x) + ']/a/img')
-
         # asserting 'See All' for 'Coming Soon', 'Community Showcases', 'Online Exhibitions', 'Past Exhibitions'
         # this range is dynamic since the page content changes
         # As of June 2022, there is only 4 'see all' to assert, from 3 to 7
         # As of Feb 2023, there is only 3 'see all' to assert, from 3 to 6
-        for x in range(3, 6):
-            self.click('//*[@id="block-nypl-emulsify-content"]/div/div/div[' + str(x) + ']/div[1]/div/a')
+        # As of Feb 2023, 'coming soon' does not exist on the page anymore
+
+        # finding 'See All' locators number for 'Coming Soon', 'Community Showcases', 'Online Exhibitions',
+        # 'Past Exhibitions' to use in the for loop
+        see_all_length = len(self.find_elements('//*[contains(text(), "See All")]'))
+        print(see_all_length)
+        for x in range(1, see_all_length):
+            self.click(f'(//*[contains(text(), "See All")])[{x}]')
             self.go_back()
-
-        # 'coming soon' does not exist on the page anymore, Feb 2023
-        """
-        # todo: might want to assert the exhibition dates for all kind of exhibitions, with regex
-        # e.g. for coming soon, dates have to be in future, for past, dates has to be in the past
-
-        # *****************************************
-        # asserting 'Coming Soon' element
-        self.assert_element(ExhibitionsPage.coming_soon)
-
-        # getting the length of the list to use it in the for loop
-        # this web element does not exist anymore on the page, Feb 2023
-        # coming_soon_length = len(
-        #    self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div[3]/div[2]/div/div/div/ul/li'))
-
-        # asserting each exhibition by clicking each of them in 'Coming Soon' and asserting their own page
-        for x in range(1, coming_soon_length + 1):
-            print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
-
-            # asserting images on the links/exhibitions
-            self.is_element_visible(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[3]/div[2]/div/div/div/ul/li[' + str(
-                    x) + ']/a/img')
-
-            # asserting 'Coming Soon' content
-            coming_soon_link_text = self.get_text(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[3]/div[2]/div/div/div/ul/li[' + str(
-                    x) + ']/h3/a/span')
-            print(coming_soon_link_text)
-            self.click('//*[@id="block-nypl-emulsify-content"]/div/div/div[3]/div[2]/div/div/div/ul/li[' + str(
-                x) + ']/h3/a/span')
-            coming_soon_hero_text = self.get_text('//*[@id="block-content-hero-header"]/div/div[2]/div[1]/h1/span')
-            print(coming_soon_hero_text)
-            self.assert_true(coming_soon_link_text in coming_soon_hero_text)
-            self.go_back()
-        """
 
         print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
 
@@ -369,7 +335,7 @@ class Exhibitions(NyplUtils):
                 '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/ul/li[' + str(x) + ']/div/h3/a')
             self.go_back()
             # asserting the content
-            #self.click('//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/ul/li[' + str(x) + ']/div')
+            # self.click('//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/ul/li[' + str(x) + ']/div')
             exhibition_hero_text = self.get_text('//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div['
                                                  '2]/div/div/ul/li[' + str(x) + ']/div/div/p')
             self.assert_text(exhibition_hero_text)
@@ -516,4 +482,3 @@ class Exhibitions(NyplUtils):
             self.go_back()
 
         print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
-

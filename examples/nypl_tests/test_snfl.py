@@ -96,7 +96,7 @@ class SnflTest(NyplUtils):
     def test_snfl_remote_resources(self):
         print("test_snfl_remote_resources()")
 
-        self.link_assertion(SnflPage.remote_resources_1, "nypl.org/books-music-movies/ebookcentral")
+        self.link_assertion(SnflPage.remote_resources_1, "nypl.org/books-music-movies")
         self.link_assertion(SnflPage.remote_resources_2, "nypl.org/events/calendar/online")
         self.link_assertion(SnflPage.remote_resources_3, "nypl.org/research/collections/articles-databases")
         self.link_assertion(SnflPage.remote_resources_4, "nypl.org/get-help/community-resources")
