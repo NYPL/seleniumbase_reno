@@ -54,15 +54,15 @@ class HomePageTest(NyplUtils):
                  ("nypl.org/books-more/recommendations/staff-picks", 4),
                  ("nypl.org/books-music-movies/new-arrivals", 5),
                  ("nypl.org/blog", 6),
-                 ("nypl.org/press", 7)
+                 ("nypl.org/locations", 7)
                  ]
 
         for y, index in links:
-
             print(str(index) + ": " + y)
 
             self.click('/html/body/div[1]/div/div[2]/main/div[2]/div[' + str(index) + ']/div/div[1]/div/h2/a')
-            self.assert_true(y in self.get_current_url())
+            current_url_text = self.get_current_url()
+            self.assert_true(y in current_url_text, "expected: " + y + " actual: " + current_url_text)
             self.go_back()
 
     def test_slider(self):
