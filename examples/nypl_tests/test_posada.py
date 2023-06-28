@@ -40,6 +40,8 @@ class PosadaTest(NyplUtils):
 
     def test_la_catrina(self):
         # asserting 'Explore the Online Exhibition'
+        # links are hardcoded, so when the exhibition list changes on the page, these list below needs to be updated
+        # the new link texts
 
         exhibition_links_list = ["la-catrina",
                                  "don-chepito-mariguano",
@@ -47,16 +49,11 @@ class PosadaTest(NyplUtils):
                                  "iconos-revolucionarios",
                                  "transporte-publico",
                                  "la-fiesta-en-ultratumba"]
-        url = "https://www.nypl.org/events/exhibitions/galleries/la-catrina"
-        last_part = url.rsplit('/', 1)[-1]
-        print(last_part)
 
         for x in range(1, 7):
-            print("before" + self.get_current_url())
-
             url = f'//*[@class="exhibition-card card"][{x}]'
-            last_part = url.rsplit('/', 1)[-1]
 
-            self.link_assertion(f'//*[@class="exhibition-card card"][{x}]', last_part)
-            print("after" + self.get_current_url())
+            print("exh list " + exhibition_links_list[x - 1])
 
+            self.link_assertion(url, exhibition_links_list[x-1])
+            print("\n===========================")
