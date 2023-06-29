@@ -171,3 +171,9 @@ jobs:
       continue-on-error: true
       run: |
         pytest examples/nypl_tests/test_request_visit.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2
+        
+
+    - name: Run pytest test_posada.py
+        continue-on-error: true
+        run: |
+          pytest examples/nypl_tests/test_posada.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2
