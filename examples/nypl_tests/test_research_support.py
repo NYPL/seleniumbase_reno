@@ -7,7 +7,7 @@ from examples.nypl_pages.page_research_support import ResearchSupportPage
 
 class ResearchSupportTest(NyplUtils):
 
-    # https://www.nypl.org/research
+    # https://www.nypl.org/research/support
 
     def setUp(self):
         super().setUp()

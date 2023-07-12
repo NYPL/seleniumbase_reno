@@ -84,7 +84,9 @@ class Locations(NyplUtils):
 
         expected_text = "The New York Public Library for the Performing Arts"
 
-        self.assert_true(expected_text in search_result_text, 'Expected result = "' + expected_text + '" vs Actual result = "' + search_result_text + '"')
+        self.assert_true(expected_text in search_result_text,
+                         'Expected result = "' + expected_text + '" vs Actual result = "' + search_result_text + '"')
+
     def test_borough(self):
         print("test_borough()\n")
         self.assert_element(LocationsPage.borough)
@@ -139,7 +141,8 @@ class Locations(NyplUtils):
                 count += 1
 
         if count >= 1:
-            print("\nAbove " + str(count) + " libraries don't have full access yet listed on the 'Fully Accessible' filter")
+            print("\nAbove " + str(
+                count) + " libraries don't have full access yet listed on the 'Fully Accessible' filter")
         self.assert_(count < 1)
 
     def test_partial_accessibility(self):

@@ -1,7 +1,7 @@
 from seleniumbase import BaseCase
 
 
-class OnlineResourcesPage(BaseCase):
+class ArticlesDatabasesPage(BaseCase):
     home = '//*[@id="__next"]/div/div[2]/nav/ol/li[1]/a/span'
     research = '//*[@id="__next"]/div/div[2]/nav/ol/li[2]/a/span'
     collections = '//*[@id="__next"]/div/div[2]/nav/ol/li[3]/a/span'
@@ -9,15 +9,20 @@ class OnlineResourcesPage(BaseCase):
     h1_heading = '//*[@id="main-content"]/div[1]/div[1]/div/h1'
     h1_paragraph = '//*[@id="main-content"]/div[1]/div[1]/div/p'
 
+    articles_databases_title = "Articles & Databases | The New York Public Library"
+
     apply_subject = '//*[@id="multiselect-button-save-subject"]'
     clear_subject = '//*[@id="multiselect-button-clear-subject"]'
 
-    search_text = '//*[@id="search-form__search-input-label"]'
     search_bar = '//*[@id="search-form__search-input"]'
+    submit_button = '//*[@id="search-form__submit"]'
+    first_result_h3 = '//*[@id="search-results"]/div//div//div//h3'
+    clear_search = '//*[@id="search-results-details__button"]'
+
+    search_text = '//*[@id="search-form__search-input-label"]'
     search_button = '//*[@id="search-form__submit"]'
     search_results = '//*[@id="search-results-details__heading"]'
     search_tab = '//*[@id="__next"]/div/div[2]/nav/ol/li[5]/span/span'
-    clear_search = '//*[@id="search-results-details__button"]'
 
     h2_filter_by = '//*[@id="search-filters--heading"]'
     subjects_button = '//*[@id="multiselect-subject"]'
@@ -42,7 +47,7 @@ class OnlineResourcesPage(BaseCase):
 
     more_research = '//*[@id="more-research-tools"]'
 
-    def open_online_resources_page(self):
+    def open_articles_databases_page(self):
         # self.open("https://www.nypl.org/research/collections/articles-databases")
 
         if self.env == "qa":

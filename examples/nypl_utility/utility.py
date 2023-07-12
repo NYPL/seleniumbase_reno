@@ -10,7 +10,7 @@ from examples.nypl_pages.page_campaigns import CampaignsPage
 from examples.nypl_pages.page_exhibitions import ExhibitionsPage
 from examples.nypl_pages.page_footer import FooterPage
 from examples.nypl_pages.page_locations import LocationsPage
-from examples.nypl_pages.page_online_resources import OnlineResourcesPage
+from examples.nypl_pages.page_articles_databases import ArticlesDatabasesPage
 from examples.nypl_pages.page_research import ResearchPage
 from examples.nypl_pages.page_research_support import ResearchSupportPage
 from examples.nypl_pages.page_snfl import SnflPage
@@ -29,8 +29,8 @@ import urllib3
 
 
 class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAllPage, BookListsPage, CampaignsPage,
-                ExhibitionsPage, FooterPage, LocationsPage, OnlineResourcesPage, ResearchPage, ResearchSupportPage,
-                SnflPage, SnflTeenPage, BillyRosePage, RequestVisitPage, PosadaPage, WorldLiteraturePage):
+                ExhibitionsPage, FooterPage, LocationsPage, ArticlesDatabasesPage, ResearchPage, ResearchSupportPage,
+                SnflPage, SnflTeenPage, BillyRosePage, RequestVisitPage, PosadaPage, WorldLiteraturePage,):
     """nypl login method for the catalog,
        taking 2 parameters, 'username' and 'password' """
 

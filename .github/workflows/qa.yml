@@ -61,7 +61,7 @@ jobs:
     
     
     # NYPL tests start here
-    # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, online resources, home, give, schwarzman
+    # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, articles & databases, home, give, schwarzman
     
     
     - name: Run pytest test_footer.py
@@ -112,10 +112,10 @@ jobs:
         pytest examples/nypl_tests/test_locations.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
         
         
-    - name: Run pytest test_online_resources.py
+    - name: Run pytest test_articles_databases.py
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests/test_online_resources.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
+        pytest examples/nypl_tests/test_articles_databases.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
         
 
     - name: Run pytest test_home.py
