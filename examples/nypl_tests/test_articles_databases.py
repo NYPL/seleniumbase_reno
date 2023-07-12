@@ -1,8 +1,8 @@
 from examples.nypl_utility.utility import NyplUtils
-from examples.nypl_pages.page_online_resources import OnlineResourcesPage
+from examples.nypl_pages.page_articles_databases import ArticlesDatabasesPage
 
 
-class OnlineResources(NyplUtils):
+class ArticlesDatabasesTest(NyplUtils):
     # https://www.nypl.org/research/collections/articles-databases
 
     def setUp(self):
@@ -11,50 +11,59 @@ class OnlineResources(NyplUtils):
         print("RUNNING BEFORE EACH TEST")
 
         # open articles and databases page
-        self.open_online_resources_page()
+        self.open_articles_databases_page()
 
     def tearDown(self):
         print("RUNNING AFTER EACH TEST")
         print("=================================")
         super().tearDown()
 
-    def test_online_resources_breadcrumbs(self):
-        print("test_online_resources_breadcrumbs()\n")
+    def test_articles_databases_breadcrumbs(self):
+        print("test_articles_databases_breadcrumbs()\n")
 
         # asserting the images on the page
         self.image_assertion()
 
+        # assert title
+        self.assert_title(ArticlesDatabasesPage.articles_databases_title)
+
         # assert breadcrumbs
-        self.assert_element(OnlineResourcesPage.home)
-        self.assert_element(OnlineResourcesPage.research)
-        self.assert_element(OnlineResourcesPage.collections)
-        self.assert_element(OnlineResourcesPage.articles_databases)
-        self.assert_element(OnlineResourcesPage.h1_heading)
-        self.assert_element(OnlineResourcesPage.h1_paragraph)
-
-        # asserting search element
-        self.assert_element(OnlineResourcesPage.search_text)
-        self.assert_element(OnlineResourcesPage.search_bar)
-        self.assert_element(OnlineResourcesPage.search_button)
-
-        # assert search button works when submitted, and then cleared
-        self.click(OnlineResourcesPage.search_button)
-        self.assert_element(OnlineResourcesPage.search_bar)
-        self.is_element_visible(OnlineResourcesPage.search_results)
-        self.click(OnlineResourcesPage.clear_search)
-        print(self.get_current_url())
-        self.click(OnlineResourcesPage.articles_databases)
-        print(self.get_current_url())
+        self.assert_element(ArticlesDatabasesPage.home)
+        self.assert_element(ArticlesDatabasesPage.research)
+        self.assert_element(ArticlesDatabasesPage.collections)
+        self.assert_element(ArticlesDatabasesPage.articles_databases)
+        self.assert_element(ArticlesDatabasesPage.h1_heading)
+        self.assert_element(ArticlesDatabasesPage.h1_paragraph)
 
         # assert 'filter by'
-        self.assert_element(OnlineResourcesPage.subjects_button)
-        self.assert_element(OnlineResourcesPage.audience_button)
-        self.assert_element(OnlineResourcesPage.availability_button)
+        self.assert_element(ArticlesDatabasesPage.subjects_button)
+        self.assert_element(ArticlesDatabasesPage.audience_button)
+        self.assert_element(ArticlesDatabasesPage.availability_button)
 
-    def test_online_resources_main_page_elements(self):
-        print("test_online_main_page_elements()\n")
+    def test_articles_databases_search(self):
+        print("test_articles_databases_search()\n")
+
+        # asserting search bar
+        self.assert_element(ArticlesDatabasesPage.search_bar)
+
+        # asserting the search results with keywords
+        # searching for the keyword and asserting it shows up on the first h3 result
+        keyword = 'books'.lower()  # keyword in lowercase
+        print(keyword)  # optional print
+        self.send_keys(ArticlesDatabasesPage.search_bar, keyword)  # searching for keyword
+        self.click(ArticlesDatabasesPage.submit_button)  # submitting the keyword
+        first_search_result_text = (self.get_text(ArticlesDatabasesPage.first_result_h3)).lower()  # search result in lowercase
+        print(first_search_result_text)  # optional print
+        self.assertTrue(keyword in first_search_result_text)
+
+        # assert 'Clear all search terms'
+        self.click(ArticlesDatabasesPage.clear_search)
+        self.wait(2)
+
+    def test_articles_databases_main_page_elements(self):
+        print("test_articles_databases_main_page_elements()\n")
         # asserting h2 heading and its elements
-        self.assert_element(OnlineResourcesPage.featured_resources)
+        self.assert_element(ArticlesDatabasesPage.featured_resources)
 
         # getting the length of the list of elements on the 'Featured Resources'
         featured_list_length = len(self.find_elements('/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div[1]/ul/li'))
@@ -74,7 +83,7 @@ class OnlineResources(NyplUtils):
                 self.open("https://www.nypl.org/research/collections/articles-databases")
 
         # asserting 'most popular' h2
-        self.assert_element(OnlineResourcesPage.most_popular)
+        self.assert_element(ArticlesDatabasesPage.most_popular)
 
         # length of the 'most popular'
         most_pop_length = len(self.find_elements('/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div[2]/ul/li'))
@@ -90,7 +99,7 @@ class OnlineResources(NyplUtils):
                 self.open("https://www.nypl.org/research/collections/articles-databases")
 
         # assert bottom a-z article & databases element
-        self.assert_element(OnlineResourcesPage.a_z_database)
+        self.assert_element(ArticlesDatabasesPage.a_z_database)
 
         # assert the letters/alphabet
 
@@ -109,20 +118,20 @@ class OnlineResources(NyplUtils):
             else:
                 self.open("https://www.nypl.org/research/collections/articles-databases")
 
-    def test_online_resources_subjects_filter(self):
-        print("test_online_resources_subjects_filter()\n")
+    def test_articles_databases_subjects_filter(self):
+        print("test_articles_databases_subjects_filter()\n")
         # asserting the 'Subjects' filter
         # clicking every filter in the Subjects filter and asserting their lengths
-        self.click(OnlineResourcesPage.subjects_button)
+        self.click(ArticlesDatabasesPage.subjects_button)
         subject_filter_length = len(self.find_elements('//*[@id="multiselect-subject"]/div/ul/li'))
         # optional print of the subject filter
         print("subject filter length is = " + str(subject_filter_length))
         self.assert_true(subject_filter_length > 10, "subject filter amount is not greater than 10")
-        self.click(OnlineResourcesPage.subjects_button)
+        self.click(ArticlesDatabasesPage.subjects_button)
 
         # click every filter and apply filters and assert lengths of the sub-filters
         for x in range(1, subject_filter_length + 1):
-            self.click(OnlineResourcesPage.subjects_button)
+            self.click(ArticlesDatabasesPage.subjects_button)
             self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[1]/div/ul/li[' + str(x) + ']/div/label/span[2]')
             # sub-filter texts
             sub_filter = self.get_text('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[1]/div/ul/li[' + str(x) + ']/div/label/span[2]')
@@ -137,23 +146,23 @@ class OnlineResources(NyplUtils):
                     self.assert_true(sub_filter_length >= 1, "sub-filter length is not greater than 1")
             print(str(sub_filter_length) + " sub-filter for " + sub_filter)
 
-            self.click(OnlineResourcesPage.apply_subject)
+            self.click(ArticlesDatabasesPage.apply_subject)
             self.wait(1)
             # clearing/unchecking filters for the next filter
-            self.click(OnlineResourcesPage.subjects_button)
-            self.click(OnlineResourcesPage.clear_subject)
+            self.click(ArticlesDatabasesPage.subjects_button)
+            self.click(ArticlesDatabasesPage.clear_subject)
 
-    def test_online_resources_audience(self):
-        print("test_online_resources_audience()\n")
+    def test_articles_databases_audience(self):
+        print("test_articles_databases_audience()\n")
         # asserting the 3 audience filters, 'adults, kids, teens' by checking if the char count is
         # more than given (1000) amount
         for x in range(1, 4):
-            self.click(OnlineResourcesPage.audience_button)
+            self.click(ArticlesDatabasesPage.audience_button)
             self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[2]/div/ul/li[' + str(x) + ']/div/label/span[2]')
             # getting filter text to use it later
             filter_text = self.get_text(
                 '/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[2]/div/ul/li[' + str(x) + ']/div/label/span[2]')
-            self.click(OnlineResourcesPage.apply_audience)
+            self.click(ArticlesDatabasesPage.apply_audience)
             self.wait(3)
 
             # finding the total characters in the page to assert later
@@ -167,33 +176,33 @@ class OnlineResources(NyplUtils):
             self.wait(2)
             self.assert_true(adults_content_char_length > 1000, "Adults page contains fewer than 1000 characters")
 
-            self.click(OnlineResourcesPage.audience_button)
-            self.click(OnlineResourcesPage.clear_audience)
+            self.click(ArticlesDatabasesPage.audience_button)
+            self.click(ArticlesDatabasesPage.clear_audience)
         print("---------------------------------------------------------------------")
 
-    def test_online_resources_availability(self):
-        print("test_online_resources_availability()\n")
+    def test_articles_databases_availability(self):
+        print("test_articles_databases_availability()\n")
         # asserting the 'availability' filter
 
         # for loop to go over 3 items and click them 1 after each other
         # no need to un-click items since they are radio buttons
         count = 0  # optional counter to see if the for loop is a success
         for x in range(1, 4):
-            self.click(OnlineResourcesPage.availability_button)
+            self.click(ArticlesDatabasesPage.availability_button)
             self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[3]/div/ul/li[' + str(x) + ']/div/label/span[2]/span')
-            self.click(OnlineResourcesPage.apply_availability)
+            self.click(ArticlesDatabasesPage.apply_availability)
             count += 1
             print(str(count) + "st/nd/rd round")  # optional print of the counter with the loop items
             self.wait(2)  # using wait element to resolve the sync issue
 
         # asserting the 'clear' button
-        self.click(OnlineResourcesPage.availability_button)
-        self.click(OnlineResourcesPage.clear_availability)
+        self.click(ArticlesDatabasesPage.availability_button)
+        self.click(ArticlesDatabasesPage.clear_availability)
 
-    def test_online_resources_right_side_tab(self):
-        print("test_online_resources_right_side_tab()\n")
+    def test_articles_databases_right_side_tab(self):
+        print("test_articles_databases_right_side_tab()\n")
         # assert ' more research tools' h2
-        self.assert_element(OnlineResourcesPage.more_research)
+        self.assert_element(ArticlesDatabasesPage.more_research)
 
         # assert list underneath 'more research' h2
 
@@ -215,8 +224,8 @@ class OnlineResources(NyplUtils):
             self.wait(0.5)
             self.go_back()
 
-    def test_online_resources_search_page(self):
-        print("test_online_resources_search_page()\n")
+    def test_articles_databases_search_page(self):
+        print("test_articles_databases_search_page()\n")
         # testing a blank search, no keys entered
         # go to blank search page
         if self.env == "qa":
