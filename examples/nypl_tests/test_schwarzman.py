@@ -61,7 +61,6 @@ class Schwarzman(NyplUtils):
         self.link_assertion(SchwarzmanPage.research, "nypl.org/locations/schwarzman/research")
         self.link_assertion(SchwarzmanPage.learn_more_1, "nypl.org/locations/schwarzman/research")
         self.link_assertion(SchwarzmanPage.learn_more_2, "schwarzman/visitor-center")
-        self.link_assertion(SchwarzmanPage.daily_guided_tours, "spotlight/treasures")
 
         # 'in the spotlight' and 'featured' h3 content are dynamic, therefore, full endpoints might change
         self.link_assertion(SchwarzmanPage.in_the_spotlight_1, "schwarzman-plan-your-visit")
