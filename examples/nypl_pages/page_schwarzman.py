@@ -15,7 +15,6 @@ class SchwarzmanPage(BaseCase):
 
     learn_more_1 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[1]/div/p[2]/a'
     learn_more_2 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/p/a'
-    daily_guided_tours = '//*[@id="block-nypl-emulsify-content"]/div/div/div[3]/div[2]/p/a'
 
     in_the_spotlight_1 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/ul/li[1]/div[1]/h3/a'
     in_the_spotlight_2 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/ul/li[2]/div[1]/h3/a'

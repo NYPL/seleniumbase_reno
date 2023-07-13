@@ -88,7 +88,7 @@ class SnflTest(NyplUtils):
                 h1_title = self.get_text('//*[@id="page-title"]')
                 print("2: title =  " + h1_title)
                 # asserting h3 link text to the page title
-                self.assert_true(h3_link_text in h1_title)
+                self.assert_true(h3_link_text in h1_title, "expected: " + h3_link_text + " vs actual: " + h1_title)
 
                 self.go_back()  # go to the previous page for the next loop
             print("\n=============================================\n")

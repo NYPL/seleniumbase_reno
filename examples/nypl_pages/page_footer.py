@@ -48,6 +48,8 @@ class FooterPage(BaseCase):
 
     facebook = '//*[@id="SocialMediaList"]/li[1]/a'
     twitter = '//*[@id="SocialMediaList"]/li[2]/a'
+    twitter_username = "(//*[contains(text(), 'username')])[1]"
+
     instagram = '//*[@id="SocialMediaList"]/li[3]/a'
     youtube = '//*[@id="SocialMediaList"]/li[4]/a'
 
