@@ -19,6 +19,8 @@ from examples.nypl_pages.page_billy_rose import BillyRosePage
 from examples.nypl_pages.page_request_visit import RequestVisitPage
 from examples.nypl_pages.page_posada import PosadaPage
 from examples.nypl_pages.page_world_litetature import WorldLiteraturePage
+from examples.nypl_pages.page_articles_burney import ArticlesBurney
+from examples.nypl_pages.page_articles_homework import ArticlesHomework
 
 #from examples.nypl_tests.test_dxp_images import FrontendImages
 
@@ -30,7 +32,8 @@ import urllib3
 
 class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAllPage, BookListsPage, CampaignsPage,
                 ExhibitionsPage, FooterPage, LocationsPage, ArticlesDatabasesPage, ResearchPage, ResearchSupportPage,
-                SnflPage, SnflTeenPage, BillyRosePage, RequestVisitPage, PosadaPage, WorldLiteraturePage,):
+                SnflPage, SnflTeenPage, BillyRosePage, RequestVisitPage, PosadaPage, WorldLiteraturePage, ArticlesBurney,
+                ArticlesHomework):
     """nypl login method for the catalog,
        taking 2 parameters, 'username' and 'password' """
 
@@ -68,8 +71,8 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
     def link_assertion(self, link, text):
         self.click(link)
         # assert the text in the URL
-        self.assert_true(text in self.get_current_url(), "link and url texts did not match- expected = " + text + ", "
-                                                                                                                  "actual = " + self.get_current_url())
+        self.assert_true(text in self.get_current_url(), "expected link = " + text + ", "
+                                                                                                                  "actual link = " + self.get_current_url())
         # go to the previous page
         self.go_back()
 
