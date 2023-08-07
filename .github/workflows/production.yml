@@ -24,6 +24,10 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Setup Chrome and ChromeDriver
+      uses: browser-actions/setup-chrome@latest
+      with:
+        chrome-version: stable
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -37,9 +41,9 @@ jobs:
         # pip install flake8
         # Stop the build if there are flake8 issues
         # flake8 . --count --show-source --statistics --exclude=temp
-    - name: Install chromedriver
-      run: |
-        seleniumbase install chromedriver
+    #- name: Install chromedriver
+    #  run: |
+    #    seleniumbase install chromedriver
     - name: Check the console scripts interface
       run: |
         seleniumbase
