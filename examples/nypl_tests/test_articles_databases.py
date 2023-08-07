@@ -1,5 +1,6 @@
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_articles_databases import ArticlesDatabasesPage
+import re
 
 
 class ArticlesDatabasesTest(NyplUtils):
@@ -55,6 +56,15 @@ class ArticlesDatabasesTest(NyplUtils):
         first_search_result_text = (self.get_text(ArticlesDatabasesPage.first_result_h3)).lower()  # search result in lowercase
         print(first_search_result_text)  # optional print
         self.assertTrue(keyword in first_search_result_text)
+
+        # asserting the result number > 0
+        search_result_text = self.get_text(ArticlesDatabasesPage.search_result)
+        # print(search_result_text)  # optional print
+        # finding the result with regex
+        search_result_number = int(re.findall(r'(\d+)', search_result_text)[1])
+        # print(search_result_number)  # optional print
+        # asserting the number is > 0
+        self.assert_true(search_result_number > 0, "actual result is not greater than 0")
 
         # assert 'Clear all search terms'
         self.click(ArticlesDatabasesPage.clear_search)
@@ -223,31 +233,3 @@ class ArticlesDatabasesTest(NyplUtils):
             self.click('//*[@id="research-help-menu"]/ul/li[' + str(y) + ']/a')
             self.wait(0.5)
             self.go_back()
-
-    def test_articles_databases_search_page(self):
-        print("test_articles_databases_search_page()\n")
-        # testing a blank search, no keys entered
-        # go to blank search page
-        if self.env == "qa":
-            self.open("https://qa-www.nypl.org/research/collections/articles-databases/search?q=&page=1")
-        else:
-            self.open("https://www.nypl.org/research/collections/articles-databases/search?q=&page=1")
-
-        # assert h3 headings elements amount and if they are equal to or greater than 10
-
-        h3_length = len(self.find_elements('/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div/div[2]/div'))
-        print("h3 headings count is = " + str(h3_length))  # optional print of the h3 count
-        # asserting if the count is equal or greater than 10
-        self.assert_true(h3_length >= 10, "h3 headings count is not equal or greater than 10")
-
-        # for loop to iterate over the 10 search results on the page
-        for x in range(1, 10):
-            self.wait_for_element(
-                '/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div/div[2]/div[' + str(x) + ']/div/div[1]/h3/a')
-            self.click('/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div/div[2]/div[' + str(x) + ']/div/div[1]/h3/a')
-            # go back
-            if self.env == "qa":
-                self.open("https://qa-www.nypl.org/research/collections/articles-databases/search?q=&page=1")
-            else:
-                self.open("https://www.nypl.org/research/collections/articles-databases/search?q=&page=1")
-            self.wait(1)

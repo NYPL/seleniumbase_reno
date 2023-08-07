@@ -44,8 +44,6 @@ class BlogPage(BaseCase):
     second_img = '/html/body/div[1]/div/div/main/div[2]/div[1]/div[2]/ul/li[2]/div/div[1]/div'
     first_box = '/html/body/div[1]/div/div/main/div[2]/div[1]/div[2]/ul/li[1]/div/div[2]/h3/a'
     second_box = '/html/body/div[1]/div/div/main/div[2]/div[1]/div[2]/ul/li[2]/div/div[2]/h3/a'
-    first_text = '//*[@id="f168af1b-d7c3-48ab-84b4-93f58f19ff26"]/div[2]/div/div'
-    second_text = '//*[@id="23ac5b87-b43e-4ba0-859a-86e3ca9f9954"]/div[2]/div/div'
 
     explore_by_h2 = '//*[@id="search-filters--heading"]'
 

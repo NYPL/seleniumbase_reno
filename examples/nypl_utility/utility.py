@@ -19,8 +19,12 @@ from examples.nypl_pages.page_billy_rose import BillyRosePage
 from examples.nypl_pages.page_request_visit import RequestVisitPage
 from examples.nypl_pages.page_posada import PosadaPage
 from examples.nypl_pages.page_world_litetature import WorldLiteraturePage
-from examples.nypl_pages.page_articles_burney import ArticlesBurney
-from examples.nypl_pages.page_articles_homework import ArticlesHomework
+from examples.nypl_pages.page_articles_burney import ArticlesBurneyPage
+from examples.nypl_pages.page_articles_homework import ArticlesHomeworkPage
+from examples.nypl_pages.page_blog_channels import BlogChannelsPage
+from examples.nypl_pages.page_blog_individual import BlogIndividualPage
+from examples.nypl_pages.page_press import PressPage
+from examples.nypl_pages.page_press_individual import PressIndividualPage
 
 #from examples.nypl_tests.test_dxp_images import FrontendImages
 
@@ -32,8 +36,8 @@ import urllib3
 
 class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAllPage, BookListsPage, CampaignsPage,
                 ExhibitionsPage, FooterPage, LocationsPage, ArticlesDatabasesPage, ResearchPage, ResearchSupportPage,
-                SnflPage, SnflTeenPage, BillyRosePage, RequestVisitPage, PosadaPage, WorldLiteraturePage, ArticlesBurney,
-                ArticlesHomework):
+                SnflPage, SnflTeenPage, BillyRosePage, RequestVisitPage, PosadaPage, WorldLiteraturePage, ArticlesBurneyPage,
+                ArticlesHomeworkPage, BlogChannelsPage, BlogIndividualPage, PressPage, PressIndividualPage):
     """nypl login method for the catalog,
        taking 2 parameters, 'username' and 'password' """
 
@@ -144,7 +148,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
         image_list = self.find_elements('img')  # getting the images with the 'img' tag
 
-        print('Total number of images on ' + self.get_current_url() + ' are = ' + str(len(image_list)))
+        print('Total images on ' + self.get_current_url() + ' = ' + str(len(image_list)))
 
         x = 1  # variable to use in the loop for image number iteration
         y = 0  # counter to add up the failed image amount
@@ -185,4 +189,5 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             # or suggest a failed state with a print statement
             # print(f"{y} images failed to load. Please check the broken image links.")
 
-        print('\nThe page ' + self.get_current_url() + ' has ' + str(broken_image_count) + ' broken images\n')
+        print('\nTotal broken images on ' + self.get_current_url() + ' = ' + str(broken_image_count))
+

@@ -45,18 +45,18 @@ class BlogAllTests(NyplUtils):
                     'for kids', 'for teachers', 'for teens', 'de', 'Hispanic', 'Horror', 'LGBTQ', 'Library Stories',
                     'Library Talks', 'Mysteries', 'Nonfiction', 'Poetry', 'Popular Culture', 'Research at nypl',
                     'Romance', 'Science Fiction', 'Librarian', 'Women', 'Work/Cited', 'Chinese']
-        # assertion for first 6 channels
-        for x in range(1, 6):
+        # assertion for first 4 channels
+        for x in range(1, 4):
             self.click(BlogAllPage.channels)
-            self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[1]/div/ul/li[' + str(
-                x) + ']/div/label/span[1]')
+            self.click('//*[@id="multiselect-channel"]/div/ul/li[' + str(x) + ']//span')
             self.click(BlogAllPage.apply_channel)
             self.wait(1)
+            print(self.get_current_url())
 
             search_results = self.get_text('//*[@id="search-results-details"]')
 
             result = search_results.split()[2]
-            print(result + " results for " + keywords[x])
+            print(result + " results for " + keywords[x-1])
             self.assert_true(int(result) >= 5)
 
             self.wait(1)

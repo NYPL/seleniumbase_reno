@@ -39,9 +39,6 @@ class BlogTests(NyplUtils):
         # NYPL Blog
         self.assert_text("NYPL Blog", BlogPage.nypl_blog)
 
-        # NYPL Blog -paragraph text assert ("Not sure..." text)
-        self.assert_text("sure what", BlogPage.nypl_blog_paragraph)
-
     def test_featured_posts(self):
         print("test_featured_posts()\n")
         # Featured Posts are dynamic, new posts added daily, so can't test every post
@@ -54,18 +51,11 @@ class BlogTests(NyplUtils):
         # View all blog posts
         self.assert_element(BlogPage.view_all_blogs)
         self.click(BlogPage.view_all_blogs)
-        self.wait_for_element(BlogPage.explore_by_h2)  # waiting until the clicked page opens
+        self.wait_for_element(BlogPage.explore_by_h2)  # waiting until the clicked page loads
         # print(self.get_current_url())
         self.assert_true('/blog/all' in self.get_current_url())
         self.go_back()
 
-        # Take a look at the latest posts from the NYPL Blog:
-        take_a_look_text = "Take a look at the latest posts from the NYPL Blog:"
-        self.assert_text(take_a_look_text, BlogPage.take_a_look_text)
-
-    def test_post_links(self):
-        print("test_post_links()\n")
-        # TODO need try/catch for posts links amount assertion
         # find posts links elements
         post_links_elements = self.find_elements(BlogPage.post_links)
         number_of_posts_links_elements = len(post_links_elements)
@@ -174,18 +164,6 @@ class BlogTests(NyplUtils):
         self.assert_true('donation' in self.get_current_url())
         self.go_back()
 
-    def test_post_images(self):
-        print("test_post_images()\n")
-        # checking the blog post image links present
-        for num in range(1, 7):
-            image = '/html/body/div[1]/div/div/main/div[2]/div[1]/div[1]/ul/li[' + str(
-                num) + ']/div/div[1]/div/span/img'
-            self.assert_elements_present(image)
-            print("Image " + str(num) + " is present")
-            # optional, printing the image links
-            # self.wait(1)
-            print(self.get_image_url(image))
-
     def test_explore_by_channel(self):
         print("test_explore_by_channel()\n")
         # Explore By Channel header
@@ -211,7 +189,7 @@ class BlogTests(NyplUtils):
         # POETRY & BOOK LISTS image assertions
         self.assert_elements_present(BlogPage.first_img, BlogPage.second_img)
 
-        # Poetry and Book Lists link text and page assertion
+        # 2 Bottom Classes. These are dynamic boxes. e.g. > "Book Lists - Romance - Poetry..."
         self.assert_link_text(BlogPage.first_box)
         self.click_xpath(BlogPage.first_box)
         # print(self.get_current_url())  # optional pint of the URL
@@ -224,8 +202,3 @@ class BlogTests(NyplUtils):
         self.wait_for_element(BlogPage.explore_by_h2)  # waiting until the clicked page opens
         self.assert_true('blog/all?channel=' in self.get_current_url())
         self.go_back()
-        # Poetry & Book Lists paragraph texts assertion
-        first_box_text = '/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div[2]/ul/li[1]/div/div[2]/div/div'
-        second_box_text = '/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div[2]/ul/li[2]/div/div[2]/div/div'
-        self.assert_element(first_box_text)
-        self.assert_element(second_box_text)

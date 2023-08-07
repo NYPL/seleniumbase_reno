@@ -1,7 +1,7 @@
 from seleniumbase import BaseCase
 
 
-class ArticlesHomework(BaseCase):
+class ArticlesHomeworkPage(BaseCase):
     home = '(//*[contains(text(), "Home")])[2]'
     research = '(//*[contains(text(), "Research")])[2]'
     collections = '(//*[contains(text(), "Collections")])[1]'
@@ -17,8 +17,8 @@ class ArticlesHomework(BaseCase):
 
         if self.env == "qa":
             print("Running on QA Env")
-            self.open(prod_url)
+            self.open(qa_url)
 
         else:
             print("Running on Production Env")
-            self.open(qa_url)
+            self.open(prod_url)

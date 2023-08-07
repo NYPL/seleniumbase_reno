@@ -190,3 +190,28 @@ jobs:
     #   continue-on-error: true
     #   run: |
     #     pytest examples/nypl_tests/test_articles_burney.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
+
+    # - name: Run pytest test_articles_homework.py
+    #   continue-on-error: true
+    #   run: |
+    #     pytest examples/nypl_tests/test_articles_homework.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
+
+    # - name: Run pytest test_blog_channels.py
+    #   continue-on-error: true
+    #   run: |
+    #     pytest examples/nypl_tests/test_blog_channels.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
+
+    # - name: Run pytest test_blog_individual.py
+    #   continue-on-error: true
+    #   run: |
+    #     pytest examples/nypl_tests/test_blog_individual.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
+
+    # - name: Run pytest test_press.py
+    #   continue-on-error: true
+    #   run: |
+    #     pytest examples/nypl_tests/test_press.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
+
+    # - name: Run pytest test_press_individual.py
+    #   continue-on-error: true
+    #   run: |
+    #     pytest examples/nypl_tests/test_press_individual.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
