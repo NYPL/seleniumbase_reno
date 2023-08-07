@@ -22,6 +22,7 @@ class ArticlesDatabasesPage(BaseCase):
     search_text = '//*[@id="search-form__search-input-label"]'
     search_button = '//*[@id="search-form__submit"]'
     search_results = '//*[@id="search-results-details__heading"]'
+    search_result = '//*[@id="search-results-details"]'
     search_tab = '//*[@id="__next"]/div/div[2]/nav/ol/li[5]/span/span'
 
     h2_filter_by = '//*[@id="search-filters--heading"]'

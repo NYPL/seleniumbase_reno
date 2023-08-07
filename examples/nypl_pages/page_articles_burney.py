@@ -1,7 +1,7 @@
 from seleniumbase import BaseCase
 
 
-class ArticlesBurney(BaseCase):
+class ArticlesBurneyPage(BaseCase):
     home = '(//*[contains(text(), "Home")])[1]'
     research = '(//*[contains(text(), "Research")])[2]'
     collections = '(//*[contains(text(), "Collections")])[1]'
