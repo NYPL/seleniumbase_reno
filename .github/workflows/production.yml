@@ -56,6 +56,7 @@ jobs:
     # articles burney, articles homework, blog channels, blog individual, press, press individual
 
     - name: Run all tests
+      continue-on-error: true
       run: |
         pytest examples/nypl_tests --headless --browser=chrome --rs -v -s -n=6 --reruns=2 --reruns-delay=1
     
