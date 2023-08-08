@@ -57,7 +57,7 @@ jobs:
 
     - name: Run all tests
       run: |
-        pytest examples --headless --browser=chrome --rs -v -s -n=6 --reruns=2 --reruns-delay=1
+        pytest examples/nypl_tests --headless --browser=chrome --rs -v -s -n=6 --reruns=2 --reruns-delay=1
     
     
     # - name: Run pytest test_footer.py
