@@ -59,15 +59,13 @@ jobs:
         
         
     
-    # NYPL tests for the following pages;
-    # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, articles & databases, home, give,
-    # schwarzman, research,
-
+    
+    # NYPL tests start here
+    # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, articles & databases, home, give, schwarzman
 
     - name: Run all tests
-      continue-on-error: true
       run: |
-        pytest examples/nypl_tests --headless --browser=chrome --rs -v -s -n=6 --reruns=2 --reruns-delay=1 --env=qa
+        pytest examples --headless --browser=chrome --rs -v -s -n=6 --reruns=2 --reruns-delay=1 --env=qa
     
     
     # - name: Run pytest test_footer.py
