@@ -28,9 +28,9 @@ class BlogAllPage(BaseCase):
     apply_audience = '//*[@id="multiselect-button-save-audience_by_age"]'
     clear_audience = '//*[@id="multiselect-button-clear-audience_by_age"]'
 
-    adults = '/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[5]/div/ul/li[1]/div/label/span[2]'
-    kids = '/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[5]/div/ul/li[2]/div/label/span[2]'
-    teens = '/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[5]/div/ul/li[3]/div/label/span[2]'
+    adults = '//*[@id="multiselect-audience_by_age"]//li[1]//label'
+    kids = '//*[@id="multiselect-audience_by_age"]//li[2]//label'
+    teens = '//*[@id="multiselect-audience_by_age"]//li[3]//label'
 
     li_dic = {"asian_american": '/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[1]/div/ul/li[1]/div/label/span[2]'
         , "biography": '/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[1]/div/ul/li[2]/div/label/span[2]',

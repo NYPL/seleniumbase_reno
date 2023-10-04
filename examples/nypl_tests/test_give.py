@@ -30,7 +30,7 @@ class Give(NyplUtils):
         self.assert_element(GivePage.h1)
 
         # asserting 'Donate' field
-        self.assert_element(self.donate)
+        self.assert_element(GivePage.donate)
         self.double_click(GivePage.donate_text_field)
         self.send_keys(GivePage.donate_text_field, "125")  # asserting we can change the default amount
         self.click(GivePage.single_donation)
@@ -38,17 +38,23 @@ class Give(NyplUtils):
         self.click(GivePage.monthly_donation)
         self.go_back()
 
-        # asserting all h3 links on the page by clicking, using a nested loop.
-        # Loop over each h3 section
-        for x in range(2, 6):
-            # Find the number of child links in the current h3 section to use in the for loop
-            num_links = len(
-                self.find_elements('/html/body/div[1]/div/div[2]/main/div[2]/div/div/div[' + str(x) + ']/ul/li'))
-            # Loop over each child link in the current h3 section
-            for y in range(1, num_links + 1):
-                # Find the link element using the x and y values in the given locator
-                self.click(f'/html/body/div[1]/div/div[2]/main/div[2]/div/div/div[{x}]/ul/li[{y}]/div/div[2]/h3/a')
-                self.go_back()  # go to the previous page
-                self.assert_element(
-                    f'/html/body/div[1]/div/div[2]/main/div[2]/div/div/div[{x}]/ul/li[{y}]/div/div[1]/div/div/span/img')
+        # asserting all h3 links on the page, using 'assert page loads successfully' function from utility class
+        self.assert_page_loads_successfully(GivePage.membership_1)
+        self.assert_page_loads_successfully(GivePage.membership_2)
+
+        self.assert_page_loads_successfully(GivePage.get_involved_1)
+        self.assert_page_loads_successfully(GivePage.get_involved_2)
+
+        self.assert_page_loads_successfully(GivePage.more_ways_to_give_1)
+        self.assert_page_loads_successfully(GivePage.more_ways_to_give_2)
+        self.assert_page_loads_successfully(GivePage.more_ways_to_give_3)
+        self.assert_page_loads_successfully(GivePage.more_ways_to_give_4)
+        self.assert_page_loads_successfully(GivePage.more_ways_to_give_5)
+
+        self.assert_page_loads_successfully(GivePage.learn_about_corporate_1)
+        self.assert_page_loads_successfully(GivePage.learn_about_corporate_2)
+        self.assert_page_loads_successfully(GivePage.learn_about_corporate_3)
+
+
+
 

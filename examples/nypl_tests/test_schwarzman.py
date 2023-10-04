@@ -31,7 +31,7 @@ class Schwarzman(NyplUtils):
         print("=================================")
         super().tearDown()
 
-    def test_schwarzman_main(self):
+    def test_schwarzman_visit(self):
         print("test_schwarzman_main()\n")
 
         # asserting the images on the page

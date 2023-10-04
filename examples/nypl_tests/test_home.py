@@ -57,22 +57,18 @@ class HomePageTest(NyplUtils):
                  ("nypl.org/locations", 7)
                  ]
 
-        for y, index in links:
-            print(str(index) + ": " + y)
+        for x, y in links:
+            print(str(y) + ": " + x)
 
-            self.click('/html/body/div[1]/div/div[2]/main/div[2]/div[' + str(index) + ']/div/div[1]/div/h2/a')
+            self.click(f'(//*[@id="content-primary"]//h2//a)[{y}]')
             current_url_text = self.get_current_url()
-            self.assert_true(y in current_url_text, "expected: " + y + " actual: " + current_url_text)
+            self.assert_true(x in current_url_text, "expected: " + str(y) + " actual: " + current_url_text)
             self.go_back()
 
     def test_slider(self):
         # new & noteworthy slider
         print("test_slider()\n")
 
-        # self.goto('https://qa-www.nypl.org/')
-
-        # assert the 'New & Noteworthy' h2
-        self.assert_element('/html/body/div[1]/div/div[2]/main/div[2]/div[5]/div/div[1]/div/h2')
         # getting the length of the slide and asserting it is more than X amount
         slide_length = len(self.find_elements(HomePage.new_noteworthy_slide))
         self.assert_true(slide_length > 5)

@@ -33,22 +33,17 @@ class BlogAllTests(NyplUtils):
         print("test_channels()\n")
 
         # asserting 'Channels' tab
-        # asserting channel categories
-        # creating a list for Channel Filters
-        li = ["asian_american", "biography", "black_culture", "book_lists", "comics_graphic", "digital_collections",
-              "doc_chat", "early_literacy", "espanol_spanish", "for_kids", "for_teachers", "for_teens",
-              "francais_french", "hispanic_latinx", "horror", "lgbtq+", "library_stories", "library_talks",
-              "mysteries_crime", "nonfiction", "poetry", "popular_culture", "research_at_nypl", "romance",
-              "science_fiction", "the_librarian", "women's_history", "work_cited", "chinese_language"]
+
+        # asserting channel filter
         # keywords for the Channel Filters, we use these keywords to look in the every link text
         keywords = ["Asian", "Memoir", "Black", "Book Lists", "Comic", "Digital", "Doc", "Early Literacy", "de",
                     'for kids', 'for teachers', 'for teens', 'de', 'Hispanic', 'Horror', 'LGBTQ', 'Library Stories',
                     'Library Talks', 'Mysteries', 'Nonfiction', 'Poetry', 'Popular Culture', 'Research at nypl',
                     'Romance', 'Science Fiction', 'Librarian', 'Women', 'Work/Cited', 'Chinese']
-        # assertion for first 4 channels
+        # assertion for first 4 channels by clicking and checking if the result >= 5 on the clicked page
         for x in range(1, 4):
             self.click(BlogAllPage.channels)
-            self.click('//*[@id="multiselect-channel"]/div/ul/li[' + str(x) + ']//span')
+            self.click(f'//*[@id="blogs__filter-bar"]//li[{x}]//label')
             self.click(BlogAllPage.apply_channel)
             self.wait(1)
             print(self.get_current_url())
@@ -65,7 +60,7 @@ class BlogAllTests(NyplUtils):
     def test_subjects(self):
         print("test_subjects()\n")
         """
-        this method assert the child elements of the subject button and if they are clickable
+        this test asserts the child elements of the subject button and if they are clickable
         """
 
         # assert subjects button
@@ -74,20 +69,19 @@ class BlogAllTests(NyplUtils):
 
         # length of the subjects children
         children_subject = len(
-            self.find_elements('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[2]/div/ul/li'))
+            self.find_elements('//*[@id="blogs__filter-bar"]//li'))
         self.click(BlogAllPage.subjects)
 
         print("Total child elements = " + str(children_subject))
 
-        # asserting that we can click each child element
+        # asserting that we can click each child element of the children filter
         for x in range(1, children_subject + 1):
             #
             self.click(BlogAllPage.subjects)
-            self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[2]/div/ul/li[' + str(
-                x) + ']/div/label/span[2]')
+            print("Child element = " + str(x))
+            self.click(f'//*[@id="blogs__filter-bar"]//li[{x}]//label')
             self.click(BlogAllPage.apply_subject)
             self.assert_true(BlogAllPage.search_results)
-            print("Child element = " + str(x))
             self.click(BlogAllPage.clear_all_search_terms)
 
     def test_libraries(self):
@@ -101,12 +95,12 @@ class BlogAllTests(NyplUtils):
         # length of the libraries children
         self.click(BlogAllPage.libraries)
         children_amount = len(
-            self.find_elements('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[3]/div/ul/li'))
+            self.find_elements('//*[@id="blogs__filter-bar"]//li'))
         self.click(BlogAllPage.libraries)
 
         print("Total child elements = " + str(children_amount))
 
-        # creating a list of random 15 elements for the loop
+        # creating a list of random 10 elements for the loop
         num_random_elements = 10
         elements = list(range(1, children_amount + 1))
         random_elements = random.sample(elements, num_random_elements)
@@ -114,8 +108,7 @@ class BlogAllTests(NyplUtils):
         # asserting (randomly) that we can click each child element
         for x in random_elements:
             self.click(BlogAllPage.libraries)
-            self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[3]/div/ul/li[' + str(
-                x) + ']/div/label/span[2]')
+            self.click(f'//*[@id="blogs__filter-bar"]//li[{x}]//label')
             self.click(BlogAllPage.apply_library)
             self.assert_true(BlogAllPage.search_results)
             print("Child element " + str(x))
@@ -132,7 +125,7 @@ class BlogAllTests(NyplUtils):
         # length of the divisions children
         self.click(BlogAllPage.divisions)
         children_amount = len(
-            self.find_elements('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[4]/div/ul/li'))
+            self.find_elements('//*[@id="blogs__filter-bar"]//li'))
         self.click(BlogAllPage.divisions)
 
         print("Total child elements = " + str(children_amount))
@@ -145,8 +138,7 @@ class BlogAllTests(NyplUtils):
         for x in random_elements:
             #
             self.click(BlogAllPage.divisions)
-            self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/div/div/div[4]/div/ul/li[' + str(
-                x) + ']/div/label/span[2]')
+            self.click(f'//*[@id="blogs__filter-bar"]//li[{x}]//label')
             self.click(BlogAllPage.apply_division)
             self.assert_true(BlogAllPage.search_results)
             print("Child element " + str(x))
@@ -156,6 +148,7 @@ class BlogAllTests(NyplUtils):
 
     def test_audience(self):
         print("test_audience()\n")
+
         # assert Audience button
         self.assert_element(BlogAllPage.audience)
 
@@ -171,6 +164,7 @@ class BlogAllTests(NyplUtils):
         # url text for the filter
         url_text = self.get_current_url()
         print(self.get_current_url())
+
         # assert the url has the given text
         self.wait(1)
         self.assert_true('audience_by_age=216' in url_text)
@@ -188,6 +182,7 @@ class BlogAllTests(NyplUtils):
         # url text for the filter
         url_text = self.get_current_url()
         print(self.get_current_url())
+
         # assert the url has the given text
         self.wait(1)
         self.assert_true('audience_by_age=217' in url_text)
@@ -205,6 +200,7 @@ class BlogAllTests(NyplUtils):
         # url text for the filter
         url_text = self.get_current_url()
         print(self.get_current_url())
+
         # assert the url has the given text
         self.wait(1)
         self.assert_true('audience_by_age=222' in url_text)

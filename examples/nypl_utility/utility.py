@@ -25,25 +25,31 @@ from examples.nypl_pages.page_blog_channels import BlogChannelsPage
 from examples.nypl_pages.page_blog_individual import BlogIndividualPage
 from examples.nypl_pages.page_press import PressPage
 from examples.nypl_pages.page_press_individual import PressIndividualPage
+from examples.nypl_pages.page_sf_education import EducationPage
+from examples.nypl_pages.page_sf_early_literacy import EarlyLiteracyPage
+from examples.nypl_pages.page_sf_teens import EducationTeensPage
+from examples.nypl_pages.page_sf_educators import EducatorsPage
 
-#from examples.nypl_tests.test_dxp_images import FrontendImages
+# from examples.nypl_tests.test_dxp_images import FrontendImages
 
 from selenium.webdriver.common.by import By
 
 import requests
 import urllib3
+import time
 
 
 class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAllPage, BookListsPage, CampaignsPage,
                 ExhibitionsPage, FooterPage, LocationsPage, ArticlesDatabasesPage, ResearchPage, ResearchSupportPage,
-                SnflPage, SnflTeenPage, BillyRosePage, RequestVisitPage, PosadaPage, WorldLiteraturePage, ArticlesBurneyPage,
-                ArticlesHomeworkPage, BlogChannelsPage, BlogIndividualPage, PressPage, PressIndividualPage):
+                SnflPage, SnflTeenPage, BillyRosePage, RequestVisitPage, PosadaPage, WorldLiteraturePage,
+                ArticlesBurneyPage, ArticlesHomeworkPage, BlogChannelsPage, BlogIndividualPage, PressPage,
+                PressIndividualPage, EducationPage, EarlyLiteracyPage, EducationTeensPage, EducatorsPage):
     """nypl login method for the catalog,
        taking 2 parameters, 'username' and 'password' """
 
     def nypl_login_catalog(self, username, password):
         # click login button
-        self.click(self.login)
+        self.click(self.login_button)
         # click 'log into the catalog'
         self.click(self.login_catalog)
         # enter username
@@ -58,7 +64,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
     def nypl_login_research(self, username, password):
         # click login button
-        self.click(self.login)
+        self.click(self.login_button)
         # click log into the research catalog
         self.click(self.login_research_catalog)
         # enter username
@@ -74,9 +80,25 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
     def link_assertion(self, link, text):
         self.click(link)
-        # assert the text in the URL
-        self.assert_true(text in self.get_current_url(), "expected link = " + text + ", "
-                                                                                                                  "actual link = " + self.get_current_url())
+
+        try:
+            # Try asserting the text in the URL
+            self.assert_true(text in self.get_current_url(),
+                             "expected link = " + text + ", actual link = " + self.get_current_url())
+            print(self.get_current_url())
+        except AssertionError:
+            # If there's an AssertionError, wait for a few seconds and try again
+            print("In 'Except' block, sleeping for a few seconds now")
+            print("link before sleep")
+            print(self.get_current_url())
+            time.sleep(5)  # waits for 5 seconds. You can adjust this value as needed
+            print("link after sleep")
+            print(self.get_current_url())
+            # Capture a screenshot just before the assertion
+            self.save_screenshot("screenshot_before_assertion.png")
+            self.assert_true(text in self.get_current_url(),
+                             "expected link = " + text + ", actual link = " + self.get_current_url())
+
         # go to the previous page
         self.go_back()
 
@@ -137,11 +159,32 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             assert response.status_code < 400, f"Link {url} is broken"
         print("\nAll links on the page are valid!")
 
-    """a method to assert all the images on a  page.
-       Using the default URL to test, or, a parameter can be added for URL,
-       and then call method signature with the 'url' argument, e.g. image_assertion(self, url):"""
+    def assert_page_loads_successfully(self, link_locator):
+        """Clicks a link and asserts the resulting page loads with a status code between 200 and 400."""
+
+        # Click the link using SeleniumBase
+        self.click(link_locator)
+
+        # Wait for a moment to ensure the new page is loaded
+        # self.sleep(2)
+
+        # Get the current URL
+        current_url = self.get_current_url()
+
+        # Now use requests library to check the status code of the current page
+        response = requests.get(current_url)
+
+        # Check that the status code is in the desired range
+        assert 200 <= response.status_code < 400, (f"Status code {response.status_code} not in expected range [200, "
+                                                   f"400) for URL: {current_url}")
+
+        # Go back to the original page for subsequent checks
+        self.go_back()
 
     def image_assertion(self):
+        """a method to assert all the images on a  page.
+           Using the default URL to test, or, a parameter can be added for URL,
+           and then call method signature with the 'url' argument, e.g. image_assertion(self, url):"""
         broken_image_count = 0  # broken image number instantiation
 
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)  # disabling some warnings
@@ -190,4 +233,3 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             # print(f"{y} images failed to load. Please check the broken image links.")
 
         print('\nTotal broken images on ' + self.get_current_url() + ' = ' + str(broken_image_count))
-

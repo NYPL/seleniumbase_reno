@@ -75,6 +75,7 @@ class SnflTeenTest(NyplUtils):
     def test_snfl_teen_center_resources(self):
         print("test_snfl_teen_center_resources()\n")
 
+        # asserting 'teen center resources' links
         self.link_assertion(SnflTeenPage.teen_center_1, 'events/snfl-teen-studios-media-lab')
         self.link_assertion(SnflTeenPage.teen_center_2, 'locations/snfl/teen/study')
         self.link_assertion(SnflTeenPage.teen_center_3, 'docs.google.com/')

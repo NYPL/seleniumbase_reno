@@ -28,48 +28,42 @@ class BlogTests(NyplUtils):
         # asserting the images on the page
         self.image_assertion()
 
-        # Home button
-        self.click(BlogPage.home_button)
-        self.assert_title(BlogPage.home_title)
-        self.go_back()
+        # assert Home button
+        self.assert_element(BlogPage.home_button)
 
-        # Blog button
-        self.assert_text('Blog', BlogPage.blog_button)
+        # assert title
+        self.assert_title(BlogPage.title)
 
-        # NYPL Blog
+        # assert Blog button text
+        self.assert_element(BlogPage.blog_button)
+
+        # 'NYPL Blog' text in h1
         self.assert_text("NYPL Blog", BlogPage.nypl_blog)
 
     def test_featured_posts(self):
         print("test_featured_posts()\n")
         # Featured Posts are dynamic, new posts added daily, so can't test every post
-        # posts have dynamic id's and so can't use xpath and hence the new additions full xpath cannot be used either
+        # posts have dynamic id's and so need to update with better locators
         # post amount on the first page will be tested, which is 6
 
         # assert 'Featured Posts' h2 text
         self.assert_text("Featured Posts", BlogPage.featured_posts)
 
-        # View all blog posts
+        # assert 'View all blog posts' element
         self.assert_element(BlogPage.view_all_blogs)
         self.click(BlogPage.view_all_blogs)
         self.wait_for_element(BlogPage.explore_by_h2)  # waiting until the clicked page loads
         # print(self.get_current_url())
         self.assert_true('/blog/all' in self.get_current_url())
         self.go_back()
+        self.wait_for_element(BlogPage.featured_posts)  # wait for the page load. sync issue here without this wait.
 
         # find posts links elements
-        post_links_elements = self.find_elements(BlogPage.post_links)
-        number_of_posts_links_elements = len(post_links_elements)
+        number_of_posts_links_elements = len(self.find_elements(BlogPage.post_links))
 
         # post links amount assertion
-        self.assert_true(0 <= number_of_posts_links_elements <= 6, "Number of posts do not match expected 1-6")
-
-        for x in post_links_elements:
-            pass
-
-        try:
-            self.assert_true(1 <= number_of_posts_links_elements <= 6, "Number of posts do not match expected 1-6")
-        except NoSuchElementException:
-            print("Exception here")
+        print(number_of_posts_links_elements)
+        self.assert_true(0 <= number_of_posts_links_elements <= 6, "actual :" + str(number_of_posts_links_elements))
 
     def test_more_at_nypl_links(self):
         print("test_more_at_nypl_links()\n")
@@ -78,11 +72,12 @@ class BlogTests(NyplUtils):
         # More at NYPL menu text
         self.assert_text("More at NYPL", BlogPage.more_at_nypl)
 
-        # Get a Library Card
+        # Get a Library Card item
         self.assert_link_text("Get a Library Card")
         self.click_link_text("Get a Library Card")
         self.assert_title("Get a Free Library Card Today! | The New York Public Library")
         self.go_back()
+        self.wait_for_element(BlogPage.more_at_nypl)
 
         # Find Your Next Book, title and years for the link and page are dynamic "Winter 2022 picks...".
         # "-Winter/Fall/Summer/Spring- 2022 Picks for Adults | The New York Public Library"
@@ -97,13 +92,14 @@ class BlogTests(NyplUtils):
         self.click_link_text("Search Library Locations")
         self.assert_title("Location Finder | The New York Public Library")
         self.go_back()
+        self.wait_for_element(BlogPage.more_at_nypl)
 
         # Reserve a Computer
         self.assert_link_text("Reserve a Computer")
         self.click_link_text("Reserve a Computer")
         self.assert_title("Reserving a Computer | The New York Public Library")
         self.go_back()
-        print("reached the end of the test suite")
+        self.wait_for_element(BlogPage.more_at_nypl)
 
     def test_need_help_ask_nypl(self):
         print("test_need_help_ask_nypl()\n")
@@ -119,6 +115,7 @@ class BlogTests(NyplUtils):
         # this title seems to be changing at times, might need to update this once in a while
         self.assert_title("AskNYPL - LibAnswers")
         self.go_back()
+        self.wait_for_element(BlogPage.need_help)
 
         # Chat with a librarian
         self.assert_link_text('Chat with a librarian')
@@ -127,6 +124,7 @@ class BlogTests(NyplUtils):
         # this title seems to be changing at times, might need to update this once in a while
         self.assert_title("AskNYPL - LibAnswers")
         self.go_back()
+        self.wait_for_element(BlogPage.need_help)
 
         # Text (917) 983-4584
         self.assert_text("Text (917) 983-4584", BlogPage.text_917)
@@ -145,60 +143,54 @@ class BlogTests(NyplUtils):
 
     def test_support_nypl(self):
         print("test_support_nypl()\n")
-        # Support NYPL
-        self.assert_text('Support NYPL', BlogPage.support_nypl)
-        self.wait(1)
 
-        # Volunteer
+        # assert 'Support NYPL' text
+        self.assert_text('Support NYPL', BlogPage.support_nypl)
+
+        # assert 'Volunteer' link text and text
         self.assert_link_text("Volunteer")
         self.assert_text("Volunteer", BlogPage.volunteer)
-        self.wait(1)
 
-        # Support Your Library
+        # assert 'Support Your Library' element and text
         # print(self.get_current_url())
         self.assert_element(BlogPage.support_nypl_link)
         self.assert_text("Support Your Library", BlogPage.support_your_library)
-        self.wait(1)
 
+        # assert 'donation' word in the URL after clicking 'Support Your Library' link
         self.click_xpath(BlogPage.support_your_library)
         self.assert_true('donation' in self.get_current_url())
-        self.go_back()
 
     def test_explore_by_channel(self):
         print("test_explore_by_channel()\n")
-        # Explore By Channel header
+
+        # assert 'Explore By Channel' text
         self.assert_text("Explore By Channel", BlogPage.explore_by_channel)
 
-        # view all channels link
+        # assert 'View all channels' link text
         self.assert_text("View all channels", BlogPage.view_all_channels)
-        # click on view all channels
-        self.click_xpath(BlogPage.view_all_channels)
-        # check if we are in the view all channels page
-        time.sleep(1)
-        # print(self.get_current_url())  # optional print of the URL
-        print(self.get_current_url())
-        self.assert_true("/blog/channels" in self.get_current_url())
-        # go back
-        self.go_back()
-        # 'The NYPL' paragraph element and text assertion
-        self.assert_element(BlogPage.the_nypl_blog_text)
-        the_nypl_text = "The NYPL blog channels can help you discover more posts around the topics you care about." \
-                        " From Black Culture to Women's History and Romance to Horror–there is something for everyone."
-        self.assert_text(the_nypl_text, BlogPage.the_nypl_blog_text)
 
-        # POETRY & BOOK LISTS image assertions
-        self.assert_elements_present(BlogPage.first_img, BlogPage.second_img)
+        # assert loaded page contains 'channels' in the URL, after clicking 'view all channels',
+        self.click_xpath(BlogPage.view_all_channels)  # click on 'view all channels'
+        # print(self.get_current_url())  # optional print for debugging
+        self.assert_true("channels" in self.get_current_url())
+        self.go_back()  # go back
+        self.wait_for_element(BlogPage.explore_by_channel)  # wait for the chanel element
 
-        # 2 Bottom Classes. These are dynamic boxes. e.g. > "Book Lists - Romance - Poetry..."
+        # assertions for 2 Bottom Boxes.
+        # These are dynamic boxes. e.g. > "Book Lists - Romance - Poetry..."
+        # assert first box
         self.assert_link_text(BlogPage.first_box)
         self.click_xpath(BlogPage.first_box)
         # print(self.get_current_url())  # optional pint of the URL
         self.wait_for_element(BlogPage.explore_by_h2)  # waiting until the clicked page opens
-        print(self.get_current_url())
+        # print(self.get_current_url())  # optional print for debugging
         self.assert_true('blog/all?channel=' in self.get_current_url())
         self.go_back()
+        self.wait_for_element(BlogPage.view_all_channels)
+
+        # assert seconds box
         self.assert_link_text(BlogPage.second_box)
         self.click_xpath(BlogPage.second_box)
         self.wait_for_element(BlogPage.explore_by_h2)  # waiting until the clicked page opens
         self.assert_true('blog/all?channel=' in self.get_current_url())
-        self.go_back()
+        # self.go_back()

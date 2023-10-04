@@ -373,7 +373,7 @@ class Exhibitions(NyplUtils):
             print("Running on Production Env")
             self.open("https://www.nypl.org/events/exhibitions/community-showcases")
 
-        # using 'try' and 'except' block since the webpage can have no exhibitions at all
+        # using 'try' and 'except' block since the webpage might have no exhibitions at all
         try:  # if the page does not have any showcases, this 'try' block will take care of the test
             # skip test if there is no current "Community Showcase"
             no_community_showcase_text = self.get_text(ExhibitionsPage.no_community_showcase)

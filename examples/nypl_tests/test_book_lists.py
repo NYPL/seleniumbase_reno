@@ -521,6 +521,7 @@ class BookLists(NyplUtils):
             self.open('https://qa-www.nypl.org/books-more/recommendations/staff-picks/kids')
         else:
             self.open('https://www.nypl.org/books-more/recommendations/staff-picks/kids')
+
         # assert Hero h1 element
         self.assert_element(BookListsPage.hero_header_h1)
         self.assert_true("Staff Picks" in self.get_text(BookListsPage.hero_header_h1))
@@ -592,6 +593,7 @@ class BookLists(NyplUtils):
         h2_heading = self.get_text(BookListsPage.h2_heading_year)
         print(h2_heading)  # optional print
 
+        # assert the selected time/date from the dropdown for adults tab
         self.assert_true(selected_time in h2_heading)
 
         # asserting teens tab
@@ -610,6 +612,7 @@ class BookLists(NyplUtils):
         h2_heading = self.get_text(BookListsPage.h2_heading_year)
         print(h2_heading)  # optional print
 
+        # assert the selected time/date from the dropdown for teens tab
         self.assert_true(selected_time in h2_heading)
 
         # asserting kids tab
@@ -627,6 +630,7 @@ class BookLists(NyplUtils):
         h2_heading = self.get_text(BookListsPage.h2_heading_year)
         print(h2_heading)  # optional print
 
+        # assert the selected time/date from the dropdown for kids tab
         self.assert_true(selected_time in h2_heading)
 
     def test_for_loop_for_dropdowns(self):
@@ -636,6 +640,8 @@ class BookLists(NyplUtils):
             self.open("https://qa-www.nypl.org/books-more/recommendations/staff-picks/adults")
         else:
             self.open("https://www.nypl.org/books-more/recommendations/staff-picks/adults")
+
+        # asserting dropdowns for each filter (adults/teens/kids)
         # length of the Season dropdown to use in the for loop
         season_length = len(self.find_elements('//*[@id="season"]/option'))
         print(str(season_length) + " total season listed in the dropdown")  # optional print
@@ -653,7 +659,7 @@ class BookLists(NyplUtils):
 
         age_list = [adults, teens, kids]
 
-        # for loop to open 3 links in order- adults, teens, kids
+        # for loop to open 3 links in order-adults, teens, kids
         for y in range(0, 3):
             # opening the URLs
             self.open(link + age_list[y])

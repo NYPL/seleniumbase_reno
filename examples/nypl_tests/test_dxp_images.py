@@ -9,7 +9,7 @@ class FrontendImagesAndLinks(NyplUtils):
     # this class intended to assert all the front end DXP pages' images and links
 
     # image assertion
-    @pytest.mark.skip(reason="skipping for now")
+    @pytest.mark.skip(reason="skipping for now as each test has its own image assertion")
     def test_dxp_pages(self):
         links = [
             "https://www.nypl.org/",

@@ -5,6 +5,7 @@ class FooterPage(BaseCase):
 
     nypl_logo = '//*[@id="footer"]/span'
     main_building_image = '//*[@id="footer"]/div[2]/div[1]/img'
+    careers_page_title = 'Jobs at The New York Public Library | The New York Public Library Careers'
 
     '''
     footer_list = ["accessibility", "press", "careers", "space_rental", "privacy_policy"
@@ -46,12 +47,12 @@ class FooterPage(BaseCase):
     about_nypl = '//*[@id="footer"]/div[1]/ul[1]/li[3]/ul/li[2]/a'
     language = '//*[@id="footer"]/div[1]/ul[1]/li[3]/ul/li[3]/a'
 
-    facebook = '//*[@id="SocialMediaList"]/li[1]/a'
-    twitter = '//*[@id="SocialMediaList"]/li[2]/a'
-    twitter_username = "(//*[contains(text(), 'username')])[1]"
+    facebook = '//*[contains(text(), "NYPL on Facebook")]/..'
+    twitter = '//*[contains(text(), "NYPL on Twitter")]/..'
+    # twitter_username = "(//*[contains(text(), 'username')])[1]"
 
-    instagram = '//*[@id="SocialMediaList"]/li[3]/a'
-    youtube = '//*[@id="SocialMediaList"]/li[4]/a'
+    instagram = '//*[contains(text(), "NYPL on Instagram")]/..'
+    youtube = '//*[contains(text(), "NYPL on Youtube")]/..'
 
     # footer is using same page as page_home
     """

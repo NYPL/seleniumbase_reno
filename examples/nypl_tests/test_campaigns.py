@@ -80,8 +80,8 @@ class Campaigns(NyplUtils):
 
         # asserting rest of the 44 h2 and paragraphs, starting from the 2nd one
         for x in range(2, cards_length + 1):
-            self.assert_element('/html/body/div[1]/div/main/div[2]/div/div/div/div/div[' + str(x) + ']/div/h2')
-            self.assert_element('//*[@id="block-nypl-emulsify-content"]/div/div/div[' + str(x) + ']/div/div/p')
+            self.assert_element(f'(//*[@id="block-nypl-emulsify-content"]//h2)[{x}]')
+            self.assert_element(f'(//*[@id="block-nypl-emulsify-content"]//p)[{x}]')
 
         # asserting images, 19 images as of June2022
         images_count = len(self.find_elements('//img'))
@@ -109,18 +109,11 @@ class Campaigns(NyplUtils):
             self.assert_element(
                 '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/ul/li[' + str(x) + ']/div[1]/div/p[1]')
             # asserting by clicking the link on the top 3 grid h2 elements
-            self.click(
-                '/html/body/div[1]/div/main/div[2]/div/div/div/div/div[2]/ul/li[' + str(x) + ']/div[1]/h2/a')
-            self.wait(0.2)
-            self.go_back()
-            # asserting same 3 elements with their image-card links
-            self.click(
-                '/html/body/div[1]/div/main/div[2]/div/div/div/div/div[2]/ul/li[' + str(x) + ']/div[2]')
+            self.click(f'(//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/ul/li//h2//a)[{x}]')
             self.wait(0.2)
             self.go_back()
             # asserting 'Explore the List' elements
-            self.click(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/ul/li[' + str(x) + ']/div[1]/a')
+            self.click(f'(//*[contains(text(), "Explore the List")])[{x}]')
             self.wait(0.2)
             self.go_back()
             # asserting grid elements in a nested for loop
