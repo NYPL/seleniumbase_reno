@@ -2,8 +2,8 @@ from seleniumbase import BaseCase
 
 
 class LocationsPage(BaseCase):
-    home = '//*[@id="__next"]/div/div[2]/nav/ol/li[1]/a/span'
-    locations = '//*[@id="__next"]/div/div[2]/nav/ol/li[2]/span/span'
+    home = '(//*[contains(text(), "Home")])[1]'
+    locations = '(//*[contains(text(), "Locations")])[1]'
 
     welcome_text = '//*[@id="main-content"]/div[1]/div[1]/div/div[2]'
     find_your_library = '//*[@id="location-finder__title"]'
@@ -16,6 +16,8 @@ class LocationsPage(BaseCase):
     research_filters = '//*[@id="search-filters-group2__heading"]'
     clear_all_search = '//*[@id="location-finder-search-results-details__clear"]'
     clear_all_search_2 = '//*[@id="button-clear-filter-borough"]'
+
+    filter_length = '//*[@id="locations-list"]//li'  # this locator is true for all sub-filters
 
     borough = '//*[@id="search-form"]/div[2]/div[2]/div[1]/div/div[1]/div/label'
     apply_boro = '//*[@id="button-save-filter-borough"]'

@@ -29,9 +29,9 @@ class HeaderTest(NyplUtils):
         self.assert_element(HeaderPage.lion_logo)
 
         # assert LOGIN tab
-        self.click(HeaderPage.login)
-        self.assert_element(HeaderPage.login_close)
-        self.click(HeaderPage.login_close)
+        self.click(HeaderPage.login_button)
+        self.assert_element(HeaderPage.login_button)
+        self.click(HeaderPage.login_button)
 
         # assert LOCATIONS tab
         self.click(HeaderPage.locations)

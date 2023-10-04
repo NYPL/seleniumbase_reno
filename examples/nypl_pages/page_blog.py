@@ -3,7 +3,7 @@ from seleniumbase import BaseCase
 
 class BlogPage(BaseCase):
     home_button = '/html/body/div[1]/div/div/nav/ol/li[1]/a/span'
-    home_title = "The New York Public Library"
+    title = "NYPL Blog | The New York Public Library"
     blog_button = '/html/body/div[1]/div/div/nav/ol/li[2]/span/span'
     nypl_blog = '/html/body/div[1]/div/div/main/div[1]/div/div/h1'
     nypl_blog_paragraph = '//*[@id="main-content"]/div[1]/div/div/p'

@@ -55,6 +55,7 @@ class ArticlesDatabasesTest(NyplUtils):
         self.click(ArticlesDatabasesPage.submit_button)  # submitting the keyword
         first_search_result_text = (self.get_text(ArticlesDatabasesPage.first_result_h3)).lower()  # search result in lowercase
         print(first_search_result_text)  # optional print
+        # asserting the search results with the above keyword
         self.assertTrue(keyword in first_search_result_text)
 
         # asserting the result number > 0
@@ -63,10 +64,10 @@ class ArticlesDatabasesTest(NyplUtils):
         # finding the result with regex
         search_result_number = int(re.findall(r'(\d+)', search_result_text)[1])
         # print(search_result_number)  # optional print
-        # asserting the number is > 0
+        # asserting the result number is > 0
         self.assert_true(search_result_number > 0, "actual result is not greater than 0")
 
-        # assert 'Clear all search terms'
+        # assert 'Clear all search terms' button by clicking
         self.click(ArticlesDatabasesPage.clear_search)
         self.wait(2)
 
@@ -79,7 +80,7 @@ class ArticlesDatabasesTest(NyplUtils):
         featured_list_length = len(self.find_elements('/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div[1]/ul/li'))
         print("featured list length is = " + str(featured_list_length))
 
-        # asserting the h3 links on the list
+        # asserting the h3 links on the list with a for loop
         for x in range(1, featured_list_length + 1):
             self.hover_and_click(
                 '/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div[1]/ul/li[' + str(x) + ']/div/div[2]/h3/a',
@@ -108,11 +109,10 @@ class ArticlesDatabasesTest(NyplUtils):
             else:
                 self.open("https://www.nypl.org/research/collections/articles-databases")
 
-        # assert bottom a-z article & databases element
+        # assert the bottom element - 'a-z article & databases'
         self.assert_element(ArticlesDatabasesPage.a_z_database)
 
-        # assert the letters/alphabet
-
+        # assert each letters/alphabet can be clicked and there is no error on the next page using a for loop
         # get the length of the alphabet
         alpha_length = len(self.find_elements('//*[@id="page-container--content-primary"]/div[3]/div[2]/a'))
 
@@ -134,17 +134,17 @@ class ArticlesDatabasesTest(NyplUtils):
         # clicking every filter in the Subjects filter and asserting their lengths
         self.click(ArticlesDatabasesPage.subjects_button)
         subject_filter_length = len(self.find_elements('//*[@id="multiselect-subject"]/div/ul/li'))
-        # optional print of the subject filter
+        # assert subject filter amount > 10
         print("subject filter length is = " + str(subject_filter_length))
         self.assert_true(subject_filter_length > 10, "subject filter amount is not greater than 10")
         self.click(ArticlesDatabasesPage.subjects_button)
 
-        # click every filter and apply filters and assert lengths of the sub-filters
+        # click every filter and apply filters and assert lengths of the sub-filters with a for loop
         for x in range(1, subject_filter_length + 1):
             self.click(ArticlesDatabasesPage.subjects_button)
-            self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[1]/div/ul/li[' + str(x) + ']/div/label/span[2]')
+            self.click(f'//*[@id="multiselect-subject"]/div/ul/li[{x}]')
             # sub-filter texts
-            sub_filter = self.get_text('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[1]/div/ul/li[' + str(x) + ']/div/label/span[2]')
+            sub_filter = self.get_text(f'//*[@id="multiselect-subject"]/div/ul/li[{x}]')
 
             # for loop to assert lengths of the sub-filters, will pass if they are greater than 1
             sub_filter_length = len(
@@ -164,14 +164,14 @@ class ArticlesDatabasesTest(NyplUtils):
 
     def test_articles_databases_audience(self):
         print("test_articles_databases_audience()\n")
-        # asserting the 3 audience filters, 'adults, kids, teens' by checking if the char count is
-        # more than given (1000) amount
+
+        # assert the 3 audience filters ('adults, kids, teens'), by checking if the character count on the page is
+        # more than given (1000) amount, using a for loop
         for x in range(1, 4):
             self.click(ArticlesDatabasesPage.audience_button)
-            self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[2]/div/ul/li[' + str(x) + ']/div/label/span[2]')
+            self.click(f'//*[@id="multiselect-audience_by_age"]//li[{x}]')
             # getting filter text to use it later
-            filter_text = self.get_text(
-                '/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[2]/div/ul/li[' + str(x) + ']/div/label/span[2]')
+            filter_text = self.get_text(f'//*[@id="multiselect-audience_by_age"]//li[{x}]')
             self.click(ArticlesDatabasesPage.apply_audience)
             self.wait(3)
 
@@ -192,14 +192,14 @@ class ArticlesDatabasesTest(NyplUtils):
 
     def test_articles_databases_availability(self):
         print("test_articles_databases_availability()\n")
-        # asserting the 'availability' filter
+        # asserting the 'availability' filter by clicking each item and verifying there are no error on the next page
 
         # for loop to go over 3 items and click them 1 after each other
         # no need to un-click items since they are radio buttons
         count = 0  # optional counter to see if the for loop is a success
         for x in range(1, 4):
             self.click(ArticlesDatabasesPage.availability_button)
-            self.click('/html/body/div[1]/div/div[2]/main/div[1]/div[2]/div/div/form/div[2]/div/div/div[3]/div/ul/li[' + str(x) + ']/div/label/span[2]/span')
+            self.click(f'//*[@id="multiselect-availability"]/div/ul/li[{x}]')
             self.click(ArticlesDatabasesPage.apply_availability)
             count += 1
             print(str(count) + "st/nd/rd round")  # optional print of the counter with the loop items
@@ -211,15 +211,15 @@ class ArticlesDatabasesTest(NyplUtils):
 
     def test_articles_databases_right_side_tab(self):
         print("test_articles_databases_right_side_tab()\n")
+
         # assert ' more research tools' h2
         self.assert_element(ArticlesDatabasesPage.more_research)
 
         # assert list underneath 'more research' h2
-
         # length of the 'tools' list
         tools_list_length = len(self.find_elements('//*[@id="research-tools-menu"]/ul/li'))
 
-        # for loop to iterate the 'more research tools' list
+        # for loop to iterate the 'more research tools' list and verify the pages load without error
         for x in range(1, tools_list_length + 1):
             self.click('//*[@id="research-tools-menu"]/ul/li[' + str(x) + ']/a')
             self.wait(0.5)
@@ -228,7 +228,7 @@ class ArticlesDatabasesTest(NyplUtils):
         # length of the 'help' list
         help_list_length = len(self.find_elements('//*[@id="research-help-menu"]/ul/li'))
 
-        # for loop to iterate the 'research help' list
+        # for loop to iterate the 'research help' list and verify the links load without any error
         for y in range(1, help_list_length + 1):
             self.click('//*[@id="research-help-menu"]/ul/li[' + str(y) + ']/a')
             self.wait(0.5)

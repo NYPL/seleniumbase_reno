@@ -2,10 +2,10 @@ from seleniumbase import BaseCase
 
 
 class ArticlesDatabasesPage(BaseCase):
-    home = '//*[@id="__next"]/div/div[2]/nav/ol/li[1]/a/span'
-    research = '//*[@id="__next"]/div/div[2]/nav/ol/li[2]/a/span'
-    collections = '//*[@id="__next"]/div/div[2]/nav/ol/li[3]/a/span'
-    articles_databases = '//*[@id="__next"]/div/div[2]/nav/ol/li[4]'
+    home = '(//*[contains(text(), "Home")])[1]'
+    research = '(//*[contains(text(), "Research")])[2]'
+    collections = '(//*[contains(text(), "Collections")])[1]'
+    articles_databases = '(//*[contains(text(), "Articles & Databases")])[2]'
     h1_heading = '//*[@id="main-content"]/div[1]/div[1]/div/h1'
     h1_paragraph = '//*[@id="main-content"]/div[1]/div[1]/div/p'
 
@@ -44,7 +44,7 @@ class ArticlesDatabasesPage(BaseCase):
 
     featured_resources = '//*[@id="featured-resources"]'
     most_popular = '//*[@id="most-popular"]'
-    a_z_database = '/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div[3]/nav/div/h2'
+    a_z_database = '//*[@id="alphabet-filter-id-wrapper"]//h2'
 
     more_research = '//*[@id="more-research-tools"]'
 
