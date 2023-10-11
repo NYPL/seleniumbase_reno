@@ -2,9 +2,9 @@ from seleniumbase import BaseCase
 
 
 class ResearchSupportPage(BaseCase):
-    home = '//*[@id="__next"]/div/div[2]/nav/ol/li[1]/a/span'
-    research = '//*[@id="__next"]/div/div[2]/nav/ol/li[2]/a/span'
-    support_services = '//*[@id="__next"]/div/div[2]/nav/ol/li[3]/span/span'
+    home = '(//*[contains(text(), "Home")])[1]'
+    research = '(//*[contains(text(), "Research")])[2]'
+    support_services = '(//*[contains(text(), "Support and Services")])[2]'
     h1 = '//*[@id="main-content"]/div[1]/div'
 
     how_to_start_your_search = '//*[@id="link_card_list-23c628f7-1089-4725-98ea-ce65821110a9"]/ul/li'

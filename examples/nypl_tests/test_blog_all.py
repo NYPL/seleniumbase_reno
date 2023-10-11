@@ -108,10 +108,10 @@ class BlogAllTests(NyplUtils):
         # asserting (randomly) that we can click each child element
         for x in random_elements:
             self.click(BlogAllPage.libraries)
+            print("Child element " + str(x))
             self.click(f'//*[@id="blogs__filter-bar"]//li[{x}]//label')
             self.click(BlogAllPage.apply_library)
             self.assert_true(BlogAllPage.search_results)
-            print("Child element " + str(x))
             self.click(BlogAllPage.clear_all_search_terms)
 
     def test_divisions(self):
