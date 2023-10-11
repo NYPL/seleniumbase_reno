@@ -1,4 +1,4 @@
-name: Production Regression v2 with caching dependencies
+name: Production Regression v2 w
 
 on:
   push:
