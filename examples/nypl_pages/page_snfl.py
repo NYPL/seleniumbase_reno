@@ -20,11 +20,6 @@ class SnflPage(BaseCase):
     daily_guided_tours = '//*[@id="block-nypl-emulsify-content"]/div/div/div[3]/div[2]/p/a'
 
     in_the_spotlight = "//*[contains(text(), 'In the Spotlight')]//parent::*//parent::*//following-sibling::ul//li"
-    in_the_spotlight_1 = "//*[contains(text(), 'In the Spotlight')]//parent::*//parent::*//following-sibling::ul//li[1]"
-    in_the_spotlight_2 = "//*[contains(text(), 'In the Spotlight')]//parent::*//parent::*//following-sibling::ul//li[2]"
-    in_the_spotlight_3 = "//*[contains(text(), 'In the Spotlight')]//parent::*//parent::*//following-sibling::ul//li[3]"
-    in_the_spotlight_4 = "//*[contains(text(), 'In the Spotlight')]//parent::*//parent::*//following-sibling::ul//li[4]"
-    in_the_spotlight_5 = "//*[contains(text(), 'In the Spotlight')]//parent::*//parent::*//following-sibling::ul//li[5]"
 
     kids_see_all = "//*[@id='block-nypl-emulsify-content']//*[contains(text(), 'For Kids')]/following-sibling::a[1]"
     teens_see_all = "//*[@id='block-nypl-emulsify-content']//*[contains(text(), 'For Teens')]/following-sibling::a[1]"

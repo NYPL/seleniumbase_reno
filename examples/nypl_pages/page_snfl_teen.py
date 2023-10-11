@@ -2,9 +2,9 @@ from seleniumbase import BaseCase
 
 
 class SnflTeenPage(BaseCase):
-    home = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[1]/a'
-    locations = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[2]/a'
-    snfl = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[3]/a'
+    home = '(//*[contains(text(), "Home")])[1]'
+    locations = '(//*[contains(text(), "Locations")])[2]'
+    snfl = '(//*[contains(text(), "Stavros Niarchos")])[1]'
 
     directions = '//*[@id="block-entityviewcontent"]/div/div/div/a'
     email = '//*[@id="block-entityviewcontent"]/div/div/div/div[3]/a'

@@ -2,8 +2,8 @@ from seleniumbase import BaseCase
 
 
 class WorldLiteraturePage(BaseCase):
-    home = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[1]/a'
-    spotlight = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[2]/a'
+    home = '(//*[contains(text(), "Home")])[1]'
+    spotlight = '(//*[contains(text(), "Spotlight")])[1]'
 
     world_literature_title = "NYPL's World Literature Festival | The New York Public Library"
 
