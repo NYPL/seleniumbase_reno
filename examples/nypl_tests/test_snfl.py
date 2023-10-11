@@ -51,11 +51,11 @@ class SnflTest(NyplUtils):
         self.link_assertion(SnflPage.holiday_closings, "nypl.org/help/closings")
 
         # assert 'in the spotlight' content
-        self.link_assertion(SnflPage.in_the_spotlight_1, "nypl.org/locations/snfl/explore")
-        self.link_assertion(SnflPage.in_the_spotlight_2, "nypl.org/locations/snfl/yoseloff-business")
-        self.link_assertion(SnflPage.in_the_spotlight_3, "nypl.org/locations/snfl/event-center")
-        self.link_assertion(SnflPage.in_the_spotlight_4, "nypl.org/about/locations/snfl/cafe")
-        self.link_assertion(SnflPage.in_the_spotlight_5, "nypl.org/spotlight/snfl")
+        # "In the Spotlight" list length to use in the for loop, for dynamic purposes
+        in_the_spotlight_length = len(self.find_elements(SnflPage.in_the_spotlight))
+        # assert 'in the spotlight' elements in a loop
+        for x in range(1, in_the_spotlight_length):
+            self.assert_page_loads_successfully(SnflPage.in_the_spotlight + f"[{x}]")
 
         # asserting 'About the Stephen A. ....'
         expected = 'About the Stavros Niarchos Foundation Library (SNFL)'

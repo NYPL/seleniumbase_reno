@@ -2,9 +2,9 @@ from seleniumbase import BaseCase
 
 
 class ResearchPage(BaseCase):
-    home = '//*[@id="__next"]/div/div[2]/nav/ol/li[1]/a/span'
-    research = '//*[@id="__next"]/div/div[2]/nav/ol/li[2]/span/span'
-    h1 = '//*[@id="main-content"]/div[1]/div/div'
+    home = '(//*[contains(text(), "Home")])[1]'
+    research = '(//*[contains(text(), "Research")])[3]'
+    h1 = '//*[@id="main-content"]//h1'
 
     search_the_research_catalog = '//*[@id="external-search-a3f839cc-758d-4ff6-bb1f-fb0a2724a061"]'
     search_bar = '//*[@id="external-search-form-input"]'

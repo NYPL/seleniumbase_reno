@@ -2,7 +2,7 @@ from seleniumbase import BaseCase
 
 
 class HomePage(BaseCase):
-    hero = '//*[@id="hero-3bd614ba-fbff-4280-a5dc-7ff9c70cceaa"]/div[2]'
+    hero = '//*[@id="hero-293c191e-5888-483d-aba3-93200f4e86a9"]'
     home_title = 'The New York Public Library'
     spotlight = '//*[@id="component-wrapper-heading-21204740-28e6-4580-acd1-6f3d673bfa11"]'
 

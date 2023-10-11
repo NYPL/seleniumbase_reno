@@ -2,8 +2,8 @@ from seleniumbase import BaseCase
 
 
 class RequestVisitPage(BaseCase):
-    home = '//*[@id="__next"]/div/div[2]/nav/ol/li[1]/a/span'
-    locations = '//*[@id="__next"]/div/div[2]/nav/ol/li[2]/a/span'
+    home = '(//*[contains(text(), "Home")])[1]'
+    locations = '(//*[contains(text(), "Locations")])[3]'
 
     location_dropdown = '//*[@id="request-visit-library-select"]'
     location_selection = '//*[@name="library"]//option'

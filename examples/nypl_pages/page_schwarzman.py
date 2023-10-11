@@ -16,24 +16,17 @@ class SchwarzmanPage(BaseCase):
     learn_more_1 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[1]/div/p[2]/a'
     learn_more_2 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/p/a'
 
-    in_the_spotlight_1 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/ul/li[1]/div[1]/h3/a'
-    in_the_spotlight_2 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/ul/li[2]/div[1]/h3/a'
-    in_the_spotlight_3 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/ul/li[3]/div[1]/h3/a'
-    in_the_spotlight_4 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/ul/li[4]/div[1]/h3/a'
-    in_the_spotlight_5 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/ul/li[5]/div[1]/h3/a'
+    in_the_spotlight = '(//*[contains(text(), "In the Spotlight")]/../../..//a)'
 
-    featured_at_sasb_1 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/ul/li[1]/div[1]/h3/a'
-    featured_at_sasb_2 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/ul/li[2]/div[1]/h3/a'
-    featured_at_sasb_3 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/ul/li[3]/div[1]/h3/a'
+    featured_at_sasb = '(//*[contains(text(), "Featured at the ")]/../../..//a)'
 
-    events_see_all = '//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[2]/div/div/div/div/a'
+    events_see_all = '((//*[contains(text(), "Events")])[2])/..//a'
 
-    about_the_sasb = '//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[3]/h2'
+    about_the_sasb = '(//*[contains(text(), "About the Stephen A.")])'
 
-    research_main_paragraph = '//*[@id="block-nypl-emulsify-content"]/div/div/div[1]'
-    explore_division_centers = '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div/div/ul/li'
-    further_resources = '//*[@id="block-nypl-emulsify-content"]/div/div/div[3]/ul/li'
-    more_nypl_resources = '//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/ul/li'
+    explore_division_centers = '((//*[contains(text(), "Explore Divisions & Centers")])/../../..//h3)'
+    further_resources = '((//*[contains(text(), "Further Resources")])/../../..//h3)'
+    more_nypl_resources = '((//*[contains(text(), "More NYPL")])/../../..//h3)'
 
     def open_schwarzman_page(self):
         # self.open("https://www.nypl.org/locations/schwarzman")
