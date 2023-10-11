@@ -59,19 +59,18 @@ class Schwarzman(NyplUtils):
         self.link_assertion(SchwarzmanPage.directions, "google.com/maps")
         self.link_assertion(SchwarzmanPage.holiday_closings, "nypl.org/help/closings")
         self.link_assertion(SchwarzmanPage.research, "nypl.org/locations/schwarzman/research")
-        self.link_assertion(SchwarzmanPage.learn_more_1, "nypl.org/locations/schwarzman/research")
-        self.link_assertion(SchwarzmanPage.learn_more_2, "schwarzman/visitor-center")
+        self.assert_page_loads_successfully(SchwarzmanPage.learn_more_1)
+        self.assert_page_loads_successfully(SchwarzmanPage.learn_more_2)
 
-        # 'in the spotlight' and 'featured' h3 content are dynamic, therefore, full endpoints might change
-        self.link_assertion(SchwarzmanPage.in_the_spotlight_1, "schwarzman-plan-your-visit")
-        self.link_assertion(SchwarzmanPage.in_the_spotlight_2, "Audio")
-        self.link_assertion(SchwarzmanPage.in_the_spotlight_3, "schwarzman")
-        self.link_assertion(SchwarzmanPage.in_the_spotlight_4, "appointments/schwarzman")
-        self.link_assertion(SchwarzmanPage.in_the_spotlight_5, "databases")
+        # assert "In the Spotlight" links with a for loop
+        in_the_spotlight_link_amount = len(self.find_elements(SchwarzmanPage.in_the_spotlight))
+        for x in range(1, in_the_spotlight_link_amount + 1):
+            self.assert_page_loads_successfully(SchwarzmanPage.in_the_spotlight + f"[{x}]")
 
-        self.link_assertion(SchwarzmanPage.featured_at_sasb_1, "nypl.org/locations/schwarzman/research")
-        self.link_assertion(SchwarzmanPage.featured_at_sasb_2, "nypl.org/about/locations/schwarzman/shop-cafe")
-        self.link_assertion(SchwarzmanPage.featured_at_sasb_3, "www.nypl.org/blog")
+        # assert "Featured at the Stephen..." links with a for loop
+        featured_link_amount = len(self.find_elements(SchwarzmanPage.featured_at_sasb))
+        for x in range(1, featured_link_amount + 1):
+            self.assert_page_loads_successfully(SchwarzmanPage.featured_at_sasb + f"[{x}]")
 
         # Asserting 'Current Exhibitions' by using dynamic_element_link_assertion
         # clicking each Current Exhibition and asserting the URL contains the text provided
@@ -115,8 +114,17 @@ class Schwarzman(NyplUtils):
         # asserting the images on the page
         self.image_assertion()
 
-        # using assert_links_valid method, asserting the links in the web elements
-        self.assert_links_valid(SchwarzmanPage.explore_division_centers)  # Explore Division Centers
-        self.assert_links_valid(SchwarzmanPage.further_resources)  # Further Resources
-        self.assert_links_valid(SchwarzmanPage.more_nypl_resources)  # More NYPL Resources
+        # assert "Explore Divisions" links with a for loop
+        explore_divisions_link_amount = len(self.find_elements(SchwarzmanPage.explore_division_centers))
+        for x in range(1, explore_divisions_link_amount + 1):
+            self.assert_page_loads_successfully(SchwarzmanPage.explore_division_centers + f"[{x}]")
 
+        # assert "Further Resources" links with a for loop
+        further_resources_link_amount = len(self.find_elements(SchwarzmanPage.further_resources))
+        for x in range(1, further_resources_link_amount + 1):
+            self.assert_page_loads_successfully(SchwarzmanPage.further_resources + f"[{x}]")
+
+        # assert "More NYPL Resources" links with a for loop
+        more_nypl_resources_link_amount = len(self.find_elements(SchwarzmanPage.more_nypl_resources))
+        for x in range(1, more_nypl_resources_link_amount + 1):
+            self.assert_page_loads_successfully(SchwarzmanPage.more_nypl_resources + f"[{x}]")

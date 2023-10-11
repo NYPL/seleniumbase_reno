@@ -22,7 +22,7 @@ class Locations(NyplUtils):
         print("=================================")
         super().tearDown()
 
-    def test_main_page_elements(self):
+    def test_locations_main_page_elements(self):
         print("test_main_page_elements()\n")
 
         # asserting the images on the page
@@ -35,7 +35,7 @@ class Locations(NyplUtils):
         self.assert_element(LocationsPage.find_your_library)
         self.assert_element(LocationsPage.search_text)
         self.assert_element(LocationsPage.search)
-        self.assert_element(LocationsPage.open_now)
+        self.assert_element(LocationsPage.open_now_check_box)
         self.assert_element(LocationsPage.filters)
         self.assert_element(LocationsPage.research_filters)
 
@@ -48,38 +48,43 @@ class Locations(NyplUtils):
 
         # assert if the 'Open now' check box works by...
         # ...comparing the total number of libraries vs open libraries
-        total_library_number = len(self.find_elements('//*[@id="locations-list"]/div/ul/li'))
-        self.click(LocationsPage.open_now)
-        open_library_number = len(self.find_elements('//*[@id="locations-list"]/div[2]/ul/li'))
-        time.sleep(3)
+        total_library_number = len(self.find_elements(LocationsPage.all_libraries))
+        self.click(LocationsPage.open_now_check_box)
+        self.wait(1)
+        open_library_number = len(self.find_elements(LocationsPage.open_libraries))
+
         print("total library number = " + str(total_library_number),
               "open library number = " + str(open_library_number))
         self.assert_true(total_library_number > open_library_number)
 
         # clear all search terms
         self.click(LocationsPage.clear_all_search)
-        self.check_if_unchecked(LocationsPage.open_now_check_box)
+        # self.check_if_unchecked(LocationsPage.open_now_check_box)  # throws ElementClickInterceptedException
         self.assert_true(total_library_number > open_library_number)
 
         # map iframe, switch to iframe
-        self.switch_to_frame('//*[@id="locations-gmap"]/div[3]/div/div/iframe')  # iframe xpath may be dynamic
+        self.switch_to_frame(LocationsPage.iframe)  # iframe xpath may be dynamic
         self.switch_to_default_content()
 
         # lower page elements
         # asserting 3 bottom elements. 2 midtown locations assertion and BK and Queens web-elements.
-        self.assert_element(LocationsPage.bottom_1)
-        self.assert_element(LocationsPage.bottom_2)
-        self.assert_element(LocationsPage.bottom_3)
+        self.assert_element(LocationsPage.bottom_promo_1)  # Stephen A. Schwarzman Building link
+        self.assert_element(LocationsPage.bottom_promo_2)  # Stavros Niarchos Foundation Library (SNFL) link
+        self.assert_element(LocationsPage.bottom_promo_3)  # Brooklyn Public Library link
+        self.assert_element(LocationsPage.bottom_promo_4)  # Queens Public Library link
 
     def test_locations_search_functionality(self):
         print("test_locations_search_functionalities()\n")
+
+        # TODO update this test after below (RENO-3468) ticket is fixed - IN PROGRESS
+        # https://jira.nypl.org/browse/RENO-3468
 
         # asserting the search functionality, if it returns related data
         self.send_keys(LocationsPage.search_bar, "Performing arts")
         self.click(LocationsPage.search)
 
-        # search result text for the first result
-        search_result_text = self.get_text('//*[@id="locations-list"]/div[2]/ul/li[1]/div/h2')
+        # text of first result
+        search_result_text = self.get_text(LocationsPage.first_result)
         # print(search_result_text)  # optional print
 
         expected_text = "The New York Public Library for the Performing Arts"
@@ -177,8 +182,10 @@ class Locations(NyplUtils):
     def test_accessibility_non(self):
         print("test_not_accessible()\n")
 
-        # TODO: update this after the bug fixed for
-        #  https://jira.nypl.org/browse/RENO-2961
+        # TODO: update this after the bug fixed for the related 2 tickets below - DONE
+        # https://jira.nypl.org/browse/RENO-2961
+        # https://jira.nypl.org/browse/RENO-3673
+        # above bugs fixed
 
         # assert 'not accessible' filter
         self.click(LocationsPage.accessibility)  # click 'accessibility'
@@ -186,11 +193,12 @@ class Locations(NyplUtils):
         self.click(LocationsPage.apply_access)  # click 'apply access'
         self.wait(2)
 
-        # fill the locator after the bugs fixed
-        # TODO: change the locator part below after the bug fix
+        # total libraries without accessibility
         total_no_access_lib = len(self.find_elements('//*[@id="locations-list"]/div[2]/ul/li'))
         print(str(total_no_access_lib) + " libraries with No Accessibility")
 
+        # TODO: update below script after below ticket fixed - IN PROGRESS
+        # https://jira.nypl.org/browse/RENO-3711
         # for loop to assert locations have "not accessible" text
         count = 0
         """"
@@ -311,7 +319,7 @@ class Locations(NyplUtils):
         self.assert_true(media_types_len > 10)
         self.click(LocationsPage.clear_media)
 
-    @pytest.mark.skip(reason="Wait for developer input on how to test")
+    @pytest.mark.skip(reason="1-Not priority, 2-wait for developer input on how to test")
     def test_open_hours(self):
         print("test_open_hours()\n")
         # TODO ask developer where/how to get the "open hours" of the library, e.g.

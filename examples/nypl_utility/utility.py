@@ -115,12 +115,14 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             self.link_assertion(
                 locator + '[' + str(x) + ']', text)
 
-    """assert links valid:
+    def assert_links_valid(self, locator):
+        """
+        assert links valid in a <li, List Item:
        A method to assert that the child links are not broken in a list item ('li' tag),
        using HTTP method HEAD, and checks if the response is between the acceptable limits (200-400)
-       """
-
-    def assert_links_valid(self, locator):
+        :param locator:
+        :return:
+        """
         block_length = len(
             self.find_elements(locator))
         print(f"Number of links found: {block_length}")

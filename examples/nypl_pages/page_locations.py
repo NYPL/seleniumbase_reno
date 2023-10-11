@@ -10,7 +10,8 @@ class LocationsPage(BaseCase):
     search_text = '//*[@id="search-form__search-input-label"]'
     search_bar = '//*[@id="search-form__search-input"]'
     search = '//*[@id="search-form__submit"]'
-    open_now = '//*[@id="search-form"]/div[2]/div[1]'
+    first_result = '(//*[@id="locations-list"]//h2)[1]'
+
     open_now_check_box = '//*[@id="checkbox-open-now"]'
     filters = '//*[@id="search-filters-group1__heading"]'
     research_filters = '//*[@id="search-filters-group2__heading"]'
@@ -18,6 +19,10 @@ class LocationsPage(BaseCase):
     clear_all_search_2 = '//*[@id="button-clear-filter-borough"]'
 
     filter_length = '//*[@id="locations-list"]//li'  # this locator is true for all sub-filters
+
+    all_libraries = '//*[@id="locations-list"]//li'
+    open_libraries = '//*[@id="locations-list"]//li'
+    iframe = '//*[@id="locations-gmap"]//iframe'
 
     borough = '//*[@id="search-form"]/div[2]/div[2]/div[1]/div/div[1]/div/label'
     apply_boro = '//*[@id="button-save-filter-borough"]'
@@ -52,9 +57,10 @@ class LocationsPage(BaseCase):
     clear_media = '//*[@id="button-clear-4805f571-ec30-4901-912e-e88b41fb158e"]'
     archives = '//*[@id="search-form"]/div[2]/div[2]/div[2]/div/div[2]/div/div/div[1]/ul/li[1]/div'
 
-    bottom_1 = '/html/body/div[1]/div/div[2]/main/div[2]/div[2]/div[1]/div/div[1]/div/div[1]'
-    bottom_2 = '/html/body/div[1]/div/div[2]/main/div[2]/div[2]/div[1]/div/div[1]/div/div[2]'
-    bottom_3 = '//*[@id="main-content"]/div[2]/div[2]/div[1]/div/div[2]'
+    bottom_promo_1 = '(//*[@id="promo-left-section-title"]/following-sibling::*//a)[1]'  # SASB link
+    bottom_promo_2 = '(//*[@id="promo-left-section-title"]/following-sibling::*//a)[2]'  # SNFL link
+    bottom_promo_3 = '(//*[@id="promo-right-section-title"]/following-sibling::*//a)[1]'  # Brooklyn Lib. link
+    bottom_promo_4 = '(//*[@id="promo-right-section-title"]/following-sibling::*//a)[2]'  # Queens Lib. link
 
     def open_locations_page(self):
         # self.open("https://www.nypl.org/locations")
