@@ -13,7 +13,10 @@ class HeaderPage(BaseCase):
     submit = '//*[@id="fm1"]/div[3]/input'
 
     search_research_catalog = '//*[@id="searchbar-button-mainContent"]'
-    search_bar = '//*[@id="searchbar-textinput-mainContent"]'
+    catalog_search_bar = '//*[@aria-label="search"]'
+    catalog_login = '//*[@id="user-login-button"]'
+    catalog_logout = '//*[contains(text(), "Sign out")]'
+    research_catalog_search_bar = '//*[@id="searchbar-textinput-mainContent"]'
     h2_display_result = '//*[@id="results-description"]'
     next_button = '//*[@id="SccContainer-content-primary"]/div[3]/nav/a'
     previous_button = '//*[@id="SccContainer-content-primary"]/div[3]/nav/a[1]'
