@@ -1,4 +1,6 @@
 import pytest
+from selenium.webdriver.common.keys import Keys
+from seleniumbase.common.exceptions import NoSuchElementException
 
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_header import HeaderPage
@@ -121,11 +123,35 @@ class HeaderTest(NyplUtils):
         self.assert_title('New York Public Library')
         # assert 'my bookshelf' tab
         self.assert_element(HeaderPage.my_bookshelf)
+
+        # assert search functionality
+        # search for a keyword
+        keyword = "book"
+        self.send_keys(HeaderPage.catalog_search_bar, keyword)  # search for a title
+        self.send_keys(HeaderPage.catalog_search_bar, Keys.ENTER)  # press Enter
+
+        # assert that 'vega' is in the URL on the result page URL
+        current_url_text = self.get_current_url()
+        print(current_url_text)
+        self.assert_true("vega" in current_url_text)
+
         # click logout
+        try:
+            self.click(HeaderPage.catalog_login)  # attempt to click logout
+        except NoSuchElementException:
+            print("inside except block, will wait for a few seconds")
+            self.wait(3)
+            self.click(HeaderPage.catalog_logout)  # retry clicking logout after waiting for 2 seconds
+        try:
+            self.click(HeaderPage.catalog_logout)  # attempt to click logout
+        except NoSuchElementException:
+            print("inside except block, will wait for a few seconds")
+            self.wait(3)
+            self.click(HeaderPage.catalog_logout)  # retry clicking logout after waiting for 2 seconds
 
     # @pytest.mark.skip(reason="test")
-    def test_login_research_catalog(self):
-        print("test_login_research_catalog()\n")
+    def test_research_catalog(self):
+        print("test_research_catalog()\n")
 
         # using nypl_login_research method to login
         self.nypl_login_research("qatester", "1234")
@@ -135,15 +161,8 @@ class HeaderTest(NyplUtils):
         # assert 'My Account' element for Research Catalog
         self.assert_element(HeaderPage.my_account_research_catalog)
 
-    # @pytest.mark.skip(reason="test")
-    def test_search_functionality(self):
-        print("test_search_functionality()\n")
-
-        # using nypl_login_research method to login
-        self.nypl_login_research("qatester", "1234")
-
         # assert search functionality
-        self.send_keys(HeaderPage.search_bar, "book")  # search for a book
+        self.send_keys(HeaderPage.research_catalog_search_bar, "book")  # search for a book
         self.click(HeaderPage.search_research_catalog)  # click the search button
         # self.wait(3)
         print(self.get_current_url())  # get the current URL printed

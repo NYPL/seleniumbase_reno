@@ -1,3 +1,5 @@
+from selenium.common import NoSuchElementException
+
 from examples.nypl_pages.page_header import HeaderPage
 from examples.nypl_pages.page_schwarzman import SchwarzmanPage
 from examples.nypl_pages.page_give import GivePage
@@ -48,31 +50,69 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
        taking 2 parameters, 'username' and 'password' """
 
     def nypl_login_catalog(self, username, password):
-        # click login button
-        self.click(self.login_button)
-        # click 'log into the catalog'
-        self.click(self.login_catalog)
-        # enter username
-        self.send_keys(self.username, username)
-        # enter password
-        self.send_keys(self.password, password)
-        # click submit
-        self.click(self.submit)
+        try:
+            self.click(self.login_button)
+        except NoSuchElementException:
+            self.wait(3)
+            self.click(self.login_button)
+
+        try:
+            self.click(self.login_catalog)
+        except NoSuchElementException:
+            self.wait(3)
+            self.click(self.login_catalog)
+
+        try:
+            self.send_keys(self.username, username)
+        except NoSuchElementException:
+            self.wait(3)
+            self.send_keys(self.username, username)
+
+        try:
+            self.send_keys(self.password, password)
+        except NoSuchElementException:
+            self.wait(3)
+            self.send_keys(self.password, password)
+
+        try:
+            self.click(self.submit)
+        except NoSuchElementException:
+            self.wait(3)
+            self.click(self.submit)
 
     """nypl login method for the research,
        taking 2 parameters, "username" and 'password' """
 
     def nypl_login_research(self, username, password):
-        # click login button
-        self.click(self.login_button)
-        # click log into the research catalog
-        self.click(self.login_research_catalog)
-        # enter username
-        self.send_keys(self.username, username)
-        # enter password
-        self.send_keys(self.password, password)
-        # click submit
-        self.click(self.submit)
+        try:
+            self.click(self.login_button)
+        except NoSuchElementException:
+            self.wait(3)
+            self.click(self.login_button)
+
+        try:
+            self.click(self.login_research_catalog)
+        except NoSuchElementException:
+            self.wait(3)
+            self.click(self.login_research_catalog)
+
+        try:
+            self.send_keys(self.username, username)
+        except NoSuchElementException:
+            self.wait(3)
+            self.send_keys(self.username, username)
+
+        try:
+            self.send_keys(self.password, password)
+        except NoSuchElementException:
+            self.wait(3)
+            self.send_keys(self.password, password)
+
+        try:
+            self.click(self.submit)
+        except NoSuchElementException:
+            self.wait(3)
+            self.click(self.submit)
 
     """ link assertion:
        click a link and assert the text in the URL,

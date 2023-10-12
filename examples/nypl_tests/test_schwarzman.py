@@ -1,4 +1,5 @@
 from selenium.common import TimeoutException
+from seleniumbase.common.exceptions import NoSuchElementException
 
 from examples.nypl_pages.page_schwarzman import SchwarzmanPage
 from examples.nypl_utility.utility import NyplUtils
@@ -117,14 +118,29 @@ class Schwarzman(NyplUtils):
         # assert "Explore Divisions" links with a for loop
         explore_divisions_link_amount = len(self.find_elements(SchwarzmanPage.explore_division_centers))
         for x in range(1, explore_divisions_link_amount + 1):
-            self.assert_page_loads_successfully(SchwarzmanPage.explore_division_centers + f"[{x}]")
+            try:
+                self.assert_page_loads_successfully(SchwarzmanPage.explore_division_centers + f"[{x}]")
+            except NoSuchElementException:
+                print("inside except block, will wait for a few seconds")
+                self.wait(3)
+                self.assert_page_loads_successfully(SchwarzmanPage.explore_division_centers + f"[{x}]")
 
         # assert "Further Resources" links with a for loop
         further_resources_link_amount = len(self.find_elements(SchwarzmanPage.further_resources))
         for x in range(1, further_resources_link_amount + 1):
-            self.assert_page_loads_successfully(SchwarzmanPage.further_resources + f"[{x}]")
+            try:
+                self.assert_page_loads_successfully(SchwarzmanPage.further_resources + f"[{x}]")
+            except NoSuchElementException:
+                print("inside except block, will wait for a few seconds")
+                self.wait(3)
+                self.assert_page_loads_successfully(SchwarzmanPage.further_resources + f"[{x}]")
 
         # assert "More NYPL Resources" links with a for loop
         more_nypl_resources_link_amount = len(self.find_elements(SchwarzmanPage.more_nypl_resources))
         for x in range(1, more_nypl_resources_link_amount + 1):
-            self.assert_page_loads_successfully(SchwarzmanPage.more_nypl_resources + f"[{x}]")
+            try:
+                self.assert_page_loads_successfully(SchwarzmanPage.more_nypl_resources + f"[{x}]")
+            except NoSuchElementException:
+                print("inside except block, will wait for a few seconds")
+                self.wait(3)
+                self.assert_page_loads_successfully(SchwarzmanPage.more_nypl_resources + f"[{x}]")
