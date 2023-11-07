@@ -11,14 +11,14 @@ class ArticlesBurneyPage(BaseCase):
     h3_burney_collection_newspapers = '(//*[contains(text(), "Burney")])[3]'
 
     def open_articles_burney_page(self):
-        # self.open("https://www.nypl.org/research/collections/articles-databases/17th-18th-century-burney-collection-newspapers")
+
+        qa = 'https://qa-www.nypl.org/research/collections/articles-databases/17th-18th-century-burney-collection-newspapers'
+        prod = 'https://www.nypl.org/research/collections/articles-databases/17th-18th-century-burney-collection-newspapers'
 
         if self.env == "qa":
             print("Running on QA Env")
-            self.open("https://qa-www.nypl.org/research/collections/articles-databases/17th-18th-century-burney"
-                      "-collection-newspapers")
+            self.open(qa)
 
         else:
             print("Running on Production Env")
-            self.open("https://www.nypl.org/research/collections/articles-databases/17th-18th-century-burney"
-                      "-collection-newspapers")
+            self.open(prod)

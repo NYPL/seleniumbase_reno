@@ -46,10 +46,11 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 SnflPage, SnflTeenPage, BillyRosePage, RequestVisitPage, PosadaPage, WorldLiteraturePage,
                 ArticlesBurneyPage, ArticlesHomeworkPage, BlogChannelsPage, BlogIndividualPage, PressPage,
                 PressIndividualPage, EducationPage, EarlyLiteracyPage, EducationTeensPage, EducatorsPage):
-    """nypl login method for the catalog,
-       taking 2 parameters, 'username' and 'password' """
 
     def nypl_login_catalog(self, username, password):
+
+        """nypl login method for the catalog,
+               taking 2 parameters, 'username' and 'password' """
         try:
             self.click(self.login_button)
         except NoSuchElementException:

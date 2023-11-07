@@ -12,13 +12,14 @@ class ArticlesHomeworkPage(BaseCase):
     search_result = '//*[@id="search-results-details"]'
 
     def open_articles_homework_page(self):
-        prod_url = "https://www.nypl.org/research/collections/articles-databases/featured/homework-help"
-        qa_url = "https://qa-www.nypl.org/research/collections/articles-databases/featured/homework-help"
+
+        qa = "https://qa-www.nypl.org/research/collections/articles-databases/featured/homework-help"
+        prod = "https://www.nypl.org/research/collections/articles-databases/featured/homework-help"
 
         if self.env == "qa":
             print("Running on QA Env")
-            self.open(qa_url)
+            self.open(qa)
 
         else:
             print("Running on Production Env")
-            self.open(prod_url)
+            self.open(prod)

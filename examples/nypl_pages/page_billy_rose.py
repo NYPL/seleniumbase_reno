@@ -3,21 +3,23 @@ from seleniumbase import BaseCase
 
 class BillyRosePage(BaseCase):
 
-    home = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[1]/a'
-    locations = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[2]/a'
-    nypl_performing = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[3]/a'
+    home = '(//*[contains(text(), "Home")])[1]'
+    locations = '(//*[contains(text(), "Locations")])[2]'
+    nypl_performing = '(//*[contains(text(), "New York Public Library for the")])[1]'
 
-    directions = '//*[@id="block-entityviewcontent"]/div/div/div/a'
-    email = '//*[@id="block-entityviewcontent"]/div/div/div/div[3]/a'
-    holiday_closings = '//*[@id="block-entityviewcontent"]/div/div/div/div[6]/a'
+    directions = '(//*[contains(text(), "Directions")])[1]'
+    email = '(//*[contains(text(), "mail")])[2]'
+    holiday_closings = '(//*[contains(text(), "Holiday Closings")])[1]'
 
     def open_billy_rose_page(self):
-        # self.open("https://www.nypl.org/locations/lpa/billy-rose-theatre-division")
+
+        qa = "https://qa-www.nypl.org/locations/lpa/billy-rose-theatre-division"
+        prod = "https://www.nypl.org/locations/lpa/billy-rose-theatre-division"
 
         if self.env == "qa":
             print("Running on QA Env")
-            self.open("https://qa-www.nypl.org/locations/lpa/billy-rose-theatre-division")
+            self.open(qa)
 
         else:
             print("Running on Production Env")
-            self.open("https://www.nypl.org/locations/lpa/billy-rose-theatre-division")
+            self.open(prod)
