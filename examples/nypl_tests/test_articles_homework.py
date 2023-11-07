@@ -30,22 +30,22 @@ class ArticlesHomeworkTest(NyplUtils):
         self.image_assertion()
 
         # assert breadcrumbs
-        self.assert_element(ArticlesHomeworkPage.home)
-        self.assert_element(ArticlesHomeworkPage.research)
-        self.assert_element(ArticlesHomeworkPage.collections)
-        self.assert_element(ArticlesHomeworkPage.articles_databases)
-        self.assert_element(ArticlesHomeworkPage.homework_help)
+        self.assert_element(ArticlesHomeworkPage.home)  # assert home button
+        self.assert_element(ArticlesHomeworkPage.research)  # assert research button
+        self.assert_element(ArticlesHomeworkPage.collections)  # assert collections button
+        self.assert_element(ArticlesHomeworkPage.articles_databases)  # assert articles & databases button
+        self.assert_element(ArticlesHomeworkPage.homework_help)  # assert homework help
 
         # asserting 'Clear all search terms.' button
-        self.assert_element(ArticlesHomeworkPage.clear_all_search)
+        self.assert_element(ArticlesHomeworkPage.clear_all_search)  # assert clear all search button
 
         # asserting the result number > 0
-        search_result_text = self.get_text(ArticlesHomeworkPage.search_result)
+        search_result_text = self.get_text(ArticlesHomeworkPage.search_result)  # retrieving the search result text
         # print(search_result_text)  # optional print
         # finding the result with regex
-        search_result_number = int(re.findall(r'(\d+)', search_result_text)[1])
+        search_result_number = int(re.findall(r'(\d+)', search_result_text)[1])  # getting the search number with regex
         # print(search_result_number)  # optional print
-        # asserting the number is > 0
+        # asserting the result number is > 0
         self.assert_true(search_result_number > 0, "actual result is not greater than 0")
 
         # assert number of h3 (results with links) > 0

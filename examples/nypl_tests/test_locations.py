@@ -76,7 +76,7 @@ class Locations(NyplUtils):
     def test_locations_search_functionality(self):
         print("test_locations_search_functionalities()\n")
 
-        # TODO update this test after below (RENO-3468) ticket is fixed - IN PROGRESS
+        # TODO update this test after below (RENO-3468) bug/ticket is fixed - IN PROGRESS
         # https://jira.nypl.org/browse/RENO-3468
 
         # asserting the search functionality, if it returns related data

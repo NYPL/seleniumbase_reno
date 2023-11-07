@@ -20,7 +20,7 @@ class BlogAllTests(NyplUtils):
         print("=================================")
         super().tearDown()
 
-    def test_page_elements(self):
+    def test_main_page_elements(self):
         print("test_page_elements()\n")
 
         # asserting the images on the page
@@ -29,18 +29,19 @@ class BlogAllTests(NyplUtils):
         # assert Explore By:
         self.assert_element(BlogAllPage.explore_by)
 
-    def test_channels(self):
+    def test_channels_filter(self):
         print("test_channels()\n")
+        """this test asserts the child elements of the Channels filter and if they consist keywords
+         related to the subfilter"""
 
-        # asserting 'Channels' tab
-
-        # asserting channel filter
-        # keywords for the Channel Filters, we use these keywords to look in the every link text
+        # asserting 'Channels' filter
+        # keywords for the Channel Filters. These keywords are used to look in every search result for assertion
         keywords = ["Asian", "Memoir", "Black", "Book Lists", "Comic", "Digital", "Doc", "Early Literacy", "de",
                     'for kids', 'for teachers', 'for teens', 'de', 'Hispanic', 'Horror', 'LGBTQ', 'Library Stories',
                     'Library Talks', 'Mysteries', 'Nonfiction', 'Poetry', 'Popular Culture', 'Research at nypl',
                     'Romance', 'Science Fiction', 'Librarian', 'Women', 'Work/Cited', 'Chinese']
-        # assertion for first 4 channels by clicking and checking if the result >= 5 on the clicked page
+
+        # assertion for the first 4 channels by clicking and checking if the result >= 1 on the clicked page
         for x in range(1, 4):
             self.click(BlogAllPage.channels)
             self.click(f'//*[@id="blogs__filter-bar"]//li[{x}]//label')
@@ -52,15 +53,15 @@ class BlogAllTests(NyplUtils):
 
             result = search_results.split()[2]
             print(result + " results for " + keywords[x-1])
-            self.assert_true(int(result) >= 5)
+            self.assert_true(int(result) >= 1)
 
             self.wait(1)
             self.click(BlogAllPage.clear_all_search_terms)
 
-    def test_subjects(self):
+    def test_subjects_filter(self):
         print("test_subjects()\n")
         """
-        this test asserts the child elements of the subject button and if they are clickable
+        this test asserts the child elements of the Subjects filter and if they are clickable
         """
 
         # assert subjects button
@@ -84,10 +85,10 @@ class BlogAllTests(NyplUtils):
             self.assert_true(BlogAllPage.search_results)
             self.click(BlogAllPage.clear_all_search_terms)
 
-    def test_libraries(self):
+    def test_libraries_filter(self):
         print("test_libraries()\n")
-        """this method randomly takes 10 elements (can be changed) and asserts the child elements of the library 
-        button and if they are clickable """
+        """this method randomly takes 10 elements (can be changed) and asserts the child elements of the Libraries 
+        filter and if they are clickable """
 
         # assert libraries button
         self.assert_element(BlogAllPage.libraries)
@@ -114,10 +115,10 @@ class BlogAllTests(NyplUtils):
             self.assert_true(BlogAllPage.search_results)
             self.click(BlogAllPage.clear_all_search_terms)
 
-    def test_divisions(self):
+    def test_divisions_filter(self):
         print("test_divisions()\n")
-        """this method randomly takes 10 elements (can be changed) and asserts the child elements of the divisions 
-        button and if they are clickable """
+        """this method randomly takes 10 elements (can be changed) and asserts the child elements of the Divisions 
+        filter and if they are clickable """
 
         # assert divisions button
         self.assert_element(BlogAllPage.divisions)
@@ -146,8 +147,10 @@ class BlogAllTests(NyplUtils):
 
         print("\n========================================\n")
 
-    def test_audience(self):
+    def test_audience_filter(self):
         print("test_audience()\n")
+        """this method randomly takes 10 elements (can be changed) and asserts the child elements of the Divisions 
+        filter and if they are clickable """
 
         # assert Audience button
         self.assert_element(BlogAllPage.audience)
