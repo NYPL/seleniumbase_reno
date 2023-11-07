@@ -1,6 +1,5 @@
-from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_blog_channels import BlogChannelsPage
-import re, random
+from examples.nypl_utility.utility import NyplUtils
 
 
 class BlogChannelsTest(NyplUtils):

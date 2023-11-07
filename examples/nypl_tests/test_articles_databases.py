@@ -53,7 +53,8 @@ class ArticlesDatabasesTest(NyplUtils):
         print(keyword)  # optional print
         self.send_keys(ArticlesDatabasesPage.search_bar, keyword)  # searching for keyword
         self.click(ArticlesDatabasesPage.submit_button)  # submitting the keyword
-        first_search_result_text = (self.get_text(ArticlesDatabasesPage.first_result_h3)).lower()  # search result in lowercase
+        first_search_result_text = (
+            self.get_text(ArticlesDatabasesPage.first_result_h3)).lower()  # search result in lowercase
         print(first_search_result_text)  # optional print
         # asserting the search results with the above keyword
         self.assertTrue(keyword in first_search_result_text)
@@ -73,63 +74,72 @@ class ArticlesDatabasesTest(NyplUtils):
 
     def test_articles_databases_main_page_elements(self):
         print("test_articles_databases_main_page_elements()\n")
+
         # asserting h2 heading and its elements
         self.assert_element(ArticlesDatabasesPage.featured_resources)
 
         # getting the length of the list of elements on the 'Featured Resources'
-        featured_list_length = len(self.find_elements('/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div[1]/ul/li'))
-        print("featured list length is = " + str(featured_list_length))
+        featured_list_length = len(self.find_elements(ArticlesDatabasesPage.featured_resources_list))
+        print("\nfeatured list length is = " + str(featured_list_length))
 
         # asserting the h3 links on the list with a for loop
         for x in range(1, featured_list_length + 1):
-            self.hover_and_click(
-                '/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div[1]/ul/li[' + str(x) + ']/div/div[2]/h3/a',
-                '/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div[1]/ul/li[' + str(x) + ']/div/div[2]/h3/a')
-            self.wait(1)
+            try:
+                self.click(ArticlesDatabasesPage.featured_resources_list + f'[{x}]//a')
+                # print(self.get_current_url())  # optional print to see what page fails to load
+                # go back to main page
+                self.open_articles_databases_page()
+            except:
+                print("Exception occurred, waiting for a few seconds inside Except block")
+                # open articles and databases page
+                self.open_articles_databases_page()
+                self.wait(2)
+                self.click(ArticlesDatabasesPage.featured_resources_list + f'[{x}]//a')
 
-            if self.env == "qa":
-                self.open("https://qa-www.nypl.org/research/collections/articles-databases")
+                # go back to main page
+                self.open_articles_databases_page()
 
-            else:
-                self.open("https://www.nypl.org/research/collections/articles-databases")
+            print(self.get_current_url())
 
         # asserting 'most popular' h2
+        print(self.get_current_url())
         self.assert_element(ArticlesDatabasesPage.most_popular)
 
         # length of the 'most popular'
-        most_pop_length = len(self.find_elements('/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div[2]/ul/li'))
-        print("most popular list length is = " + str(most_pop_length))
+        most_pop_length = len(self.find_elements(ArticlesDatabasesPage.most_popular_list))
+        print("\nmost popular list length is = " + str(most_pop_length))
 
         for x in range(1, most_pop_length + 1):
-            self.click('/html/body/div[1]/div/div[2]/main/div[2]/div[1]/div[2]/ul/li[' + str(x) + ']/div/div/h3/a')
-            self.wait(0.5)
-            if self.env == "qa":
-                self.open("https://qa-www.nypl.org/research/collections/articles-databases")
+            try:
+                self.click(ArticlesDatabasesPage.most_popular_list + f'[{x}]//a')
+                # go back to main page
+                self.open_articles_databases_page()
+            except:
+                print("Exception occurred, waiting for a few seconds inside Except block")
+                # open articles and databases page
+                self.open_articles_databases_page()
+                self.wait(2)
+                self.click(ArticlesDatabasesPage.most_popular_list + f'[{x}]//a')
 
-            else:
-                self.open("https://www.nypl.org/research/collections/articles-databases")
+                # go back to main page
+                self.open_articles_databases_page()
+
+            print(self.get_current_url())
 
         # assert the bottom element - 'a-z article & databases'
         self.assert_element(ArticlesDatabasesPage.a_z_database)
 
         # assert each letters/alphabet can be clicked and there is no error on the next page using a for loop
-        # get the length of the alphabet
-        alpha_length = len(self.find_elements('//*[@id="page-container--content-primary"]/div[3]/div[2]/a'))
-
-        # for loop to go over every letter
-        for x in range(1, alpha_length + 1):
-            if x == 24:  # skipping 'X' letter as it does not have any data
+        for x in range(2, 28):
+            if x == 24:  # skipping 'X' letter as it is not clickable
                 continue
-            self.click('//*[@id="page-container--content-primary"]/div[3]/div[2]/a[' + str(x) + ']')
+            self.click(ArticlesDatabasesPage.alphabet_pagination + f'[{x}]')
+            # print(x)  # optional print of the alphabet element
             self.wait(1)
-            if self.env == "qa":
-                self.open("https://qa-www.nypl.org/research/collections/articles-databases")
-
-            else:
-                self.open("https://www.nypl.org/research/collections/articles-databases")
 
     def test_articles_databases_subjects_filter(self):
         print("test_articles_databases_subjects_filter()\n")
+        
         # asserting the 'Subjects' filter
         # clicking every filter in the Subjects filter and asserting their lengths
         self.click(ArticlesDatabasesPage.subjects_button)
@@ -151,6 +161,7 @@ class ArticlesDatabasesTest(NyplUtils):
                 self.find_elements('//*[@id="multiselect-subject"]/div/ul/li[' + str(x) + ']/ul/li'))
             for y in range(1, sub_filter_length + 1):
                 if sub_filter_length <= 0:
+                    print("sub-filter length is not greater than 1")
                     continue
                 else:
                     self.assert_true(sub_filter_length >= 1, "sub-filter length is not greater than 1")
@@ -192,10 +203,10 @@ class ArticlesDatabasesTest(NyplUtils):
 
     def test_articles_databases_availability(self):
         print("test_articles_databases_availability()\n")
+
         # asserting the 'availability' filter by clicking each item and verifying there are no error on the next page
 
         # for loop to go over 3 items and click them 1 after each other
-        # no need to un-click items since they are radio buttons
         count = 0  # optional counter to see if the for loop is a success
         for x in range(1, 4):
             self.click(ArticlesDatabasesPage.availability_button)
@@ -206,8 +217,8 @@ class ArticlesDatabasesTest(NyplUtils):
             self.wait(2)  # using wait element to resolve the sync issue
 
         # asserting the 'clear' button
-        self.click(ArticlesDatabasesPage.availability_button)
-        self.click(ArticlesDatabasesPage.clear_availability)
+        self.click(ArticlesDatabasesPage.availability_button)  # click "Availability"
+        self.click(ArticlesDatabasesPage.clear_availability)  # click "Clear" button
 
     def test_articles_databases_right_side_tab(self):
         print("test_articles_databases_right_side_tab()\n")
@@ -217,19 +228,19 @@ class ArticlesDatabasesTest(NyplUtils):
 
         # assert list underneath 'more research' h2
         # length of the 'tools' list
-        tools_list_length = len(self.find_elements('//*[@id="research-tools-menu"]/ul/li'))
+        tools_list_length = len(self.find_elements('//*[@id="research-tools-menu"]//li'))
 
         # for loop to iterate the 'more research tools' list and verify the pages load without error
         for x in range(1, tools_list_length + 1):
-            self.click('//*[@id="research-tools-menu"]/ul/li[' + str(x) + ']/a')
+            self.click('//*[@id="research-tools-menu"]//li[' + str(x) + ']/a')
             self.wait(0.5)
             self.go_back()
 
         # length of the 'help' list
-        help_list_length = len(self.find_elements('//*[@id="research-help-menu"]/ul/li'))
+        help_list_length = len(self.find_elements('//*[@id="research-help-menu"]//li'))
 
         # for loop to iterate the 'research help' list and verify the links load without any error
         for y in range(1, help_list_length + 1):
-            self.click('//*[@id="research-help-menu"]/ul/li[' + str(y) + ']/a')
+            self.click('//*[@id="research-help-menu"]//li[' + str(y) + ']/a')
             self.wait(0.5)
             self.go_back()
