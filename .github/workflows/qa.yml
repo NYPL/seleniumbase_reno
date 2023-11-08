@@ -47,9 +47,7 @@ jobs:
     - name: Make sure nosetests is working
       run: |
         echo "def test_2(): pass" > nothing2.py
-        nosetests nothing2.py
-        
-        
+        nosetests nothing2.py    
     
     
     # NYPL tests start here
