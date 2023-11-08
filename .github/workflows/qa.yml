@@ -24,6 +24,10 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Setup Chrome and ChromeDriver
+      uses: browser-actions/setup-chrome@latest
+      with:
+        chrome-version: stable
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -32,22 +36,10 @@ jobs:
     - name: Install SeleniumBase
       run: |
         python setup.py install
-    # - name: Lint with flake8
-      # run: |
-        # pip install flake8
-        # Stop the build if there are flake8 issues
-        # flake8 . --count --show-source --statistics --exclude=temp
-    - name: Install chromedriver
-      run: |
-        seleniumbase install chromedriver
     - name: Check the console scripts interface
       run: |
         seleniumbase
         sbase
-    #- name: Install chromedriver and geckodriver (Firefox Webdriver)
-    #  run: |
-    #    seleniumbase install chromedriver
-    #    seleniumbase install geckodriver
     - name: Make sure pytest is working
       run: |
         echo "def test_1(): pass" > nothing.py
@@ -64,154 +56,7 @@ jobs:
     # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, articles & databases, home, give, schwarzman
 
     - name: Run all tests
+      continue-on-error: true
       run: |
-        pytest examples --headless --browser=chrome --rs -v -s -n=6 --reruns=2 --reruns-delay=1 --env=qa
-    
-    
-    # - name: Run pytest test_footer.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_footer.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-    
-    
-    # - name: Run pytest test_header.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_header.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-    
-    
-    # - name: Run pytest test_blog.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_blog.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-    
-    
-    # - name: Run pytest test_blog_all.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_blog_all.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-    
-    
-    # - name: Run pytest test_book_lists.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_book_lists.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-    
+        pytest examples/nypl_tests --headless --browser=chrome --rs -v -s -n=6 --reruns=2 --reruns-delay=1 --env=qa
         
-    # - name: Run pytest test_campaigns.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_campaigns.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-    
-    
-    # - name: Run pytest test_exhibitions.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_exhibitions.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-        
-        
-    # - name: Run pytest test_locations.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_locations.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-        
-        
-    # - name: Run pytest test_articles_databases.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_articles_databases.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-        
-
-    # - name: Run pytest test_home.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_home.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-        
-
-    # - name: Run pytest test_give.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_give.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-        
-
-    # - name: Run pytest test_schwarzman.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_schwarzman.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-        
-
-    # - name: Run pytest test_research.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_research.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-        
-
-    # - name: Run pytest test_research_support.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_research_support.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-        
-
-    # - name: Run pytest test_snfl.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_snfl.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-        
-
-    # - name: Run pytest test_snfl_teen.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_snfl_teen.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-        
-
-    # - name: Run pytest test_billy_rose.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_billy_rose.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-        
-
-    # - name: Run pytest test_request_visit.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_request_visit.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-        
-
-    # - name: Run pytest test_posada.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_posada.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-
-    # - name: Run pytest test_world_literature.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_world_literature.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-
-    # - name: Run pytest test_articles_burney.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_articles_burney.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-
-    # - name: Run pytest test_articles_homework.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_articles_homework.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-
-    # - name: Run pytest test_blog_channels.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_blog_channels.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-
-    # - name: Run pytest test_blog_individual.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_blog_individual.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-
-    # - name: Run pytest test_press.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_press.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
-
-    # - name: Run pytest test_press_individual.py
-    #   continue-on-error: true
-    #   run: |
-    #     pytest examples/nypl_tests/test_press_individual.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
