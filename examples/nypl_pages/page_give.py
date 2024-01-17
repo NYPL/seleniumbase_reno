@@ -9,32 +9,38 @@ class GivePage(BaseCase):
 
     donation_form = '//*[@id="donation-form"]'
     donate_text_field = '//*[@id="donation-ways"]'
-    single_donation = '//*[@id="donation-form"]/div[2]/a[1]'
-    monthly_donation = '//*[@id="donation-form"]/div[2]/a[2]'
+    single_donation = '(//*[contains(text(), "Single Donation")])[1]'
+    monthly_donation = '(//*[contains(text(), "Monthly Donation")])[1]'
 
-    membership_1 = '(//*[@id="link_card_list-7e9110de-42ae-432f-a544-362d5e206683"]//h3//a)[1]'
-    membership_2 = '(//*[@id="link_card_list-7e9110de-42ae-432f-a544-362d5e206683"]//h3//a)[2]'
+    membership_1 = '((//*[contains(text(), "Membership")])[1]//..//h3)[1]//a'
+    membership_2 = '((//*[contains(text(), "Membership")])[1]//..//h3)[2]//a'
 
-    get_involved_1 = '(//*[@id="link_card_list-dc8b55c3-1a49-4600-9b44-73e1b156f4b9"]//h3//a)[1]'
-    get_involved_2 = '(//*[@id="link_card_list-dc8b55c3-1a49-4600-9b44-73e1b156f4b9"]//h3//a)[2]'
+    get_involved_1 = '((//*[contains(text(), "Get Involved")])[1]//..//h3)[1]//a'
+    get_involved_2 = '((//*[contains(text(), "Get Involved")])[1]//..//h3)[2]//a'
 
-    more_ways_to_give_1 = '(//*[@id="link_card_list-038b9d4a-032d-41ca-9198-91dc4d41b4f7"]//h3//a)[1]'
-    more_ways_to_give_2 = '(//*[@id="link_card_list-038b9d4a-032d-41ca-9198-91dc4d41b4f7"]//h3//a)[2]'
-    more_ways_to_give_3 = '(//*[@id="link_card_list-038b9d4a-032d-41ca-9198-91dc4d41b4f7"]//h3//a)[3]'
-    more_ways_to_give_4 = '(//*[@id="link_card_list-038b9d4a-032d-41ca-9198-91dc4d41b4f7"]//h3//a)[4]'
-    more_ways_to_give_5 = '(//*[@id="link_card_list-038b9d4a-032d-41ca-9198-91dc4d41b4f7"]//h3//a)[5]'
+    more_ways_to_give_1 = '((//*[contains(text(), "More Ways to Give")])[1]//..//h3)[1]//a'
+    more_ways_to_give_2 = '((//*[contains(text(), "More Ways to Give")])[1]//..//h3)[2]//a'
+    more_ways_to_give_3 = '((//*[contains(text(), "More Ways to Give")])[1]//..//h3)[3]//a'
+    more_ways_to_give_4 = '((//*[contains(text(), "More Ways to Give")])[1]//..//h3)[4]//a'
+    more_ways_to_give_5 = '((//*[contains(text(), "More Ways to Give")])[1]//..//h3)[5]//a'
 
-    learn_about_corporate_1 = '(//*[@id="link_card_list-0087b62f-ad7f-4070-9069-d272f6ac6f6d"]//h3//a)[1]'
-    learn_about_corporate_2 = '(//*[@id="link_card_list-0087b62f-ad7f-4070-9069-d272f6ac6f6d"]//h3//a)[2]'
-    learn_about_corporate_3 = '(//*[@id="link_card_list-0087b62f-ad7f-4070-9069-d272f6ac6f6d"]//h3//a)[3]'
+    learn_about_corporate_1 = '((//*[contains(text(), "Learn About")])[1]//..//h3)[1]//a'
+    learn_about_corporate_2 = '((//*[contains(text(), "Learn About")])[1]//..//h3)[2]//a'
+    learn_about_corporate_3 = '((//*[contains(text(), "Learn About")])[1]//..//h3)[3]//a'
 
     def open_give_page(self):
         # self.open("https://www.nypl.org/give")
 
-        if self.env == "qa":
-            print("Running on QA Env")
-            self.open("https://qa-www.nypl.org/give")
+        base_url = "https://www.nypl.org/give"
+        qa_base_url = "https://qa-www.nypl.org/give"
 
+        url = f"{base_url}"
+        qa_url = f"{qa_base_url}"
+
+        # Open the appropriate URL based on the environment
+        if self.env == "qa":
+            print(f"Running on QA Env: Opening : {qa_url}")
+            self.open(qa_url)
         else:
-            print("Running on Production Env")
-            self.open("https://www.nypl.org/give")
+            print(f"Running on Production Env: Opening : {url}")
+            self.open(url)

@@ -92,10 +92,10 @@ jobs:
     #     pytest examples/nypl_tests/test_blog_all.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
     
     
-    # - name: Run pytest test_book_lists.py
+    # - name: Run pytest test_bl_book_lists.py
     #   continue-on-error: true
     #   run: |
-    #     pytest examples/nypl_tests/test_book_lists.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
+    #     pytest examples/nypl_tests/test_bl_book_lists.py --rs --browser=chrome --headless -v -s -n=6 --reruns=2 --env=qa
     
         
     # - name: Run pytest test_campaigns.py

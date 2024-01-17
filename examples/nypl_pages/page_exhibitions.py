@@ -3,54 +3,63 @@ from seleniumbase import BaseCase
 
 class ExhibitionsPage(BaseCase):
     # main page elements
-    home = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[1]/a'
-    events = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[2]/a'
-    exhibitions_h1 = '//*[@id="block-nypl-emulsify-page-title"]/div/div/h1/span'
-    main_paragraph = '//*[@id="block-nypl-emulsify-content"]/div/div/div[1]/div/p'
-    current_exhibitions = '//*[@id="9-current-exhibitions"]'
-    coming_soon = '//*[@id="45-coming-soon"]'
-    coming_soon_content = '//*[@id="block-nypl-emulsify-content"]/div/div/div[3]/div[2]/div/div/div/ul/li/h3/a/span'
-    community_showcase = '//*[@id="1150-community-showcases"]'
-    online_exhibitions = '//*[@id="7132-online-exhibitions"]'
-    past_exhibitions = '//*[@id="46-past-exhibitions"]'
+    home = '(//*[contains(text(), "Home")])[1]'
+    events = '(//*[contains(text(), "Events")])[2]'
+    exhibitions_h1 = '(//*[contains(text(), "Exhibitions")])[2]'
 
-    no_community_showcase = '/html/body/div[1]/div/main/div[2]/div/div/div/div/p'
+    h3_links_main = '(//*[@id="block-nypl-emulsify-content"]//h3//a)'
+    h3_links_past_exhibitions = '(//*[@id="block-nypl-emulsify-content"]//a//h3)'
+    current_exhibitions = '(//*[contains(text(), "Current Exhibitions")])[1]'
+    see_all = '(//*[contains(text(), "See All")])'
 
     # /upcoming elements
-    exhibitions = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[3]/a'
-    upcoming_exhibitions_h1 = '//*[@id="block-pagetitle"]/div/div/h1'
-    header_paragraph = '//*[@id="block-nypl-emulsify-content"]/div/div/header/p'
-    right_icon = '//*[@id="block-nypl-emulsify-content"]/div/div/nav/ul/li[11]/a'
-    ellipsis_2 = '//*[@id="block-nypl-emulsify-content"]/div/div/nav/ul/li[10]'
+    exhibitions = '(//*[contains(text(), "Exhibitions")])[2]'
+    upcoming_1 = '(//*[contains(text(), "Upcoming Exhibitions")])[2]'
+    next_page_1 = '(//*[contains(text(), "Next page")])'
+
+    h3_links_upcoming = '(//*[@id="block-nypl-emulsify-content"]//h3//a)'
+    pagination_list = '(//*[contains(text(), "Pagination")]//..//li//a)'
 
     # /past exhibitions
-    past_exhibitions_h1 = '//*[@id="block-pagetitle"]/div/div/h1'
-    archived_parag = '//*[@id="block-nypl-emulsify-content"]/div/div/div[1]/div/p'
-    right_icon_2 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/nav/ul/li[8]/a'
+    past_exhibitions_h1 = '(//*[contains(text(), "Past Exhibitions")])[2]'
+    next_page_2 = '(//*[contains(text(), "Next page")])'
+
+    h3_links_past = '(//*[@id="block-nypl-emulsify-content"]//h3//a)'
+
+    # /archived-exhibition-resources
+    next_page_3 = '(//*[contains(text(), "Next page")])'
+    archived_h1 = '(//*[contains(text(), "Archived Exhibition Resources")])[2]'
     archived_h2 = '//*[@id="44-archived-exhibition-resources-a-to-z"]'
 
-    # /archived-exhibition-resources
-    right_icon_3 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/nav/ul/li[8]/a/span[2]'
-
-    # /archived-exhibition-resources
-    archived_h1 = '//*[@id="block-nypl-emulsify-page-title"]/div/div/h1/span'
+    h3_links_archived = '(//*[@id="block-nypl-emulsify-content"]//h3//a)'
 
     # /community-showcases
-    community_h1 = '//*[@id="block-nypl-emulsify-page-title"]/div/div/h1/span'
-    community_parag = '//*[@id="block-nypl-emulsify-content"]/div/div/div[1]/div/p'
-    right_icon_4 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div/div/div/nav/ul/li[3]/a/span[2]'
+    community_h1 = '(//*[contains(text(), "Community Showcases")])[2]'
+    next_page_4 = '(//*[contains(text(), "Next page")])'
+
+    no_community_showcase_1 = '/html/body/div[1]/div/main/div[2]/div/div/div/div/p'
+    no_community_showcase_2 = '(//*[contains(text(), "No Community Showcases")])'  # use this, delete above one
+
+    h3_links_community = '(//*[@id="block-nypl-emulsify-content"]//h3//a)'
 
     # /online
-    online_h1 = '//*[@id="block-nypl-emulsify-page-title"]/div/div/h1/span'
-    online_only_xpath = '//*[@id="block-nypl-emulsify-content"]/div/div/div/div/div/div/div/ul/li[1]/div/div[2]/div[1]/div'
+    online_h1 = '(//*[contains(text(), "Online Exhibitions")])[2]'
+    h3_links_online = '(//*[@id="block-nypl-emulsify-content"]//h3//a)'
 
-    def open_exhibitions_page(self):
+    def open_exhibitions_page(self, category=''):
         # self.open("https://www.nypl.org/events/exhibitions")
 
-        if self.env == "qa":
-            print("Running on QA Env")
-            self.open("https://qa-www.nypl.org/events/exhibitions")
+        # Determine the base URLs
+        base_url = "https://www.nypl.org/events/exhibitions/"
+        qa_base_url = "https://qa-www.nypl.org/events/exhibitions/"
 
+        url = f"{base_url}{category}"
+        qa_url = f"{qa_base_url}{category}"
+
+        # Open the appropriate URL based on the environment
+        if self.env == "qa":
+            print(f"Running on QA Env: Opening {category} page with URL: {qa_url}")
+            self.open(qa_url)
         else:
-            print("Running on Production Env")
-            self.open("https://www.nypl.org/events/exhibitions")
+            print(f"Running on Production Env: Opening {category} page with URL: {url}")
+            self.open(url)

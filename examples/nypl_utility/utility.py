@@ -7,7 +7,7 @@ from examples.nypl_pages.page_home import HomePage
 
 from examples.nypl_pages.page_blog import BlogPage
 from examples.nypl_pages.page_blog_all import BlogAllPage
-from examples.nypl_pages.page_book_lists import BookListsPage
+from examples.nypl_pages.page_bl_book_lists import BookListsPage
 from examples.nypl_pages.page_campaigns import CampaignsPage
 from examples.nypl_pages.page_exhibitions import ExhibitionsPage
 from examples.nypl_pages.page_footer import FooterPage
@@ -31,6 +31,8 @@ from examples.nypl_pages.page_sf_education import EducationPage
 from examples.nypl_pages.page_sf_early_literacy import EarlyLiteracyPage
 from examples.nypl_pages.page_sf_teens import EducationTeensPage
 from examples.nypl_pages.page_sf_educators import EducatorsPage
+from examples.nypl_pages.page_bl_best_books import BestBooksPage
+from examples.nypl_pages.page_bl_staff_picks import StaffPicksPage
 
 # from examples.nypl_tests.test_dxp_images import FrontendImages
 
@@ -45,7 +47,8 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 ExhibitionsPage, FooterPage, LocationsPage, ArticlesDatabasesPage, ResearchPage, ResearchSupportPage,
                 SnflPage, SnflTeenPage, BillyRosePage, RequestVisitPage, PosadaPage, WorldLiteraturePage,
                 ArticlesBurneyPage, ArticlesHomeworkPage, BlogChannelsPage, BlogIndividualPage, PressPage,
-                PressIndividualPage, EducationPage, EarlyLiteracyPage, EducationTeensPage, EducatorsPage):
+                PressIndividualPage, EducationPage, EarlyLiteracyPage, EducationTeensPage, EducatorsPage, BestBooksPage,
+                StaffPicksPage):
 
     def nypl_login_catalog(self, username, password):
 
@@ -120,28 +123,33 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
        taking 2 parameters, 'link' to be clicked and 'text' to be checked"""
 
     def link_assertion(self, link, text):
-        self.click(link)
-
         try:
-            # Try asserting the text in the URL
-            self.assert_true(text in self.get_current_url(),
-                             "expected link = " + text + ", actual link = " + self.get_current_url())
-            print(self.get_current_url())
-        except AssertionError:
-            # If there's an AssertionError, wait for a few seconds and try again
-            print("In 'Except' block, sleeping for a few seconds now")
-            print("link before sleep")
-            print(self.get_current_url())
-            time.sleep(5)  # waits for 5 seconds. You can adjust this value as needed
-            print("link after sleep")
-            print(self.get_current_url())
-            # Capture a screenshot just before the assertion
-            self.save_screenshot("screenshot_before_assertion.png")
-            self.assert_true(text in self.get_current_url(),
-                             "expected link = " + text + ", actual link = " + self.get_current_url())
+            self.click(link)
+            current_url = self.get_current_url()
+            assert text in current_url, f"Expected text '{text}' not in URL: {current_url}"
+            print(current_url)
+        except AssertionError as ae:
+            # This block handles the case where the text is found but does not match the expected text
+            current_url = self.get_current_url()
+            print("Assertion failed. The URL does not contain the expected text.")
+            print(f"Expected: {text}, Found in URL: {current_url}")
+            raise ae  # Re-raise the AssertionError to make it clear what went wrong
+        except NoSuchElementException as ne:
+            # This block handles the case where the element itself is not found
+            print("Element not found. Retrying after a few seconds...")
+            print("Link before sleep:", self.get_current_url())
+            self.save_screenshot("screenshot_before_retry.png")
+            self.wait(4)  # Adjust this wait time as necessary
+            try:
+                self.click(link)  # Retry clicking the link
+                assert text in self.get_current_url(), "Expected text not found in URL on retry."
+            except NoSuchElementException:
+                print("Element still not found after retry.")
+                raise ne  # Re-raise the NoSuchElementException
 
         # go to the previous page
         self.go_back()
+
 
     """ dynamic element link assertion:
     using link_assertion() method, click a link and assert the text in the URL,

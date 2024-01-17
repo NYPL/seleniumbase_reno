@@ -3,22 +3,19 @@ from seleniumbase import BaseCase
 
 class LocationsPage(BaseCase):
     home = '(//*[contains(text(), "Home")])[1]'
-    locations = '(//*[contains(text(), "Locations")])[1]'
+    locations = '(//*[contains(text(), "Locations")])[2]'  # breadcrumb, not the top header navigation one.
 
-    welcome_text = '//*[@id="main-content"]/div[1]/div[1]/div/div[2]'
-    find_your_library = '//*[@id="location-finder__title"]'
-    search_text = '//*[@id="search-form__search-input-label"]'
     search_bar = '//*[@id="search-form__search-input"]'
-    search = '//*[@id="search-form__submit"]'
+    search_button = '//*[@id="search-form__submit"]'
     first_result = '(//*[@id="locations-list"]//h2)[1]'
 
     open_now_check_box = '//*[@id="checkbox-open-now"]'
-    filters = '//*[@id="search-filters-group1__heading"]'
-    research_filters = '//*[@id="search-filters-group2__heading"]'
     clear_all_search = '//*[@id="location-finder-search-results-details__clear"]'
     clear_all_search_2 = '//*[@id="button-clear-filter-borough"]'
 
     filter_length = '//*[@id="locations-list"]//li'  # this locator is true for all sub-filters
+    library_amount = '(//*[@id="locations-list"]//li)'  # same as above, used only for library amount
+    library_name = '((//*[@id="locations-list"]//li)//h2//a)'  # retrieves the h2 for Library names
 
     all_libraries = '//*[@id="locations-list"]//li'
     open_libraries = '//*[@id="locations-list"]//li'
@@ -65,11 +62,17 @@ class LocationsPage(BaseCase):
     def open_locations_page(self):
         # self.open("https://www.nypl.org/locations")
 
-        if self.env == "qa":
-            print("Running on QA Env")
-            self.open("https://qa-www.nypl.org/locations")
+        base_url = "https://www.nypl.org/locations"
+        qa_base_url = "https://qa-www.nypl.org/locations"
 
+        url = f"{base_url}"
+        qa_url = f"{qa_base_url}"
+
+        # Open the appropriate URL based on the environment
+        if self.env == "qa":
+            print(f"Running on QA Env: Opening : {qa_url}")
+            self.open(qa_url)
         else:
-            print("Running on Production Env")
-            self.open("https://www.nypl.org/locations")
+            print(f"Running on Production Env: Opening : {url}")
+            self.open(url)
 

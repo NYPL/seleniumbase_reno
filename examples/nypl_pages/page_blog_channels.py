@@ -7,14 +7,16 @@ class BlogChannelsPage(BaseCase):
 
     home_title = 'Blogs: Explore By Channel | The New York Public Library'
 
+    explore_by_channel_links = '(//*[@id="page-container--content-primary"]//li//a)'
+
     def open_blog_channels_page(self):
-        prod_url = "https://www.nypl.org/blog/channels"
-        qa_url = "https://qa-www.nypl.org/blog/channels"
+        prod = "https://www.nypl.org/blog/channels"
+        qa = "https://qa-www.nypl.org/blog/channels"
 
         if self.env == "qa":
             print("Running on QA Env")
-            self.open(qa_url)
+            self.open(qa)
 
         else:
             print("Running on Production Env")
-            self.open(prod_url)
+            self.open(prod)

@@ -149,7 +149,7 @@ class BlogAllTests(NyplUtils):
 
     def test_audience_filter(self):
         print("test_audience()\n")
-        """this method randomly takes 10 elements (can be changed) and asserts the child elements of the Divisions 
+        """this method randomly takes 10 elements (can be changed) and asserts the child elements of the Audience 
         filter and if they are clickable """
 
         # assert Audience button

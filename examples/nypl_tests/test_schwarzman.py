@@ -1,18 +1,7 @@
-from selenium.common import TimeoutException
-from seleniumbase.common.exceptions import NoSuchElementException
+from selenium.common import NoSuchElementException
 
 from examples.nypl_pages.page_schwarzman import SchwarzmanPage
 from examples.nypl_utility.utility import NyplUtils
-
-import re
-import requests
-from selenium.webdriver.common.by import By
-
-import urllib3
-import pytest
-from requests.exceptions import MissingSchema, InvalidSchema, InvalidURL
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 
 
 class Schwarzman(NyplUtils):

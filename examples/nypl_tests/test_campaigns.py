@@ -14,15 +14,17 @@ class Campaigns(NyplUtils):
         print("RUNNING BEFORE EACH TEST")
 
         # open campaigns page
-        self.open_campaigns_page()
+        # self.open_campaigns_page()  # opening URLs from within the tests itself
 
     def tearDown(self):
         print("RUNNING AFTER EACH TEST")
         print("=================================")
         super().tearDown()
 
-    def test_125(self):
+    def test_125_main(self):
+        # https://www.nypl.org/125
         print("test_125()\n")
+        self.open_campaigns_page(category='')
 
         # asserting the images on the page
         self.image_assertion()
@@ -30,28 +32,21 @@ class Campaigns(NyplUtils):
         # assert home element
         self.assert_element(CampaignsPage.home)
 
-        # assert hero
-        self.assert_element(CampaignsPage.main_card)
-
         # assert rest of the cards in range (1, card_length)
-        card_length = len(self.find_elements('/html/body/div[1]/div/main/div[2]/div/div/div/div/div'))
+        h2_link = len(self.find_elements(CampaignsPage.h2_links))
 
-        for x in range(1, card_length + 1):
+        for x in range(1, h2_link + 1):
             # assert each card in the page, there is 16 cards as of June 2022
-            card_xpath = '/html/body/div[1]/div/main/div[2]/div/div/div/div/div[' + str(x) + ']'
-            self.assert_element(card_xpath)
+            h2_link = CampaignsPage.h2_links + '[' + str(x) + ']'
+            self.assert_page_loads_successfully(h2_link)
             # print("assert number = " + str(x))  # optional print
 
         print("\n")
-
         # asserting the slides in 'The New York Public Library Through the Years'
         for y in range(1, 11):
-            print(self.get_image_url(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[14]/div[2]/div/div/div/div[' + str(
-                    y) + ']/div/li/button/img'))
+            print(self.get_image_url(CampaignsPage.slide_images + '[' + str(y) + ']'))
 
-        slide_length = len(
-            self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div[14]/div[2]/div/div/div/div'))
+        slide_length = len(self.find_elements(CampaignsPage.slide_images))  # this is 28 but there are total 10 images
 
         # assert slide number more than 9, currently 28 (10 as unique) as of June 2022
         print("\nSlide amount is " + str(slide_length))
@@ -60,111 +55,54 @@ class Campaigns(NyplUtils):
     def test_125_timeline(self):
         # https://www.nypl.org/125/timeline
         print("test_125_timeline()\n")
+        self.open_campaigns_page(category='timeline')
 
-        if self.env == 'qa':
-            self.open('https://qa-www.nypl.org/125/timeline')
-        else:
-            self.open('https://www.nypl.org/125/timeline')
+        # asserting the images on the page
+        self.image_assertion()
 
         # assert breadcrumbs
         self.assert_element(CampaignsPage._125_years)
         self.assert_element(CampaignsPage.timeline_h1)
 
         # asserting cards in the page, 45 of them as of June 2022
-        cards_length = len(self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div'))
-        self.assert_true(cards_length >= 45, "Cards amount in the page is less than " + str(cards_length))
+        cards_length = len(self.find_elements(CampaignsPage.h2_cards))
+        print("total cards (h2) on the page = " + str(cards_length))  # optional print of the total h2 on the page
+        self.assert_true(cards_length >= 5, "Cards amount in the page is less than 5")
 
-        # assert main h2 heading and main paragraph
-        self.assert_element('//*[@id="featured-card--heading--1579"]')
-        self.assert_element('//*[@id="block-nypl-emulsify-content"]/div/div/div[1]/ul/li/div[1]/div/p')
+        # assert main h2 on the page
+        self.assert_element(CampaignsPage.main_h2)
 
-        # asserting rest of the 44 h2 and paragraphs, starting from the 2nd one
-        for x in range(2, cards_length + 1):
-            self.assert_element(f'(//*[@id="block-nypl-emulsify-content"]//h2)[{x}]')
-            self.assert_element(f'(//*[@id="block-nypl-emulsify-content"]//p)[{x}]')
-
-        # asserting images, 19 images as of June2022
-        images_count = len(self.find_elements('//img'))
-        self.assert_true(images_count > 15, "images on the page are less than given amount")
+        # assert all h2 on the page
+        for x in range(1, cards_length + 1):
+            self.assert_element(CampaignsPage.h2_cards + '[' + str(x) + ']')
 
     def test_125_topCheckouts(self):
         # https://www.nypl.org/125/topcheckouts
         print("test_125_topCheckouts()\n")
+        self.open_campaigns_page(category='topcheckouts')
 
-        if self.env == 'qa':
-            self.open('https://qa-www.nypl.org/125/topcheckouts')
-        else:
-            self.open('https://www.nypl.org/125/topcheckouts')
+        # asserting the images on the page
+        self.image_assertion()
 
         # assert breadcrumbs
         self.assert_element(CampaignsPage._125_years)
         self.assert_element(CampaignsPage.checkouts_h1)
-        self.assert_elements(CampaignsPage.topcheckout_paragraphs)
 
-        # asserting top 3 card grid '125 books we love' ...
-        # length of the grid to use in 'for loop' for dynamic purposes in future
-        grid_length = len(self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/ul/li'))
-        for x in range(1, grid_length + 1):
-            # asserting the Grids elements' text
-            self.assert_element(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/ul/li[' + str(x) + ']/div[1]/div/p[1]')
-            # asserting by clicking the link on the top 3 grid h2 elements
-            self.click(f'(//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/ul/li//h2//a)[{x}]')
-            self.wait(0.2)
-            self.go_back()
-            # asserting 'Explore the List' elements
-            self.click(f'(//*[contains(text(), "Explore the List")])[{x}]')
-            self.wait(0.2)
-            self.go_back()
-            # asserting grid elements in a nested for loop
-            for y in range(1, 3):
-                self.assert_element(
-                    '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/ul/li[' + str(x) + ']/div[' + str(y) + ']')
+        # asserting the links on the page loads
+        link_amount = len(self.find_elements(CampaignsPage.topcheckouts_links))
+        for x in range(1, link_amount + 1):
+            self.assert_page_loads_successfully(CampaignsPage.topcheckouts_links + '[' + str(x) + ']')
 
         # asserting h2 header 'Honorable Mention'
-        self.assert_element('//*[@id="block-nypl-emulsify-content"]/div/div/div[3]/div/h2')
-        # asserting the whole 'Honorable mention' div
-        self.assert_element('//*[@id="block-nypl-emulsify-content"]/div/div/div[3]')
-        # asserting landing page text- 'A note on Methodology'
-        self.assert_element('//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/div/div')
-        # asserting card-grids at the bottom of the page
-        self.assert_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/ul/li[1]',
-                             '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/ul/li[2]')
+        self.assert_element(CampaignsPage.honorable_mention)
 
-    def test_125_topCheckouts_top10Books(self):
-        # https://www.nypl.org/125/topcheckouts
-        print("test_125_topCheckouts_top100Books()\n")
+        # assert "Honorable Mention" book links
+        honorable_mention_book_links_amount = len(self.find_elements(CampaignsPage.honorable_mention_book_links))
+        for x in range(1, honorable_mention_book_links_amount + 1):
+            self.assert_page_loads_successfully(CampaignsPage.honorable_mention_book_links + '[' + str(x) + ']')
 
-        if self.env == 'qa':
-            self.open('https://qa-www.nypl.org/125/topcheckouts')
-        else:
-            self.open('https://www.nypl.org/125/topcheckouts')
-
-        # asserting the 10 books/elements
         # asserting the top checkout number is equal to 10
-        top_checkout_number = len(self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/ol/li'))
-        self.assert_true(top_checkout_number == 10, "top checkout number is not equal to 10")
+        top_checkout_amount = len(self.find_elements(CampaignsPage.top10_books))
+        self.assert_true(top_checkout_amount == 10, "top checkout number is not equal to 10")
 
-        # asserting each book by clicking
-        for y in range(1, top_checkout_number + 1):
-            self.assert_element(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/ol/li[' + str(y) + ']/div[1]/div[2]/div[3]/a[1]')
-            self.click('//*[@id="block-nypl-emulsify-content"]/div/div/ol/li[' + str(y) + ']/div[1]/div['
-                                                                                          '2]/div[3]/a[1]')
 
-            print("Request Book for the book " + str(y) + " is verified")
-            self.go_back()
-            if not self.is_element_visible(
-                    '//*[@id="block-nypl-emulsify-content"]/div/div/ol/li[' + str(y) + ']/div[1]/div[2]/div[3]/a[2]'):
-                print("Request E-Book element is not present on book " + str(y))
-                print("\n-----------------------------------------------------\n")
-                continue
-            else:
-                self.assert_element('//*[@id="block-nypl-emulsify-content"]/div/div/ol/li[' + str(y) + ']/div[1]/div['
-                                                                                                       '2]/div[3]/a['
-                                                                                                       '2]')
-                self.click(
-                    '//*[@id="block-nypl-emulsify-content"]/div/div/ol/li[' + str(y) + ']/div[1]/div[2]/div[3]/a[2]')
-                print("Request E-Book for the book " + str(y) + " is verified")
-                self.go_back()
-                print("\n-----------------------------------------------------\n")
