@@ -50,3 +50,4 @@ pyotp==2.9.0
 markdown-it-py==3.0.0;python_version>="3.8"
 mdurl==0.1.2
 rich==13.7.0
+pytest-pspec== 0.0.4
