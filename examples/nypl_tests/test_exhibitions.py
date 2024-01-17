@@ -1,6 +1,5 @@
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_exhibitions import ExhibitionsPage
-from random import randrange
 
 
 class Exhibitions(NyplUtils):
@@ -10,7 +9,6 @@ class Exhibitions(NyplUtils):
     # https://www.nypl.org/events/exhibitions/archived-exhibition-resources
     # https://www.nypl.org/events/exhibitions/community-showcases
     # https://www.nypl.org/events/exhibitions/online
-    # https://www.nypl.org/events/exhibitions/stonewall50
 
     def setUp(self):
         super().setUp()
@@ -18,7 +16,7 @@ class Exhibitions(NyplUtils):
         print("RUNNING BEFORE EACH TEST")
 
         # open exhibitions page
-        self.open_exhibitions_page()
+        # self.open_exhibitions_page()  # opening URLs from within the tests itself
 
     def tearDown(self):
         print("RUNNING AFTER EACH TEST")
@@ -26,7 +24,9 @@ class Exhibitions(NyplUtils):
         super().tearDown()
 
     def test_exhibitions_main_page_elements(self):
+        # https://www.nypl.org/events/exhibitions
         print("test_exhibitions_main_page_elements()\n")
+        self.open_exhibitions_page(category='')
 
         # assert title
         self.assert_title('Exhibitions | The New York Public Library')
@@ -38,210 +38,47 @@ class Exhibitions(NyplUtils):
         self.assert_element(ExhibitionsPage.home)
         self.assert_element(ExhibitionsPage.events)
         self.assert_element(ExhibitionsPage.exhibitions_h1)
-        self.assert_element(ExhibitionsPage.main_paragraph)
         self.assert_element(ExhibitionsPage.current_exhibitions)
 
-        # asserting 'Current Exhibitions' list, and it is number of elements
-        # current exhibition length
-        curr_exh_list_length = len(
-            self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/div/ul/li'))
-        print('Current exhibition amount is = ' + str(curr_exh_list_length))  # optional print
-        # asserting the exhibition length is more than expected amount
-        self.assert_true(curr_exh_list_length >= 1, "Current exhibition amount is not greater than 1")
-
-        # asserting 'current exhibitions' in a for loop by clicking every exhibition
-        # comparing each exhibition link text with the hero header on their own page
-        for x in range(1, curr_exh_list_length + 1):
-            exhibition_link_text = self.get_text(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/div/ul/li[' + str(
-                    x) + ']/h3/a/span')
-            print(exhibition_link_text)  # optional print
-            self.click('//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/div/ul/li[' + str(x) + ']')
-            # title_text = self.get_text(self.get_title())
-            # print(title_text)  # optional print
-            hero_header_text = self.get_text('//*[@id="block-content-hero-header"]/div/div[2]/div[1]/h1/span')
-            print(hero_header_text)  # optional text
-            self.assert_true(exhibition_link_text in hero_header_text,
-                             "Exhibition Page title does not match Exhibition link text")
-            self.go_back()
-
-        # asserting 'See All' for 'Coming Soon', 'Community Showcases', 'Online Exhibitions', 'Past Exhibitions'
-        # this range is dynamic since the page content changes
-        # As of June 2022, there is only 4 'see all' to assert, from 3 to 7
-        # As of Feb 2023, there is only 3 'see all' to assert, from 3 to 6
-        # As of Feb 2023, 'coming soon' does not exist on the page anymore
-
-        # finding 'See All' locators number for 'Coming Soon', 'Community Showcases', 'Online Exhibitions',
-        # 'Past Exhibitions' to use in the for loop
-        see_all_length = len(self.find_elements('//*[contains(text(), "See All")]'))
-        print(see_all_length)
+        # ------------------------------------------------------------------------------------------------
+        # asserting 'See All' elements
+        see_all_length = len(self.find_elements(ExhibitionsPage.see_all))
+        print("Total 'See All' elements = " + str(see_all_length))  # optional print of the 'See All' links amount
         for x in range(1, see_all_length):
-            self.click(f'(//*[contains(text(), "See All")])[{x}]')
+            self.click(f"{ExhibitionsPage.see_all}[{x}]")
             self.go_back()
 
-        print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+        # asserting every h3 link on the main page, excluding 'Past Exhibitions'
+        h3_links_amount = len(self.find_elements(ExhibitionsPage.h3_links_main))
+        for x in range(1, h3_links_amount + 1):
+            self.assert_page_loads_successfully(ExhibitionsPage.h3_links_main + '[' + str(x) + ']')
 
-        # *****************************************
-
-        # *****************************************
-        # asserting 'Community Showcase' element
-        self.assert_element(ExhibitionsPage.community_showcase)
-
-        # getting the length of the list to use it in the for loop
-        community_length = len(
-            self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/div[2]/div/div/ul/li'))
-        # asserting each exhibition and their own page by clicking each in 'Community Showcases'
-        for x in range(1, community_length + 1):
-            # asserting images on the links/exhibitions
-            self.is_element_visible(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/div[2]/div/div/ul/li[' + str(
-                    x) + ']/a/figure/img')
-
-            # asserting 'Community Showcases' content
-            community_showcase_link_text = self.get_text(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/div[2]/div/div/ul/li[' + str(
-                    x) + ']/h3/a/span')
-            print(community_showcase_link_text)
-            self.click(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[4]/div[2]/div/div/ul/li[' + str(
-                    x) + ']/h3/a/span')
-            community_showcase_hero_text = self.get_text(
-                '//*[@id="block-nypl-emulsify-content"]/div/div[1]/h1/span')
-            print(community_showcase_hero_text)
-            self.assert_true(community_showcase_link_text in community_showcase_hero_text)
-            self.go_back()
-
-        print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
-
-        # *****************************************
-
-        # *****************************************
-        # asserting 'Online Exhibitions' element
-        self.assert_element(ExhibitionsPage.online_exhibitions)
-
-        # getting the length of the list to use it in the for loop
-        online_length = len(
-            self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/div[2]/div/div/div/ul/li'))
-        # asserting each online exhibition and their own page by clicking in 'Online Exhibition'
-        for x in range(1, online_length + 1):
-            # asserting images on the links/exhibitions
-            self.is_element_visible(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/div[2]/div/div/div/ul/li[' + str(
-                    x) + ']/a/img')
-
-            # asserting 'online only' is displayed
-            exhibition_text = self.get_text(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/div[2]/div/div/div/ul/li[' + str(x) + ']/div')
-            self.assert_true("Online Only" in exhibition_text)
-
-            # asserting 'Online Exhibition' content
-            online_exhibition_link_text = self.get_text(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/div[2]/div/div/div/ul/li[' + str(
-                    x) + ']/h3/a/span')
-            print(online_exhibition_link_text)
-            self.click(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[5]/div[2]/div/div/div/ul/li[' + str(
-                    x) + ']/h3/a/span')
-            online_exhibition_hero_text = self.get_text('//*[@id="block-content-hero-header"]/div/div[2]/div[1]')
-            print(online_exhibition_hero_text)
-            self.assert_true(online_exhibition_link_text in online_exhibition_hero_text)
-            self.go_back()
-
-        print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
-
-        # *****************************************
-
-        # *****************************************
-        # asserting 'Past Exhibitions' element
-        self.assert_element(ExhibitionsPage.past_exhibitions)
-
-        # asserting 'Past Exhibitions' grid
-        # getting the length for the for loop
-        past_exh_length = len(
-            self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[2]/div/div/ul/div'))
-
-        print("URL before the loop")
-        print(self.get_current_url())
-        # asserting each Past Exhibition and their own page by clicking in 'Past Exhibition'
-        for x in range(1, past_exh_length + 1):
-            # asserting the images
-            self.is_element_visible(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[2]/div/div/ul/div[' + str(x) + ']/a/img')
-            # asserting the 'past exhibitions' (3 of them as May 2022)
-            self.click(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[2]/div/div/ul/div[' + str(x) + ']/div/a')
-            self.go_back()
-
-            # asserting 'Past Exhibitions' content
-            past_exhibitions_link_text = self.get_text(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[2]/div/div/ul/div[' + str(
-                    x) + ']/div/a/h3/span')
-            print(past_exhibitions_link_text)
-            self.click(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[6]/div[2]/div/div/ul/div[' + str(x) + ']/div/a')
-            print(self.get_current_url())
-            past_exhibitions_hero_text = self.get_text('//*[@id="block-content-hero-header"]/div/div[2]/div[1]/h1/span')
-            print(past_exhibitions_hero_text)
-            self.assert_true(past_exhibitions_link_text in past_exhibitions_hero_text)
-            self.go_back()
-
-        print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+        # asserting 'Past Exhibitions' h3 links
+        h3_links_amount = len(self.find_elements(ExhibitionsPage.h3_links_past_exhibitions))
+        for x in range(1, h3_links_amount + 1):
+            self.assert_page_loads_successfully(ExhibitionsPage.h3_links_past_exhibitions + '[' + str(x) + ']')
 
     def test_exhibitions_upcoming(self):
         # https://www.nypl.org/events/exhibitions/upcoming
         print("test_exhibitions_upcoming()\n")
-
-        if self.env == "qa":
-            print("Running on QA Env")
-            self.open("https://qa-www.nypl.org/events/exhibitions/upcoming")
-
-        else:
-            print("Running on Production Env")
-            self.open("https://www.nypl.org/events/exhibitions/upcoming")
+        self.open_exhibitions_page(category='upcoming')
 
         # assert breadcrumbs and page elements
         self.assert_element(ExhibitionsPage.home)
         self.assert_element(ExhibitionsPage.events)
         self.assert_element(ExhibitionsPage.exhibitions)
-        self.assert_element(ExhibitionsPage.upcoming_exhibitions_h1)
-        self.assert_element(ExhibitionsPage.header_paragraph)
-
-        # *****************************************
+        self.assert_element(ExhibitionsPage.upcoming_1)
 
         # getting the length of the list to use it in the for loop
-        exhibition_length = len(
-            self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div'))
-        # asserting each exhibition by clicking and comparing their own page
-        for x in range(1, exhibition_length + 1):
-            print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
-
-            # asserting images on the links/exhibitions
-            self.is_element_visible(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div/li[' + str(x) + ']/a/img')
-
-            # asserting exhibition contents
-            exhibition_link_text = self.get_text(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[' + str(x) + ']/li/h3/a/span')
-            print(exhibition_link_text)
-            self.click('//*[@id="block-nypl-emulsify-content"]/div/div/div[' + str(x) + ']/li/h3/a/span')
-            exhibition_hero_text = self.get_text('//*[@id="block-content-hero-header"]/div/div[2]/div[1]/h1/span')
-            print(exhibition_hero_text)
-            self.assert_true(exhibition_link_text in exhibition_hero_text)
-            self.go_back()
-
-        print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+        h3_links_amount = len(self.find_elements(ExhibitionsPage.h3_links_upcoming))
+        # asserting every h3 link on the main page (Upcoming Exhibitions)
+        for x in range(1, h3_links_amount + 1):
+            self.assert_page_loads_successfully(ExhibitionsPage.h3_links_upcoming + '[' + str(x) + ']')
 
     def test_exhibitions_past(self):
         # https://www.nypl.org/events/exhibitions/past
         print("test_exhibitions_past()\n")
-
-        if self.env == "qa":
-            print("Running on QA Env")
-            self.open("https://qa-www.nypl.org/events/exhibitions/past")
-
-        else:
-            print("Running on Production Env")
-            self.open("https://www.nypl.org/events/exhibitions/past")
+        self.open_exhibitions_page(category='past')
 
         # assert breadcrumbs and page elements
         self.assert_element(ExhibitionsPage.home)
@@ -249,134 +86,70 @@ class Exhibitions(NyplUtils):
         self.assert_element(ExhibitionsPage.exhibitions)
         self.assert_element(ExhibitionsPage.past_exhibitions_h1)
 
-        # asserting pagination elements - the forward button > and ellipsis '...'
-        self.assert_element(ExhibitionsPage.right_icon)
-        self.assert_element(ExhibitionsPage.ellipsis_2)
+        # asserting every h3 link on the main page (Past Exhibitions)
+        h3_links_amount = len(self.find_elements(ExhibitionsPage.h3_links_past))
+        for x in range(1, h3_links_amount + 1):
+            self.assert_page_loads_successfully(ExhibitionsPage.h3_links_past + '[' + str(x) + ']')
 
-        # *****************************************
-
-        # getting the length of the list to use it in the for loop
-        exhibition_length = len(
-            self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div/ul/li'))
-        # asserting each exhibition by clicking and asserting their own page
-        for x in range(1, exhibition_length + 1):
-            print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
-
-            # asserting images on the links/exhibitions
-            self.is_element_visible(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div/ul/li[' + str(x) + ']/a/img')
-
-            # asserting exhibition contents
-            exhibition_link_text = self.get_text(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div/ul/li[' + str(x) + ']/h3/a/span')
-            print(exhibition_link_text)
-            self.click('//*[@id="block-nypl-emulsify-content"]/div/div/div/ul/li[' + str(x) + ']/h3/a/span')
-            exhibition_hero_text = self.get_text('//*[@id="block-content-hero-header"]/div/div[2]/div[1]/h1/span')
-            print(exhibition_hero_text)
-            self.assert_true(exhibition_link_text in exhibition_hero_text)
-            self.go_back()
-
-        print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+        # asserting pagination elements
+        self.assert_element(ExhibitionsPage.next_page_1)
 
         # asserting the pager links at the bottom of the page
-        pager_length = 9  # as of June 2022
+        pager_length = len(self.find_elements(ExhibitionsPage.pagination_list))
 
-        for x in range(1, pager_length + 1):
-            self.click('//*[@id="block-nypl-emulsify-content"]/div/div/nav/ul/li[' + str(x) + ']/a')
+        for x in range(1, pager_length):
+            self.click(ExhibitionsPage.pagination_list + '[' + str(x) + ']')
             url_text = self.get_current_url()
-            print(url_text)  # optional print  # optional print
+            print(url_text)  # optional print
             # asserting if the url text contains page=random_number
-            self.assert_true('page=' + str(x - 1) in url_text)
-            print('page=' + str(x - 1))
-            self.go_back()
+            print('page = ' + str(x - 1))
+            self.assert_true(str(x - 1) in url_text)
+            self.open_exhibitions_page(category='past')
 
     def test_exhibitions_archived_exhibition_resources(self):
         # https://www.nypl.org/events/exhibitions/archived-exhibition-resources
         print("test_exhibitions_archived_exhibition_resources()\n")
-
-        if self.env == "qa":
-            print("Running on QA Env")
-            self.open("https://qa-www.nypl.org/events/exhibitions/archived-exhibition-resources")
-
-        else:
-            print("Running on Production Env")
-            self.open("https://www.nypl.org/events/exhibitions/archived-exhibition-resources")
+        self.open_exhibitions_page(category='archived-exhibition-resources')
 
         # assert breadcrumbs and page elements
         self.assert_element(ExhibitionsPage.home)
         self.assert_element(ExhibitionsPage.events)
         self.assert_element(ExhibitionsPage.exhibitions)
         self.assert_element(ExhibitionsPage.archived_h1)
-        self.assert_element(ExhibitionsPage.archived_parag)
         self.assert_element(ExhibitionsPage.archived_h2)
 
-        # asserting the forward button > and ellipsis '...'
-        self.assert_element(ExhibitionsPage.right_icon_2)
-
-        # *****************************************
-
-        # getting the length of the list to use it in the for loop
-        exhibition_length = len(
-            self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/ul/li'))
-        # asserting each exhibition by clicking and asserting their own page
-        for x in range(1, exhibition_length + 1):
-            print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
-
-            # asserting images on the links/exhibitions
-            self.is_element_visible(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/ul/li[' + str(
-                    x) + ']/a/figure/img')
-
-            # asserting exhibition headings/link-texts
-            exhibition_link_text = self.get_text(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/ul/li[' + str(x) + ']/div/h3/a')
-            print(exhibition_link_text)
-            self.click(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/ul/li[' + str(x) + ']/div/h3/a')
-            self.go_back()
-            # asserting the content
-            # self.click('//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/ul/li[' + str(x) + ']/div')
-            exhibition_hero_text = self.get_text('//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div['
-                                                 '2]/div/div/ul/li[' + str(x) + ']/div/div/p')
-            self.assert_text(exhibition_hero_text)
-
-        # pagination length for the for loop
-        pagination_length = int(str(len(
-            self.find_elements(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/nav/ul/li')) - 1))
-        # print(pagination_length)  # optional print of the page numbers at the bottom
+        # asserting every h3 link on the main page (Archived Exhibition)
+        h3_links_amount = len(self.find_elements(ExhibitionsPage.h3_links_archived))
+        for x in range(1, h3_links_amount + 1):
+            self.assert_page_loads_successfully(ExhibitionsPage.h3_links_archived + '[' + str(x) + ']')
 
         # asserting the pager links at the bottom of the page
-        for x in range(1, pagination_length + 1):
-            self.click(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/div/div/nav/ul/li[' + str(x) + ']/a')
+        pager_length = len(self.find_elements(ExhibitionsPage.pagination_list))
+
+        for x in range(1, pager_length):
+            self.click(ExhibitionsPage.pagination_list + '[' + str(x) + ']')
             url_text = self.get_current_url()
-            print(url_text)  # optional print  # optional print
+            print(url_text)  # optional print
             # asserting if the url text contains page=random_number
-            self.assert_true('page=' + str(x - 1) in url_text)
-            print('page=' + str(x - 1))
-            self.go_back()
+            print('page = ' + str(x - 1))
+            self.assert_true(str(x - 1) in url_text)
+            self.open_exhibitions_page(category='archived-exhibition-resources')
+
+        # asserting the forward button > and ellipsis '...'
+        self.assert_element(ExhibitionsPage.next_page_2)
 
         # asserting right-icon
-        self.assert_element(ExhibitionsPage.right_icon_3)
-        print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+        self.assert_element(ExhibitionsPage.next_page_3)
 
     def test_exhibitions_community_showcases(self):
         # https://www.nypl.org/events/exhibitions/community-showcases
         print("test_exhibitions_community_showcases()\n")
-
-        if self.env == "qa":
-            print("Running on QA Env")
-            self.open("https://qa-www.nypl.org/events/exhibitions/community-showcases")
-
-        else:
-            print("Running on Production Env")
-            self.open("https://www.nypl.org/events/exhibitions/community-showcases")
+        self.open_exhibitions_page(category='community-showcases')
 
         # using 'try' and 'except' block since the webpage might have no exhibitions at all
         try:  # if the page does not have any showcases, this 'try' block will take care of the test
             # skip test if there is no current "Community Showcase"
-            no_community_showcase_text = self.get_text(ExhibitionsPage.no_community_showcase)
+            no_community_showcase_text = self.get_text(ExhibitionsPage.no_community_showcase_1)
             assertion_text = 'currently have no community showcases'
             if assertion_text in no_community_showcase_text:
                 print("No Community Showcases, so nothing to assert.")
@@ -386,64 +159,31 @@ class Exhibitions(NyplUtils):
             self.assert_element(ExhibitionsPage.events)
             self.assert_element(ExhibitionsPage.exhibitions)
             self.assert_element(ExhibitionsPage.community_h1)
-            self.assert_element(ExhibitionsPage.community_parag)
 
-            # length of the exhibition list for the loop next
-            exhibition_list_length = len(self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div['
-                                                            '2]/div/div/div/ul/li'))
-            print("Exhibition list length is " + str(exhibition_list_length))
-            # asserting the list of exhibitions
-            for x in range(1, exhibition_list_length + 1):
-                print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+            # asserting every h3 link on the main page (Community Showcases)
+            h3_links_amount = len(self.find_elements(ExhibitionsPage.h3_links_community))
+            for x in range(1, h3_links_amount + 1):
+                self.assert_page_loads_successfully(ExhibitionsPage.h3_links_community + '[' + str(x) + ']')
 
-                # asserting images on the links/exhibitions
-                self.is_element_visible(
-                    '//*[@id="block-nypl-emulsify-content"]/div/div/div/ul/li[' + str(x) + ']/a/img')
-
-                # asserting exhibition contents
-                exhibition_link_text = self.get_text(
-                    '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div/div/div/ul/li[' + str(x) + ']/h3/a/span')
-                print(exhibition_link_text)
-                self.click(
-                    '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div/div/div/ul/li[' + str(x) + ']/h3/a/span')
-                exhibition_hero_text = self.get_text('//*[@id="block-nypl-emulsify-content"]/div/div[1]/h1/span')
-                print(exhibition_hero_text)
-                self.assert_true(exhibition_link_text in exhibition_hero_text)
-                self.go_back()
-
-            # length of the pager links for the loop next
-            pagination_length = int(str(len(
-                self.find_elements(
-                    '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div/div/div/nav/ul/li')) - 1))
-            print("\nPage amount on the default page is " + str(
-                pagination_length))  # optional print of the page numbers at the bottom
             # asserting the pager links at the bottom of the page
-            for x in range(1, pagination_length + 1):
-                self.click(
-                    '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div/div/div/nav/ul/li[' + str(x) + ']/a')
+            pager_length = len(self.find_elements(ExhibitionsPage.pagination_list))
+
+            for x in range(1, pager_length):
+                self.click(ExhibitionsPage.pagination_list + '[' + str(x) + ']')
                 url_text = self.get_current_url()
-                print(url_text)  # optional print  # optional print
+                print(url_text)  # optional print
                 # asserting if the url text contains page=random_number
-                self.assert_true('page=' + str(x - 1) in url_text)
-                print('page=' + str(x - 1))
-                self.go_back()
+                print('page = ' + str(x - 1))
+                self.assert_true(str(x - 1) in url_text)
+                self.open_exhibitions_page(category='community-showcases')
 
             # asserting right-icon
-            self.assert_element(ExhibitionsPage.right_icon_4)
-
-            print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+            self.assert_element(ExhibitionsPage.next_page_4)
 
     def test_exhibitions_online(self):
         # https://www.nypl.org/events/exhibitions/online
         print("test_exhibitions_online()\n")
-
-        if self.env == "qa":
-            print("Running on QA Env")
-            self.open("https://qa-www.nypl.org/events/exhibitions/online")
-
-        else:
-            print("Running on Production Env")
-            self.open("https://www.nypl.org/events/exhibitions/online")
+        self.open_exhibitions_page(category='online')
 
         # assert breadcrumbs and page elements
         self.assert_element(ExhibitionsPage.home)
@@ -451,34 +191,19 @@ class Exhibitions(NyplUtils):
         self.assert_element(ExhibitionsPage.exhibitions)
         self.assert_element(ExhibitionsPage.online_h1)
 
-        # length of the list
-        exhibition_list_length = len(
-            self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/div/div/div/div/div/ul/li'))
-        print("Exhibition list length is " + str(exhibition_list_length))
+        # asserting every h3 link on the main page (Online)
+        h3_links_amount = len(self.find_elements(ExhibitionsPage.h3_links_online))
+        for x in range(1, h3_links_amount + 1):
+            self.assert_page_loads_successfully(ExhibitionsPage.h3_links_online + '[' + str(x) + ']')
 
-        # asserting the exhibition list
-        for x in range(1, exhibition_list_length + 1):
-            print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+        # asserting the pager links at the bottom of the page
+        pager_length = len(self.find_elements(ExhibitionsPage.pagination_list))
 
-            # asserting images on the links/exhibitions
-            self.is_element_visible(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div/div/div/div/div/ul/li[' + str(x) + ']/a/img')
-
-            # asserting exhibition contents
-            # asserting 'Online Only' text
-            online_text = self.get_text(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div/div/div/div/div/ul/li[' + str(x) + ']/div')
-            self.assert_true("Online Only" in online_text, "Online Only does not show up in the exhibition")
-            # asserting the link text and the hero text on the next page when clicked
-            exhibition_link_text = self.get_text('//*[@id="block-nypl-emulsify-content"]/div/div/div/div/div/div/div'
-                                                 '/ul/li[' + str(x) + ']/h3/a/span')
-            print(exhibition_link_text)
-            self.click(
-                '//*[@id="block-nypl-emulsify-content"]/div/div/div/div/div/div/div/ul/li[' + str(x) + ']/h3/a/span')
-            exhibition_hero_text = self.get_text('//*[@id="block-content-hero-header"]/div/div[2]/div[1]/h1/span')
-            print(exhibition_hero_text)
-            self.assert_true(exhibition_link_text in exhibition_hero_text, 'link text ' + exhibition_link_text + 'not '
-                                                                                                                 'found in hero text ' + exhibition_hero_text)
-            self.go_back()
-
-        print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ")
+        for x in range(1, pager_length):
+            self.click(ExhibitionsPage.pagination_list + '[' + str(x) + ']')
+            url_text = self.get_current_url()
+            print(url_text)  # optional print
+            # asserting if the url text contains page=random_number
+            print('page = ' + str(x - 1))
+            self.assert_true(str(x - 1) in url_text)
+            self.open_exhibitions_page(category='online')

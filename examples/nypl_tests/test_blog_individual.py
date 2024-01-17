@@ -38,7 +38,7 @@ class BlogIndividualTest(NyplUtils):
         # print(page_link_number)  # optional print
         self.assert_true(page_link_number >= 1, "no h3 links on the page")
 
-        # assert links on the page go to 'nypl.vega'
+        # assert that links on the page go to 'nypl.vega'
         random_amount = 15  # random choice of amount of links to be clicked. 15 total links and random, as of Aug 2023
         elements = list(range(1, page_link_number + 1))  # total range of links on the page
         random_elements = random.sample(elements, random_amount)  # random_amount to be tested out of total links
@@ -46,7 +46,7 @@ class BlogIndividualTest(NyplUtils):
         # for loop to test random amount of links out of total links
         # as of Aug 2023, looping through all 15 links
         for x in random_elements:
-            link = f'(//*[@id="main-content"]/div//ul//li//h3//a)[{x}]'
+            link = f'(//*[@id="main-content"]//li//h3//a)[{x}]'
             self.click(link)
             current_url = self.get_current_url()
             print(f"\n {x}: " + current_url)

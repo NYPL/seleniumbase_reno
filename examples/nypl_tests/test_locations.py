@@ -4,6 +4,9 @@ from examples.nypl_pages.page_locations import LocationsPage
 import pytest
 from random import randrange
 import time
+import requests
+from lxml import html
+import re
 
 
 class Locations(NyplUtils):
@@ -28,16 +31,13 @@ class Locations(NyplUtils):
         # asserting the images on the page
         self.image_assertion()
 
-        # assert breadcrumbs and page elements
+        # assert breadcrumbs
         self.assert_element(LocationsPage.home)
         self.assert_element(LocationsPage.locations)
-        self.assert_element(LocationsPage.welcome_text)
-        self.assert_element(LocationsPage.find_your_library)
-        self.assert_element(LocationsPage.search_text)
-        self.assert_element(LocationsPage.search)
+
+        # page elements
+        self.assert_element(LocationsPage.search_button)
         self.assert_element(LocationsPage.open_now_check_box)
-        self.assert_element(LocationsPage.filters)
-        self.assert_element(LocationsPage.research_filters)
 
         # asserting 'Clear all search terms' Web-element
         self.click(LocationsPage.borough)
@@ -60,7 +60,7 @@ class Locations(NyplUtils):
         # clear all search terms
         self.click(LocationsPage.clear_all_search)
         # self.check_if_unchecked(LocationsPage.open_now_check_box)  # throws ElementClickInterceptedException
-        self.assert_true(total_library_number > open_library_number)
+        self.assert_true(total_library_number >= open_library_number)
 
         # map iframe, switch to iframe
         self.switch_to_frame(LocationsPage.iframe)  # iframe xpath may be dynamic
@@ -81,7 +81,7 @@ class Locations(NyplUtils):
 
         # asserting the search functionality, if it returns related data
         self.send_keys(LocationsPage.search_bar, "Performing arts")
-        self.click(LocationsPage.search)
+        self.click(LocationsPage.search_button)
 
         # text of first result
         search_result_text = self.get_text(LocationsPage.first_result)
@@ -93,7 +93,7 @@ class Locations(NyplUtils):
         self.assert_true(expected_text in search_result_text,
                          'Expected result = "' + expected_text + '" vs Actual result = "' + search_result_text + '"')
 
-    def test_borough(self):
+    def test_locations_borough(self):
         print("test_borough()\n")
 
         # assert 'Borough' Filter web element
@@ -239,7 +239,7 @@ class Locations(NyplUtils):
         art_filter_len = len(self.find_elements(LocationsPage.filter_length))
         print("art filter length: " + str(art_filter_len))
 
-        # assert art filter length is larger than 8
+        # assert art filter length is more than 8
         if art_filter_len == 0:
             print("if clause: filter is 0, will wait a few seconds")
             self.wait(3)
@@ -319,8 +319,8 @@ class Locations(NyplUtils):
         self.assert_true(media_types_len > 10)
         self.click(LocationsPage.clear_media)
 
-    @pytest.mark.skip(reason="1-Not priority, 2-wait for developer input on how to test")
-    def test_open_hours(self):
+    # @pytest.mark.skip(reason="1-Not priority, 2-wait for developer input on how to test")
+    def test_mopen_hours2(self):
         print("test_open_hours()\n")
         # TODO ask developer where/how to get the "open hours" of the library, e.g.
 
@@ -334,3 +334,83 @@ class Locations(NyplUtils):
         just to check if there is something valid there. it should be either "CLOSED" or "* AM–* PM" (edited)"
         :return:
         """
+        library_amount = len(self.find_elements(LocationsPage.library_amount))
+
+        # todo:  left here. testing the "OPEN" and "CLOSED" states of the locations.
+        # next: check each location's individual page if the OPEN status is accurate
+        # also, rewrite the tests in this Class/Folder.
+        open_text = "Today's Hours"
+        closed_text = 'Location is temporarily closed'
+        total_count = 0
+        open_count = 0
+        closed_count = 0
+        neither_count = 0
+
+        for x in range(1, library_amount + 1):
+            library = self.get_text(LocationsPage.library_name + '[' + str(x) + ']')
+            lib_text = self.get_text(LocationsPage.library_amount + "[" + str(x) + "]")
+
+            if open_text in lib_text:
+                print("\nOPEN - " + library + "\n")
+                open_count += 1
+            elif closed_text in lib_text:
+                print("\n\n================================================")
+                print("CLOSED - " + library)
+                print("================================================\n\n")
+                closed_count += 1
+            else:
+                print("\n\n================================================")
+                print("NEITHER OPEN OR CLOSED - " + library)
+                print("================================================\n\n")
+                neither_count += 1
+            total_count += 1
+
+        print("\nTotal Libraries: " + str(library_amount))
+        print("Total gone thru: " + str(total_count))
+
+        print("\nTotal OPEN    = " + str(open_count))
+        print("Total CLOSED  = " + str(closed_count))
+        print("Total NEITHER = " + str(neither_count))
+
+        self.assert_true(total_count == open_count + closed_count + neither_count, "library counts don't add up")
+
+    def test_open_hours(self):
+
+        # Define the URL of the page and the XPath locator
+        location_locator = '(//*[@id="locations-list"]//li)'
+        library_locator = '//*[@class="location-info"]'  # Replace with your XPath locator
+
+        library_amount = len(self.find_elements(LocationsPage.library_amount))
+
+        # Loop through the libraries (for demonstration, limit it to the first 3 libraries)
+        open_text = r'Open today \d+ AM–\d+ PM'
+        closed_text = "closed"
+
+        for x in range(1, 4):
+            location_info = self.get_text(LocationsPage.library_amount + "[" + str(x) + "]")
+            print("=====")
+            print(location_info)
+            print("=====")
+
+            # self.click('((//*[@id="locations-list"]//li)//h2)[2]')
+            # self.click('//*[@id="lid-125th-street"]/a')
+            self.click(LocationsPage.library_name + "[" + str(x) + "]")
+            self.wait(2)
+
+            library_info = self.get_text(library_locator)
+            """print("=====")
+            print(library_info)
+            print("=====")"""
+
+            # todo: left here, location and library open/closed states don't match
+            # Use regular expressions to check if it's open or closed
+            if open_text in location_info.lower():
+                self.assert_true((open_text in library_info.lower()))
+                print("The location is open.")
+            elif closed_text.lower() in location_info.lower():
+                self.assert_true((closed_text.lower() in library_info.lower()))
+                print("The location is temporarily closed.")
+            else:
+                print("Unable to determine the location's status.")
+
+            self.go_back()

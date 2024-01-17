@@ -2,55 +2,22 @@ from seleniumbase import BaseCase
 
 
 class FooterPage(BaseCase):
+    accessibility = '(//*[contains(text(), "Accessibility")])'
+    press = '(//*[contains(text(), "Press")])'
+    careers = '(//*[contains(text(), "Careers")])'
+    space_rental = '(//*[contains(text(), "Space Rental")])'
 
-    nypl_logo = '//*[@id="footer"]/span'
-    main_building_image = '//*[@id="footer"]/div[2]/div[1]/img'
-    careers_page_title = 'Jobs at The New York Public Library | The New York Public Library Careers'
+    privacy_policy = '(//*[contains(text(), "Privacy Policy")])'
+    other_policies = '(//*[contains(text(), "Other Policies")])'
+    terms_conditions = '(//*[contains(text(), "Terms & Conditions")])'
+    governance = '(//*[contains(text(), "Governance")])'
 
-    '''
-    footer_list = ["accessibility", "press", "careers", "space_rental", "privacy_policy"
-        , "other_policies", "terms_conditions", "governance", "rules_regulations"
-        , "about_nypl", "language"]
-    '''
-
-    footer_links_dic = {"accessibility": '//*[@id="footer"]/div[1]/ul[1]/li[1]/ul/li[1]/a',
-                        "press": '//*[@id="footer"]/div[1]/ul[1]/li[1]/ul/li[2]/a',
-                        "careers": '//*[@id="footer"]/div[1]/ul[1]/li[1]/ul/li[3]/a',
-                        "space_rental": '//*[@id="footer"]/div[1]/ul[1]/li[1]/ul/li[4]/a',
-
-                        "privacy_policy": '//*[@id="footer"]/div[1]/ul[1]/li[2]/ul/li[1]/a',
-                        "other_policies": '//*[@id="footer"]/div[1]/ul[1]/li[2]/ul/li[2]/a',
-                        "terms_conditions": '//*[@id="footer"]/div[1]/ul[1]/li[2]/ul/li[3]/a',
-                        "governance": '//*[@id="footer"]/div[1]/ul[1]/li[2]/ul/li[4]/a',
-
-                        "rules_regulations": '//*[@id="footer"]/div[1]/ul[1]/li[3]/ul/li[1]/a',
-                        "about_nypl": '//*[@id="footer"]/div[1]/ul[1]/li[3]/ul/li[2]/a',
-                        "language": '//*[@id="footer"]/div[1]/ul[1]/li[3]/ul/li[3]/a',
-
-                        "facebook": '//*[@id="face-book-id-title"]',
-                        "twitter": '//*[@id="twitter-id-title"]',
-                        "instagram": '//*[@id="instagram-id-title"]',
-                        "youtube": '//*[@id="youtube-id-title"]',
-                        }
-
-    accessibility = '//*[@id="footer"]/div[1]/ul[1]/li[1]/ul/li[1]/a'
-    press = '//*[@id="footer"]/div[1]/ul[1]/li[1]/ul/li[2]/a'
-    careers = '//*[@id="footer"]/div[1]/ul[1]/li[1]/ul/li[3]/a'
-    space_rental = '//*[@id="footer"]/div[1]/ul[1]/li[1]/ul/li[4]/a'
-
-    privacy_policy = '//*[@id="footer"]/div[1]/ul[1]/li[2]/ul/li[1]/a'
-    other_policies = '//*[@id="footer"]/div[1]/ul[1]/li[2]/ul/li[2]/a'
-    terms_conditions = '//*[@id="footer"]/div[1]/ul[1]/li[2]/ul/li[3]/a'
-    governance = '//*[@id="footer"]/div[1]/ul[1]/li[2]/ul/li[4]/a'
-
-    rules_regulations = '//*[@id="footer"]/div[1]/ul[1]/li[3]/ul/li[1]/a'
-    about_nypl = '//*[@id="footer"]/div[1]/ul[1]/li[3]/ul/li[2]/a'
-    language = '//*[@id="footer"]/div[1]/ul[1]/li[3]/ul/li[3]/a'
+    rules_regulations = '(//*[contains(text(), "Rules & Regulations")])'
+    about_nypl = '(//*[contains(text(), "About NYPL")])'
+    language = '(//*[contains(text(), "Language")])'
 
     facebook = '//*[contains(text(), "NYPL on Facebook")]/..'
     twitter = '//*[contains(text(), "NYPL on Twitter")]/..'
-    # twitter_username = "(//*[contains(text(), 'username')])[1]"
-
     instagram = '//*[contains(text(), "NYPL on Instagram")]/..'
     youtube = '//*[contains(text(), "NYPL on Youtube")]/..'
 

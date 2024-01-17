@@ -32,7 +32,9 @@ class BlogChannelsTest(NyplUtils):
         self.assert_element(BlogChannelsPage.home)
         self.assert_element(BlogChannelsPage.blog)
 
-        # assert that channel link amount is >= 1
-        links = len(self.find_elements('//*[@id="page-container--content-primary"]/div/ul/li//a'))
+        # assert that "Explore By Channel" link amount is >= 1
+        links = len(self.find_elements(BlogChannelsPage.explore_by_channel_links))
         # print(links)  # optional print
-        self.assert_true(links >= 1, "no visible links on the page")
+        self.assert_true(links >= 1, "no visible 'Explore by Channel' links on the page")
+
+
