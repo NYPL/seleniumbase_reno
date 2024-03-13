@@ -36,6 +36,9 @@ jobs:
     - name: Install SeleniumBase
       run: |
         python setup.py install
+    - name: Update SeleniumBase
+      run: |
+        pip install -U seleniumbase
     - name: Check the console scripts interface
       run: |
         seleniumbase

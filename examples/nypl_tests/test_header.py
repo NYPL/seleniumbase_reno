@@ -72,7 +72,7 @@ class HeaderTest(NyplUtils):
         self.click(HeaderPage.search)
         self.assert_text("Close")
 
-    # @pytest.mark.skip(reason="Chris Mulholland covering this in his own test suite")
+    @pytest.mark.skip(reason="Chris Mulholland covering this in his own test suite")
     def test_login_catalog(self):
         print("test_login_catalog()\n")
 

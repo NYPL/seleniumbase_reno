@@ -26,3 +26,7 @@ class TextNotVisibleException(WebDriverException):
 
 class TimeLimitExceededException(Exception):
     pass
+
+
+class NoSuchElementException(Exception):
+    pass

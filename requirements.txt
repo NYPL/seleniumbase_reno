@@ -1,3 +1,5 @@
+# this is the main requirements file
+# https://github.com/seleniumbase/SeleniumBase/blob/master/requirements.txt
 pip>=23.3.2
 packaging>=23.2
 setuptools>=69.0.3;python_version>="3.8"
