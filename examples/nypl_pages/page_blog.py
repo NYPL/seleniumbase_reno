@@ -29,6 +29,8 @@ class BlogPage(BaseCase):
     explore_by_channel = '//*[@id="explore-by-channel"]'
     view_all_channels = '//*[contains(text(), "View all channels")]'
 
+    explore_by_channel_box_amount = '(//*[@id="explore-by-channel"]//..//..//..//li//a)'
+
     first_box = '(//*[@id="explore-by-channel"]//..//..//..//li//a)[1]'  # first link of the 'explore by channel'
     second_box = '(//*[@id="explore-by-channel"]//..//..//..//li//a)[2]'  # second link of the 'explore by channel'
 

@@ -26,7 +26,7 @@ class HeaderPage(BaseCase):
     locations = '//*[@id="header-nav-upper"]/li//a[contains(text(), "Locations")]'
     get_a_library_card = '//*[@id="header-nav-upper"]/li//a[contains(text(), "Get A Library Card")]'
     get_email_updates = '//*[@id="header-nav-upper"]/li//a[contains(text(), "Get Email Updates")]'
-    donate = '(//*[contains(text(), "Donate")])[1]'
+    donate = '//*[@id="nypl-header"]//*[contains(text(), "Donate")]'
     shop = '//*[@id="header-nav-upper"]/li//a[contains(text(), "Shop")]'
 
     books_music_movies = '//*[contains(text(), "Books/Music/Movies")]'

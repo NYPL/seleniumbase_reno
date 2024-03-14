@@ -101,14 +101,17 @@ class BlogTests(NyplUtils):
         self.assert_text("Explore By Channel", BlogPage.explore_by_channel)
 
         # assert 'View all channels' element
-        self.assert_element(BlogPage.view_all_channels)
+        #self.wait(2)
         self.link_assertion(BlogPage.view_all_channels, "channels")  # assert 'View all channels' link goes to
         # correct page
 
-        # assertions for 2 Bottom Boxes underneath "Explore By Channel"
-        # These boxes are dynamic, the contents change. e.g. > "Book Lists - Romance - Poetry..."
+        # assertions for the Bottom Boxes underneath "Explore By Channel". These boxes are dynamic, the content amount
+        # and the content itself can change. e.g. > "Book Lists - Romance - Poetry..."
 
-        # assert both links go to correct pages
-        self.link_assertion(BlogPage.first_box, 'blog/all?channel=')
-        self.link_assertion(BlogPage.second_box, 'blog/all?channel=')
+        # get the length/amount of the "Explore By Channel" links/boxes
+        box_amount = len(self.find_elements(BlogPage.explore_by_channel_box_amount))
+
+        for x in range(1, box_amount + 1):
+            self.link_assertion(f"{BlogPage.explore_by_channel_box_amount}[{x}]", 'blog/all?channel=')
+
 
