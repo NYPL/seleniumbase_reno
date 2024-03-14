@@ -50,92 +50,97 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 PressIndividualPage, EducationPage, EarlyLiteracyPage, EducationTeensPage, EducatorsPage, BestBooksPage,
                 StaffPicksPage):
 
-    def nypl_login_catalog(self, username, password):
-
+    def nypl_login_catalog(self, username, password, wait_time=4):
         """nypl login method for the catalog,
-               taking 2 parameters, 'username' and 'password' """
+           taking 2 parameters, 'username' and 'password' """
         try:
             self.click(self.login_button)
         except NoSuchElementException:
-            self.wait(3)
+            self.wait(wait_time)
             self.click(self.login_button)
 
         try:
             self.click(self.login_catalog)
         except NoSuchElementException:
-            self.wait(3)
+            self.wait(wait_time)
             self.click(self.login_catalog)
 
         try:
             self.send_keys(self.username, username)
         except NoSuchElementException:
-            self.wait(3)
+            self.wait(wait_time)
             self.send_keys(self.username, username)
 
         try:
             self.send_keys(self.password, password)
         except NoSuchElementException:
-            self.wait(3)
+            self.wait(wait_time)
             self.send_keys(self.password, password)
 
         try:
             self.click(self.submit)
         except NoSuchElementException:
-            self.wait(3)
+            self.wait(wait_time)
             self.click(self.submit)
 
     """nypl login method for the research,
        taking 2 parameters, "username" and 'password' """
 
-    def nypl_login_research(self, username, password):
+    def nypl_login_research(self, username, password, wait_time=4):
         try:
             self.click(self.login_button)
         except NoSuchElementException:
-            self.wait(3)
+            self.wait(wait_time)
             self.click(self.login_button)
 
         try:
             self.click(self.login_research_catalog)
         except NoSuchElementException:
-            self.wait(3)
+            self.wait(wait_time)
             self.click(self.login_research_catalog)
 
         try:
             self.send_keys(self.username, username)
         except NoSuchElementException:
-            self.wait(3)
+            self.wait(wait_time)
             self.send_keys(self.username, username)
 
         try:
             self.send_keys(self.password, password)
         except NoSuchElementException:
-            self.wait(3)
+            self.wait(wait_time)
             self.send_keys(self.password, password)
 
         try:
             self.click(self.submit)
         except NoSuchElementException:
-            self.wait(3)
+            self.wait(wait_time)
             self.click(self.submit)
 
-    """ link assertion:
-       click a link and assert the text in the URL,
-       taking 2 parameters, 'link' to be clicked and 'text' to be checked"""
+    """Link Assertion:
+    Clicks a link and asserts that the specified text is present in the URL.
+    Takes three parameters:
+        'link': The link to be clicked.
+        'text': The text to be checked in the URL.
+        'retry_wait' (optional): The time to wait in seconds before retrying if the initial assertion fails.
+    If the initial assertion fails, the method retries clicking the link and waits for 'retry_wait' seconds before rechecking the URL.
+"""
 
-    def link_assertion(self, link, text):
+    def link_assertion(self, link, text, retry_wait=3):
         try:
             self.click(link)
             current_url = self.get_current_url()
             assert text in current_url, f"Expected text '{text}' not in URL: {current_url}"
             print(current_url)
         except AssertionError as ae:
-            # This block handles the case where the text is found but does not match the expected text
+            print("Assertion failed on first attempt. Retrying...")
+            self.click(link)
+            self.wait(retry_wait)  # Wait for a longer time before checking the URL again
             current_url = self.get_current_url()
-            print("Assertion failed. The URL does not contain the expected text.")
-            print(f"Expected: {text}, Found in URL: {current_url}")
-            raise ae  # Re-raise the AssertionError to make it clear what went wrong
+            assert text in current_url, f"Expected text '{text}' not in URL after retry: {current_url}"
+            print("URL after retry:", current_url)
         except NoSuchElementException as ne:
-            # This block handles the case where the element itself is not found
+            # Handle the case where the element itself is not found
             print("Element not found. Retrying after a few seconds...")
             print("Link before sleep:", self.get_current_url())
             self.save_screenshot("screenshot_before_retry.png")
@@ -147,9 +152,8 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 print("Element still not found after retry.")
                 raise ne  # Re-raise the NoSuchElementException
 
-        # go to the previous page
+        # Go to the previous page
         self.go_back()
-
 
     """ dynamic element link assertion:
     using link_assertion() method, click a link and assert the text in the URL,

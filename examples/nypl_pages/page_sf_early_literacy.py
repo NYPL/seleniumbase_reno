@@ -2,6 +2,8 @@ from seleniumbase import BaseCase
 
 
 class EarlyLiteracyPage(BaseCase):
+
+    # todo: locators need to be updated
     home_button = '(//*[contains(text(), "Home")])[1]'
     education = '(//*[contains(text(), "Education")])[2]'
     title = "Early Literacy | The New York Public Library"
