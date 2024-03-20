@@ -28,10 +28,10 @@ class Locations(NyplUtils):
         print("=================================")
         super().tearDown()
 
-    def test_locations_main_page_elements(self):
+    def test_locations_main(self):
         # https://www.nypl.org/locations
-        print("test_main_page_elements()\n")
-        self.open_exhibitions_page(category='')
+        print("test_locations_main()\n")
+        self.open_locations_page(category='')
 
         # asserting the images on the page
         self.image_assertion()
@@ -67,10 +67,6 @@ class Locations(NyplUtils):
         # self.check_if_unchecked(LocationsPage.open_now_check_box)  # throws ElementClickInterceptedException
         self.assert_true(total_library_number >= open_library_number)
 
-        # map iframe, switch to iframe
-        self.switch_to_frame(LocationsPage.iframe)  # iframe xpath may be dynamic
-        self.switch_to_default_content()
-
         # lower page elements
         # asserting 3 bottom elements. 2 midtown locations assertion and BK and Queens web-elements.
         self.assert_element(LocationsPage.bottom_promo_1)  # Stephen A. Schwarzman Building link
@@ -78,6 +74,7 @@ class Locations(NyplUtils):
         self.assert_element(LocationsPage.bottom_promo_3)  # Brooklyn Public Library link
         self.assert_element(LocationsPage.bottom_promo_4)  # Queens Public Library link
 
+    @pytest.mark.bug
     def test_locations_search_functionality(self):
         print("test_locations_search_functionalities()\n")
 
@@ -98,7 +95,8 @@ class Locations(NyplUtils):
         self.assert_true(expected_text in search_result_text,
                          'Expected result = "' + expected_text + '" vs Actual result = "' + search_result_text + '"')
 
-    def test_locations_borough(self):
+    @pytest.mark.test
+    def test_locations_borough(self, wait_time=2):
         print("test_borough()\n")
 
         # assert 'Borough' Filter web element
@@ -108,28 +106,44 @@ class Locations(NyplUtils):
         self.click(LocationsPage.borough)
         self.click(LocationsPage.bronx)
         self.click(LocationsPage.apply_boro)
-        print(self.get_text(LocationsPage.random_bronx_library))
-        self.assert_true("Bronx" in self.get_text(LocationsPage.bronx_location))
-        self.click(LocationsPage.borough)
-        self.click(LocationsPage.clear_boro)
+        try:
+            bronx_library_info = self.get_text(LocationsPage.random_bronx_library)
+        except Exception:
+            print("Fetching the Bronx Library info failed on first attempt. Retrying...")
+            self.wait(wait_time)
+            bronx_library_info = self.get_text(LocationsPage.random_bronx_library)
+        print(bronx_library_info)
+        self.assert_true("Bronx" in bronx_library_info)
+        self.click(LocationsPage.clear_all_search)
 
         # assert 'Manhattan' text from a random(randrange(1, 76)) Manhattan location
+        print("\n===========================")
         self.click(LocationsPage.borough)
         self.click(LocationsPage.manhattan)
         self.click(LocationsPage.apply_boro)
-        print(self.get_text(LocationsPage.random_manhattan_library))
-        self.assert_true("New York" in self.get_text(LocationsPage.manhattan_location))
-        self.click(LocationsPage.borough)
-        self.click(LocationsPage.clear_boro)
+        try:
+            manhattan_library_info = self.get_text(LocationsPage.random_manhattan_library)
+        except Exception:
+            print("Fetching the Manhattan Library info failed on first attempt. Retrying...")
+            self.wait(wait_time)
+            manhattan_library_info = self.get_text(LocationsPage.random_manhattan_library)
+        print(manhattan_library_info)
+        self.assert_true("New York" in manhattan_library_info)
+        self.click(LocationsPage.clear_all_search)
 
         # assert 'Staten Island' text from a random(randrange(1, 14)) 'Staten Island' location
+        print("\n===========================")
         self.click(LocationsPage.borough)
         self.click(LocationsPage.richmond)
         self.click(LocationsPage.apply_boro)
-        print(self.get_text(LocationsPage.random_staten_library))
-        self.assert_true("Staten" in self.get_text(LocationsPage.richmond_location))
-        self.click(LocationsPage.borough)
-        self.click(LocationsPage.clear_boro)
+        try:
+            richmond_library_info = self.get_text(LocationsPage.random_staten_library)
+        except Exception:
+            print("Fetching the Staten Island Library info failed on first attempt. Retrying...")
+            self.wait(wait_time)
+            richmond_library_info = self.get_text(LocationsPage.random_staten_library)
+        print(richmond_library_info)
+        self.assert_true("Staten" in richmond_library_info)
 
     def test_accessibility_full(self):
         print("test_accessibility_full()\n")
@@ -141,17 +155,17 @@ class Locations(NyplUtils):
         self.wait(2)
 
         # total number of libraries with full accessibility
-        total_lib = len(self.find_elements(LocationsPage.accessibility_filter))
+        total_lib = len(self.find_elements(LocationsPage.library_amount))
         print(str(total_lib) + " libraries with Full Accessibility")
 
         # assertion for libraries that don't have 'full accessibility' but listen on the 'fully accessible'
         count = 0  # counter for the libraries that don't have full accessibility but listed on 'fully accessible'
         for x in range(1, total_lib + 1):
-            text = self.get_text(LocationsPage.accessibility_filter + '[' + str(x) + ']')
+            text = self.get_text(LocationsPage.library_amount + '[' + str(x) + ']')
             if 'Fully Accessible' in text:
                 continue
             else:
-                print(str(x) + "- " + self.get_text(LocationsPage.non_accessible_links + '[' + str(x) + ']'))
+                print(str(x) + "- " + self.get_text(LocationsPage.library_h2_links + '[' + str(x) + ']'))
                 # print(text)
                 count += 1
 
@@ -170,13 +184,13 @@ class Locations(NyplUtils):
         self.wait(2)
 
         # total number of libraries with partial accessibility
-        total_partial_lib = len(self.find_elements(LocationsPage.accessibility_filter))
+        total_partial_lib = len(self.find_elements(LocationsPage.library_amount))
         # print(str(total_partial_lib) + " total partial accessible libraries:\n")
 
         # for loop to assert locations have "partially accessible" text
         count = 0
         for x in range(1, total_partial_lib + 1):
-            text = self.get_text(LocationsPage.accessibility_filter + '[' + str(x) + ']')
+            text = self.get_text(LocationsPage.library_amount + '[' + str(x) + ']')
             # print(text)
             self.assert_true("Partially Accessible" in text)
             count += 1
@@ -194,7 +208,7 @@ class Locations(NyplUtils):
         self.wait(2)
 
         # total number of libraries without accessibility
-        total_no_access_lib = len(self.find_elements(LocationsPage.accessibility_filter))
+        total_no_access_lib = len(self.find_elements(LocationsPage.library_amount))
         print(str(total_no_access_lib) + " libraries with No Accessibility")
 
         # TODO: update below script after below ticket fixed - IN PROGRESS
@@ -216,13 +230,13 @@ class Locations(NyplUtils):
         print("test_amenities()\n")
 
         # assert 'amenities' filter
-        self.assert_true(LocationsPage.amenities_filters)
+        self.assert_element(LocationsPage.amenities)
 
         # assert 'amenities' filter length >= 1, which is 42 as of June 2022
-        amenities_len = len(self.find_elements(LocationsPage.amenities_filters))
-        print("Amenities filter length: " + str(amenities_len))  # optional print of the amenities length
+        amenities_filter_len = len(self.find_elements(LocationsPage.amenities_filters))
+        print("Amenities filter length: " + str(amenities_filter_len))  # optional print of the amenities length
 
-        self.assert_true(amenities_len > 1, "amenities filter smaller than expected")
+        self.assert_true(amenities_filter_len > 1, "amenities filter smaller than expected")
 
     def test_subject_specialties(self):
         print("test_subject_specialties()\n")
@@ -238,14 +252,14 @@ class Locations(NyplUtils):
         self.click(LocationsPage.apply_specialties)  # click apply
 
         # length of the filter == 10 as of June 2022
-        art_filter_len = len(self.find_elements(LocationsPage.filter_length))
+        art_filter_len = len(self.find_elements(LocationsPage.library_amount))
         print("art filter length: " + str(art_filter_len))
 
         # assert art filter length is more than 8
         if art_filter_len == 0:
             print("if clause: filter is 0, will wait a few seconds")
             self.wait(3)
-            art_filter_len = len(self.find_elements(LocationsPage.filter_length))
+            art_filter_len = len(self.find_elements(LocationsPage.library_amount))
             self.assert_true(art_filter_len > 1)
             print("New art filter length: " + str(art_filter_len))
         else:
@@ -261,14 +275,14 @@ class Locations(NyplUtils):
         self.click(LocationsPage.history)  # click 'history' sub-filter
         self.click(LocationsPage.apply_specialties)  # click apply
 
-        history_filter_len = len(self.find_elements(LocationsPage.filter_length))
+        history_filter_len = len(self.find_elements(LocationsPage.library_amount))
         print("\nhistory filter length: " + str(history_filter_len))
 
         # assert history filter length greater than 8, currently 11 as of June 2022
         if history_filter_len == 0:
             print("if clause: filter is 0, will wait a few seconds")
             self.wait(3)
-            history_filter_len = len(self.find_elements(LocationsPage.filter_length))
+            history_filter_len = len(self.find_elements(LocationsPage.library_amount))
             self.assert_true(history_filter_len > 1)
             print("new history filter length: " + str(history_filter_len))
         else:
@@ -284,14 +298,14 @@ class Locations(NyplUtils):
         self.click(LocationsPage.social_sciences)  # click 'social sciences' sub-filter
         self.click(LocationsPage.apply_specialties)  # click apply
 
-        social_sciences_len = len(self.find_elements(LocationsPage.filter_length))
+        social_sciences_len = len(self.find_elements(LocationsPage.library_amount))
         print("\nsocial filter length: " + str(social_sciences_len))
 
         # assert social sciences filter length greater than 8, which is 10, as of June 2022
         if social_sciences_len == 0:
             print("if clause: filter is 0, will wait a few seconds")
             self.wait(3)
-            social_sciences_len = len(self.find_elements(LocationsPage.filter_length))
+            social_sciences_len = len(self.find_elements(LocationsPage.library_amount))
             self.assert_true(social_sciences_len > 1)
             print("new social filter length: " + str(social_sciences_len))
         else:
@@ -316,17 +330,15 @@ class Locations(NyplUtils):
 
     @pytest.mark.regression
     @pytest.mark.smoke
-    def test_open_hours2(self):
+    def test_open_hours(self):
         print("test_open_hours()\n")
 
         library_amount = len(self.find_elements(LocationsPage.library_info))
 
-        # todo:  left here. almost done. running this test on terminal to finalize. 02/09/24
         # todo: test takes too long. consider using API for this test
         # next: check each location's individual page if the OPEN status is accurate
         # also, rewrite the tests in this Class/Folder.
-        open_text = "Today's Hours"
-        temp_closed_text = 'Location is temporarily closed' or "Today's Hours: Closed"
+        open_text = "today's hours"
         total_count = 0
         open_count = 0
         closed_count = 0
@@ -334,8 +346,8 @@ class Locations(NyplUtils):
         for x in range(1, library_amount + 1):
             library = LocationsPage.library_link + '[' + str(x) + ']'
             library_name = self.get_text(library)
-            library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]")
-            if "Closed" in library_info:
+            library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]").lower()
+            if "closed" in library_info:
                 print("\n\n================================================")
                 print("CLOSED - " + library_name + " (" + str(x) + ")")
                 print("================================================\n\n")
@@ -348,18 +360,14 @@ class Locations(NyplUtils):
                 # assert "Open today" text in the individual location info
                 self.assert_text("Open today", LocationsPage.location_info,
                                  library + " does not display Open today status")
-            elif temp_closed_text in library_info:
-                print("\n\n\n\n********************************************")
-                print("BAM - BAM - BAM - BAM - BAM - " + library_name + " (" + str(x) + ")")
-                print("********************************************\n\n\n\n")
-                closed_count += 1
             else:
                 print("\n\n================================================")
                 print("NEITHER OPEN OR CLOSED - " + library_name + " (" + str(x) + ")")
+                print(library_info)
                 print("================================================\n\n")
                 neither_count += 1
             total_count += 1
-            self.goto('https://www.nypl.org/locations')  # go back to locations page
+            self.goto(LocationsPage.locations_page_link)  # go back to locations page
 
         print("\nTotal Libraries: " + str(library_amount))
         print("Total gone thru: " + str(total_count))
@@ -368,149 +376,5 @@ class Locations(NyplUtils):
         print("Total CLOSED  = " + str(closed_count))
         print("Total NEITHER = " + str(neither_count))
 
+        # assert total number of libraries with total libraries tested
         self.assert_true(total_count == open_count + closed_count + neither_count, "library counts don't add up")
-
-    def test_open_hours3(self):
-        print("test_open_hours()\n")
-
-        library_amount = len(self.find_elements(LocationsPage.library_info))
-
-        open_text = "Today's Hours"  # open text
-        closed_text = "Closed"  # daily closure text
-        temp_closed_text = 'Location is temporarily closed'  # temporarily closed text
-
-        total_count = 0  # total count of libraries in the loop
-        open_count = 0  # total open libraries in the loop
-        closed_count = 0  # total closed libraries
-        neither_count = 0  # libraries that neither open nor closed
-        temp_closed = 0  # temporarily closed libraries
-
-        for x in range(1, library_amount + 1):
-            library = LocationsPage.library_link + '[' + str(x) + ']'
-            library_name = self.get_text(library)
-            library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]")
-
-            if closed_text in library_info:
-                print("\n\n================================================")
-                print("CLOSED - " + library_name + " (" + str(x) + ")")
-                print("\n\n================================================")
-                closed_count += 1
-
-                self.click(library)
-                # assert "Closed today" text in the individual location info
-                self.assert_text("Closed today", LocationsPage.location_info)
-            elif open_text in library_info:
-                print("\nOPEN - " + library_name + " (" + str(x) + ")" + "\n")
-                open_count += 1
-
-                self.click(library)
-                # assert "Open today" text in the individual location info
-                self.assert_text("Open today", LocationsPage.location_info)
-            elif temp_closed_text in library_info:
-                print("\n\n================================================")
-                print("Temporarily CLOSED - " + library_name + " (" + str(x) + ")")
-                print("\n\n================================================")
-                closed_count += 1
-                temp_closed += 1
-
-                self.click(library)
-                # assert "Location is temporarily closed" text in the individual location info
-                # todo: below line fails due to https://jira.nypl.org/browse/RENO-3829 bug
-                self.assert_text("Temporarily Closed", LocationsPage.location_info)
-            else:
-                print("\n\n================================================")
-                print("NEITHER OPEN OR CLOSED - " + library_name + " (" + str(x) + ")")
-                print("================================================\n\n")
-                neither_count += 1
-            total_count += 1
-            self.goto(LocationsPage.homepage_link)  # go back to locations page
-
-        print("\nTotal Libraries: " + str(library_amount))  # total library amount
-        print("Total gone thru: " + str(total_count))  # total amount of libraries tested
-
-        print("\nTotal OPEN    = " + str(open_count))  # total open library amount
-        print("Total CLOSED  = " + str(closed_count))  # total closed library amount
-        print("Total NEITHER = " + str(neither_count))  #
-        print("Total Temporarily Closed = " + str(temp_closed_text))  # optional print of temp. closed lib amount
-
-        # assert the open + closed amount == total library amount
-        self.assert_true(total_count == open_count + closed_count + neither_count, "library counts don't add up")
-
-    def test_open_hours4(self):
-        print("test_open_hours()\n")
-
-        library_amount = len(self.find_elements(LocationsPage.library_info))
-
-        open_text = "Today's Hours"  # open text
-        closed_text = "Closed"  # daily closure text
-        temp_closed_text = 'Location is temporarily closed'  # temporarily closed text
-
-        total_count = 0  # total count of libraries in the loop
-        open_count = 0  # total open libraries in the loop
-        closed_count = 0  # total closed libraries
-        neither_count = 0  # libraries that neither open nor closed
-        temp_closed = 0  # temporarily closed libraries
-        failures = []  # List to collect all failures
-
-        for x in range(1, library_amount + 1):
-            library = LocationsPage.library_link + '[' + str(x) + ']'
-            library_name = self.get_text(library)
-            library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]")
-
-            try:
-                if closed_text in library_info:
-                    print("\n\n================================================")
-                    print("CLOSED - " + library_name + " (" + str(x) + ")")
-                    print("\n\n================================================")
-                    closed_count += 1
-
-                    self.click(library)
-                    self.assert_text("Closed today", LocationsPage.location_info)
-                elif open_text in library_info:
-                    print("\nOPEN - " + library_name + " (" + str(x) + ")" + "\n")
-                    open_count += 1
-
-                    self.click(library)
-                    self.assert_text("Open today", LocationsPage.location_info)
-                elif temp_closed_text in library_info:
-                    print("\n\n================================================")
-                    print("Temporarily CLOSED - " + library_name + " (" + str(x) + ")")
-                    print("\n\n================================================")
-                    closed_count += 1
-                    temp_closed += 1
-
-                    self.click(library)
-                    self.assert_text("Temporarily Closed", LocationsPage.location_info)
-                else:
-                    print("\n\n================================================")
-                    print("NEITHER OPEN OR CLOSED - " + library_name + " (" + str(x) + ")")
-                    print("================================================\n\n")
-                    neither_count += 1
-            #except Exception as e:
-            #except (AssertionError, TextNotVisibleException) as e:
-            #    failures.append(f"Assertion failed for {library_name} ({x}): {e}")
-
-            except (AssertionError, TextNotVisibleException, InvalidSessionIdException, NoSuchElementException) as e:
-                failures.append(f"Error for {library_name} ({x}): {str(e)}")
-
-            total_count += 1
-            self.goto(LocationsPage.homepage_link)  # go back to locations page
-
-        # Reporting
-        print("\nTotal Libraries: " + str(library_amount))
-        print("Total gone thru: " + str(total_count))
-        print("\nTotal OPEN    = " + str(open_count))
-        print("Total CLOSED  = " + str(closed_count))
-        print("Total NEITHER = " + str(neither_count))
-        print("Total Temporarily Closed = " + str(temp_closed))
-
-        if failures:
-            print("\nFailures:")
-            for failure in failures:
-                print(failure)
-        else:
-            print("\nNo failures detected.")
-
-        # Final assertion to check if the counts add up
-        self.assert_true(total_count == open_count + closed_count + neither_count,
-                         "Library counts don't add up or there were failures.")

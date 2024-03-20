@@ -72,7 +72,7 @@ class ArticlesDatabasesTest(NyplUtils):
         self.click(ArticlesDatabasesPage.clear_search)
         self.wait(2)
 
-    def test_articles_databases_main_page_elements(self):
+    def test_articles_databases_main(self):
         print("test_articles_databases_main_page_elements()\n")
 
         # asserting h2 heading and its elements

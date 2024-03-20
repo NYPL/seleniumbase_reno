@@ -20,7 +20,7 @@ class BlogAllTests(NyplUtils):
         print("=================================")
         super().tearDown()
 
-    def test_main_page_elements(self):
+    def test_blog_all_main(self):
         print("test_page_elements()\n")
 
         # asserting the images on the page

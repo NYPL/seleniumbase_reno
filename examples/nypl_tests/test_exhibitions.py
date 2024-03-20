@@ -23,7 +23,7 @@ class Exhibitions(NyplUtils):
         print("=================================")
         super().tearDown()
 
-    def test_exhibitions_main_page_elements(self):
+    def test_exhibitions_main(self):
         # https://www.nypl.org/events/exhibitions
         print("test_exhibitions_main_page_elements()\n")
         self.open_exhibitions_page(category='')
