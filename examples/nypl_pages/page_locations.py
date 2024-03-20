@@ -34,7 +34,6 @@ class LocationsPage(BaseCase):
     random_manhattan_library = "(//*[contains(@class, 'address')])[' + str(randrange(1, 76)) + ']"
     random_staten_library = "(//*[contains(@class, 'address')])[' + str(randrange(1, 14)) + ']"
 
-    # todo: left here, updating locators below
     # accessibility filters locator
     library_h2_links = '(//*[@id="locations-list"]//li//h2//a)'  # library h2 URLs
 
