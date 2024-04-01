@@ -3,9 +3,11 @@ from seleniumbase import BaseCase
 
 class BlogAllPage(BaseCase):
     explore_by = '//*[@id="search-filters--heading"]'
-    search_results = '//*[@id="search-results-details"]'
+    filter_results = '//*[@id="search-results-details"]'
 
-    clear_all_search_terms = '//*[@id="search-results-details__button"]'
+    # clear_all_search_terms = '//*[@id="search-results-details__button"]'
+
+    sub_filters = '//*[@id="blogs__filter-bar"]//li'
 
     channels = '//*[@id="multiselect-channel"]/button'
     apply_channel = '//*[@id="multiselect-button-save-channel"]'

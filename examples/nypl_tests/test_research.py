@@ -40,7 +40,7 @@ class ResearchTest(NyplUtils):
         # assert h2 sections
         self.assert_links_valid(ResearchPage.start_your_research)
         self.assert_links_valid(ResearchPage.visit_the_library_research_center)
-        self.assert_links_valid(ResearchPage.additional_research_centers)
+        self.assert_links_valid(ResearchPage.other_centers)
         self.assert_links_valid(ResearchPage.explore_exhibitions_events)
         self.assert_links_valid(ResearchPage.find_fellowships)
         self.assert_links_valid(ResearchPage.get_research_support)
@@ -51,4 +51,3 @@ class ResearchTest(NyplUtils):
         self.click(ResearchPage.submit_email)
         self.assert_element(ResearchPage.email_subscription)
         self.go_back()
-
