@@ -22,6 +22,7 @@ class PosadaTest(NyplUtils):
 
     def test_posada_main(self):
         print("test_posada_main()\n")
+        # todo: left here, 04/01
 
         # check images on the page
         self.image_assertion()

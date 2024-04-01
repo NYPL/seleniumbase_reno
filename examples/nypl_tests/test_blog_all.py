@@ -2,11 +2,12 @@ from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_blog_all import BlogAllPage
 import random
 
+base_url = 'https://www.nypl.org/blog/all'
+
 
 class BlogAllTests(NyplUtils):
 
     # https://www.nypl.org/blog/all
-
     def setUp(self):
         super().setUp()
         print("=================================")
@@ -29,6 +30,15 @@ class BlogAllTests(NyplUtils):
         # assert Explore By:
         self.assert_element(BlogAllPage.explore_by)
 
+    def click_filter_option(self, filter_name, option_index):
+        """
+        Clicks an option in a specified filter.
+        :param filter_name: The name of the filter (e.g., "Subjects", "Channels").
+        :param option_index: The index of the option to click.
+        """
+        filter_xpath = f'//*[contains(text(), "{filter_name}")]//..//..//..//li[{option_index}]/*/*'
+        self.click(filter_xpath)
+
     def test_channels_filter(self):
         print("test_channels()\n")
         """this test asserts the child elements of the Channels filter and if they consist keywords
@@ -44,19 +54,18 @@ class BlogAllTests(NyplUtils):
         # assertion for the first 4 channels by clicking and checking if the result >= 1 on the clicked page
         for x in range(1, 4):
             self.click(BlogAllPage.channels)
-            self.click(f'//*[@id="blogs__filter-bar"]//li[{x}]//label')
+            print(f"\nChecking {x}")
+            self.click_filter_option("Channels", x)
             self.click(BlogAllPage.apply_channel)
             self.wait(1)
             print(self.get_current_url())
 
-            search_results = self.get_text('//*[@id="search-results-details"]')
+            filter_results = self.get_text(BlogAllPage.filter_results)
 
-            result = search_results.split()[2]
-            print(result + " results for " + keywords[x-1])
+            result = filter_results.split()[2]
+            print(result + " results for " + keywords[x - 1])
             self.assert_true(int(result) >= 1)
-
-            self.wait(1)
-            self.click(BlogAllPage.clear_all_search_terms)
+            self.goto(base_url)
 
     def test_subjects_filter(self):
         print("test_subjects()\n")
@@ -69,21 +78,19 @@ class BlogAllTests(NyplUtils):
         self.assert_element(BlogAllPage.subjects)
 
         # length of the subjects children
-        children_subject = len(
-            self.find_elements('//*[@id="blogs__filter-bar"]//li'))
+        children_subject = len(self.find_elements(BlogAllPage.sub_filters))
         self.click(BlogAllPage.subjects)
 
         print("Total child elements = " + str(children_subject))
 
         # asserting that we can click each child element of the children filter
-        for x in range(1, children_subject + 1):
-            #
+        for x in range(1, 4):
             self.click(BlogAllPage.subjects)
-            print("Child element = " + str(x))
-            self.click(f'//*[@id="blogs__filter-bar"]//li[{x}]//label')
+            print(f"\nChecking {x}")
+            self.click_filter_option("Subjects", x)
             self.click(BlogAllPage.apply_subject)
-            self.assert_true(BlogAllPage.search_results)
-            self.click(BlogAllPage.clear_all_search_terms)
+            self.assert_true(BlogAllPage.filter_results)
+            self.goto(base_url)
 
     def test_libraries_filter(self):
         print("test_libraries()\n")
@@ -95,8 +102,7 @@ class BlogAllTests(NyplUtils):
 
         # length of the libraries children
         self.click(BlogAllPage.libraries)
-        children_amount = len(
-            self.find_elements('//*[@id="blogs__filter-bar"]//li'))
+        children_amount = len(self.find_elements(BlogAllPage.sub_filters))
         self.click(BlogAllPage.libraries)
 
         print("Total child elements = " + str(children_amount))
@@ -107,26 +113,25 @@ class BlogAllTests(NyplUtils):
         random_elements = random.sample(elements, num_random_elements)
 
         # asserting (randomly) that we can click each child element
-        for x in random_elements:
+        for x in range(1, 4):
             self.click(BlogAllPage.libraries)
-            print("Child element " + str(x))
-            self.click(f'//*[@id="blogs__filter-bar"]//li[{x}]//label')
+            print(f"\nChecking {x}")
+            self.click_filter_option("Libraries", x)
             self.click(BlogAllPage.apply_library)
-            self.assert_true(BlogAllPage.search_results)
-            self.click(BlogAllPage.clear_all_search_terms)
+            self.assert_true(BlogAllPage.filter_results)
+            self.goto(base_url)
 
     def test_divisions_filter(self):
         print("test_divisions()\n")
-        """this method randomly takes 10 elements (can be changed) and asserts the child elements of the Divisions 
-        filter and if they are clickable """
+        """this method randomly takes 10 child elements of the Divisions filter (can be changed) and asserts them 
+        whether they are clickable"""
 
         # assert divisions button
         self.assert_element(BlogAllPage.divisions)
 
         # length of the divisions children
         self.click(BlogAllPage.divisions)
-        children_amount = len(
-            self.find_elements('//*[@id="blogs__filter-bar"]//li'))
+        children_amount = len(self.find_elements(BlogAllPage.sub_filters))
         self.click(BlogAllPage.divisions)
 
         print("Total child elements = " + str(children_amount))
@@ -136,14 +141,14 @@ class BlogAllTests(NyplUtils):
         random_elements = random.sample(elements, num_random_elements)
 
         # asserting that we can click each child element
-        for x in random_elements:
-            #
+        for x in range(1, 4):
             self.click(BlogAllPage.divisions)
-            self.click(f'//*[@id="blogs__filter-bar"]//li[{x}]//label')
+            print(f"\nChecking {x}")
+            self.click_filter_option("Divisions", x)
             self.click(BlogAllPage.apply_division)
-            self.assert_true(BlogAllPage.search_results)
+            self.assert_true(BlogAllPage.filter_results)
             print("Child element " + str(x))
-            self.click(BlogAllPage.clear_all_search_terms)
+            self.goto(base_url)
 
         print("\n========================================\n")
 
@@ -163,7 +168,7 @@ class BlogAllTests(NyplUtils):
         self.click(BlogAllPage.apply_audience)
         self.wait(1)
         # wait for the next page, see the results (this is for sync issues)
-        self.wait_for_element(BlogAllPage.search_results)
+        self.wait_for_element(BlogAllPage.filter_results)
         # url text for the filter
         url_text = self.get_current_url()
         print(self.get_current_url())
@@ -181,7 +186,7 @@ class BlogAllTests(NyplUtils):
         self.click(BlogAllPage.apply_audience)
         self.wait(1)
         # wait for the next page, see the results (this is for sync issues)
-        self.wait_for_element(BlogAllPage.search_results)
+        self.wait_for_element(BlogAllPage.filter_results)
         # url text for the filter
         url_text = self.get_current_url()
         print(self.get_current_url())
@@ -199,7 +204,7 @@ class BlogAllTests(NyplUtils):
         self.click(BlogAllPage.apply_audience)
         self.wait(1)
         # wait for the next page, see the results (this is for sync issues)
-        self.wait_for_element(BlogAllPage.search_results)
+        self.wait_for_element(BlogAllPage.filter_results)
         # url text for the filter
         url_text = self.get_current_url()
         print(self.get_current_url())

@@ -168,31 +168,6 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             self.link_assertion(
                 locator + '[' + str(x) + ']', text)
 
-    def assert_links_valid(self, locator):
-        """
-        assert links valid in a <li, List Item:
-       A method to assert that the child links are not broken in a list item ('li' tag),
-       using HTTP method HEAD, and checks if the response is between the acceptable limits (200-400)
-        :param locator:
-        :return:
-        """
-        block_length = len(
-            self.find_elements(locator))
-        print(f"Number of links found: {block_length}")
-        for x in range(1, block_length + 1):
-            link = (self.find_element(locator + '[' + str(
-                x) + ']')).find_element(By.TAG_NAME, "a")
-
-            url = link.get_attribute('href')
-            print("\nurl: " + url)
-            response = requests.head(url)
-            if response.status_code == 301:
-                print(
-                    f"WARNING: The requested resource at {url} has been definitively moved to the URL given by the "
-                    f"Location headers")
-            assert response.status_code < 400, f"Link {url} is broken"
-        print("\n=====================================================\n")
-
     """a method to assert all the links on a page.
     pros: asserts all the links on a page with the given 'url' parameter.
     cons: asserts header and footer links as well.
@@ -214,8 +189,35 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             assert response.status_code < 400, f"Link {url} is broken"
         print("\nAll links on the page are valid!")
 
+    def assert_links_valid(self, locator):
+        """
+        assert links valid in a <li, List Item:
+        A method to assert that the child links are not broken in a list item ('li' tag),
+        using HTTP method HEAD, and checks if the response is between the acceptable limits (200-400)
+        Difference between assert_links_valid and assert_page_loads_successfully
+        # assert_links_valid: checks child li elements
+        # assert_page_loa...: check only 1 link"""
+
+        block_length = len(self.find_elements(locator))
+        print(f"Number of links found: {block_length}")
+        for x in range(1, block_length + 1):
+            link = (self.find_element(locator + '[' + str(x) + ']')).find_element(By.TAG_NAME, "a")
+
+            url = link.get_attribute('href')
+            print("\nurl: " + url)
+            response = requests.head(url)
+            if response.status_code == 301:
+                print(
+                    f"WARNING: The requested resource at {url} has been definitively moved to the URL given by the "
+                    f"Location headers")
+            assert response.status_code < 400, f"Link {url} is broken"
+        print("\n=====================================================\n")
+
     def assert_page_loads_successfully(self, link_locator):
-        """Clicks a link and asserts the resulting page loads with a status code between 200 and 400."""
+        """Clicks a link and asserts the resulting page loads with a status code between 200 and 400.
+        Difference between assert_links_valid and assert_page_loads_successfully
+        # assert_links_valid: checks child li elements
+        # assert_page_loa...: check only 1 link"""
 
         # Click the link using SeleniumBase
         self.click(link_locator)

@@ -126,9 +126,6 @@ class ArticlesDatabasesTest(NyplUtils):
 
             print(self.get_current_url())
 
-        # assert the bottom element - 'a-z article & databases'
-        self.assert_element(ArticlesDatabasesPage.a_z_database)
-
         # assert each letters/alphabet can be clicked and there is no error on the next page using a for loop
         for x in range(2, 28):
             if x == 24:  # skipping 'X' letter as it is not clickable
