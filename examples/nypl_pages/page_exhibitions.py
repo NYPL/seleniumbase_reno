@@ -15,19 +15,17 @@ class ExhibitionsPage(BaseCase):
     # /upcoming elements
     exhibitions = '(//*[contains(text(), "Exhibitions")])[2]'
     upcoming_1 = '(//*[contains(text(), "Upcoming Exhibitions")])[2]'
-    next_page_1 = '(//*[contains(text(), "Next page")])'
+    next_page = '(//*[contains(text(), "Next page")])'
 
     h3_links_upcoming = '(//*[@id="block-nypl-emulsify-content"]//h3//a)'
     pagination_list = '(//*[contains(text(), "Pagination")]//..//li//a)'
 
     # /past exhibitions
     past_exhibitions_h1 = '(//*[contains(text(), "Past Exhibitions")])[2]'
-    next_page_2 = '(//*[contains(text(), "Next page")])'
 
     h3_links_past = '(//*[@id="block-nypl-emulsify-content"]//h3//a)'
 
     # /archived-exhibition-resources
-    next_page_3 = '(//*[contains(text(), "Next page")])'
     archived_h1 = '(//*[contains(text(), "Archived Exhibition Resources")])[2]'
     archived_h2 = '//*[@id="44-archived-exhibition-resources-a-to-z"]'
 
@@ -35,7 +33,6 @@ class ExhibitionsPage(BaseCase):
 
     # /community-showcases
     community_h1 = '(//*[contains(text(), "Community Showcases")])[2]'
-    next_page_4 = '(//*[contains(text(), "Next page")])'
 
     no_community_showcase_1 = '/html/body/div[1]/div/main/div[2]/div/div/div/div/p'
     no_community_showcase_2 = '(//*[contains(text(), "No Community Showcases")])'  # use this, delete above one

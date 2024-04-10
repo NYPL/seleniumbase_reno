@@ -2,24 +2,24 @@ from seleniumbase import BaseCase
 
 
 class FooterPage(BaseCase):
-    accessibility = '(//*[contains(text(), "Accessibility")])'
-    press = '(//*[contains(text(), "Press")])'
-    careers = '(//*[contains(text(), "Careers")])'
-    space_rental = '(//*[contains(text(), "Space Rental")])'
+    accessibility = '//*[@id="nypl-footer"]//*[contains(text(), "Accessibility")]'
+    press = '//*[@id="nypl-footer"]//*[contains(text(), "Press")]'
+    careers = '//*[@id="nypl-footer"]//*[contains(text(), "Careers")]'
+    space_rental = '//*[@id="nypl-footer"]//*[contains(text(), "Space Rental")]'
 
-    privacy_policy = '(//*[contains(text(), "Privacy Policy")])'
-    other_policies = '(//*[contains(text(), "Other Policies")])'
-    terms_conditions = '(//*[contains(text(), "Terms & Conditions")])'
-    governance = '(//*[contains(text(), "Governance")])'
+    privacy_policy = '//*[@id="nypl-footer"]//*[contains(text(), "Privacy Policy")]'
+    other_policies = '//*[@id="nypl-footer"]//*[contains(text(), "Other Policies")]'
+    terms_conditions = '//*[@id="nypl-footer"]//*[contains(text(), "Terms & Conditions")]'
+    governance = '//*[@id="nypl-footer"]//*[contains(text(), "Governance")]'
 
-    rules_regulations = '(//*[contains(text(), "Rules & Regulations")])'
-    about_nypl = '(//*[contains(text(), "About NYPL")])'
-    language = '(//*[contains(text(), "Language")])'
+    rules_regulations = '//*[@id="nypl-footer"]//*[contains(text(), "Rules & Regulations")]'
+    about_nypl = '//*[@id="nypl-footer"]//*[contains(text(), "About NYPL")]'
+    language = '//*[@id="nypl-footer"]//*[contains(text(), "Language")]'
 
-    facebook = '//*[contains(text(), "NYPL on Facebook")]/..'
-    twitter = '//*[contains(text(), "NYPL on Twitter")]/..'
-    instagram = '//*[contains(text(), "NYPL on Instagram")]/..'
-    youtube = '//*[contains(text(), "NYPL on Youtube")]/..'
+    facebook = '//*[@id="nypl-footer"]//*[contains(text(), "NYPL on Facebook")]/..'
+    twitter = '//*[@id="nypl-footer"]//*[contains(text(), "NYPL on Twitter")]/..'
+    instagram = '//*[@id="nypl-footer"]//*[contains(text(), "NYPL on Instagram")]/..'
+    youtube = '//*[@id="nypl-footer"]//*[contains(text(), "NYPL on Youtube")]/..'
 
     # footer is using same page as page_home
     """

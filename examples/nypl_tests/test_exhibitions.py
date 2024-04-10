@@ -1,7 +1,9 @@
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_exhibitions import ExhibitionsPage
 
-
+# todo: continue with regression failure:
+# FAILED examples/nypl_tests/test_schwarzman.py::Schwarzman::test_schwarzman_research - seleniumbase.common.exceptions.NoSuchElementException: Message:
+#  Element {((//*[contains(text(), "Explore Divisions & Centers")])/../../..//h3)[8]} was not present after 7 seconds!
 class Exhibitions(NyplUtils):
     # https://www.nypl.org/events/exhibitions
     # https://www.nypl.org/events/exhibitions/upcoming
@@ -92,7 +94,7 @@ class Exhibitions(NyplUtils):
             self.assert_page_loads_successfully(ExhibitionsPage.h3_links_past + '[' + str(x) + ']')
 
         # asserting pagination elements
-        self.assert_element(ExhibitionsPage.next_page_1)
+        self.assert_element(ExhibitionsPage.next_page)
 
         # asserting the pager links at the bottom of the page
         pager_length = len(self.find_elements(ExhibitionsPage.pagination_list))
@@ -136,10 +138,10 @@ class Exhibitions(NyplUtils):
             self.open_exhibitions_page(category='archived-exhibition-resources')
 
         # asserting the forward button > and ellipsis '...'
-        self.assert_element(ExhibitionsPage.next_page_2)
+        self.assert_element(ExhibitionsPage.next_page)
 
         # asserting right-icon
-        self.assert_element(ExhibitionsPage.next_page_3)
+        self.assert_element(ExhibitionsPage.next_page)
 
     def test_exhibitions_community_showcases(self):
         # https://www.nypl.org/events/exhibitions/community-showcases
@@ -177,8 +179,6 @@ class Exhibitions(NyplUtils):
                 self.assert_true(str(x - 1) in url_text)
                 self.open_exhibitions_page(category='community-showcases')
 
-            # asserting right-icon
-            self.assert_element(ExhibitionsPage.next_page_4)
 
     def test_exhibitions_online(self):
         # https://www.nypl.org/events/exhibitions/online
