@@ -10,7 +10,7 @@ class LocationsPage(BaseCase):
     search_button = '//*[@id="search-form__submit"]'
     first_result = '(//*[@id="locations-list"]//h2)[1]'
 
-    open_now_check_box = '//*[@id="checkbox-open-now"]'
+    open_now_check_box = '//*[@id="checkbox-open-now"]//..'  # todo: check this locator after 04/09 regression, ask Michael Mintz if keeps failing
     clear_all_search = '(//*[contains(text(), "Clear all search terms")])'
 
     library_amount = '(//*[@id="locations-list"])//li'  # total library amount

@@ -50,5 +50,5 @@ class BlogIndividualTest(NyplUtils):
             self.click(link)
             current_url = self.get_current_url()
             print(f"\n {x}: " + current_url)
-            self.assert_true('nypl' and 'vega' in current_url, "expected texts not in " + current_url)
+            self.assert_true('nypl' and 'borrow' in current_url, "expected texts not in " + current_url)
             self.go_back()
