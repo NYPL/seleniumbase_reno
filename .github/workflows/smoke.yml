@@ -55,10 +55,8 @@ jobs:
         nosetests nothing2.py
         
 
-    # NYPL tests for the following pages;
-    # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, articles & databases, home, give,
-    # schwarzman, research, research_support, SNFL, SNFL teen, billy rose, request visit, posada exhibition, world literature,
-    # articles burney, articles homework, blog channels, blog individual, press, press individual
+    # NYPL smoke tests for the following pages;
+    # footer, header, blog, locations, home
 
 
     - name: Run smoke test
