@@ -28,8 +28,8 @@ class Locations(NyplUtils):
         print("=================================")
         super().tearDown()
 
+    @pytest.mark.smoke
     def test_locations_main(self):
-        # todo: left here
         # https://www.nypl.org/locations
         print("test_locations_main()\n")
         self.open_locations_page(category='')
@@ -46,7 +46,7 @@ class Locations(NyplUtils):
         self.assert_element(LocationsPage.open_now_check_box)
 
         # asserting 'Clear all search terms' Web-element
-        self.click(LocationsPage.borough)  # todo, fix 'click' error on this - RENO-3947
+        self.click(LocationsPage.borough)
         self.click(LocationsPage.bronx)
         self.click(LocationsPage.apply_boro)
         self.click(LocationsPage.borough)
@@ -76,6 +76,7 @@ class Locations(NyplUtils):
         self.assert_element(LocationsPage.bottom_promo_4)  # Queens Public Library link
 
     @pytest.mark.bug
+    @pytest.mark.smoke
     def test_locations_search_functionality(self):
         print("test_locations_search_functionalities()\n")
 

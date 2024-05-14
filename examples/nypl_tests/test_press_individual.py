@@ -3,7 +3,6 @@ from examples.nypl_pages.page_press_individual import PressIndividualPage
 
 
 class PressIndividualTest(NyplUtils):
-
     # https://www.nypl.org/press/actress-comedian-tv-host-sherri-shepherd-and-chef-restaurateur-melba-wilson-lead-celebrity
 
     def setUp(self):
@@ -32,7 +31,7 @@ class PressIndividualTest(NyplUtils):
         self.assert_element(PressIndividualPage.home)
         self.assert_element(PressIndividualPage.press_releases)
 
-        # asserting photos link 'here'
+        # asserting photos anchor link- 'here'
         self.assert_element(PressIndividualPage.photos)  # asserting the element
         self.link_assertion(PressIndividualPage.photos, "drive")  # asserting the link after clicking the element
 

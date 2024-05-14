@@ -1,3 +1,5 @@
+import pytest
+
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_home import HomePage
 
@@ -20,6 +22,7 @@ class HomePageTest(NyplUtils):
 
         super().tearDown()
 
+    @pytest.mark.smoke
     def test_home_page(self):
         print("test_home_page()\n")
 
@@ -51,6 +54,7 @@ class HomePageTest(NyplUtils):
         self.link_assertion(HomePage.h2_heading + "[6]", "blog")
         self.link_assertion(HomePage.h2_heading + "[7]", "locations")
 
+    @pytest.mark.smoke
     def test_slider(self):
         # new & noteworthy/in the collection slider
         print("test_slider()\n")

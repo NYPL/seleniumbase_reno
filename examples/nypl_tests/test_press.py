@@ -4,7 +4,6 @@ import random
 
 
 class PressTest(NyplUtils):
-
     # https://www.nypl.org/press
 
     def setUp(self):
@@ -37,11 +36,6 @@ class PressTest(NyplUtils):
         # print(page_link_number)  # optional print
         self.assert_true(page_link_number >= 1, "no h3 links on the page")
 
-        # assert links on the page go to 'nypl.vega'
-        random_amount = 10  # random choice of amount of links to be clicked. 10 total links and random, as of Aug 2023
-        elements = list(range(1, page_link_number + 1))  # total range of links on the page
-        random_elements = random.sample(elements, random_amount)  # random_amount to be tested out of total links
-
         # assert pagination amount
         pagination_amount = len(self.find_elements(PressPage.pagination_amount))
         # print(pagination_amount)  # optional print of the pagination elements amount
@@ -52,15 +46,17 @@ class PressTest(NyplUtils):
         # self.wait(2)
         self.assert_element(PressPage.previous_button)  # asserting previous button
         # print(self.get_current_url())  # optional print
+        # go back to main page
+        self.open_press_page()
 
         # for loop to test random amount of links out of total links on the page
         # as of Aug 2023, looping through all 10 links
-        for x in random_elements:
-            link = f'(//*[@id="main-content"]/div//ul//li//h3//a)[{x}]'
+        for x in range(1, page_link_number + 1):
+            link = PressPage.page_link_amount + f'[{x}]'
             self.click(link)
             self.wait(2)
             current_url = self.get_current_url()
             print(f"\n {x}: " + current_url)
-            self.assert_true('nypl' and 'press' in current_url, "expected texts not in " + current_url)
+            self.assert_true('nypl' in current_url and 'press' in current_url, "expected texts not in " + current_url)
             self.go_back()
 

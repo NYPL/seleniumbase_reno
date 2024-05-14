@@ -1,3 +1,5 @@
+import pytest
+
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_blog import BlogPage
 
@@ -22,6 +24,7 @@ class BlogTests(NyplUtils):
         print("=================================")
         super().tearDown()
 
+    @pytest.mark.smoke
     def test_blog_main(self):
         print("test_nypl_blog()\n")
 
