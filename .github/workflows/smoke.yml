@@ -1,4 +1,4 @@
-name: Production Regression
+name: Prod Smoke Test
 
 on:
   #push:
