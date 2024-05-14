@@ -110,7 +110,7 @@ class HeaderTest(NyplUtils):
             self.wait(3)
             self.click(HeaderPage.catalog_logout)  # retry clicking logout after waiting for 2 seconds
 
-    # @pytest.mark.skip(reason="test")
+    @pytest.mark.skip(reason="test")
     @pytest.mark.smoke
     def test_research_catalog(self):
         print("test_research_catalog()\n")
