@@ -14,7 +14,7 @@ class AngularJSHomePageTests(BaseCase):
         todos = self.find_visible_elements(todo_selector)
         self.assert_equal(len(todos), 2)
         self.assert_equal(todos[1].text.strip(), "build an AngularJS app")
-        # Verify adding a new todo
+        # Verify adding a new to do
         self.type('[ng-model="todoList.todoText"]', "write a protractor test")
         self.click('[value="add"]')
         todos = self.find_visible_elements(todo_selector)

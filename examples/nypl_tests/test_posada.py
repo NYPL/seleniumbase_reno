@@ -22,7 +22,6 @@ class PosadaTest(NyplUtils):
 
     def test_posada_main(self):
         print("test_posada_main()\n")
-        # todo: left here, 04/01
 
         # check images on the page
         self.image_assertion()
@@ -40,8 +39,8 @@ class PosadaTest(NyplUtils):
         self.assert_true("Posada" in hero_text)
 
         # asserting 'Explore the Online Exhibition'
-        # links are hardcoded, so when the exhibition list changes on the page, these list below needs to be updated
-        # the new link texts
+        # link list is hardcoded, so when the exhibition list changes on the page, these list below needs to be updated
+        # with the new link texts
 
         exhibition_links_list = ["la-catrina",
                                  "don-chepito-mariguano",
@@ -65,12 +64,12 @@ class PosadaTest(NyplUtils):
         self.assert_element(PosadaPage.previous_button_1)
         self.assert_element(PosadaPage.next_button_1)
         slide_show_1_image_amount = len(self.find_elements(PosadaPage.slide_images_1))
-        # print(slide_show_1_image_amount)  # optional print
+        print("Slide show 1 image amount: " + str(slide_show_1_image_amount))  # optional print
         self.assert_true(slide_show_1_image_amount > 1)
 
         # asserting slider 2- "Installation views | Fotos de la instalación"
         self.assert_element(PosadaPage.previous_button_2)
         self.assert_element(PosadaPage.next_button_2)
         slide_show_2_image_amount = len(self.find_elements(PosadaPage.slide_images_2))
-        # print(slide_show_2_image_amount)  # optional print
+        print("Slide show 2 image amount: " + str(slide_show_2_image_amount))  # optional print
         self.assert_true(slide_show_2_image_amount > 1)

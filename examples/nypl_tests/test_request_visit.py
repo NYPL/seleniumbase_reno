@@ -5,8 +5,8 @@ import random
 
 
 class RequestVisitTest(NyplUtils):
-
     # https://www.nypl.org/locations/request-visit
+    # todo: left here 04/12
 
     def setUp(self):
         super().setUp()
@@ -54,7 +54,7 @@ class RequestVisitTest(NyplUtils):
             self.click(RequestVisitPage.location_dropdown)
             self.click(RequestVisitPage.location_selection + "[ " + str(x) + "]")
 
-            self.click(RequestVisitPage.visit_type_dropdown)
+            #self.click(RequestVisitPage.visit_type_dropdown)
             if y == 2:  # Only for 'In-Person Visit'  # if the selection is 'In-Person Visit', execute next
                 self.click(RequestVisitPage.in_person_visit)
                 self.click(RequestVisitPage.group_tour)

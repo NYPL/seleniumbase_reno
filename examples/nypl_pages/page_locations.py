@@ -10,7 +10,7 @@ class LocationsPage(BaseCase):
     search_button = '//*[@id="search-form__submit"]'
     first_result = '(//*[@id="locations-list"]//h2)[1]'
 
-    open_now_check_box = '//*[@id="checkbox-open-now"]//..'  # todo: check this locator after 04/09 regression, ask Michael Mintz if keeps failing
+    open_now_check_box = '//*[@id="checkbox-open-now"]//..'
     clear_all_search = '(//*[contains(text(), "Clear all search terms")])'
 
     library_amount = '(//*[@id="locations-list"])//li'  # total library amount
@@ -60,8 +60,6 @@ class LocationsPage(BaseCase):
     bottom_promo_4 = '(//*[@id="promo-right-section-title"]/following-sibling::*//a)[2]'  # Queens Lib. link
 
     def open_locations_page(self, category=''):
-        # self.open("https://www.nypl.org/locations")
-
         # Determine the base URLs
         base_url = "https://www.nypl.org/locations/"
         qa_base_url = "https://qa-www.nypl.org/locations/"

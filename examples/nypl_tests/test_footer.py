@@ -1,3 +1,5 @@
+import pytest
+
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_footer import FooterPage
 
@@ -19,6 +21,7 @@ class FooterTest(NyplUtils):
         print("=================================")
         super().tearDown()
 
+    @pytest.mark.smoke
     def test_footer(self):
         print("test_footer()\n")
 
