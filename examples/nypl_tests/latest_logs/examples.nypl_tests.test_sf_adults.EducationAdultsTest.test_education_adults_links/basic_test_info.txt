@@ -1,0 +1,16 @@
+nypl_tests/test_sf_adults.py::EducationAdultsTest::test_education_adults_links
+--------------------------------------------------------------------
+Last Page: https://sites.google.com/nypl.org/techconnect/programs/project-code-front-end-web-development
+ Duration: 11.67s
+  Browser: Chrome 125.0.6422.78 / headless
+   Driver: chromedriver 125.0.6422.78
+Timestamp: 1717012716  (Unix Timestamp)
+     Date: Wednesday, May 29, 2024
+     Time: 3:58:36 PM  (EDT, UTC-04:00)
+--------------------------------------------------------------------
+Traceback:
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_tests/test_sf_adults.py", line 50, in test_education_adults_links
+    self.assert_page_loads_successfully('(' + EducationAdultsPage.total_h2 + f'[{x}]//..//a)[{y}]')
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_utility/utility.py", line 237, in assert_page_loads_successfully
+    assert 200 <= response.status_code < 400, (f"Status code {response.status_code} not in expected range [200, "
+Exception: Status code 404 not in expected range [200, 400) for URL: https://sites.google.com/nypl.org/techconnect/programs/project-code-front-end-web-development
