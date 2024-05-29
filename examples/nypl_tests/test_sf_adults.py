@@ -47,12 +47,5 @@ class EducationAdultsTest(NyplUtils):
         for x in range(1, total_h2_amount):
             total_h3 = len(self.find_elements('(' + EducationAdultsPage.total_h2 + f'[{x}]//..//a)'))
             for y in range(1, total_h3 + 1):
-                try:
-                    self.assert_page_loads_successfully(
-                        '(' + EducationAdultsPage.total_h2 + f'[{x}]//..//a)[{y}]'
-                    )
-                except AssertionError as e:
-                    print(f"Assertion failed at x={x}, y={y}: {e}")
-                    # Optionally, log the error to a file or perform other error handling here
-                    self.go_back()
+                self.assert_page_loads_successfully('(' + EducationAdultsPage.total_h2 + f'[{x}]//..//a)[{y}]')
 
