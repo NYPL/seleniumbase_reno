@@ -30,6 +30,8 @@ from examples.nypl_pages.page_press_individual import PressIndividualPage
 from examples.nypl_pages.page_sf_education import EducationPage
 from examples.nypl_pages.page_sf_early_literacy import EarlyLiteracyPage
 from examples.nypl_pages.page_sf_teens import EducationTeensPage
+from examples.nypl_pages.page_sf_kids import EducationKidsPage
+from examples.nypl_pages.page_sf_adults import EducationAdultsPage
 from examples.nypl_pages.page_sf_educators import EducatorsPage
 from examples.nypl_pages.page_bl_best_books import BestBooksPage
 from examples.nypl_pages.page_bl_staff_picks import StaffPicksPage
@@ -48,7 +50,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 SnflPage, SnflTeenPage, BillyRosePage, RequestVisitPage, PosadaPage, WorldLiteraturePage,
                 ArticlesBurneyPage, ArticlesHomeworkPage, BlogChannelsPage, BlogIndividualPage, PressPage,
                 PressIndividualPage, EducationPage, EarlyLiteracyPage, EducationTeensPage, EducatorsPage, BestBooksPage,
-                StaffPicksPage):
+                StaffPicksPage, EducationKidsPage, EducationAdultsPage):
 
     def nypl_login_catalog(self, username, password, wait_time=4):
         """nypl login method for the catalog,

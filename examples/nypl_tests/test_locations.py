@@ -97,7 +97,6 @@ class Locations(NyplUtils):
         self.assert_true(expected_text in search_result_text,
                          'Expected result = "' + expected_text + '" vs Actual result = "' + search_result_text + '"')
 
-    @pytest.mark.test
     def test_locations_borough(self, wait_time=2):
         print("test_borough()\n")
 
