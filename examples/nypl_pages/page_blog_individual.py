@@ -7,7 +7,7 @@ class BlogIndividualPage(BaseCase):
 
     home_title = 'A Reading List for Climate Week NYC | The New York Public Library'
 
-    page_link_amount = '//*[@id="main-content"]//li//h3//a'
+    page_link_amount = '(//*[@id="mainContent"]//li//h3//a)'
 
     def open_blog_individual_page(self):
         prod = "https://www.nypl.org/blog/2022/09/22/reading-list-climate-week-nyc"
