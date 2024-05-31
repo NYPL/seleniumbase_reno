@@ -49,7 +49,7 @@ class FooterTest(NyplUtils):
         # assert twitter
         self.assert_element(FooterPage.twitter)
         self.click(FooterPage.twitter)
-        self.assert_true('twitter.com' in self.get_current_url())
+        self.assert_true('x.com/nypl' in self.get_current_url())
         # print(self.get_current_url())  # optional print
         self.open_home_page()
 
