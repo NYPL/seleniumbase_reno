@@ -38,7 +38,6 @@ class EducationAdultsTest(NyplUtils):
         # assert email subscription
         self.assert_element(EducationAdultsPage.email_subscription)
 
-    @pytest.mark.test
     def test_education_adults_links(self):
         print("test_education_adults_links()\n")
 
