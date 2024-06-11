@@ -34,7 +34,7 @@ class EducationKidsTest(NyplUtils):
         self.assert_element(EducationKidsPage.home_button)  # home
         self.assert_element(EducationKidsPage.education)  # education
 
-        # assert email subscripton
+        # assert email subscription
         self.assert_element(EducationKidsPage.email_subscription)
 
     def test_education_kids_links(self):

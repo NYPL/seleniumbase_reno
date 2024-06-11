@@ -1,0 +1,18 @@
+nypl_tests/test_locations.py::Locations::test_locations_search_functionality
+--------------------------------------------------------------------
+Last Page: https://www.nypl.org/locations
+ Duration: 8.07s
+  Browser: Chrome 125.0.6422.142 / headless
+   Driver: chromedriver 125.0.6422.78
+Timestamp: 1718128882  (Unix Timestamp)
+     Date: Tuesday, June 11, 2024
+     Time: 2:01:22 PM  (EDT, UTC-04:00)
+--------------------------------------------------------------------
+Traceback:
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_tests/test_locations.py", line 97, in test_locations_search_functionality
+    self.assert_true(expected_text in search_result_text,
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/seleniumbase/fixtures/base_case.py", line 7441, in assert_true
+    self.assertTrue(expr, msg=msg)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/unittest/case.py", line 687, in assertTrue
+    raise self.failureException(msg)
+Exception: False is not true : Expected result = "The New York Public Library for the Performing Arts" vs Actual result = "125th Street Library"
