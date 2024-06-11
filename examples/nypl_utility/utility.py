@@ -36,6 +36,7 @@ from examples.nypl_pages.page_sf_educators import EducatorsPage
 from examples.nypl_pages.page_bl_best_books import BestBooksPage
 from examples.nypl_pages.page_bl_staff_picks import StaffPicksPage
 from examples.nypl_pages.page_sf_events import EventsPage
+from examples.nypl_pages.page_sf_books import BooksPage
 
 # from examples.nypl_tests.test_dxp_images import FrontendImages
 
@@ -51,7 +52,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 SnflPage, SnflTeenPage, BillyRosePage, RequestVisitPage, PosadaPage, WorldLiteraturePage,
                 ArticlesBurneyPage, ArticlesHomeworkPage, BlogChannelsPage, BlogIndividualPage, PressPage,
                 PressIndividualPage, EducationPage, EarlyLiteracyPage, EducationTeensPage, EducatorsPage, BestBooksPage,
-                StaffPicksPage, EducationKidsPage, EducationAdultsPage, EventsPage):
+                StaffPicksPage, EducationKidsPage, EducationAdultsPage, EventsPage, BooksPage):
 
     def nypl_login_catalog(self, username, password, wait_time=4):
         """nypl login method for the catalog,
@@ -233,6 +234,9 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
         # Now use requests library to check the status code of the current page
         response = requests.get(current_url)
+
+        # print the current URL
+        print(self.get_current_url())
 
         # Check that the status code is in the desired range
         assert 200 <= response.status_code < 400, (f"Status code {response.status_code} not in expected range [200, "

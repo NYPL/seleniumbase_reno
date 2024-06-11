@@ -39,7 +39,6 @@ class EventsTest(NyplUtils):
         # assert email subscription
         self.assert_element(EventsPage.email_subscription)
 
-    @pytest.mark.test
     def test_events_links(self):
         print("test_events_links()\n")
 
