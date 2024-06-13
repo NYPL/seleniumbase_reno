@@ -420,7 +420,7 @@ class Locations(NyplUtils):
                 location_info_text = self.find_element(LocationsPage.location_info).text.lower()
                 self.assertTrue(
                     "temporarily closed" in location_info_text or "closed today" in location_info_text,
-                    library + " does not display 'Temporarily Closed' or 'Closed Today' status"
+                    library + " does not display 'Temporarily Closed' or 'Closed Today' status even though it is closed"
                 )
 
                 print("================================================\n\n")
