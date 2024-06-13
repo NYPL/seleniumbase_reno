@@ -1,0 +1,16 @@
+nypl_tests/test_locations.py::Locations::test_open_hours_5
+--------------------------------------------------------------------
+Last Page: https://www.nypl.org/locations/bronx-library-center/blcgcrt
+ Duration: 9.76s
+  Browser: Chrome 125.0.6422.176 / headless
+   Driver: chromedriver 125.0.6422.78
+Timestamp: 1718315372  (Unix Timestamp)
+     Date: Thursday, June 13, 2024
+     Time: 5:49:32 PM  (EDT, UTC-04:00)
+--------------------------------------------------------------------
+Traceback:
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_tests/test_locations.py", line 603, in test_open_hours_5
+    self.assertTrue(
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/unittest/case.py", line 687, in assertTrue
+    raise self.failureException(msg)
+Exception: False is not true : General Collection & Reading Terrace does not display 'Temporarily Closed' or 'Closed Today' status even though it is closed

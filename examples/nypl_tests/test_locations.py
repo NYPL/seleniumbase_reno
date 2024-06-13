@@ -359,7 +359,7 @@ class Locations(NyplUtils):
                 location_info_text = self.find_element(LocationsPage.location_info).text.lower()
                 self.assertTrue(
                     "temporarily closed" in location_info_text or "closed today" in location_info_text,
-                    library + " does not display 'Temporarily Closed' or 'Closed Today' status"
+                    library_name + " does not display 'Temporarily Closed' or 'Closed Today' status"
                 )
 
                 print("================================================\n\n")
@@ -371,7 +371,7 @@ class Locations(NyplUtils):
                 self.click(library)
                 # assert "Open today" text in the individual location info
                 self.assert_text("Open today", LocationsPage.location_info,
-                                 library + " does not display Open today status")
+                                 library_name + " does not display Open today status")
             else:
                 print("\n\n================================================")
                 print("NEITHER OPEN OR CLOSED - " + library_name + " (" + str(x) + ")")
@@ -420,7 +420,7 @@ class Locations(NyplUtils):
                 location_info_text = self.find_element(LocationsPage.location_info).text.lower()
                 self.assertTrue(
                     "temporarily closed" in location_info_text or "closed today" in location_info_text,
-                    library + " does not display 'Temporarily Closed' or 'Closed Today' status even though it is closed"
+                    library_name + " does not display 'Temporarily Closed' or 'Closed Today' status even though it is closed"
                 )
 
                 print("================================================\n\n")
@@ -432,7 +432,7 @@ class Locations(NyplUtils):
                 self.click(library)
                 # assert "Open today" text in the individual location info
                 self.assert_text("Open today", LocationsPage.location_info,
-                                 library + " does not display Open today status")
+                                 library_name + " does not display Open today status")
             else:
                 print("\n\n================================================")
                 print("NEITHER OPEN OR CLOSED - " + library_name + " (" + str(x) + ")")
@@ -481,7 +481,7 @@ class Locations(NyplUtils):
                 location_info_text = self.find_element(LocationsPage.location_info).text.lower()
                 self.assertTrue(
                     "temporarily closed" in location_info_text or "closed today" in location_info_text,
-                    library + " does not display 'Temporarily Closed' or 'Closed Today' status"
+                    library_name + " does not display 'Temporarily Closed' or 'Closed Today' status"
                 )
 
                 print("================================================\n\n")
@@ -493,7 +493,7 @@ class Locations(NyplUtils):
                 self.click(library)
                 # assert "Open today" text in the individual location info
                 self.assert_text("Open today", LocationsPage.location_info,
-                                 library + " does not display Open today status")
+                                 library_name + " does not display Open today status")
             else:
                 print("\n\n================================================")
                 print("NEITHER OPEN OR CLOSED - " + library_name + " (" + str(x) + ")")
@@ -543,7 +543,7 @@ class Locations(NyplUtils):
                 location_info_text = self.find_element(LocationsPage.location_info).text.lower()
                 self.assertTrue(
                     "temporarily closed" in location_info_text or "closed today" in location_info_text,
-                    library + " does not display 'Temporarily Closed' or 'Closed Today' status"
+                    library_name + " does not display 'Temporarily Closed' or 'Closed Today' status"
                 )
 
                 print("================================================\n\n")
@@ -555,7 +555,7 @@ class Locations(NyplUtils):
                 self.click(library)
                 # assert "Open today" text in the individual location info
                 self.assert_text("Open today", LocationsPage.location_info,
-                                 library + " does not display Open today status")
+                                 library_name + " does not display Open today status")
             else:
                 print("\n\n================================================")
                 print("NEITHER OPEN OR CLOSED - " + library_name + " (" + str(x) + ")")
@@ -574,3 +574,4 @@ class Locations(NyplUtils):
 
         # assert total number of libraries with total libraries tested
         self.assert_true(total_count == open_count + closed_count + neither_count, "library counts don't add up")
+
