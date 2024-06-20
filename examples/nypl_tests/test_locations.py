@@ -329,7 +329,7 @@ class Locations(NyplUtils):
 
     # @pytest.mark.skip(reason="1-Not priority, 2-wait for developer input on how to test")
 
-    @pytest.mark.skip(reason="Tests are divided into 3 parts below to run smoother on failures")
+    @pytest.mark.skip(reason="These ests are divided into 3 parts below to run smoother on failures")
     @pytest.mark.smoke
     def test_open_hours_1(self):
         print("test_open_hours()\n")
