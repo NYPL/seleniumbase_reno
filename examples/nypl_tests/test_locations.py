@@ -327,40 +327,40 @@ class Locations(NyplUtils):
 
         self.assert_true(media_types_len > 1, "media types filter smaller than expected")
 
-    # @pytest.mark.skip(reason="1-Not priority, 2-wait for developer input on how to test")
-
-    @pytest.mark.skip(reason="These ests are divided into 3 parts below to run smoother on failures")
+    @pytest.mark.skip(reason="These tests are divided into 3 parts to save time")
     @pytest.mark.smoke
     def test_open_hours_1(self):
-        print("test_open_hours()\n")
+        print("test_open_hours_1()\n")
 
-        # this test runs the whole libraries from 1st to last (131st) in 1 run. belo tests are divided into 3
+        # this test runs the whole libraries from 1st to last (131st) in 1 run. below tests are divided into 3 parts
 
+        failure_messages = []
         library_amount = len(self.find_elements(LocationsPage.library_info))
 
         # todo: test takes too long. consider using API for this test
-        # next: check each location's individual page if the OPEN status is accurate
-        # also, rewrite the tests in this Class/Folder.
+
         open_text = "today's hours"
         total_count = 0
         open_count = 0
         closed_count = 0
         neither_count = 0
-        for x in range(1, library_amount + 1):
+
+        # assert each location's OPEN/CLOSED status on Location Finder vs Individual Page
+        for x in range(1, library_amount + 1):  # Adjust range as needed
             library = LocationsPage.library_link + '[' + str(x) + ']'
             library_name = self.get_text(library)
             library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]").lower()
+
             if "closed" in library_info:
                 print("\n\n================================================")
                 print("CLOSED - " + library_name + " (" + str(x) + ")")
 
                 self.click(library)
-                # assert "Open today" text in the individual location info
                 location_info_text = self.find_element(LocationsPage.location_info).text.lower()
-                self.assertTrue(
-                    "temporarily closed" in location_info_text or "closed today" in location_info_text,
-                    library_name + " does not display 'Temporarily Closed' or 'Closed Today' status"
-                )
+
+                if not ("temporarily closed" in location_info_text or "closed today" in location_info_text):
+                    failure_messages.append(
+                        f"{library_name} does not display 'Temporarily Closed' or 'Closed Today' status")
 
                 print("================================================\n\n")
                 closed_count += 1
@@ -369,37 +369,41 @@ class Locations(NyplUtils):
                 open_count += 1
 
                 self.click(library)
-                # assert "Open today" text in the individual location info
-                self.assert_text("Open today", LocationsPage.location_info,
-                                 library_name + " does not display Open today status")
+                location_info_text = self.get_text(LocationsPage.location_info).lower()
+
+                if "open today" not in location_info_text:
+                    failure_messages.append(f"{library_name} does not display Open today status")
             else:
                 print("\n\n================================================")
                 print("NEITHER OPEN OR CLOSED - " + library_name + " (" + str(x) + ")")
                 print(library_info)
                 print("================================================\n\n")
                 neither_count += 1
+
             total_count += 1
             self.goto(LocationsPage.locations_page_link)  # go back to locations page
 
         print("\nTotal Libraries: " + str(library_amount))
-
-        print("\nTotal OPEN    = " + str(open_count))
-        print("Total CLOSED  = " + str(closed_count))
+        print("Total OPEN = " + str(open_count))
+        print("Total CLOSED = " + str(closed_count))
         print("Total NEITHER = " + str(neither_count))
         print("Total gone thru: " + str(total_count))
 
-        # assert total number of libraries with total libraries tested
-        self.assert_true(total_count == open_count + closed_count + neither_count, "library counts don't add up")
+        # Check for any accumulated errors
+        if failure_messages:
+            raise AssertionError("\n".join(failure_messages))
+
+        # Optional: assert on total counts
+        self.assert_true(total_count == open_count + closed_count + neither_count, "Library counts don't add up")
 
     @pytest.mark.regression
     @pytest.mark.smoke
     def test_open_hours_2(self):
         # this test runs between 1-40 libraries
-        # todo: update it so it can print out the name of the library when failed
-        # todo: tests takes too long. consider using API for this test
 
         print("test_open_hours_2()\n")
 
+        failure_messages = []
         library_amount = len(self.find_elements(LocationsPage.library_info))
 
         open_text = "today's hours"
@@ -407,21 +411,22 @@ class Locations(NyplUtils):
         open_count = 0
         closed_count = 0
         neither_count = 0
-        for x in range(1, 40):  # range from 1st library to 40th library
+
+        for x in range(1, 40):  # Adjust range as needed
             library = LocationsPage.library_link + '[' + str(x) + ']'
             library_name = self.get_text(library)
             library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]").lower()
+
             if "closed" in library_info:
                 print("\n\n================================================")
                 print("CLOSED - " + library_name + " (" + str(x) + ")")
 
                 self.click(library)
-                # assert "Open today" text in the individual location info
                 location_info_text = self.find_element(LocationsPage.location_info).text.lower()
-                self.assertTrue(
-                    "temporarily closed" in location_info_text or "closed today" in location_info_text,
-                    library_name + " does not display 'Temporarily Closed' or 'Closed Today' status even though it is closed"
-                )
+
+                if not ("temporarily closed" in location_info_text or "closed today" in location_info_text):
+                    failure_messages.append(
+                        f"{library_name} does not display 'Temporarily Closed' or 'Closed Today' status")
 
                 print("================================================\n\n")
                 closed_count += 1
@@ -430,37 +435,41 @@ class Locations(NyplUtils):
                 open_count += 1
 
                 self.click(library)
-                # assert "Open today" text in the individual location info
-                self.assert_text("Open today", LocationsPage.location_info,
-                                 library_name + " does not display Open today status")
+                location_info_text = self.get_text(LocationsPage.location_info).lower()
+
+                if "open today" not in location_info_text:
+                    failure_messages.append(f"{library_name} does not display Open today status")
             else:
                 print("\n\n================================================")
                 print("NEITHER OPEN OR CLOSED - " + library_name + " (" + str(x) + ")")
                 print(library_info)
                 print("================================================\n\n")
                 neither_count += 1
+
             total_count += 1
             self.goto(LocationsPage.locations_page_link)  # go back to locations page
 
         print("\nTotal Libraries: " + str(library_amount))
-
-        print("\nTotal OPEN    = " + str(open_count))
-        print("Total CLOSED  = " + str(closed_count))
+        print("Total OPEN = " + str(open_count))
+        print("Total CLOSED = " + str(closed_count))
         print("Total NEITHER = " + str(neither_count))
         print("Total gone thru: " + str(total_count))
 
-        # assert total number of libraries with total libraries tested
-        self.assert_true(total_count == open_count + closed_count + neither_count, "library counts don't add up")
+        # Check for any accumulated errors
+        if failure_messages:
+            raise AssertionError("\n".join(failure_messages))
+
+        # Optional: assert on total counts
+        self.assert_true(total_count == open_count + closed_count + neither_count, "Library counts don't add up")
 
     @pytest.mark.regression
     @pytest.mark.smoke
     def test_open_hours_3(self):
         # this test runs between 40-80 libraries
-        # todo: update it so it can print out the name of the library when failed
-        # todo: tests takes too long. consider using API for this test
 
         print("test_open_hours_3()\n")
 
+        failure_messages = []
         library_amount = len(self.find_elements(LocationsPage.library_info))
 
         open_text = "today's hours"
@@ -468,21 +477,22 @@ class Locations(NyplUtils):
         open_count = 0
         closed_count = 0
         neither_count = 0
-        for x in range(40, 80):  # range from 40th library to 80th library
+
+        for x in range(40, 80):  # Adjust range as needed
             library = LocationsPage.library_link + '[' + str(x) + ']'
             library_name = self.get_text(library)
             library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]").lower()
+
             if "closed" in library_info:
                 print("\n\n================================================")
                 print("CLOSED - " + library_name + " (" + str(x) + ")")
 
                 self.click(library)
-                # assert "Open today" text in the individual location info
                 location_info_text = self.find_element(LocationsPage.location_info).text.lower()
-                self.assertTrue(
-                    "temporarily closed" in location_info_text or "closed today" in location_info_text,
-                    library_name + " does not display 'Temporarily Closed' or 'Closed Today' status"
-                )
+
+                if not ("temporarily closed" in location_info_text or "closed today" in location_info_text):
+                    failure_messages.append(
+                        f"{library_name} does not display 'Temporarily Closed' or 'Closed Today' status")
 
                 print("================================================\n\n")
                 closed_count += 1
@@ -491,38 +501,41 @@ class Locations(NyplUtils):
                 open_count += 1
 
                 self.click(library)
-                # assert "Open today" text in the individual location info
-                self.assert_text("Open today", LocationsPage.location_info,
-                                 library_name + " does not display Open today status")
+                location_info_text = self.get_text(LocationsPage.location_info).lower()
+
+                if "open today" not in location_info_text:
+                    failure_messages.append(f"{library_name} does not display Open today status")
             else:
                 print("\n\n================================================")
                 print("NEITHER OPEN OR CLOSED - " + library_name + " (" + str(x) + ")")
                 print(library_info)
                 print("================================================\n\n")
                 neither_count += 1
+
             total_count += 1
             self.goto(LocationsPage.locations_page_link)  # go back to locations page
 
         print("\nTotal Libraries: " + str(library_amount))
-
-        print("\nTotal OPEN    = " + str(open_count))
-        print("Total CLOSED  = " + str(closed_count))
+        print("Total OPEN = " + str(open_count))
+        print("Total CLOSED = " + str(closed_count))
         print("Total NEITHER = " + str(neither_count))
         print("Total gone thru: " + str(total_count))
 
-        # assert total number of libraries with total libraries tested
-        self.assert_true(total_count == open_count + closed_count + neither_count, "library counts don't add up")
+        # Check for any accumulated errors
+        if failure_messages:
+            raise AssertionError("\n".join(failure_messages))
+
+        # Optional: assert on total counts
+        self.assert_true(total_count == open_count + closed_count + neither_count, "Library counts don't add up")
 
     @pytest.mark.regression
     @pytest.mark.smoke
     def test_open_hours_4(self):
         # this test runs between 80-last libraries
 
-        # todo: update it so it can print out the name of the library when failed
-        # todo: test takes too long. consider using API for this test
-
         print("test_open_hours_4()\n")
 
+        failure_messages = []
         library_amount = len(self.find_elements(LocationsPage.library_info))
 
         open_text = "today's hours"
@@ -530,21 +543,22 @@ class Locations(NyplUtils):
         open_count = 0
         closed_count = 0
         neither_count = 0
-        for x in range(80, library_amount + 1):  # range from 80th library to the last library
+
+        for x in range(80, library_amount + 1):  # Adjust range as needed
             library = LocationsPage.library_link + '[' + str(x) + ']'
             library_name = self.get_text(library)
             library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]").lower()
+
             if "closed" in library_info:
                 print("\n\n================================================")
                 print("CLOSED - " + library_name + " (" + str(x) + ")")
 
                 self.click(library)
-                # assert "Open today" text in the individual location info
                 location_info_text = self.find_element(LocationsPage.location_info).text.lower()
-                self.assertTrue(
-                    "temporarily closed" in location_info_text or "closed today" in location_info_text,
-                    library_name + " does not display 'Temporarily Closed' or 'Closed Today' status"
-                )
+
+                if not ("temporarily closed" in location_info_text or "closed today" in location_info_text):
+                    failure_messages.append(
+                        f"{library_name} does not display 'Temporarily Closed' or 'Closed Today' status")
 
                 print("================================================\n\n")
                 closed_count += 1
@@ -553,25 +567,29 @@ class Locations(NyplUtils):
                 open_count += 1
 
                 self.click(library)
-                # assert "Open today" text in the individual location info
-                self.assert_text("Open today", LocationsPage.location_info,
-                                 library_name + " does not display Open today status")
+                location_info_text = self.get_text(LocationsPage.location_info).lower()
+
+                if "open today" not in location_info_text:
+                    failure_messages.append(f"{library_name} does not display Open today status")
             else:
                 print("\n\n================================================")
                 print("NEITHER OPEN OR CLOSED - " + library_name + " (" + str(x) + ")")
                 print(library_info)
                 print("================================================\n\n")
                 neither_count += 1
+
             total_count += 1
             self.goto(LocationsPage.locations_page_link)  # go back to locations page
 
         print("\nTotal Libraries: " + str(library_amount))
-
-        print("\nTotal OPEN    = " + str(open_count))
-        print("Total CLOSED  = " + str(closed_count))
+        print("Total OPEN = " + str(open_count))
+        print("Total CLOSED = " + str(closed_count))
         print("Total NEITHER = " + str(neither_count))
         print("Total gone thru: " + str(total_count))
 
-        # assert total number of libraries with total libraries tested
-        self.assert_true(total_count == open_count + closed_count + neither_count, "library counts don't add up")
+        # Check for any accumulated errors
+        if failure_messages:
+            raise AssertionError("\n".join(failure_messages))
 
+        # Optional: assert on total counts
+        self.assert_true(total_count == open_count + closed_count + neither_count, "Library counts don't add up")
