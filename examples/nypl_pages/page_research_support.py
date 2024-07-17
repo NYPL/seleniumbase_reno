@@ -5,7 +5,7 @@ class ResearchSupportPage(BaseCase):
     home = '(//*[contains(text(), "Home")])[1]'
     research = '(//*[contains(text(), "Research")])[2]'
     support_services = '(//*[contains(text(), "Support and Services")])[2]'
-    h1 = '//*[@id="main-content"]/div[1]/div'
+    h1 = '//*[@id="mainContent"]/div[1]/div'
 
     how_to_start_your_search = '//*[@id="link_card_list-23c628f7-1089-4725-98ea-ce65821110a9"]/ul/li'
     additional_info_section = '//*[@id="link_card_list-01d7423d-6c7c-427b-ab93-1bfc111f2a7e"]/ul/li'
