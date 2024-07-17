@@ -4,7 +4,7 @@ from seleniumbase import BaseCase
 class GivePage(BaseCase):
 
     home = '(//*[contains(text(), "Home")])[1]'
-    h1 = '//*[@id="main-content"]//h1'
+    h1 = '//*[@id="mainContent"]//h1'
     donate = '(//*[contains(text(), "Donate")])[2]'
 
     donation_form = '//*[@id="donation-form"]'

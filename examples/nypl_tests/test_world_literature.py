@@ -36,20 +36,23 @@ class WorldLiteratureTest(NyplUtils):
         # asserting hero
         self.assert_element(WorldLiteraturePage.hero)
 
+        # todo: below "Authors in Conversation" section is no more, fix the test accordingly
         # asserting the links in "Authors in Conversation"
-        talks_link_amount = len(self.find_elements(WorldLiteraturePage.authors_in_conversation_links))
+        # talks_link_amount = len(self.find_elements(WorldLiteraturePage.authors_in_conversation_links))
         # print(talks_link_amount)  # optional print
-        self.assert_true(talks_link_amount >= 1, "no links or conversations on Authors in Conversation")
+        # self.assert_true(talks_link_amount >= 1, "no links or conversations on Authors in Conversation")
 
+        # todo: below "Panel Events..." section is no more, fix the test accordingly
         # asserting the links in "Panel Events"
-        panel_events_link_amount = len(self.find_elements(WorldLiteraturePage.panel_events__links))
+        #panel_events_link_amount = len(self.find_elements(WorldLiteraturePage.panel_events__links))
         # print(panel_events_link_amount)  # optional print
-        self.assert_true(panel_events_link_amount >= 1, "no events link on Panel Events")
+        #self.assert_true(panel_events_link_amount >= 1, "no events link on Panel Events")
 
+        # todo: below "Live from NYPL" section is no more, fix the test accordingly
         # asserting the links in "Live From NYPL"
-        live_from_nypl_link_amount = len(self.find_elements(WorldLiteraturePage.live_from_nypl_links))
+        #live_from_nypl_link_amount = len(self.find_elements(WorldLiteraturePage.live_from_nypl_links))
         # print(live_from_nypl_link_amount)  # optional print
-        self.assert_true(live_from_nypl_link_amount >= 1, "no events link on Live From NYPL")
+        #self.assert_true(live_from_nypl_link_amount >= 1, "no events link on Live From NYPL")
 
         # asserting "Explore All Events" link
         self.link_assertion(WorldLiteraturePage.explore_all_events, "events")

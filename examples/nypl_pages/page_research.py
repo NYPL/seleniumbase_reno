@@ -4,7 +4,7 @@ from seleniumbase import BaseCase
 class ResearchPage(BaseCase):
     home = '(//*[contains(text(), "Home")])[1]'
     research = '(//*[contains(text(), "Research")])[3]'
-    h1 = '//*[@id="main-content"]//h1'
+    h1 = '//*[@id="mainContent"]//h1'
 
     search_the_research_catalog = '(//*[contains(text(), "Search the Research Catalog")])[1]'
     search_bar = '//*[@id="external-search-form-input"]'

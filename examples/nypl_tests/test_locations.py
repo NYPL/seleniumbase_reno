@@ -75,13 +75,9 @@ class Locations(NyplUtils):
         self.assert_element(LocationsPage.bottom_promo_3)  # Brooklyn Public Library link
         self.assert_element(LocationsPage.bottom_promo_4)  # Queens Public Library link
 
-    @pytest.mark.bug
     @pytest.mark.smoke
     def test_locations_search_functionality(self):
         print("test_locations_search_functionalities()\n")
-
-        # TODO update this test after (RENO-3468) bug/ticket is fixed - IN PROGRESS
-        # https://jira.nypl.org/browse/RENO-3468
 
         # asserting the search functionality by the data it returns
         self.send_keys(LocationsPage.search_bar, "Performing arts")
