@@ -22,7 +22,8 @@ class LibraryCard(NyplUtils):
         print("=================================")
         super().tearDown()
 
-    # @pytest.mark.smoke
+    @pytest.mark.skip(reason="waiting for approval from ILS to create new accounts")
+    @pytest.mark.smoke
     def test_library_card_main(self):
         # https://www.nypl.org/library-card/new
         print("test_library_card_main()\n")
