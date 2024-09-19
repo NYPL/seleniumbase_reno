@@ -75,7 +75,7 @@ class HeaderTest(NyplUtils):
         self.click(HeaderPage.search_button)
         self.assert_text("Close")
 
-    #@pytest.mark.skip(reason="Chris covering this in his RC automation suite")
+    @pytest.mark.skip(reason="Chris covering this in his RC automation suite")
     @pytest.mark.smoke
     def test_login_catalog(self):
         print("test_login_catalog()\n")
@@ -132,7 +132,7 @@ class HeaderTest(NyplUtils):
             self.wait(3)
             self.click(HeaderPage.catalog_logout)  # retry clicking logout after waiting for 2 seconds
 
-    #@pytest.mark.skip(reason="Chris covering this in his RC automation suite")
+    @pytest.mark.skip(reason="Chris covering this in his RC automation suite")
     @pytest.mark.smoke
     def test_research_catalog(self):
         print("test_research_catalog()\n")
