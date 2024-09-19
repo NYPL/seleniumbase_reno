@@ -37,6 +37,8 @@ from examples.nypl_pages.page_bl_best_books import BestBooksPage
 from examples.nypl_pages.page_bl_staff_picks import StaffPicksPage
 from examples.nypl_pages.page_sf_events import EventsPage
 from examples.nypl_pages.page_sf_books import BooksPage
+# from examples.nypl_pages.page_lca import LibraryCardPage  # add LibraryCardPage in class
+from examples.nypl_pages.page_sf_new_arrivals import NewArrivalsPage
 
 # from examples.nypl_tests.test_dxp_images import FrontendImages
 
@@ -52,7 +54,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 SnflPage, SnflTeenPage, BillyRosePage, RequestVisitPage, PosadaPage, WorldLiteraturePage,
                 ArticlesBurneyPage, ArticlesHomeworkPage, BlogChannelsPage, BlogIndividualPage, PressPage,
                 PressIndividualPage, EducationPage, EarlyLiteracyPage, EducationTeensPage, EducatorsPage, BestBooksPage,
-                StaffPicksPage, EducationKidsPage, EducationAdultsPage, EventsPage, BooksPage):
+                StaffPicksPage, EducationKidsPage, EducationAdultsPage, EventsPage, BooksPage, NewArrivalsPage):
 
     def nypl_login_catalog(self, username, password, wait_time=4):
         """nypl login method for the catalog,

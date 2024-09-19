@@ -18,10 +18,10 @@ class HeaderPage(BaseCase):
 
     research_catalog_logout = '//*[contains(text(), "Log Out")]'
     research_catalog_searchbar = '//*[@id="searchbar-textinput-mainContent"]'
-    h2_display_result = '//*[@id="results-description"]'
+    h2_display_result = '//*[@id="mainContent"]//*[@data-testid="search-results-heading"]'
 
     my_bookshelf = '//*[@id="bookshelf-title"]'
-    my_account_research_catalog = '//*[@id="2"]'
+    my_account_research_catalog = '//*[@id="my-account-profile-header-heading"]'
 
     locations = '//*[@id="header-nav-upper"]/li//a[contains(text(), "Locations")]'
     get_a_library_card = '//*[@id="header-nav-upper"]/li//a[contains(text(), "Get A Library Card")]'
@@ -36,7 +36,16 @@ class HeaderPage(BaseCase):
     connect = '(//*[contains(text(), "Connect")])[1]'
     give = '(//*[contains(text(), "Give")])[1]'
     get_help = '(//*[contains(text(), "Get Help")])[1]'
-    search = '(//*[contains(text(), "Search")])[1]'
+    search_button = '(//*[contains(text(), "Search")])[1]'
+
+    search_tab = '//*[@id="__next"]//*[contains(text(), "Search")]'
+    subject_heading_explorer_tab = '//*[@id="__next"]//*[contains(text(), "Subject Heading Explorer")]'
+    my_account_tab = '(//*[@id="__next"]//*[contains(text(), "My Account")])[1]'
+    log_out_tab = '(//*[@id="__next"]//*[contains(text(), "Log Out")])'
+
+    checkouts_tab = '(//*[@id="__next"]//*[contains(text(), "Checkouts")])'
+    requests_tab = '(//*[@id="__next"]//*[contains(text(), "Requests")])'
+    account_settings_tab = '(//*[@id="__next"]//*[contains(text(), "Account settings")])'
 
     # header is using same page as page_home
     """

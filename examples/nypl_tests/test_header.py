@@ -1,4 +1,6 @@
 import pytest
+import os
+
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 
@@ -70,15 +72,35 @@ class HeaderTest(NyplUtils):
         self.link_assertion(HeaderPage.get_help, "help")
 
         # assert Search
-        self.click(HeaderPage.search)
+        self.click(HeaderPage.search_button)
         self.assert_text("Close")
 
-    @pytest.mark.skip(reason="Chris Mulholland covering this in his own test suite")
+    #@pytest.mark.skip(reason="Chris covering this in his RC automation suite")
+    @pytest.mark.smoke
     def test_login_catalog(self):
         print("test_login_catalog()\n")
 
-        # using nypl_login_catalog method to login
-        self.nypl_login_catalog("qatester", "Nyplqa1542*")  # barcode: 25555010494130
+        # Retrieve username and password from environment variables
+        username = os.getenv('USERNAME')
+        password = os.getenv('PASSWORD')
+
+        # Ensure username and password are not None
+        if not username or not password:
+            raise Exception("Environment variables USERNAME and PASSWORD must be set!")
+
+        # Debug print statements to check if the variables are set
+        print(f"Username: {username}")
+        print(f"Password: {password}")
+
+        # Proceed with the login process
+        self.nypl_login_catalog(username, password)
+
+        # assert that the login is successful and the new URL is 'https://borrow.nypl.org/'
+
+        # self.wait(7)
+        current_url_text = self.get_current_url()
+        print(current_url_text)
+        self.assert_true('borrow' in current_url_text)
 
         # assert title 'NYPL catalog'
         self.assert_title('New York Public Library')
@@ -94,7 +116,7 @@ class HeaderTest(NyplUtils):
         # assert that 'vega' is in the URL on the result page URL
         current_url_text = self.get_current_url()
         print(current_url_text)
-        self.assert_true("vega" in current_url_text)
+        self.assert_true("borrow" in current_url_text)
 
         # click logout
         try:
@@ -110,32 +132,66 @@ class HeaderTest(NyplUtils):
             self.wait(3)
             self.click(HeaderPage.catalog_logout)  # retry clicking logout after waiting for 2 seconds
 
-    @pytest.mark.skip(reason="test")
+    #@pytest.mark.skip(reason="Chris covering this in his RC automation suite")
     @pytest.mark.smoke
     def test_research_catalog(self):
         print("test_research_catalog()\n")
 
-        # using nypl_login_catalog method to login
-        self.nypl_login_research("qatester", "Nyplqa1542*")  # barcode: 25555010494130
+        # Retrieve username and password from environment variables
+        username = os.getenv('USERNAME')
+        password = os.getenv('PASSWORD')
 
+        # Ensure username and password are not None
+        if not username or not password:
+            raise Exception("Environment variables USERNAME and PASSWORD must be set!")
+
+        # Debug print statements to check if the variables are set
+        print(f"Username: {username}")
+        print(f"Password: {password}")
+
+        # Proceed with the login process
+        self.nypl_login_research(username, password)
+
+        self.wait(2)
         # assert title 'Account | Research Catalog | NYPL'
-        self.assert_title('Account | Research Catalog | NYPL')
-        # assert 'My Account' element for Research Catalog
+        self.assert_title('My Account')
+        # assert 'My Account' h2 element for Research Catalog
         self.assert_element(HeaderPage.my_account_research_catalog)
+
+        # assert tabs
+
+        # assert 'Search' tab
+        self.assert_element(HeaderPage.search_tab)
+        # assert 'Subject Heading Explorer'
+        self.assert_element(HeaderPage.subject_heading_explorer_tab)
+        # assert "My Account" tab
+        self.assert_element(HeaderPage.my_account_tab)
+        # assert "Log Out" tab
+        self.assert_element(HeaderPage.log_out_tab)
+
+        # assert 'Checkouts' tab
+        self.assert_element(HeaderPage.checkouts_tab)
+        # assert 'Requests" tab
+        self.assert_element(HeaderPage.requests_tab)
+        # assert 'Account settings' tab
+        self.assert_element(HeaderPage.account_settings_tab)
 
         # assert search functionality
         # search for a keyword
         keyword = "book"
+        self.click(HeaderPage.search_tab)
         self.send_keys(HeaderPage.research_catalog_searchbar, keyword)  # search for a title
         self.send_keys(HeaderPage.research_catalog_searchbar, Keys.ENTER)  # press Enter
 
-        # assert that 'research' is in the URL on the result page URL
-        current_url_text = self.get_current_url()
-        print(current_url_text)
-        self.assert_true("research" in current_url_text)
-
         # assert title
-        self.assert_title('Search Results | Research Catalog | NYPL')
+        try:
+            self.assert_title('Search Results | Research Catalog | NYPL')
+        except AssertionError:
+            print("Title assertion failed. Waiting for 3 seconds before retrying...")
+            self.wait(3)
+            # Optionally, you can retry the assertion or perform other actions here
+            self.assert_title('Search Results | Research Catalog | NYPL')  # Retry assertion
+
         # assert the h2 result display
         self.assert_element(HeaderPage.h2_display_result)
 
