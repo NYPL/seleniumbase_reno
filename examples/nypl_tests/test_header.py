@@ -81,8 +81,8 @@ class HeaderTest(NyplUtils):
         print("test_login_catalog()\n")
 
         # Retrieve username and password from environment variables
-        username = os.getenv('USERNAME')
-        password = os.getenv('PASSWORD')
+        username = os.getenv('CATALOG_USERNAME')
+        password = os.getenv('CATALOG_PASSWORD')
 
         # Ensure username and password are not None
         if not username or not password:
@@ -138,8 +138,8 @@ class HeaderTest(NyplUtils):
         print("test_research_catalog()\n")
 
         # Retrieve username and password from environment variables
-        username = os.getenv('USERNAME')
-        password = os.getenv('PASSWORD')
+        username = os.getenv('CATALOG_USERNAME')
+        password = os.getenv('CATALOG_PASSWORD')
 
         # Ensure username and password are not None
         if not username or not password:
