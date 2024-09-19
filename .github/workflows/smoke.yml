@@ -13,6 +13,8 @@ jobs:
 
     env:
       PY_COLORS: "1"
+      CATALOG_USERNAME: ${{ secrets.CATALOG_USERNAME}}
+      CATALOG_PASSWORD: ${{ secrets.CATALOG_PASSWORD}}
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false

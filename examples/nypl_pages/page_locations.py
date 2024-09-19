@@ -2,7 +2,7 @@ from seleniumbase import BaseCase
 
 
 class LocationsPage(BaseCase):
-    home = '(//*[contains(text(), "Home")])[1]'
+    home = '(//*[contains(text(), "Home")])[1]'  # breadcrumb
     locations = '(//*[contains(text(), "Locations")])[2]'  # breadcrumb, not the top header navigation one.
     locations_page_link = 'https://www.nypl.org/locations'
 
