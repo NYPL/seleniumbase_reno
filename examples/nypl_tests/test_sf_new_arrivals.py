@@ -29,7 +29,7 @@ class NewArrivals(NyplUtils):
         self.image_assertion()
 
         # assert page elements
-        self.assert_element(NewArrivalsPage.side_bar_bmm)  # assert sidebar 'Books/Music/Movies' element
+        self.assert_element(NewArrivalsPage.side_bar_bmm)  # assert sidebar/anchor tag 'Books/Music/Movies' element
 
         # assert toggle bar
         self.assert_element(NewArrivalsPage.toggle_display)  # assert toggle display bar
@@ -41,4 +41,19 @@ class NewArrivals(NyplUtils):
         self.assert_element(NewArrivalsPage.switch_view)  # assert switch display for 'List/Grid' view
         self.assert_element(NewArrivalsPage.list_view)  # assert 'list' button
         self.assert_element(NewArrivalsPage.grid_view)  # assert 'grid' button
+
+        # assert filters
+        self.click(self.filter_button)  # click 'Filter' button
+        self.click(self.filter_book)  # click 'Book' filter
+        self.click(self.filter_adult)  # click 'Adult' filter
+        self.click(self.filter_english)  # click 'English' filter
+        self.click(self.filter_fiction)  # click 'All fiction' filter
+        self.click(self.button_apply)  # click 'Apply' button
+        self.assert_element(self.selected_filters)  # assert the selected filters present
+
+        # assert 'load more' button
+        self.assert_element(NewArrivalsPage.load_more_button)
+        self.click(NewArrivalsPage.load_more_button)
+
+
 

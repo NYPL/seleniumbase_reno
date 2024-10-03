@@ -14,6 +14,16 @@ class NewArrivalsPage(BaseCase):
     list_view = '//*[@id="label-list"]'  # switch type item for 'list/grid' views
     grid_view = '//*[@id="label-grid"]'  # switch type item for 'list/grid' views
 
+    filter_button = '//*[@class="PillButton filterButton true"]'
+    filter_book = '//*[@id="label-BOOK/TEXT"]'  # 'book' filter
+    filter_adult = '//*[@id="label-Adult"]'  # 'adult' filter
+    filter_english = '//*[@id="label-English"]'  # 'english' filter
+    filter_fiction = '//*[@id="label-fiction"]'  # 'all fiction' filter
+    button_apply = '//*[@class="PillButton apply"]'  # 'apply' button
+    selected_filters = '//*[@class="selectedFilters"]'  # selected filters
+
+    load_more_button = '//*[@id="page-button-list-number"]'  # 'Load More' button at the end of the page
+    '//*[@class="switch viewType"]//..//..//*'
 
     def open_new_arrivals_page(self, category=''):
         # Determine the base URLs
