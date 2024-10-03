@@ -89,7 +89,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             self.wait(wait_time)
             self.click(self.submit)
 
-    """nypl login method for the research,
+    """nypl login method for the research catalog,
        taking 2 parameters, "username" and 'password' """
 
     def nypl_login_research(self, username, password, wait_time=4):
