@@ -30,6 +30,9 @@ class StaffPicks(NyplUtils):
         print('test_staff_picks_adults()\n')
         self.open_staff_picks_page(category='adults')
 
+        # assert images on the page
+        self.image_assertion()
+
         # assert Hero h1 element
         self.assert_element(StaffPicksPage.h1_heading)
         print(self.get_text(StaffPicksPage.h1_heading))
@@ -78,6 +81,9 @@ class StaffPicks(NyplUtils):
         # https://www.nypl.org/books-more/recommendations/staff-picks/teens
         print('test_staff_picks_teens()\n')
         self.open_staff_picks_page(category='teens')
+
+        # assert images on the page
+        self.image_assertion()
 
         # assert Hero h1 element
         self.assert_element(StaffPicksPage.h1_heading)
@@ -131,6 +137,9 @@ class StaffPicks(NyplUtils):
         # https://www.nypl.org/books-more/recommendations/staff-picks/kids
         print('test_staff_picks_kids()\n')
         self.open_staff_picks_page(category='kids')
+
+        # assert images on the page
+        self.image_assertion()
 
         # assert Hero h1 element
         self.assert_element(StaffPicksPage.h1_heading)
