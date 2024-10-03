@@ -28,6 +28,9 @@ class BookListsBestBooks(NyplUtils):
         print('test_best_books_adults()\n')
         self.open_best_books_page(category='adults')
 
+        # assert images on the page
+        self.image_assertion()
+
         # assert breadcrumbs and page elements
         self.assert_element(BestBooksPage.home)
         self.assert_element(BestBooksPage.books_and_more)
@@ -84,6 +87,9 @@ class BookListsBestBooks(NyplUtils):
         print('test_best_books_teens()\n')
         self.open_best_books_page(category='teens')
 
+        # assert images on the page
+        self.image_assertion()
+
         # assert breadcrumbs and page elements
         self.assert_element(BestBooksPage.home)
         self.assert_element(BestBooksPage.books_and_more)
@@ -139,6 +145,9 @@ class BookListsBestBooks(NyplUtils):
         # https://www.nypl.org/books-more/recommendations/best-books/kids
         print('test_best_books_kids()\n')
         self.open_best_books_page(category='kids')
+
+        # assert images on the page
+        self.image_assertion()
 
         # assert breadcrumbs and page elements
         self.assert_element(BestBooksPage.home)
