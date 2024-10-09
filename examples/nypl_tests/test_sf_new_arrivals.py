@@ -11,7 +11,7 @@ class NewArrivals(NyplUtils):
         print("\n=================================")
         print("RUNNING BEFORE EACH TEST")
 
-        # open new arrivals page
+        # Open new arrivals page
         self.open_new_arrivals_page()
 
     def tearDown(self):
@@ -23,37 +23,33 @@ class NewArrivals(NyplUtils):
     def test_new_arrivals(self):
         # https://www.nypl.org/books-music-movies/new-arrivals
         print("test_new_arrivals()\n")
-        # self.open_new_arrivals_page(category='')
 
-        # asserting the images on the page
+        # Asserting the images on the page
         self.image_assertion()
 
-        # assert page elements
-        self.assert_element(NewArrivalsPage.side_bar_bmm)  # assert sidebar/anchor tag 'Books/Music/Movies' element
+        # Assert page elements
+        self.assert_element(NewArrivalsPage.side_bar_bmm)  # Assert sidebar/anchor tag 'Books/Music/Movies' element
 
-        # assert toggle bar
-        self.assert_element(NewArrivalsPage.toggle_display)  # assert toggle display bar
-        # assert 'new arrivals/on order' toggle
-        self.assert_element(NewArrivalsPage.switch_display)  # assert switch display for 'New arrivals/On Order'
-        self.assert_element(NewArrivalsPage.new_arrivals)  # assert 'new arrivals' button
-        self.assert_element(NewArrivalsPage.on_order)  # assert 'on order' button'
-        # assert 'list/grid' toggle
-        self.assert_element(NewArrivalsPage.switch_view)  # assert switch display for 'List/Grid' view
-        self.assert_element(NewArrivalsPage.list_view)  # assert 'list' button
-        self.assert_element(NewArrivalsPage.grid_view)  # assert 'grid' button
+        # Assert toggle bar
+        self.assert_element(NewArrivalsPage.toggle_display)  # Assert toggle display bar
+        # Assert 'new arrivals/on order' toggle
+        self.assert_element(NewArrivalsPage.switch_display)  # Assert switch display for 'New arrivals/On Order'
+        self.assert_element(NewArrivalsPage.new_arrivals)  # Assert 'new arrivals' button
+        self.assert_element(NewArrivalsPage.on_order)  # Assert 'on order' button
+        # Assert 'list/grid' toggle
+        self.assert_element(NewArrivalsPage.switch_view)  # Assert switch display for 'List/Grid' view
+        self.assert_element(NewArrivalsPage.list_view)  # Assert 'list' button
+        self.assert_element(NewArrivalsPage.grid_view)  # Assert 'grid' button
 
-        # assert filters
-        self.click(self.filter_button)  # click 'Filter' button
-        self.click(self.filter_book)  # click 'Book' filter
-        self.click(self.filter_adult)  # click 'Adult' filter
-        self.click(self.filter_english)  # click 'English' filter
-        self.click(self.filter_fiction)  # click 'All fiction' filter
-        self.click(self.button_apply)  # click 'Apply' button
-        self.assert_element(self.selected_filters)  # assert the selected filters present
+        # Assert selected filters apply and return result at the end
+        self.click(self.filter_button)  # Click 'Filter' button
+        self.click(self.filter_book)  # Click 'Book' filter
+        self.click(self.filter_adult)  # Click 'Adult' filter
+        self.click(self.filter_english)  # Click 'English' filter
+        self.click(self.filter_fiction)  # Click 'All fiction' filter
+        self.click(self.button_apply)  # Click 'Apply' button
+        self.assert_element(self.selected_filters)  # Assert the selected filters are present
 
-        # assert 'load more' button
-        self.assert_element(NewArrivalsPage.load_more_button)
-        self.click(NewArrivalsPage.load_more_button)
-
-
-
+        # Assert 'load more' button and click it
+        self.assert_element(NewArrivalsPage.load_more_button)  # Assert 'load more' button
+        self.click(NewArrivalsPage.load_more_button)  # Click 'load more' button

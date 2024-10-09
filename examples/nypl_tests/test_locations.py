@@ -344,7 +344,15 @@ class Locations(NyplUtils):
         # assert each location's OPEN/CLOSED status on Location Finder vs Individual Page
         for x in range(1, library_amount + 1):  # Adjust range as needed
             library = LocationsPage.library_link + '[' + str(x) + ']'
-            library_name = self.get_text(library)
+
+            # Try-except block to handle NoSuchElementException and retry after a short delay
+            try:
+                library_name = self.get_text(library)
+            except NoSuchElementException:
+                print(f"Element {library} not found. Retrying after 2 seconds...")
+                self.wait(2)  # Sleep for 2 seconds before retrying
+                library_name = self.get_text(library)  # Retry the action
+
             library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]").lower()
 
             if "closed" in library_info:
@@ -410,7 +418,15 @@ class Locations(NyplUtils):
 
         for x in range(1, 40):  # Adjust range as needed
             library = LocationsPage.library_link + '[' + str(x) + ']'
-            library_name = self.get_text(library)
+
+            # Try-except block to handle NoSuchElementException and retry after a short delay
+            try:
+                library_name = self.get_text(library)
+            except NoSuchElementException:
+                print(f"Element {library} not found. Retrying after 2 seconds...")
+                self.wait(2)  # Sleep for 2 seconds before retrying
+                library_name = self.get_text(library)  # Retry the action
+
             library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]").lower()
 
             if "closed" in library_info:
@@ -476,7 +492,15 @@ class Locations(NyplUtils):
 
         for x in range(40, 80):  # Adjust range as needed
             library = LocationsPage.library_link + '[' + str(x) + ']'
-            library_name = self.get_text(library)
+
+            # Try-except block to handle NoSuchElementException and retry after a short delay
+            try:
+                library_name = self.get_text(library)
+            except NoSuchElementException:
+                print(f"Element {library} not found. Retrying after 2 seconds...")
+                self.wait(2)  # Sleep for 2 seconds before retrying
+                library_name = self.get_text(library)  # Retry the action
+
             library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]").lower()
 
             if "closed" in library_info:
@@ -542,7 +566,15 @@ class Locations(NyplUtils):
 
         for x in range(80, library_amount + 1):  # Adjust range as needed
             library = LocationsPage.library_link + '[' + str(x) + ']'
-            library_name = self.get_text(library)
+
+            # Try-except block to handle NoSuchElementException and retry after a short delay
+            try:
+                library_name = self.get_text(library)
+            except NoSuchElementException:
+                print(f"Element {library} not found. Retrying after 2 seconds...")
+                self.wait(2)  # Sleep for 2 seconds before retrying
+                library_name = self.get_text(library)  # Retry the action
+
             library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]").lower()
 
             if "closed" in library_info:
