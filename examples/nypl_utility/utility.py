@@ -270,9 +270,11 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             try:
                 response = requests.get(img.get_attribute('src'), stream=True)
                 if response.status_code != 200:
+                    print("status code: " + str(response.status_code))
                     print(self.get_current_url())
                     print("\n" + img.get_attribute('outerHTML') + " is broken.")
                     broken_image_count = (broken_image_count + 1)
+                    print('\nImage ' + str(x) + ' URL: ' + img.get_attribute('src'))
                     y += 1
                 # else clause is optional to print the images
                 else:
