@@ -1,0 +1,24 @@
+userName: alkimcevik_9R4qNj
+accessKey: J18yxgyaqaEjAJ8wzyHs
+platforms:
+  - os: Windows
+    osVersion: 10
+    browserName: Chrome
+    browserVersion: latest
+#  - os: OS X
+#    osVersion: Monterey
+#    browserName: Safari
+#    browserVersion: 15.6
+#  - deviceName: iPhone 13
+#    osVersion: 15
+#    browserName: Chromium
+#    deviceOrientation: portrait
+parallelsPerPlatform: 1
+browserstackLocal: false
+buildName: SeleniumbaseReno
+buildIdentifier: ${BUILD_NUMBER}
+projectName: SeleniumbaseReno
+testObservability: false
+networkLogs: false
+consoleLogs: errors
+framework: pytest

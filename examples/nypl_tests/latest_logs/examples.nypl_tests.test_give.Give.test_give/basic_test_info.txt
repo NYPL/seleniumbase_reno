@@ -1,0 +1,16 @@
+nypl_tests/test_give.py::Give::test_give
+--------------------------------------------------------------------
+Last Page: https://www.nypl.org/give
+ Duration: 12.74s
+  Browser: Chrome 129.0.6668.59
+   Driver: chromedriver 129.0.6668.58
+Timestamp: 1729521485  (Unix Timestamp)
+     Date: Monday, October 21, 2024
+     Time: 10:38:05 AM  (EDT, UTC-04:00)
+--------------------------------------------------------------------
+Traceback:
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_tests/test_give.py", line 27, in test_give
+    self.image_assertion()
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_utility/utility.py", line 299, in image_assertion
+    raise ValueError(f"{y} images failed to load.")
+Exception: 1 images failed to load.

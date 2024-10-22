@@ -76,6 +76,7 @@ class Locations(NyplUtils):
         self.assert_element(LocationsPage.bottom_promo_4)  # Queens Public Library link
 
     @pytest.mark.smoke
+    @pytest.mark.skip(reason="RENO-3468 needs to be fixed")
     def test_locations_search_functionality(self):
         print("test_locations_search_functionalities()\n")
 

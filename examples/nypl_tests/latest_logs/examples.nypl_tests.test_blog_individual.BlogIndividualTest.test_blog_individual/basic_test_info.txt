@@ -1,0 +1,16 @@
+nypl_tests/test_blog_individual.py::BlogIndividualTest::test_blog_individual
+--------------------------------------------------------------------
+Last Page: https://www.nypl.org/blog/2023/09/19/reading-list-climate-week-nyc
+ Duration: 25.66s
+  Browser: Chrome 129.0.6668.59
+   Driver: chromedriver 129.0.6668.58
+Timestamp: 1729520613  (Unix Timestamp)
+     Date: Monday, October 21, 2024
+     Time: 10:23:33 AM  (EDT, UTC-04:00)
+--------------------------------------------------------------------
+Traceback:
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_tests/test_blog_individual.py", line 32, in test_blog_individual
+    self.image_assertion()
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_utility/utility.py", line 299, in image_assertion
+    raise ValueError(f"{y} images failed to load.")
+Exception: 1 images failed to load.

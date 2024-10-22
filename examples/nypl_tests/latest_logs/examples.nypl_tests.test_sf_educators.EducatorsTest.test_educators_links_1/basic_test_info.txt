@@ -1,0 +1,23 @@
+nypl_tests/test_sf_educators.py::EducatorsTest::test_educators_links_1
+--------------------------------------------------------------------
+Last Page: https://www.nypl.org/education/educators
+ Duration: 12.39s
+  Browser: Chrome 130.0.6723.59
+   Driver: chromedriver 130.0.6723.44
+Timestamp: 1729524803  (Unix Timestamp)
+     Date: Monday, October 21, 2024
+     Time: 11:33:23 AM  (EDT, UTC-04:00)
+--------------------------------------------------------------------
+Traceback:
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_tests/test_sf_educators.py", line 49, in test_educators_links_1
+    self.assert_page_loads_successfully(EducatorsPage.back_to_school_1)
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_utility/utility.py", line 229, in assert_page_loads_successfully
+    self.click(link_locator)
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/venv/bin/python/lib/python3.10/site-packages/seleniumbase/fixtures/base_case.py", line 413, in click
+    element = page_actions.wait_for_element_visible(
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/venv/bin/python/lib/python3.10/site-packages/seleniumbase/fixtures/page_actions.py", line 496, in wait_for_element_visible
+    timeout_exception(NoSuchElementException, message)
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/venv/bin/python/lib/python3.10/site-packages/seleniumbase/fixtures/page_actions.py", line 254, in timeout_exception
+    raise exc(msg)
+Exception: Message: 
+ Element {(//*[@id="link_card_list-febc3fa2-202f-4752-abd6-539610468c12"]//a)[1]} was not present after 7 seconds!
