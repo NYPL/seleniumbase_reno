@@ -28,6 +28,9 @@ class BillyRoseTest(NyplUtils):
         # assert images on the page
         self.image_assertion()
 
+        # assert all links on the page
+        self.assert_links_valid(BillyRosePage.all_links)
+
         # assert breadcrumbs
         self.assert_element(BillyRosePage.home)
         self.assert_element(BillyRosePage.locations)

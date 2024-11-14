@@ -36,30 +36,9 @@ class ResearchSupportTest(NyplUtils):
         # assert hero
         self.assert_element(ResearchSupportPage.h1)
 
-        # assert links underneath h2 sections
-        h2_link_amount = len(self.find_elements(self.all_h2_links))
-        print("Total h2 links on the page = " + str(h2_link_amount))
-
-        for x in range(1, h2_link_amount + 1):
-            print(str(x) + "- " + self.get_current_url())
-
-            link_xpath = f"{self.all_h2_links}[{x}]//a"
-
-            try:
-                self.click(link_xpath)  # attempt to click the link
-            except NoSuchElementException:
-                print("NoSuchElementException occurred. Waiting for 3 seconds and retrying...")
-                self.wait(3)
-                self.click(link_xpath)  # attempt to click the link again
-
-            self.wait(2)  # wait for the page to load
-            print(self.get_current_url())
-            self.open_research_support_page()
-            print("====================")
+        # assert all links on the page
+        self.assert_links_valid(ResearchSupportPage.all_links)
 
         # assert Newsletter Subscription
-        self.assert_element(ResearchSupportPage.email_subscription)
-        self.send_keys(ResearchSupportPage.email_subs_input, "joedoe@gmail.com")
-        self.click(ResearchSupportPage.submit_email)
-        self.assert_element(ResearchSupportPage.email_subscription)
-        self.go_back()
+        self.assert_newsletter_signup(ResearchSupportPage)
+

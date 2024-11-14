@@ -11,6 +11,8 @@ class ArticlesDatabasesPage(BaseCase):
 
     articles_databases_title = "Articles & Databases | The New York Public Library"
 
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
+
     apply_subject = '//*[@id="multiselect-button-save-subject"]'
     clear_subject = '//*[@id="multiselect-button-clear-subject"]'
 
@@ -32,10 +34,8 @@ class ArticlesDatabasesPage(BaseCase):
     apply_availability = '//*[@id="multiselect-button-save-availability"]'
 
     featured_resources = '//*[@id="featured-resources"]'
-    featured_resources_list = '//*[contains(text(), "Featured Resources")]//..//li'
-    most_popular_list = '//*[contains(text(), "Most Popular")]//..//li'
     most_popular = '//*[@id="most-popular"]'
-    a_z_database = '//*[@id="alphabet-filter-id-wrapper"]//h2'
+
     alphabet_pagination = '//*[@id="alphabet-filter-id-wrapper"]//button'
 
     more_research = '//*[@id="more-research-tools"]'

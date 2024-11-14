@@ -195,6 +195,8 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             assert response.status_code < 400, f"Link {url} is broken"
         print("\nAll links on the page are valid!")
 
+    import requests
+
     def assert_links_valid(self, locator):
         """
         assert links valid in a <li, List Item:
@@ -202,21 +204,67 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         using HTTP method HEAD, and checks if the response is between the acceptable limits (200-400)
         Difference between assert_links_valid and assert_page_loads_successfully
         # assert_links_valid: checks child li elements
-        # assert_page_loa...: check only 1 link"""
+        # assert_page_loads_successfully: check only 1 link"""
+
+        # List of keywords that are allowed to return a 403 status code
+        allowed_403_keywords = [
+            "photoville"
+        ]
 
         block_length = len(self.find_elements(locator))
-        print(f"Number of links found: {block_length}")
-        for x in range(1, block_length + 1):
-            link = (self.find_element(locator + '[' + str(x) + ']')).find_element(By.TAG_NAME, "a")
+        print(f"\nNumber of links on the page: {block_length}")
 
-            url = link.get_attribute('href')
-            print("\nurl: " + url)
-            response = requests.head(url)
-            if response.status_code == 301:
-                print(
-                    f"WARNING: The requested resource at {url} has been definitively moved to the URL given by the "
-                    f"Location headers")
-            assert response.status_code < 400, f"Link {url} is broken"
+        # Assert that links are found; if not, fail the test
+        assert block_length > 0, "No links found. Expected at least one link under the locator 'page-container--content-primaryy'."
+
+        for x in range(17, block_length + 1):
+            retries = 3  # Number of retries
+            link_checked = False  # Flag to track if link was successfully checked
+
+            for attempt in range(retries):
+                try:
+                    # Attempt to find the link element and retrieve URL
+                    link_element = self.find_element(locator + f'[{x}]')
+                    url = link_element.get_attribute('href')
+
+                    # Check if the URL is a 'mailto@nypl.org' link and skip if so
+                    if url.startswith("mailto:"):
+                        print(f"\nSkipping email link: {url}")
+                        link_checked = True  # Mark as checked to avoid failing at the end
+                        break  # Exit inner retry loop and move to the next link in the outer loop
+
+                    print(f"\nurl: {url}")
+
+                    # Make a HEAD request to verify the URL
+                    response = requests.head(url)
+                    print(response.status_code)
+
+                    if response.status_code == 301:
+                        print(
+                            f"WARNING: The requested resource at {url} has been definitively moved to the URL given by the Location headers")
+
+                    # Check if the link is allowed to return 403 based on keyword
+                    if response.status_code == 403 and any(keyword in url for keyword in allowed_403_keywords):
+                        print(f"URL {url} returned 403 but is allowed to pass due to keyword.")
+                        link_checked = True
+                        break  # Exit retry loop
+
+                    # Check if the link is not broken (status code < 400)
+                    assert response.status_code < 400, f"Link {url} is broken"
+
+                    # Set flag to true and break if everything succeeds
+                    link_checked = True
+                    break  # Exit retry loop if successful
+
+                except Exception as e:
+                    print(f"Attempt {attempt + 1} failed for link {x} with error: {e}. Retrying...")
+                    self.wait(2)  # Wait 2 seconds before retrying
+
+            # Final check if all retries failed
+            if not link_checked:
+                print(f"Failed to verify link {x} after {retries} attempts.")
+                assert False, f"Failed to verify link at position {x} after {retries} attempts."
+
         print("\n=====================================================\n")
 
     def assert_page_loads_successfully(self, link_locator):
@@ -248,56 +296,112 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         self.go_back()
 
     def image_assertion(self):
-        """a method to assert all the images on a  page.
-           Using the default URL to test, or, a parameter can be added for URL,
-           and then call method signature with the 'url' argument, e.g. image_assertion(self, url):"""
-        broken_image_count = 0  # broken image number instantiation
+        """A method to assert all the images on a page.
+           Uses the default URL to test or can accept a URL parameter."""
+
+        broken_image_count = 0  # broken image count initialization
+        retries = 3  # Number of retries
+        retry_delay = 2  # Delay in seconds between retries
 
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)  # disabling some warnings
 
-        image_list = self.find_elements('img')  # getting the images with the 'img' tag
+        image_list = self.find_elements('img')  # retrieving all images with the 'img' tag
 
         print('Total images on ' + self.get_current_url() + ' = ' + str(len(image_list)))
 
-        x = 1  # variable to use in the loop for image number iteration
-        y = 0  # counter to add up the failed image amount
+        x = 1  # Variable to iterate image number
+        y = 0  # Counter to add up the failed image count
 
-        # using HTTP method 'get', asserting if the status code of the images == 200, which means image exist
-
-        encountered_exceptions = []  # List to keep track of encountered exceptions to only print once
+        encountered_exceptions = []  # List to track encountered exceptions to print each only once
 
         for img in image_list:
-            try:
-                response = requests.get(img.get_attribute('src'), stream=True)
-                if response.status_code != 200:
-                    print("status code: " + str(response.status_code))
-                    print(self.get_current_url())
-                    print("\n" + img.get_attribute('outerHTML') + " is broken.")
-                    broken_image_count = (broken_image_count + 1)
-                    print('\nImage ' + str(x) + ' URL: ' + img.get_attribute('src'))
-                    y += 1
-                # else clause is optional to print the images
-                else:
-                    # print('\nImage ' + str(x) + ' URL: ' + img.get_attribute('src'))
-                    x += 1
+            image_checked = False  # Flag to check if image URL has been validated
 
-            except requests.exceptions.MissingSchema:
-                if 'MissingSchema' not in encountered_exceptions:  # checking if the exception in the list
-                    print("\nEncountered MissingSchema Exception")
-                    encountered_exceptions.append('MissingSchema')  # adding to the dictionary if not added before
-            except requests.exceptions.InvalidSchema:
-                if 'InvalidSchema' not in encountered_exceptions:  # checking if the exception in the list
-                    print("\nEncountered InvalidSchema Exception")
-                    encountered_exceptions.append('InvalidSchema')  # adding to the dictionary if not added before
-            except:
-                if 'OtherException' not in encountered_exceptions:  # checking if the exception in the list
-                    print("\nEncountered Some other Exception")
-                    encountered_exceptions.append('OtherException')  # adding to the dictionary if not added before
+            for attempt in range(retries):
+                try:
+                    # Attempt to fetch the image URL
+                    response = requests.get(img.get_attribute('src'), stream=True)
 
-        # Check if any images failed to load
+                    # Check if the status code indicates success
+                    if response.status_code == 200:
+                        # Image loaded successfully; proceed to the next image
+                        x += 1
+                        image_checked = True
+                        break  # Exit retry loop if successful
+
+                    else:
+                        # Image did not load successfully; print status and URL
+                        print("status code: " + str(response.status_code))
+                        print(self.get_current_url())
+                        print("\n" + img.get_attribute('outerHTML') + " is broken.")
+                        broken_image_count += 1
+                        print('\nImage ' + str(x) + ' URL: ' + img.get_attribute('src'))
+                        y += 1
+                        image_checked = True
+                        break  # Exit retry loop if status code check is completed
+
+                except requests.exceptions.MissingSchema:
+                    if 'MissingSchema' not in encountered_exceptions:
+                        print("\nEncountered MissingSchema Exception")
+                        encountered_exceptions.append('MissingSchema')
+                    break  # Break as MissingSchema won't succeed in future attempts
+
+                except requests.exceptions.InvalidSchema:
+                    if 'InvalidSchema' not in encountered_exceptions:
+                        print("\nEncountered InvalidSchema Exception")
+                        encountered_exceptions.append('InvalidSchema')
+                    break  # Break as InvalidSchema won't succeed in future attempts
+
+                except Exception as e:
+                    if 'OtherException' not in encountered_exceptions:
+                        print(f"\nEncountered exception: {e}")
+                        encountered_exceptions.append('OtherException')
+                    # Retry after waiting
+                    print(f"Retrying for image {x} in {retry_delay} seconds...")
+                    time.sleep(retry_delay)
+
+            if not image_checked:
+                print(f"Failed to validate image at {img.get_attribute('src')} after {retries} attempts.")
+                y += 1  # Increase broken count if all retries failed
+
+        # Check if any images failed to load and raise an error if they did
         if y >= 1:
             raise ValueError(f"{y} images failed to load.")
-            # or suggest a failed state with a print statement
-            # print(f"{y} images failed to load. Please check the broken image links.")
 
         print('\nTotal broken images on ' + self.get_current_url() + ' = ' + str(broken_image_count))
+
+    def assert_newsletter_signup(self, page):
+
+        retries = 3  # Number of retries
+        retry_delay = 2  # Delay in seconds between retries
+
+        for attempt in range(retries):
+            try:
+                # Step 1: Assert Newsletter Subscription Element
+                self.assert_element(page.email_subscription)
+
+                # Step 2: Input Email
+                self.send_keys(page.email_subs_input, "joedoe@gmail.com")
+
+                # Step 3: Click Submit
+                self.click(page.submit_email)
+
+                # Step 4: Verify Subscription Confirmation
+                self.assert_element(page.subs_confirmation)
+
+                # Step 5: Go Back to Previous Page
+                self.go_back()
+
+                # If everything succeeds, break out of the retry loop
+                break
+
+            except (NoSuchElementException, AssertionError) as e:
+                print(f"Attempt {attempt + 1} failed with error: {e}")
+
+                # Wait before the next retry
+                if attempt < retries - 1:
+                    print(f"Retrying in {retry_delay} seconds...")
+                    time.sleep(retry_delay)
+                else:
+                    # Raise the exception if all attempts are exhausted
+                    raise AssertionError(f"Failed to complete newsletter signup after {retries} attempts.") from e

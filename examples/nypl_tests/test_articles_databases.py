@@ -19,6 +19,16 @@ class ArticlesDatabasesTest(NyplUtils):
         print("=================================")
         super().tearDown()
 
+    def test_articles_databases_main(self):
+        print("test_articles_databases_main_page_elements()\n")
+
+        # asserting h2 headings ('Featured Resources' & "Most Popular")
+        self.assert_element(ArticlesDatabasesPage.featured_resources)
+        self.assert_element(ArticlesDatabasesPage.most_popular)
+
+        # assert all links on the page
+        self.assert_links_valid(ArticlesDatabasesPage.all_links)
+
     def test_articles_databases_breadcrumbs(self):
         print("test_articles_databases_breadcrumbs()\n")
 
@@ -72,59 +82,8 @@ class ArticlesDatabasesTest(NyplUtils):
         self.click(ArticlesDatabasesPage.clear_search)
         self.wait(2)
 
-    def test_articles_databases_main(self):
-        print("test_articles_databases_main_page_elements()\n")
-
-        # asserting h2 heading and its elements
-        self.assert_element(ArticlesDatabasesPage.featured_resources)
-
-        # getting the length of the list of elements on the 'Featured Resources'
-        featured_list_length = len(self.find_elements(ArticlesDatabasesPage.featured_resources_list))
-        print("\nfeatured list length is = " + str(featured_list_length))
-
-        # asserting the h3 links on the list with a for loop
-        for x in range(1, featured_list_length + 1):
-            try:
-                self.click(ArticlesDatabasesPage.featured_resources_list + f'[{x}]//a')
-                # print(self.get_current_url())  # optional print to see what page fails to load
-                # go back to main page
-                self.open_articles_databases_page()
-            except:
-                print("Exception occurred, waiting for a few seconds inside Except block")
-                # open articles and databases page
-                self.open_articles_databases_page()
-                self.wait(2)
-                self.click(ArticlesDatabasesPage.featured_resources_list + f'[{x}]//a')
-
-                # go back to main page
-                self.open_articles_databases_page()
-
-            print(self.get_current_url())
-
-        # asserting 'most popular' h2
-        print(self.get_current_url())
-        self.assert_element(ArticlesDatabasesPage.most_popular)
-
-        # length of the 'most popular'
-        most_pop_length = len(self.find_elements(ArticlesDatabasesPage.most_popular_list))
-        print("\nmost popular list length is = " + str(most_pop_length))
-
-        for x in range(1, most_pop_length + 1):
-            try:
-                self.click(ArticlesDatabasesPage.most_popular_list + f'[{x}]//a')
-                # go back to main page
-                self.open_articles_databases_page()
-            except:
-                print("Exception occurred, waiting for a few seconds inside Except block")
-                # open articles and databases page
-                self.open_articles_databases_page()
-                self.wait(2)
-                self.click(ArticlesDatabasesPage.most_popular_list + f'[{x}]//a')
-
-                # go back to main page
-                self.open_articles_databases_page()
-
-            print(self.get_current_url())
+    def test_articles_databases_pagination(self):
+        print("test_articles_databases_pagination()\n")
 
         # assert each letters/alphabet can be clicked and there is no error on the next page using a for loop
         for x in range(2, 28):
@@ -136,7 +95,7 @@ class ArticlesDatabasesTest(NyplUtils):
 
     def test_articles_databases_subjects_filter(self):
         print("test_articles_databases_subjects_filter()\n")
-        
+
         # asserting the 'Subjects' filter
         # clicking every filter in the Subjects filter and asserting their lengths
         self.click(ArticlesDatabasesPage.subjects_button)

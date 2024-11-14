@@ -2,6 +2,8 @@ from seleniumbase import BaseCase
 
 
 class BlogAllPage(BaseCase):
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
+
     explore_by = '//*[@id="search-filters--heading"]'
     filter_results = '//*[@id="search-results-details"]'
 

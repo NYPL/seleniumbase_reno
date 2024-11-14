@@ -2,19 +2,15 @@ from seleniumbase import BaseCase
 
 
 class SchwarzmanPage(BaseCase):
-    home = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[1]/a'
-    locations = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[2]/a'
-    hero = '//*[@id="block-content-hero-header"]/div/div[2]/h1/span'
+    home = '(//*[contains(text(), "Home")])[1]'
+    hero = '(//*[@id[contains(., "hero")]])//h1'
 
-    visit = '//*[@id="audience-navigation--"]/li[1]/a'
-    research = '//*[@id="audience-navigation--"]/li[2]/a'
+    visit = '(//*[contains(text(), "Research")])[2]//..//..//*[contains(text(), "Visit")][1]'
+    research = '(//*[contains(text(), "Visit")][1]//..//..//*[contains(text(), "Research")])[1]'
 
-    directions = '//*[@id="block-entityviewcontent"]/div/div/div/a'
-    holiday_closings = '//*[@id="block-entityviewcontent"]/div/div/div/div[5]/a'
+    sidebar = '//*[@id="block-entityviewcontent"]'
+    holiday_closings = '(//*[contains(text(), "Holiday Closings")])[1]'
     address = '//*[@id="location-info--fifth-avenue-and-42nd-street<br>new-york-ny-10018"]'
-
-    learn_more_1 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[1]/div/p[2]/a'
-    learn_more_2 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/p/a'
 
     in_the_spotlight = '(//*[contains(text(), "In the Spotlight")]/../../..//a)'
 

@@ -29,17 +29,11 @@ class Campaigns(NyplUtils):
         # asserting the images on the page
         self.image_assertion()
 
+        # assert all links on the page
+        self.assert_links_valid(CampaignsPage.all_links)
+
         # assert home element
         self.assert_element(CampaignsPage.home)
-
-        # assert rest of the cards in range (1, card_length)
-        h2_link = len(self.find_elements(CampaignsPage.h2_links))
-
-        for x in range(1, h2_link + 1):
-            # assert each card in the page, there is 16 cards as of June 2022
-            h2_link = CampaignsPage.h2_links + '[' + str(x) + ']'
-            self.assert_page_loads_successfully(h2_link)
-            # print("assert number = " + str(x))  # optional print
 
         print("\n")
         # asserting the slides in 'The New York Public Library Through the Years'
@@ -59,6 +53,9 @@ class Campaigns(NyplUtils):
 
         # asserting the images on the page
         self.image_assertion()
+
+        # assert all links on the page
+        self.assert_links_valid(CampaignsPage.all_links)
 
         # assert breadcrumbs
         self.assert_element(CampaignsPage._125_years)
@@ -84,14 +81,12 @@ class Campaigns(NyplUtils):
         # asserting the images on the page
         self.image_assertion()
 
+        # assert all links on the page
+        self.assert_links_valid(CampaignsPage.all_links)
+
         # assert breadcrumbs
         self.assert_element(CampaignsPage._125_years)
         self.assert_element(CampaignsPage.checkouts_h1)
-
-        # asserting the links on the page loads
-        link_amount = len(self.find_elements(CampaignsPage.topcheckouts_links))
-        for x in range(1, link_amount + 1):
-            self.assert_page_loads_successfully(CampaignsPage.topcheckouts_links + '[' + str(x) + ']')
 
         # asserting h2 header 'Honorable Mention'
         self.assert_element(CampaignsPage.honorable_mention)

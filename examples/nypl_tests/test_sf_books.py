@@ -36,8 +36,8 @@ class BooksTest(NyplUtils):
         self.assert_element(BooksPage.home_button)  # home
         self.assert_element(BooksPage.books)  # events
 
-        # assert email subscription
-        self.assert_element(BooksPage.email_subscription)
+        # assert Newsletter Subscription
+        self.assert_newsletter_signup(BooksPage)
 
     def test_books_links(self):
         print("test_books_music_movies_links()\n")

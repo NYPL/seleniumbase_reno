@@ -36,8 +36,8 @@ class EventsTest(NyplUtils):
         self.assert_element(EventsPage.home_button)  # home
         self.assert_element(EventsPage.events)  # events
 
-        # assert email subscription
-        self.assert_element(EventsPage.email_subscription)
+        # assert Newsletter Subscription
+        self.assert_newsletter_signup(EventsPage)
 
     def test_events_links(self):
         print("test_events_links()\n")

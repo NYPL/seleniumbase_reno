@@ -7,6 +7,8 @@ class BestBooksPage(BaseCase):
     books_and_more = '(//*[contains(text(), "Books & More")])[1]'
     recommendations = '(//*[contains(text(), "Recommendations")])[1]'
 
+    all_links = '((//*[@class="basic-page-section"])//a)'  # locator for 'basic-page'
+
     h1_heading = '//*[@id="block-views-block-search-book-list-header-block-default"]//h1'
 
     adults_tab = '(//*[contains(text(), "Adults")])[2]'

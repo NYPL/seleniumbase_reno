@@ -7,6 +7,8 @@ class BlogIndividualPage(BaseCase):
 
     home_title = 'A Reading List for Climate Week NYC | The New York Public Library'
 
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
+
     page_link_amount = '(//*[@id="mainContent"]//li//h3//a)'
 
     def open_blog_individual_page(self):

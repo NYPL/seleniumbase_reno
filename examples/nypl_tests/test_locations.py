@@ -350,8 +350,8 @@ class Locations(NyplUtils):
             try:
                 library_name = self.get_text(library)
             except NoSuchElementException:
-                print(f"Element {library} not found. Retrying after 2 seconds...")
-                self.wait(2)  # Sleep for 2 seconds before retrying
+                print(f"Element {library} not found. Retrying after 4 seconds...")
+                self.wait(4)  # Sleep for 4 seconds before retrying
                 library_name = self.get_text(library)  # Retry the action
 
             library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]").lower()
@@ -424,8 +424,8 @@ class Locations(NyplUtils):
             try:
                 library_name = self.get_text(library)
             except NoSuchElementException:
-                print(f"Element {library} not found. Retrying after 2 seconds...")
-                self.wait(2)  # Sleep for 2 seconds before retrying
+                print(f"Element {library} not found. Retrying after 4 seconds...")
+                self.wait(4)  # Sleep for 4 seconds before retrying
                 library_name = self.get_text(library)  # Retry the action
 
             library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]").lower()
@@ -498,8 +498,8 @@ class Locations(NyplUtils):
             try:
                 library_name = self.get_text(library)
             except NoSuchElementException:
-                print(f"Element {library} not found. Retrying after 2 seconds...")
-                self.wait(2)  # Sleep for 2 seconds before retrying
+                print(f"Element {library} not found. Retrying after 4 seconds...")
+                self.wait(4)  # Sleep for 4 seconds before retrying
                 library_name = self.get_text(library)  # Retry the action
 
             library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]").lower()
@@ -572,8 +572,8 @@ class Locations(NyplUtils):
             try:
                 library_name = self.get_text(library)
             except NoSuchElementException:
-                print(f"Element {library} not found. Retrying after 2 seconds...")
-                self.wait(2)  # Sleep for 2 seconds before retrying
+                print(f"Element {library} not found. Retrying after 4 seconds...")
+                self.wait(4)  # Sleep for 4 seconds before retrying
                 library_name = self.get_text(library)  # Retry the action
 
             library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]").lower()

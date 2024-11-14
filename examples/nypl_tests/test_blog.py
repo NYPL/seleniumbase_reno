@@ -31,6 +31,9 @@ class BlogTests(NyplUtils):
         # asserting the images on the page
         self.image_assertion()
 
+        # assert all links on the page
+        self.assert_links_valid(BlogPage.all_links)
+
         # assert Home button
         self.assert_element(BlogPage.home)
 

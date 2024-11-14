@@ -31,6 +31,9 @@ class BookListsBestBooks(NyplUtils):
         # assert images on the page
         self.image_assertion()
 
+        # assert all links on the page
+        self.assert_links_valid(BestBooksPage.all_links)
+
         # assert breadcrumbs and page elements
         self.assert_element(BestBooksPage.home)
         self.assert_element(BestBooksPage.books_and_more)
@@ -90,6 +93,9 @@ class BookListsBestBooks(NyplUtils):
         # assert images on the page
         self.image_assertion()
 
+        # assert all links on the page
+        self.assert_links_valid(BestBooksPage.all_links)
+
         # assert breadcrumbs and page elements
         self.assert_element(BestBooksPage.home)
         self.assert_element(BestBooksPage.books_and_more)
@@ -148,6 +154,9 @@ class BookListsBestBooks(NyplUtils):
 
         # assert images on the page
         self.image_assertion()
+
+        # assert all links on the page
+        self.assert_links_valid(BestBooksPage.all_links)
 
         # assert breadcrumbs and page elements
         self.assert_element(BestBooksPage.home)

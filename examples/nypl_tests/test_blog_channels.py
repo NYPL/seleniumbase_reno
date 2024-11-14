@@ -28,6 +28,9 @@ class BlogChannelsTest(NyplUtils):
         # assert images on the page
         self.image_assertion()
 
+        # assert all links on the page
+        self.assert_links_valid(BlogChannelsPage.all_links)
+
         # assert breadcrumbs
         self.assert_element(BlogChannelsPage.home)
         self.assert_element(BlogChannelsPage.blog)

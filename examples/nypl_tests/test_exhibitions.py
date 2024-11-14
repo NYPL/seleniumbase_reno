@@ -34,6 +34,9 @@ class Exhibitions(NyplUtils):
         # asserting the images on the page
         self.image_assertion()
 
+        # assert all links on the page
+        self.assert_links_valid(ExhibitionsPage.all_links)
+
         # assert breadcrumbs and page elements
         self.assert_element(ExhibitionsPage.home)
         self.assert_element(ExhibitionsPage.events)
@@ -48,20 +51,19 @@ class Exhibitions(NyplUtils):
             self.click(f"{ExhibitionsPage.see_all}[{x}]")
             self.go_back()
 
-        # asserting every h3 link on the main page, excluding 'Past Exhibitions'
-        h3_links_amount = len(self.find_elements(ExhibitionsPage.h3_links_main))
-        for x in range(1, h3_links_amount + 1):
-            self.assert_page_loads_successfully(ExhibitionsPage.h3_links_main + '[' + str(x) + ']')
-
-        # asserting 'Past Exhibitions' h3 links
-        h3_links_amount = len(self.find_elements(ExhibitionsPage.h3_links_past_exhibitions))
-        for x in range(1, h3_links_amount + 1):
-            self.assert_page_loads_successfully(ExhibitionsPage.h3_links_past_exhibitions + '[' + str(x) + ']')
-
     def test_exhibitions_upcoming(self):
         # https://www.nypl.org/events/exhibitions/upcoming
         print("test_exhibitions_upcoming()\n")
         self.open_exhibitions_page(category='upcoming')
+
+        # assert title
+        self.assert_title('Upcoming Exhibitions | The New York Public Library')
+
+        # asserting the images on the page
+        self.image_assertion()
+
+        # assert all links on the page
+        self.assert_links_valid(ExhibitionsPage.all_links)
 
         # assert breadcrumbs and page elements
         self.assert_element(ExhibitionsPage.home)
@@ -69,27 +71,25 @@ class Exhibitions(NyplUtils):
         self.assert_element(ExhibitionsPage.exhibitions)
         self.assert_element(ExhibitionsPage.upcoming_1)
 
-        # getting the length of the list to use it in the for loop
-        h3_links_amount = len(self.find_elements(ExhibitionsPage.h3_links_upcoming))
-        # asserting every h3 link on the main page (Upcoming Exhibitions)
-        for x in range(1, h3_links_amount + 1):
-            self.assert_page_loads_successfully(ExhibitionsPage.h3_links_upcoming + '[' + str(x) + ']')
-
     def test_exhibitions_past(self):
         # https://www.nypl.org/events/exhibitions/past
         print("test_exhibitions_past()\n")
         self.open_exhibitions_page(category='past')
+
+        # assert title
+        self.assert_title('Past Exhibitions | The New York Public Library')
+
+        # asserting the images on the page
+        self.image_assertion()
+
+        # assert all links on the page
+        self.assert_links_valid(ExhibitionsPage.all_links)
 
         # assert breadcrumbs and page elements
         self.assert_element(ExhibitionsPage.home)
         self.assert_element(ExhibitionsPage.events)
         self.assert_element(ExhibitionsPage.exhibitions)
         self.assert_element(ExhibitionsPage.past_exhibitions_h1)
-
-        # asserting every h3 link on the main page (Past Exhibitions)
-        h3_links_amount = len(self.find_elements(ExhibitionsPage.h3_links_past))
-        for x in range(1, h3_links_amount + 1):
-            self.assert_page_loads_successfully(ExhibitionsPage.h3_links_past + '[' + str(x) + ']')
 
         # asserting pagination elements
         self.assert_element(ExhibitionsPage.next_page)
@@ -111,17 +111,21 @@ class Exhibitions(NyplUtils):
         print("test_exhibitions_archived_exhibition_resources()\n")
         self.open_exhibitions_page(category='archived-exhibition-resources')
 
+        # assert title
+        self.assert_title('Archived Exhibition Resources | The New York Public Library')
+
+        # asserting the images on the page
+        self.image_assertion()
+
+        # assert all links on the page
+        self.assert_links_valid(ExhibitionsPage.all_links)
+
         # assert breadcrumbs and page elements
         self.assert_element(ExhibitionsPage.home)
         self.assert_element(ExhibitionsPage.events)
         self.assert_element(ExhibitionsPage.exhibitions)
         self.assert_element(ExhibitionsPage.archived_h1)
         self.assert_element(ExhibitionsPage.archived_h2)
-
-        # asserting every h3 link on the main page (Archived Exhibition)
-        h3_links_amount = len(self.find_elements(ExhibitionsPage.h3_links_archived))
-        for x in range(1, h3_links_amount + 1):
-            self.assert_page_loads_successfully(ExhibitionsPage.h3_links_archived + '[' + str(x) + ']')
 
         # asserting the pager links at the bottom of the page
         pager_length = len(self.find_elements(ExhibitionsPage.pagination_list))
@@ -135,7 +139,7 @@ class Exhibitions(NyplUtils):
             self.assert_true(str(x - 1) in url_text)
             self.open_exhibitions_page(category='archived-exhibition-resources')
 
-        # asserting the forward button > and ellipsis '...'
+        # asserting the forward icon > and ellipsis '...'
         self.assert_element(ExhibitionsPage.next_page)
 
         # asserting right-icon
@@ -146,10 +150,16 @@ class Exhibitions(NyplUtils):
         print("test_exhibitions_community_showcases()\n")
         self.open_exhibitions_page(category='community-showcases')
 
+        # assert title
+        self.assert_title('Community Showcases | The New York Public Library')
+
+        # asserting the images on the page
+        self.image_assertion()
+
         # using 'try' and 'except' block since the webpage might have no exhibitions at all
         try:  # if the page does not have any showcases, this 'try' block will take care of the test
             # skip test if there is no current "Community Showcase"
-            no_community_showcase_text = self.get_text(ExhibitionsPage.no_community_showcase_1)
+            no_community_showcase_text = self.get_text(ExhibitionsPage.no_community_showcase)
             assertion_text = 'currently have no community showcases'
             if assertion_text in no_community_showcase_text:
                 print("No Community Showcases, so nothing to assert.")
@@ -160,10 +170,8 @@ class Exhibitions(NyplUtils):
             self.assert_element(ExhibitionsPage.exhibitions)
             self.assert_element(ExhibitionsPage.community_h1)
 
-            # asserting every h3 link on the main page (Community Showcases)
-            h3_links_amount = len(self.find_elements(ExhibitionsPage.h3_links_community))
-            for x in range(1, h3_links_amount + 1):
-                self.assert_page_loads_successfully(ExhibitionsPage.h3_links_community + '[' + str(x) + ']')
+            # assert all links on the page
+            self.assert_links_valid(ExhibitionsPage.all_links)
 
             # asserting the pager links at the bottom of the page
             pager_length = len(self.find_elements(ExhibitionsPage.pagination_list))
@@ -182,16 +190,20 @@ class Exhibitions(NyplUtils):
         print("test_exhibitions_online()\n")
         self.open_exhibitions_page(category='online')
 
+        # assert title
+        self.assert_title('Online Exhibitions | The New York Public Library')
+
+        # asserting the images on the page
+        self.image_assertion()
+
+        # assert all links on the page
+        self.assert_links_valid(ExhibitionsPage.all_links)
+
         # assert breadcrumbs and page elements
         self.assert_element(ExhibitionsPage.home)
         self.assert_element(ExhibitionsPage.events)
         self.assert_element(ExhibitionsPage.exhibitions)
         self.assert_element(ExhibitionsPage.online_h1)
-
-        # asserting every h3 link on the main page (Online)
-        h3_links_amount = len(self.find_elements(ExhibitionsPage.h3_links_online))
-        for x in range(1, h3_links_amount + 1):
-            self.assert_page_loads_successfully(ExhibitionsPage.h3_links_online + '[' + str(x) + ']')
 
         # asserting the pager links at the bottom of the page
         pager_length = len(self.find_elements(ExhibitionsPage.pagination_list))

@@ -30,33 +30,14 @@ class EarlyLiteracyTest(NyplUtils):
         # assert images on the page
         self.image_assertion()
 
+        # assert all links on the page
+        # todo switch this with         # assert all links on the page
+        self.assert_links_valid(EarlyLiteracyPage.all_links)
+
         # assert breadcrumbs
         self.assert_element(EarlyLiteracyPage.home_button)  # home
         self.assert_element(EarlyLiteracyPage.education)  # education
 
-        # assert 'visit the library'
-        visit_library = ["locations", "event", "card"]
-        visit_library_links = [EarlyLiteracyPage.visit_library_1, EarlyLiteracyPage.visit_library_2,
-                               EarlyLiteracyPage.visit_library_3]
-
-        for link, text in zip(visit_library_links, visit_library):
-            self.link_assertion(link, text)
-
-        # assert 'Staten Island Big Playdate'
-        self.link_assertion(EarlyLiteracyPage.staten_island, "staten")
-
-        # assert "Activities for Little Learners"
-        activities_for_learner = ["drupal", "home", "education", "vimeo"]
-        activities_for_learner_links = [EarlyLiteracyPage.activities_for_learners_1,
-                                        EarlyLiteracyPage.activities_for_learners_2,
-                                        EarlyLiteracyPage.activities_for_learners_3,
-                                        EarlyLiteracyPage.activities_for_learners_4]
-
-        for link, text in zip(activities_for_learner_links, activities_for_learner):
-            if text != "drupal":
-                self.link_assertion(link, text)
-
-        # assert 'Early Literacy' for Spanish and Chinese
-        self.link_assertion(EarlyLiteracyPage.early_literacy_spanish, "es")
-        self.link_assertion(EarlyLiteracyPage.early_literacy_chinese, "zh")
+        # assert Newsletter Subscription
+        self.assert_newsletter_signup(EarlyLiteracyPage)
         
