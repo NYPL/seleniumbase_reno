@@ -9,6 +9,8 @@ class SnflPage(BaseCase):
     explore = '//*[@id="audience-navigation--"]/li[2]/a'
     read = '//*[@id="audience-navigation--"]/li[3]/a'
 
+    all_links = '((//*[@class="basic-page-section"])//a)'  # locator for 'basic-page'
+
     directions = '//*[@id="block-entityviewcontent"]/div/div/div/a'
     holiday_closings = '//*[@id="block-entityviewcontent"]/div/div/div/div[5]/a'
     address = '//*[@id="location-info--455-fifth-avenue<br>new-york-ny-10016"]'

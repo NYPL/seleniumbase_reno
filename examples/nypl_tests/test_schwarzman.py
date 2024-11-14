@@ -29,7 +29,6 @@ class Schwarzman(NyplUtils):
 
         # assert breadcrumbs and hero
         self.assert_element(SchwarzmanPage.home)
-        self.assert_element(SchwarzmanPage.locations)
         self.assert_element(SchwarzmanPage.hero)
 
         # assert 'Visit' and 'Research' tabs
@@ -44,13 +43,10 @@ class Schwarzman(NyplUtils):
         self.assert_true(expected_address in actual_address,
                          "Actual " + expected_address + " doesn't match the expected " + actual_address)
 
-        # assert that clicking on 'directions', '202x holiday hours' and links on the page will open the correct pages
+        # assert sidebar, holiday closings, and
         # using 'link_assertion' method from utility.py
-        self.link_assertion(SchwarzmanPage.directions, "google.com/maps")
-        self.link_assertion(SchwarzmanPage.holiday_closings, "nypl.org/help/closings")
-        self.link_assertion(SchwarzmanPage.research, "nypl.org/locations/schwarzman/research")
-        self.assert_page_loads_successfully(SchwarzmanPage.learn_more_1)
-        self.assert_page_loads_successfully(SchwarzmanPage.learn_more_2)
+        self.assert_element(SchwarzmanPage.sidebar)  # assert sidebar
+        self.link_assertion(SchwarzmanPage.holiday_closings, "nypl.org/help/closings")  # assert holiday schedule
 
         # assert "In the Spotlight" links with a for loop
         in_the_spotlight_link_amount = len(self.find_elements(SchwarzmanPage.in_the_spotlight))

@@ -6,8 +6,13 @@ class EducationAdultsPage(BaseCase):
     education = '(//*[contains(text(), "Education")])[2]'
     title = "Adults | The New York Public Library"
 
-    total_h2 = '(//*[@id="mainContent"]//h2)'
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
+
+    # newsletter signup locators
     email_subscription = '(//*[contains(text(), "Sign Up for Our Newsletter")])[1]'
+    email_subs_input = '//*[@id="email-input"]'
+    submit_email = '(//*[contains(text(), "Submit")])[1]'
+    subs_confirmation = '(//*[contains(text(), "Sign Up for Our Newsletter")])[1]//..//..//*[contains(text(), "Thank you!")]'
 
     def open_education_adults_page(self):
         # self.open("https://www.nypl.org/education/adults")

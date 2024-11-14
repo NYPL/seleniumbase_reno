@@ -7,6 +7,8 @@ class BlogChannelsPage(BaseCase):
 
     home_title = 'Blogs: Explore By Channel | The New York Public Library'
 
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
+
     explore_by_channel_links = '(//*[@id="page-container--content-primary"]//li//a)'
 
     def open_blog_channels_page(self):

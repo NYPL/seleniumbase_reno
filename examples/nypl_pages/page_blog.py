@@ -7,6 +7,8 @@ class BlogPage(BaseCase):
     blog_button = '(//*[contains(text(), "Blog")])[2]'
     nypl_blog = '(//*[contains(text(), "Blog")])[3]'
 
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
+
     featured_posts = '//*[@id="featured-posts"]'
     view_all_blogs = '(//*[contains(text(), "View all blog posts")])[1]'
 

@@ -7,7 +7,12 @@ class BooksPage(BaseCase):
     title = 'Books/Music/Movies | The New York Public Library'
 
     total_h2 = '(//*[@id="mainContent"]//h2)'  # total h2 on the page
-    email_subscription = '(//*[contains(text(), "Sign Up for Our Newsletter")])[1]'  # 'newsletter signup' element
+
+    # newsletter signup locators
+    email_subscription = '(//*[contains(text(), "Sign Up for Our Newsletter")])[1]'
+    email_subs_input = '//*[@id="email-input"]'
+    submit_email = '(//*[contains(text(), "Submit")])[1]'
+    subs_confirmation = '(//*[contains(text(), "Sign Up for Our Newsletter")])[1]//..//..//*[contains(text(), "Thank you!")]'
 
     def open_books_page(self):
         # self.open("https://www.nypl.org/books-music-movies")

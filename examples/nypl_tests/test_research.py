@@ -3,7 +3,6 @@ from examples.nypl_pages.page_research import ResearchPage
 
 
 class ResearchTest(NyplUtils):
-    # todo: left here 04/16
     # https://www.nypl.org/research
 
     def setUp(self):
@@ -37,17 +36,8 @@ class ResearchTest(NyplUtils):
         self.assert_title("Search Results | Research Catalog | NYPL")
         self.go_back()
 
-        # assert h2 sections
-        self.assert_links_valid(ResearchPage.start_your_research)
-        self.assert_links_valid(ResearchPage.visit_the_library_research_center)
-        self.assert_links_valid(ResearchPage.other_centers)
-        self.assert_links_valid(ResearchPage.explore_exhibitions_events)
-        self.assert_links_valid(ResearchPage.find_fellowships)
-        self.assert_links_valid(ResearchPage.get_research_support)
+        # assert all links on the page
+        self.assert_links_valid(ResearchPage.all_links)
 
-        # assert email subscription
-        self.assert_element(ResearchPage.email_subscription)
-        self.send_keys(ResearchPage.email_subs_input, "joedoe@gmail.com")
-        self.click(ResearchPage.submit_email)
-        self.assert_element(ResearchPage.email_subscription)
-        self.go_back()
+        # assert Newsletter Subscription
+        self.assert_newsletter_signup(ResearchPage)

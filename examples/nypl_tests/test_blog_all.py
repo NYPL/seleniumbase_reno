@@ -27,6 +27,9 @@ class BlogAllTests(NyplUtils):
         # asserting the images on the page
         self.image_assertion()
 
+        # assert all links on the page
+        self.assert_links_valid(BlogAllPage.all_links)
+
         # assert Explore By:
         self.assert_element(BlogAllPage.explore_by)
 

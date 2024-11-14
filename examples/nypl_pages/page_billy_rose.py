@@ -7,6 +7,8 @@ class BillyRosePage(BaseCase):
     locations = '(//*[contains(text(), "Locations")])[2]'
     nypl_performing = '(//*[contains(text(), "New York Public Library for the")])[1]'
 
+    all_links = '((//*[@class="basic-page-section"])//a)'  # locator for 'basic-page'
+
     directions = '(//*[contains(text(), "Directions")])[1]'
     email = '(//*[contains(text(), "mail")])[2]'
     holiday_closings = '(//*[contains(text(), "Holiday Closings")])[1]'

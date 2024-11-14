@@ -28,6 +28,9 @@ class SnflTest(NyplUtils):
         # assert images on the page
         self.image_assertion()
 
+        # assert all links on the page
+        self.assert_links_valid(SnflPage.all_links)
+
         # assert breadcrumbs and tabs
         self.assert_element(SnflPage.home)
         self.assert_element(SnflPage.locations)
@@ -116,9 +119,8 @@ class SnflTest(NyplUtils):
         # assert images on the page
         self.image_assertion()
 
-        # assert Centers
-        self.assert_links_valid(SnflPage.centers)
-        self.assert_links_valid(SnflPage.more_resources)
+        # assert all links on the page
+        self.assert_links_valid(SnflPage.all_links)
 
     def test_snfl_read(self):
         print("test_snfl_read()\n")
@@ -133,6 +135,9 @@ class SnflTest(NyplUtils):
 
         # assert images on the page
         self.image_assertion()
+
+        # assert all links on the page
+        self.assert_links_valid(SnflPage.all_links)
 
         # assert top checkouts: amount assertion >= 1
         top_checkouts_amount = len(self.find_elements(SnflPage.top_checkouts))
