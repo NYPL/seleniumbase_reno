@@ -1,3 +1,6 @@
+import os
+from dotenv import load_dotenv
+
 import pytest
 from selenium.common import NoSuchElementException
 
@@ -49,6 +52,9 @@ import requests
 import urllib3
 import time
 
+# Load environment variables from .env file
+load_dotenv()
+
 
 class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAllPage, BookListsPage, CampaignsPage,
                 ExhibitionsPage, FooterPage, LocationsPage, ArticlesDatabasesPage, ResearchPage, ResearchSupportPage,
@@ -56,10 +62,18 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 ArticlesBurneyPage, ArticlesHomeworkPage, BlogChannelsPage, BlogIndividualPage, PressPage,
                 PressIndividualPage, EducationPage, EarlyLiteracyPage, EducationTeensPage, EducatorsPage, BestBooksPage,
                 StaffPicksPage, EducationKidsPage, EducationAdultsPage, EventsPage, BooksPage, NewArrivalsPage):
+    login_button = '//*[@id="loginButton"]'
+    login_catalog = '//*[contains(text(), "Go To The Catalog")]'
+    login_research_catalog = '//*[contains(text(), "Go To The Research Catalog")]'
 
     def nypl_login_catalog(self, username, password, wait_time=4):
         """nypl login method for the catalog,
            taking 2 parameters, 'username' and 'password' """
+
+        # Retrieve username and password from environment variables
+        username = os.getenv('CATALOG_USERNAME')
+        password = os.getenv('CATALOG_PASSWORD')
+
         try:
             self.click(self.login_button)
         except NoSuchElementException:
@@ -94,6 +108,11 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
        taking 2 parameters, "username" and 'password' """
 
     def nypl_login_research(self, username, password, wait_time=4):
+
+        # Retrieve username and password from environment variables
+        username = os.getenv('CATALOG_USERNAME')
+        password = os.getenv('CATALOG_PASSWORD')
+
         try:
             self.click(self.login_button)
         except NoSuchElementException:
@@ -123,6 +142,39 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         except NoSuchElementException:
             self.wait(wait_time)
             self.click(self.submit)
+
+    """ 
+    below is the login method to Artifles & Databases pages such as;
+    # https://www.nypl.org/research/collections/articles-databases/17th-18th-century-burney-collection-newspapers
+    """
+    # These are SELECTORS for the login page for Collections and Articles & Databases
+    ad_login_username = '//*[@name="user"]'  # Selector for username field
+    ad_login_password = '//*[@name="pass"]'  # Selector for password field
+    ad_login_button = '//*[@type="submit"]'  # Selector for login button
+
+    def login_ad_catalog(self):
+        """
+        Logs into A&D pages using above locators and credentials stored in environment variables.
+        """
+        # Retrieve credentials from environment variables
+        username = os.getenv("CATALOG_USERNAME")
+        password = os.getenv("CATALOG_PASSWORD")
+
+        print("username: " + str(username))
+        print("password: " + str(password))
+
+        if not username or not password:
+            raise ValueError("Environment variables NYPL_USERNAME and NYPL_PASSWORD are not set.")
+
+        # Check if login is required
+        if self.is_element_present(self.ad_login_username):
+            print("Login page detected. Logging in...")
+            self.type(self.ad_login_username, username)  # Enter username
+            self.type(self.ad_login_password, password)  # Enter password
+            self.click(self.ad_login_button)  # Click the login button
+            self.wait_for_element_not_visible(self.login_button, timeout=10)
+        else:
+            print("Login not required.")
 
     """Link Assertion:
     Clicks a link and asserts that the specified text is present in the URL.
@@ -131,7 +183,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         'text': The text to be checked in the URL.
         'retry_wait' (optional): The time to wait in seconds before retrying if the initial assertion fails.
     If the initial assertion fails, the method retries clicking the link and waits for 'retry_wait' seconds before rechecking the URL.
-"""
+    """
 
     def link_assertion(self, link, text, retry_wait=3):
         try:
@@ -209,7 +261,8 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
         # List of keywords that are allowed to return a 403 status code
         allowed_403_keywords = [
-            "photoville"
+            "photoville",
+            "NYPLEducators"
         ]
 
         block_length = len(self.find_elements(locator))
@@ -218,7 +271,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         # Assert that links are found; if not, fail the test
         assert block_length > 0, "No links found. Expected at least one link under the locator 'page-container--content-primaryy'."
 
-        for x in range(17, block_length + 1):
+        for x in range(1, block_length + 1):
             retries = 3  # Number of retries
             link_checked = False  # Flag to track if link was successfully checked
 
@@ -374,6 +427,12 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
     def assert_newsletter_signup(self, page):
 
+        # # newsletter signup locators
+        # email_subscription = '(//*[contains(text(), "Sign Up for Our Newsletter")])[1]'
+        # email_subs_input = '//*[@id="email-input"]'
+        # submit_email = '(//*[contains(text(), "Submit")])[1]'
+        # subs_confirmation = '(//*[contains(text(), "Sign Up for Our Newsletter")])[1]//..//..//*[contains(text(), "Thank you!")]'
+
         retries = 3  # Number of retries
         retry_delay = 2  # Delay in seconds between retries
 
@@ -392,7 +451,8 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 self.assert_element(page.subs_confirmation)
 
                 # Step 5: Go Back to Previous Page
-                self.go_back()
+                self.refresh()
+                print("page refreshed after newsletter signup")
 
                 # If everything succeeds, break out of the retry loop
                 break

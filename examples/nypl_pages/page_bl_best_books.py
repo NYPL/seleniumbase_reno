@@ -15,13 +15,9 @@ class BestBooksPage(BaseCase):
     teens_tab = '(//*[contains(text(), "Teens")])[2]'
     kids_tab = '(//*[contains(text(), "Kids")])[2]'
 
-    hero_125 = '(//*[contains(text(), "Books We Love")])[2]'
-    h2_heading_125 = '(//*[contains(text(), "125 Books We Love")])[3]'
-    h2_heading_staff_picks = '(//*[contains(text(), "Picks for")])[1]'
     h2_heading_best_books = '(//*[contains(text(), "Best Books for")])[2]'
     submit = '(//*[contains(text(), "Submit")])[1]'
     selected_year = '//*[@id="year"]/option[@selected=""]'
-    season_dropdown = '//*[@id="season"]'
 
     filter_results_below = '(//*[contains(text(), "Filter Results Below")])[1]'
     left_side_filter = '(//*[contains(text(), "Filter By Tags")]//..//a)'
@@ -29,8 +25,6 @@ class BestBooksPage(BaseCase):
     additional_info_links = '(//*[contains(text(), "Additional Information")]//..//a)'
     filter_results = '//*[contains(text(), "Filtered by")]'
     book_results = '(//*[@id="block-nypl-emulsify-content"]//h3)[1]'
-
-    total_books_found = '//*[@id="block-nypl-emulsify-content"]//li'
 
     def open_best_books_page(self, category='adults'):
         # Determine the base URLs

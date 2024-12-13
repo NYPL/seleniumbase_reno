@@ -4,9 +4,10 @@ from seleniumbase import BaseCase
 class HeaderPage(BaseCase):
     lion_logo = '//*[contains(text(), "NYPL Header Logo")]'
 
-    login_button = '//*[@id="loginButton"]'
-    login_catalog = '//*[contains(text(), "Go To The Catalog")]'
-    login_research_catalog = '//*[contains(text(), "Go To The Research Catalog")]'
+    # below locators are called from NYPL utility file
+    # login_button = '//*[@id="loginButton"]'
+    # login_catalog = '//*[contains(text(), "Go To The Catalog")]'
+    # login_research_catalog = '//*[contains(text(), "Go To The Research Catalog")]'
 
     username = '//*[@id="code"]'
     password = '//*[@id="pin"]'

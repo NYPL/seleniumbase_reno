@@ -31,7 +31,6 @@ class EarlyLiteracyTest(NyplUtils):
         self.image_assertion()
 
         # assert all links on the page
-        # todo switch this with         # assert all links on the page
         self.assert_links_valid(EarlyLiteracyPage.all_links)
 
         # assert breadcrumbs
