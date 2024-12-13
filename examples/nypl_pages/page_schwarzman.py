@@ -8,21 +8,11 @@ class SchwarzmanPage(BaseCase):
     visit = '(//*[contains(text(), "Research")])[2]//..//..//*[contains(text(), "Visit")][1]'
     research = '(//*[contains(text(), "Visit")][1]//..//..//*[contains(text(), "Research")])[1]'
 
+    all_links = '((//*[@id="block-nypl-emulsify-content"]//li)//a)'  # all links locator for 'Emulsify'
+
     sidebar = '//*[@id="block-entityviewcontent"]'
     holiday_closings = '(//*[contains(text(), "Holiday Closings")])[1]'
     address = '//*[@id="location-info--fifth-avenue-and-42nd-street<br>new-york-ny-10018"]'
-
-    in_the_spotlight = '(//*[contains(text(), "In the Spotlight")]/../../..//a)'
-
-    featured_at_sasb = '(//*[contains(text(), "Featured at the ")]/../../..//a)'
-
-    events_see_all = '((//*[contains(text(), "Events")])[2])/..//a'
-
-    about_the_sasb = '(//*[contains(text(), "About the Stephen A.")])'
-
-    explore_division_centers = '((//*[contains(text(), "Explore Divisions & Centers")])/../../..//h3)'
-    further_resources = '((//*[contains(text(), "Further Resources")])/../../..//h3)'
-    more_nypl_resources = '((//*[contains(text(), "More NYPL")])/../../..//h3)'
 
     def open_schwarzman_page(self):
         # self.open("https://www.nypl.org/locations/schwarzman")

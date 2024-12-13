@@ -2,14 +2,7 @@ from seleniumbase import BaseCase
 
 
 class ArticlesHomeworkPage(BaseCase):
-    home = '(//*[contains(text(), "Home")])[2]'
-    research = '(//*[contains(text(), "Research")])[2]'
-    collections = '(//*[contains(text(), "Collections")])[1]'
-    articles_databases = '(//*[contains(text(), "Articles")])[1]'
-    homework_help = '(//*[contains(text(), "Homework")])[2]'
 
-    clear_all_search = '(//*[contains(text(), "Clear all search")])'
-    search_result = '//*[@id="search-results-details"]'
 
     def open_articles_homework_page(self):
 

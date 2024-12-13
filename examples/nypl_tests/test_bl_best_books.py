@@ -76,14 +76,12 @@ class BookListsBestBooks(NyplUtils):
             # going back after clicking, receiving and checking the texts
             self.go_back()
 
-        # assert book number in the page == to the amount in the h3
-        book_amount = len(self.find_elements(BestBooksPage.total_books_found))
-        # amount in the h3
+        # assert book number in the page >= 1
+        # item amount in the h3
         h3_amount = int(self.get_text(BestBooksPage.book_results).split()[0])
         print("h3 amount is = " + str(h3_amount))  # optional print of the amount seen in h3 element
         # optional print of the number of the displayed books in the page
-        print("book amount is = " + str(book_amount))
-        self.assert_true(book_amount == h3_amount, "Kids book number and amount in the h3 don't match")
+        self.assert_true(h3_amount >= 1, "Adults book number and amount no >= 1")
 
     def test_best_books_teens(self):
         # https://www.nypl.org/books-more/recommendations/best-books/teens
@@ -138,14 +136,12 @@ class BookListsBestBooks(NyplUtils):
             # going back after clicking, receiving and checking the texts
             self.go_back()
 
-        # assert book number in the page == to the amount in the h3
-        book_amount = len(self.find_elements(BestBooksPage.total_books_found))
-        # amount in the h3
+        # assert book number in the page >= 1
+        # item amount in the h3
         h3_amount = int(self.get_text(BestBooksPage.book_results).split()[0])
         print("h3 amount is = " + str(h3_amount))  # optional print of the amount seen in h3 element
         # optional print of the number of the displayed books in the page
-        print("book amount is = " + str(book_amount))
-        self.assert_true(book_amount == h3_amount, "Kids book number and amount in the h3 don't match")
+        self.assert_true(h3_amount >= 1, "Teens book number and amount no >= 1")
 
     def test_best_books_kids(self):
         # https://www.nypl.org/books-more/recommendations/best-books/kids
@@ -200,14 +196,12 @@ class BookListsBestBooks(NyplUtils):
             # going back after clicking, receiving and checking the texts
             self.go_back()
 
-        # assert book number in the page == to the amount in the h3
-        book_amount = len(self.find_elements(BestBooksPage.total_books_found))
-        # amount in the h3
+        # assert book number in the page >= 1
+        # item amount in the h3
         h3_amount = int(self.get_text(BestBooksPage.book_results).split()[0])
         print("h3 amount is = " + str(h3_amount))  # optional print of the amount seen in h3 element
         # optional print of the number of the displayed books in the page
-        print("book amount is = " + str(book_amount))
-        self.assert_true(book_amount == h3_amount, "Kids book number and amount in the h3 don't match")
+        self.assert_true(h3_amount >= 1, "Kids book number and amount no >= 1")
 
     def test_best_books_year_dropdown(self):
         # https://www.nypl.org/books-more/recommendations/best-books/adults

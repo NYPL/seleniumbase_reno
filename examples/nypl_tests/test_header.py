@@ -1,11 +1,15 @@
 import pytest
 import os
+from dotenv import load_dotenv
 
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_header import HeaderPage
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 class HeaderTest(NyplUtils):
@@ -75,7 +79,7 @@ class HeaderTest(NyplUtils):
         self.click(HeaderPage.search_button)
         self.assert_text("Close")
 
-    @pytest.mark.skip(reason="Chris covering this in his RC automation suite")
+    # @pytest.mark.skip(reason="Chris covering this in his RC automation suite")
     @pytest.mark.smoke
     def test_login_catalog(self):
         print("test_login_catalog()\n")
@@ -84,13 +88,13 @@ class HeaderTest(NyplUtils):
         username = os.getenv('CATALOG_USERNAME')
         password = os.getenv('CATALOG_PASSWORD')
 
+        # Debug print statements to check if the variables are set
+        # print(f"Username: {username}")
+        # print(f"Password: {password}")
+
         # Ensure username and password are not None
         if not username or not password:
             raise Exception("Environment variables USERNAME and PASSWORD must be set!")
-
-        # Debug print statements to check if the variables are set
-        print(f"Username: {username}")
-        print(f"Password: {password}")
 
         # Proceed with the login process
         self.nypl_login_catalog(username, password)

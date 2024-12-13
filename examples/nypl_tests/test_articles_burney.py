@@ -1,5 +1,6 @@
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_articles_burney import ArticlesBurneyPage
+import requests
 
 
 class ArticlesBurneyTest(NyplUtils):
@@ -13,6 +14,7 @@ class ArticlesBurneyTest(NyplUtils):
 
         # open main page
         self.open_articles_burney_page()
+        self.login_ad_catalog()
 
     def tearDown(self):
         print("RUNNING AFTER EACH TEST")
@@ -23,17 +25,10 @@ class ArticlesBurneyTest(NyplUtils):
         print("test_articles_burney_main()\n")
 
         # assert title
-        self.assert_title('17th-18th Century Burney Collection Newspapers | The New York Public Library')
+        self.assert_title('Basic Search - Seventeenth and Eighteenth Century Burney Newspapers Collection')
 
-        # assert images on the page
-        self.image_assertion()
+        # assert status is 300s
+        response = requests.head(self.get_current_url())
+        print(response.status_code)
+        self.assert_true(300 <= response.status_code <= 305, "Redirected Page status doesn't return between 300-305")
 
-        # assert breadcrumbs
-        self.assert_element(ArticlesBurneyPage.home)
-        self.assert_element(ArticlesBurneyPage.research)
-        self.assert_element(ArticlesBurneyPage.collections)
-        self.assert_element(ArticlesBurneyPage.articles_databases)
-        self.assert_element(ArticlesBurneyPage.burney_collection_newspapers)
-
-        # asserting the '17th-18th Century Burney Collection Newspapers' h3 with utility function
-        self.link_assertion(ArticlesBurneyPage.h3_burney_collection_newspapers, "login")
