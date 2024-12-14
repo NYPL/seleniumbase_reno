@@ -56,5 +56,3 @@ pytest-pspec== 0.0.4
 
 seleniumbase~=4.32.12
 python-dotenv~=1.0.1
-urllib3~=2.2.3
-setuptools~=75.6.0
