@@ -22,33 +22,48 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
+
     - name: Setup Chrome and ChromeDriver
       uses: browser-actions/setup-chrome@latest
       with:
         chrome-version: stable
+
+    - name: Install Flake8
+      run: pip install flake8
+
+    - name: Run Flake8 Linter
+      continue-on-error: true
+      run: flake8 examples/nypl_tests --max-line-length=120 --statistics --count || true
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         python -m pip install --upgrade wheel
         pip install -r requirements.txt
+
     - name: Install SeleniumBase
       run: |
         python setup.py install
+
     - name: Update SeleniumBase
       run: |
         pip install -U seleniumbase
+
     - name: Check the console scripts interface
       run: |
         seleniumbase
         sbase
+
     - name: Make sure pytest is working
       run: |
         echo "def test_1(): pass" > nothing.py
         pytest nothing.py
+
     - name: Make sure nosetests is working
       run: |
         echo "def test_2(): pass" > nothing2.py

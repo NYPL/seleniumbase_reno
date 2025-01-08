@@ -8,11 +8,13 @@ class EducationKidsPage(BaseCase):
 
     total_h2 = '(//*[@id="mainContent"]//h2)'
 
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
+
     # kids newsletter signup locators
     email_subscription = '(//*[contains(text(), "Connect with Us")])[1]'
     email_subs_input = '//*[@id="email-input"]'
     submit_email = '(//*[contains(text(), "Submit")])[1]'
-    subs_confirmation = '(//*[contains(text(), "Sign Up for Our Newsletter")])[1]//..//..//*[contains(text(), "Thank you!")]'
+    subs_confirmation = '(//*[contains(text(), "Connect with Us")])[1]//..//..//*[contains(text(), "Thank you!")]'
 
     def open_education_kids_page(self):
         # self.open("https://www.nypl.org/education/kids")

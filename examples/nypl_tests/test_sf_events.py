@@ -36,15 +36,11 @@ class EventsTest(NyplUtils):
         self.assert_element(EventsPage.home_button)  # home
         self.assert_element(EventsPage.events)  # events
 
+        # assert all links on the page
+        self.assert_links_valid(EventsPage.all_links)
+
         # assert Newsletter Subscription
         self.assert_newsletter_signup(EventsPage)
 
-    def test_events_links(self):
-        print("test_events_links()\n")
 
-        # Assert 'h3' links for each 'h2' on the page
-        total_h2_amount = len(self.find_elements(EventsPage.total_h2))
-        for x in range(1, total_h2_amount):
-            total_h3 = len(self.find_elements('(' + EventsPage.total_h2 + f'[{x}]//..//a)'))
-            for y in range(1, total_h3 + 1):
-                self.assert_page_loads_successfully('(' + EventsPage.total_h2 + f'[{x}]//..//a)[{y}]')
+

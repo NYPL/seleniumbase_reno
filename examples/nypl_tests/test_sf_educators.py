@@ -42,7 +42,6 @@ class EducatorsTest(NyplUtils):
 
         # assert Newsletter Subscription
         self.assert_newsletter_signup(EducatorsPage)
-        self.wait(2)
 
         # assert social media links (Twitter, Instagram, Facebook)
         self.assert_element(EducatorsPage.connect_with_us_twitter)

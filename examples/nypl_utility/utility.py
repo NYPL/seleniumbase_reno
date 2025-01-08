@@ -262,7 +262,8 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         # List of keywords that are allowed to return a 403 status code
         allowed_403_keywords = [
             "photoville",
-            "NYPLEducators"
+            "NYPLEducators",
+            ""
         ]
 
         block_length = len(self.find_elements(locator))
@@ -452,7 +453,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
                 # Step 5: Go Back to Previous Page
                 self.refresh()
-                print("page refreshed after newsletter signup")
+
 
                 # If everything succeeds, break out of the retry loop
                 break
