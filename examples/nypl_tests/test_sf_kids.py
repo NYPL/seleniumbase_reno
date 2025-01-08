@@ -34,15 +34,8 @@ class EducationKidsTest(NyplUtils):
         self.assert_element(EducationKidsPage.home_button)  # home
         self.assert_element(EducationKidsPage.education)  # education
 
+        # assert all links on the page
+        self.assert_links_valid(EducationKidsPage.all_links)
+
         # assert Newsletter Subscription
         self.assert_newsletter_signup(EducationKidsPage)
-
-    def test_education_kids_links(self):
-        print("test_education_kids_links_1()\n")
-
-        # Assert 'h3' links for each 'h2' on the page
-        total_h2_amount = len(self.find_elements(EducationKidsPage.total_h2))
-        for x in range(1, total_h2_amount):
-            total_h3 = len(self.find_elements('(' + EducationKidsPage.total_h2 + f'[{x}]//..//a)'))
-            for y in range(1, total_h3 + 1):
-                self.assert_page_loads_successfully('(' + EducationKidsPage.total_h2 + f'[{x}]//..//a)[{y}]')

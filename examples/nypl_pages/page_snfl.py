@@ -2,53 +2,34 @@ from seleniumbase import BaseCase
 
 
 class SnflPage(BaseCase):
-    home = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[1]/a'
-    locations = '//*[@id="block-nypl-emulsify-breadcrumbs"]/nav/ul/li[2]/a'
+    home = '(//*[contains(text(), "Home")])[1]'
 
-    visit = '//*[@id="audience-navigation--"]/li[1]/a'
-    explore = '//*[@id="audience-navigation--"]/li[2]/a'
-    read = '//*[@id="audience-navigation--"]/li[3]/a'
+    visit = '//*[@id="audience-navigation--"]//*[contains(text(), "Visit")]'
+    explore = '//*[@id="audience-navigation--"]//*[contains(text(), "Explore")]'
+    read = '//*[@id="audience-navigation--"]//*[contains(text(), "Read")]'
 
-    all_links = '((//*[@class="basic-page-section"])//a)'  # locator for 'basic-page'
+    all_links = '((//*[@id="block-nypl-emulsify-content"]//li)//a)'  # all links locator for 'Emulsify'
 
-    directions = '//*[@id="block-entityviewcontent"]/div/div/div/a'
-    holiday_closings = '//*[@id="block-entityviewcontent"]/div/div/div/div[5]/a'
-    address = '//*[@id="location-info--455-fifth-avenue<br>new-york-ny-10016"]'
-    give = '//*[@id="block-entityviewcontent"]/div/div/div/div[6]/a'
-    social_media = '//*[@id="block-entityviewcontent"]/div/div/div/div[8]'
-
-    learn_more_1 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[1]/div/p[2]/a'
-    learn_more_2 = '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div[2]/p/a'
-    daily_guided_tours = '//*[@id="block-nypl-emulsify-content"]/div/div/div[3]/div[2]/p/a'
-
-    in_the_spotlight = "//*[contains(text(), 'In the Spotlight')]//parent::*//parent::*//following-sibling::ul//li"
-
-    kids_see_all = "//*[@id='block-nypl-emulsify-content']//*[contains(text(), 'For Kids')]/following-sibling::a[1]"
-    teens_see_all = "//*[@id='block-nypl-emulsify-content']//*[contains(text(), 'For Teens')]/following-sibling::a[1]"
-    adults_see_all = "//*[@id='block-nypl-emulsify-content']//*[contains(text(), 'For Adults')]/following-sibling::a[1]"
-
-    remote_resources_1 = "//*[contains(text(), 'Remote Resources')]//parent::*//parent::*//following-sibling::ul//li[1]"
-    remote_resources_2 = "//*[contains(text(), 'Remote Resources')]//parent::*//parent::*//following-sibling::ul//li[2]"
-    remote_resources_3 = "//*[contains(text(), 'Remote Resources')]//parent::*//parent::*//following-sibling::ul//li[3]"
-    remote_resources_4 = "//*[contains(text(), 'Remote Resources')]//parent::*//parent::*//following-sibling::ul//li[4]"
-
-    about_the_snfl = "//*[contains(text(), 'About the Stavros')]"
-
-    # "Explore" tab locators
-    centers = '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/div/div/ul/li'
-    more_resources = '//*[@id="block-nypl-emulsify-content"]/div/div/div[3]/ul/li'
+    # left side tab locators
+    directions = '(//*[contains(text(), "Directions")])[1]'
+    holiday_closings = '(//*[contains(text(), "Holiday Closings")])[1]'
+    give = '(//*[contains(text(), "Give Now")])[1]'
+    social_media = '(//*[contains(text(), "Find Us On")])[1]'
 
     # "Read" tab locators
-    top_checkouts = '//*[@id="block-nypl-emulsify-content"]/div/div/div[2]/ul/li'
-    shelf_help = '//*[@id="block-nypl-emulsify-content"]/div/div/div[3]'
+    top_checkouts = '(//*[contains(text(), "Top Checkouts")])[1]'
+    shelf_help = '(//*[contains(text(), "Shelf Help")])[1]'
 
     def open_snfl_page(self):
         # self.open("https://www.nypl.org/locations/snfl")
 
+        prod = "https://www.nypl.org/locations/snfl"
+        qa = "https://qa-www.nypl.org/locations/snfl"
+
         if self.env == "qa":
             print("Running on QA Env")
-            self.open("https://qa-www.nypl.org/locations/snfl")
+            self.open(qa)
 
         else:
             print("Running on Production Env")
-            self.open("https://www.nypl.org/locations/snfl")
+            self.open(prod)
