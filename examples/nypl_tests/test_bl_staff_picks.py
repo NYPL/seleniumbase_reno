@@ -30,13 +30,19 @@ class StaffPicks(NyplUtils):
         print('test_staff_picks_adults()\n')
         self.open_staff_picks_page(category='adults')
 
+        # assert breadcrumbs and page elements
+        self.assert_element(StaffPicksPage.home)
+        self.assert_element(StaffPicksPage.books_and_more)
+        self.assert_element(StaffPicksPage.recommendations)
+        self.assert_element(StaffPicksPage.adults_tab)
+        self.assert_element(StaffPicksPage.teens_tab)
+        self.assert_element(StaffPicksPage.kids_tab)
+
         # assert images on the page
         self.image_assertion()
 
-        # assert Hero h1 element
-        self.assert_element(StaffPicksPage.h1_heading)
-        print(self.get_text(StaffPicksPage.h1_heading))
-        self.assert_true("Staff Picks" in self.get_text(StaffPicksPage.h1_heading))
+        # assert all links on the page
+        self.assert_links_valid(StaffPicksPage.all_links)
 
         left_filter_length = len(self.find_elements(StaffPicksPage.left_side_filter))
         # optional print of the length of left side filter, 14 as of June 2022
@@ -66,16 +72,6 @@ class StaffPicks(NyplUtils):
         # optional print of the number of the displayed books in the page
         print("book amount is = " + str(book_amount))
         self.assert_true(book_amount == h3_amount, "Kids book number and amount in the h3 don't match")
-
-        # assert 'Additional Information' Section by clicking all the links
-        additional_info_length = len(self.find_elements(StaffPicksPage.additional_info_links))
-        print("additional info length is = " + str(additional_info_length))
-
-        for x in range(1, additional_info_length + 1):
-            additional_info = StaffPicksPage.additional_info_links + "[" + str(x) + "]"
-            self.click(additional_info)
-            self.wait(0.2)
-            self.go_back()
 
     def test_staff_picks_teens(self):
         # https://www.nypl.org/books-more/recommendations/staff-picks/teens
@@ -85,9 +81,8 @@ class StaffPicks(NyplUtils):
         # assert images on the page
         self.image_assertion()
 
-        # assert Hero h1 element
-        self.assert_element(StaffPicksPage.h1_heading)
-        self.assert_true("Staff Picks" in self.get_text(StaffPicksPage.h1_heading))
+        # assert all links on the page
+        self.assert_links_valid(StaffPicksPage.all_links)
 
         left_filter_length = len(self.find_elements(StaffPicksPage.left_side_filter))
         # optional print of the length of left side filter, 14 as of June 2022
@@ -117,21 +112,6 @@ class StaffPicks(NyplUtils):
         # optional print of the number of the displayed books in the page
         print("book amount is = " + str(book_amount))
         self.assert_true(book_amount == h3_amount, "Kids book number and amount in the h3 don't match")
-
-        # assert 'Additional Information' Section by clicking all the links
-        additional_info_length = len(
-            self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/footer/div/div/div/div/p')) - 1
-        print("additional info length is = " + str(additional_info_length))
-
-        # assert 'Additional Information' Section by clicking all the links
-        additional_info_length = len(self.find_elements(StaffPicksPage.additional_info_links))
-        print("additional info length is = " + str(additional_info_length))
-
-        for x in range(1, additional_info_length + 1):
-            additional_info = StaffPicksPage.additional_info_links + "[" + str(x) + "]"
-            self.click(additional_info)
-            self.wait(0.2)
-            self.go_back()
 
     def test_staff_picks_kids(self):
         # https://www.nypl.org/books-more/recommendations/staff-picks/kids
@@ -141,9 +121,8 @@ class StaffPicks(NyplUtils):
         # assert images on the page
         self.image_assertion()
 
-        # assert Hero h1 element
-        self.assert_element(StaffPicksPage.h1_heading)
-        self.assert_true("Staff Picks" in self.get_text(StaffPicksPage.h1_heading))
+        # assert all links on the page
+        self.assert_links_valid(StaffPicksPage.all_links)
 
         left_filter_length = len(self.find_elements(StaffPicksPage.left_side_filter))
         # optional print of the length of left side filter, 14 as of June 2022
@@ -173,21 +152,6 @@ class StaffPicks(NyplUtils):
         # optional print of the number of the displayed books in the page
         print("book amount is = " + str(book_amount))
         self.assert_true(book_amount == h3_amount, "Kids book number and amount in the h3 don't match")
-
-        # assert 'Additional Information' Section by clicking all the links
-        additional_info_length = len(
-            self.find_elements('//*[@id="block-nypl-emulsify-content"]/div/div/footer/div/div/div/div/p')) - 1
-        print("additional info length is = " + str(additional_info_length))
-
-        # assert 'Additional Information' Section by clicking all the links
-        additional_info_length = len(self.find_elements(StaffPicksPage.additional_info_links))
-        print("additional info length is = " + str(additional_info_length))
-
-        for x in range(1, additional_info_length + 1):
-            additional_info = StaffPicksPage.additional_info_links + "[" + str(x) + "]"
-            self.click(additional_info)
-            self.wait(0.2)
-            self.go_back()
 
     def test_staff_picks_seasons(self):
         # https://www.nypl.org/books-more/recommendations/staff-picks/adults

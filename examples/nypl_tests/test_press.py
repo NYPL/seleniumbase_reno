@@ -31,6 +31,9 @@ class PressTest(NyplUtils):
         # assert breadcrumbs
         self.assert_element(PressPage.home)
 
+        # assert all links on the page
+        self.assert_links_valid(PressPage.all_links)
+
         # assert that page h3 link amount >= 1
         page_link_number = len(self.find_elements(PressPage.page_link_amount))
         # print(page_link_number)  # optional print
@@ -49,14 +52,4 @@ class PressTest(NyplUtils):
         # go back to main page
         self.open_press_page()
 
-        # for loop to test random amount of links out of total links on the page
-        # as of Aug 2023, looping through all 10 links
-        for x in range(1, page_link_number + 1):
-            link = PressPage.page_link_amount + f'[{x}]'
-            self.click(link)
-            self.wait(2)
-            current_url = self.get_current_url()
-            print(f"\n {x}: " + current_url)
-            self.assert_true('nypl' in current_url and 'press' in current_url, "expected texts not in " + current_url)
-            self.go_back()
 

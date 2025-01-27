@@ -6,8 +6,6 @@ class EducationKidsPage(BaseCase):
     education = '(//*[contains(text(), "Education")])[2]'
     title = "Kids | The New York Public Library"
 
-    total_h2 = '(//*[@id="mainContent"]//h2)'
-
     all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
 
     # kids newsletter signup locators

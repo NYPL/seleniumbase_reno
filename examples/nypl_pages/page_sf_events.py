@@ -6,8 +6,6 @@ class EventsPage(BaseCase):
     events = '(//*[contains(text(), "Events")])[3]'
     title = "Events | The New York Public Library"
 
-    total_h2 = '(//*[@id="mainContent"]//h2)'
-
     all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
 
     # newsletter signup locators

@@ -7,26 +7,12 @@ class GivePage(BaseCase):
     h1 = '//*[@id="mainContent"]//h1'
     donate = '(//*[contains(text(), "Donate")])[2]'
 
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
+
     donation_form = '//*[@id="donation-form"]'
     donate_text_field = '//*[@id="donation-ways"]'
     single_donation = '(//*[contains(text(), "Single Donation")])[1]'
     monthly_donation = '(//*[contains(text(), "Monthly Donation")])[1]'
-
-    membership_1 = '((//*[contains(text(), "Membership")])[1]//..//h3)[1]//a'
-    membership_2 = '((//*[contains(text(), "Membership")])[1]//..//h3)[2]//a'
-
-    get_involved_1 = '((//*[contains(text(), "Get Involved")])[1]//..//h3)[1]//a'
-    get_involved_2 = '((//*[contains(text(), "Get Involved")])[1]//..//h3)[2]//a'
-
-    more_ways_to_give_1 = '((//*[contains(text(), "More Ways to Give")])[1]//..//h3)[1]//a'
-    more_ways_to_give_2 = '((//*[contains(text(), "More Ways to Give")])[1]//..//h3)[2]//a'
-    more_ways_to_give_3 = '((//*[contains(text(), "More Ways to Give")])[1]//..//h3)[3]//a'
-    more_ways_to_give_4 = '((//*[contains(text(), "More Ways to Give")])[1]//..//h3)[4]//a'
-    more_ways_to_give_5 = '((//*[contains(text(), "More Ways to Give")])[1]//..//h3)[5]//a'
-
-    learn_about_corporate_1 = '((//*[contains(text(), "Learn About")])[1]//..//h3)[1]//a'
-    learn_about_corporate_2 = '((//*[contains(text(), "Learn About")])[1]//..//h3)[2]//a'
-    learn_about_corporate_3 = '((//*[contains(text(), "Learn About")])[1]//..//h3)[3]//a'
 
     def open_give_page(self):
         # self.open("https://www.nypl.org/give")

@@ -23,7 +23,6 @@ class NewArrivalsPage(BaseCase):
     selected_filters = '//*[@class="selectedFilters"]'  # selected filters
 
     load_more_button = '//*[@id="page-button-list-number"]'  # 'Load More' button at the end of the page
-    '//*[@class="switch viewType"]//..//..//*'
 
     def open_new_arrivals_page(self, category=''):
         # Determine the base URLs

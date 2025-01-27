@@ -6,8 +6,6 @@ class BookListsPage(BaseCase):
     books_and_more = '(//*[contains(text(), "Books & More")])[1]'
     recommendations = '(//*[contains(text(), "Recommendations")])[1]'
 
-    h1_heading = '//*[@id="block-views-block-search-book-list-header-block-default"]//h1'
-
     adults_tab_adults = '(//*[contains(text(), "Adults")])[2]'
     teens_tab_adults = '(//*[contains(text(), "Teens")])[1]'
     teens_tab_teens = '(//*[contains(text(), "Teens")])[2]'
@@ -15,12 +13,7 @@ class BookListsPage(BaseCase):
     kids_tab_kids = '(//*[contains(text(), "Kids")])[2]'
 
     hero_125 = '(//*[contains(text(), "Books We Love")])[2]'
-    h2_heading_125 = '(//*[contains(text(), "125 Books We Love")])[3]'
-    h2_heading_staff_picks = '(//*[contains(text(), "Picks for")])[1]'
-    h2_heading_best_books = '(//*[contains(text(), "Best Books for")])[2]'
     submit = '(//*[contains(text(), "Submit")])[1]'
-    selected_year = '//*[@id="year"]/option[1]'
-    season_dropdown = '//*[@id="season"]'
 
     filter_results_below = '(//*[contains(text(), "Filter Results Below")])[1]'
     left_side_filter = '(//*[contains(text(), "Filter By Tags")]//..//a)'

@@ -10,6 +10,7 @@ class PosadaPage(BaseCase):
 
     hero = '(//*[@id="block-content-hero-header"])'
 
+    all_links = '((//*[@id="block-nypl-emulsify-content"]//a))'  # locator for 'emulsify'
 
     previous_button_1 = '(//*[@title="Previous"])[1]'
     next_button_1 = '(//*[@title="Next"])[1]'

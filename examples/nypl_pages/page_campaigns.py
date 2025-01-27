@@ -8,7 +8,6 @@ class CampaignsPage(BaseCase):
     all_links = '((//*[@id="block-nypl-emulsify-content"])//a)'
 
     # /125 locators
-    h2_links = '(//*[@id="block-nypl-emulsify-content"]//h2//a)'  # all h2 links on the base path /125
     slide_images = '(//*[@class="slideshow"]//li//img)'  # list XPaths for the /125 slideshow
 
     # /timeline
@@ -18,7 +17,6 @@ class CampaignsPage(BaseCase):
 
     # /topcheckouts
     checkouts_h1 = '(//*[contains(text(), "Top 10 Checkouts of All Time")])[2]'  # /checkouts path h1
-    topcheckouts_links = '(//*[@id="block-nypl-emulsify-content"]//a)'  # all links on the /topcheckouts page
     honorable_mention = '//*[contains(text(), "Honorable Mention")]'
     honorable_mention_book_links = '(//*[contains(text(), "Honorable Mention")]//..//..//a)'  # book link amount
     top10_books = '((//*[@class= "top-checkouts"])[1]//li)'

@@ -6,6 +6,8 @@ class PressPage(BaseCase):
 
     home_title = 'Press Releases | The New York Public Library'
 
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
+
     page_link_amount = '(//*[@id="press-releases"]//h3//a)'
     pagination_amount = '//*[@id="undefined-list"]/li'
     previous_button = '//*[@id="undefined-Previous"]'
