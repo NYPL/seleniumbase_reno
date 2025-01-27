@@ -41,6 +41,19 @@ class Locations(NyplUtils):
         self.assert_element(LocationsPage.home)
         self.assert_element(LocationsPage.locations)
 
+        # assert all links on the page
+        self.assert_links_valid(LocationsPage.all_links)
+
+        # lower page elements
+        # asserting 3 bottom elements. 2 midtown locations assertion and BK and Queens web-elements.
+        self.assert_element(LocationsPage.bottom_promo_1)  # Stephen A. Schwarzman Building link
+        self.assert_element(LocationsPage.bottom_promo_2)  # Stavros Niarchos Foundation Library (SNFL) link
+        self.assert_element(LocationsPage.bottom_promo_3)  # Brooklyn Public Library link
+        self.assert_element(LocationsPage.bottom_promo_4)  # Queens Public Library link
+
+    @pytest.mark.smoke
+    def test_locations_filters(self):
+
         # page elements
         self.assert_element(LocationsPage.search_button)
         self.assert_element(LocationsPage.open_now_check_box)
@@ -67,13 +80,6 @@ class Locations(NyplUtils):
         self.click(LocationsPage.clear_all_search)
         # self.check_if_unchecked(LocationsPage.open_now_check_box)  # throws ElementClickInterceptedException
         self.assert_true(total_library_number >= open_library_number)
-
-        # lower page elements
-        # asserting 3 bottom elements. 2 midtown locations assertion and BK and Queens web-elements.
-        self.assert_element(LocationsPage.bottom_promo_1)  # Stephen A. Schwarzman Building link
-        self.assert_element(LocationsPage.bottom_promo_2)  # Stavros Niarchos Foundation Library (SNFL) link
-        self.assert_element(LocationsPage.bottom_promo_3)  # Brooklyn Public Library link
-        self.assert_element(LocationsPage.bottom_promo_4)  # Queens Public Library link
 
     @pytest.mark.smoke
     @pytest.mark.skip(reason="RENO-3468 needs to be fixed")

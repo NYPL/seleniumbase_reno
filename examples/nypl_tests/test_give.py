@@ -30,6 +30,9 @@ class Give(NyplUtils):
         self.assert_element(GivePage.home)
         self.assert_element(GivePage.h1)
 
+        # assert all links on the page
+        self.assert_links_valid(GivePage.all_links)
+
         # asserting 'Donate' box
         self.assert_element(GivePage.donate)
         self.assert_element(GivePage.donation_form)
@@ -41,19 +44,3 @@ class Give(NyplUtils):
         self.click(GivePage.monthly_donation)
         self.open_give_page()
 
-        # asserting all h3 links on the page, using 'assert page loads successfully' function from utility class
-        self.assert_page_loads_successfully(GivePage.membership_1)
-        self.assert_page_loads_successfully(GivePage.membership_2)
-
-        self.assert_page_loads_successfully(GivePage.get_involved_1)
-        self.assert_page_loads_successfully(GivePage.get_involved_2)
-
-        self.assert_page_loads_successfully(GivePage.more_ways_to_give_1)
-        self.assert_page_loads_successfully(GivePage.more_ways_to_give_2)
-        self.assert_page_loads_successfully(GivePage.more_ways_to_give_3)
-        self.assert_page_loads_successfully(GivePage.more_ways_to_give_4)
-        self.assert_page_loads_successfully(GivePage.more_ways_to_give_5)
-
-        self.assert_page_loads_successfully(GivePage.learn_about_corporate_1)
-        self.assert_page_loads_successfully(GivePage.learn_about_corporate_2)
-        self.assert_page_loads_successfully(GivePage.learn_about_corporate_3)

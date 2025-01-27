@@ -187,10 +187,12 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
     def link_assertion(self, link, text, retry_wait=3):
         try:
+            print("\nin try/except for 'link assertion' function")
             self.click(link)
             current_url = self.get_current_url()
+            # print(text)  # text keyword to assert
+            print(current_url)  # printing current URL
             assert text in current_url, f"Expected text '{text}' not in URL: {current_url}"
-            print(current_url)
         except AssertionError as ae:
             print("Assertion failed on first attempt. Retrying...")
             self.click(link)

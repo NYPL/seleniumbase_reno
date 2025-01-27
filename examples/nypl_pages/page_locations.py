@@ -6,6 +6,8 @@ class LocationsPage(BaseCase):
     locations = '(//*[contains(text(), "Locations")])[2]'  # breadcrumb, not the top header navigation one.
     locations_page_link = 'https://www.nypl.org/locations'
 
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
+
     search_bar = '//*[@id="search-form__search-input"]'
     search_button = '//*[@id="search-form__submit"]'
     first_result = '(//*[@id="locations-list"]//h2)[1]'

@@ -34,28 +34,12 @@ class PosadaTest(NyplUtils):
         self.assert_element(PosadaPage.events)  # assert events breadcrumb
         self.assert_element(PosadaPage.exhibitions)  # assert exhibitions breadcrumb
 
+        # assert all links on the page
+        self.assert_links_valid(PosadaPage.all_links)
+
         # assert hero by checking if "Posada" text is in hero text in h1 header
         hero_text = self.get_text(PosadaPage.hero)
         self.assert_true("Posada" in hero_text)
-
-        # asserting 'Explore the Online Exhibition'
-        # link list is hardcoded, so when the exhibition list changes on the page, these list below needs to be updated
-        # with the new link texts
-
-        exhibition_links_list = ["la-catrina",
-                                 "don-chepito-mariguano",
-                                 "la-revolucion",
-                                 "iconos-revolucionarios",
-                                 "transporte-publico",
-                                 "la-fiesta-en-ultratumba"]
-
-        for x in range(1, 7):
-            url = f'//*[@class="exhibition-card card"][{x}]'
-
-            print("exh list " + exhibition_links_list[x - 1])
-
-            self.link_assertion(url, exhibition_links_list[x-1])
-            print("\n===========================")
 
     def test_posada_sliders(self):
         print("test_posada_sliders()\n")

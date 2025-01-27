@@ -10,7 +10,7 @@ class BlogPage(BaseCase):
     all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
 
     featured_posts = '//*[@id="featured-posts"]'
-    view_all_blogs = '(//*[contains(text(), "View all blog posts")])[1]'
+    view_all_blogs = '(//*[contains(text(), "View all blog posts")])'
 
     get_a_library_card = '(//*[contains(text(),"Get a Library Card")])[1]'
     find_your_next_book = '(//*[contains(text(),"Find Your Next")])[1]'
@@ -28,13 +28,7 @@ class BlogPage(BaseCase):
 
     featured_posts_length = '(//*[@id="featured-posts"]//..//..//..//h3)'
 
-    explore_by_channel = '//*[@id="explore-by-channel"]'
     view_all_channels = '//*[contains(text(), "View all channels")]'
-
-    explore_by_channel_box_amount = '(//*[@id="explore-by-channel"]//..//..//..//li//a)'
-
-    first_box = '(//*[@id="explore-by-channel"]//..//..//..//li//a)[1]'  # first link of the 'explore by channel'
-    second_box = '(//*[@id="explore-by-channel"]//..//..//..//li//a)[2]'  # second link of the 'explore by channel'
 
     def open_blog_page(self):
 

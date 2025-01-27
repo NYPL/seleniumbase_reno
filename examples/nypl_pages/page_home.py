@@ -12,6 +12,8 @@ class HomePage(BaseCase):
     slide_prev = '//*[@id="slideshow-prev-button"]'
     new_noteworthy_slide = '(//*[@id="content-primary"]//h2)[5]//..//..//..//li'
 
+    all_links = '((//*[@id="mainContent"]//h3)//a)'  # locator for all links on the page
+
     def open_home_page(self):
         # self.open("https://www.nypl.org/")
 

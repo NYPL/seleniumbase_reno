@@ -6,7 +6,7 @@ class BooksPage(BaseCase):
     books = '(//*[contains(text(), "Books")])[3]'  # 'books/music/movies' breadcrumb
     title = 'Books/Music/Movies | The New York Public Library'
 
-    total_h2 = '(//*[@id="mainContent"]//h2)'  # total h2 on the page
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
 
     # newsletter signup locators
     email_subscription = '(//*[contains(text(), "Sign Up for Our Newsletter")])[1]'

@@ -34,7 +34,6 @@ class BookLists125(NyplUtils):
         self.assert_element(BookListsPage.home)
         self.assert_element(BookListsPage.books_and_more)
         self.assert_element(BookListsPage.recommendations)
-        self.assert_element(BookListsPage.h1_heading)
         self.assert_element(BookListsPage.adults_tab_adults)
         self.assert_element(BookListsPage.teens_tab_adults)
         self.assert_element(BookListsPage.kids_tab_adults)

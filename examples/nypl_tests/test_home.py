@@ -34,6 +34,9 @@ class HomePageTest(NyplUtils):
         # assert hero h1
         self.assert_element(HomePage.hero)
 
+        # assert all links on the page
+        self.assert_links_valid(HomePage.all_links)
+
         # assert all the h2  and 'See More' buttons ("Spotlight", "What's on", "Discover", "Staff Picks",
         # "New & Noteworthy", "From Our Blog", "Updates") in a loop
         h2_amount = len(self.find_elements(HomePage.h2_heading))  # getting the length

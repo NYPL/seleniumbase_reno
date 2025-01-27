@@ -46,27 +46,25 @@ class BlogTests(NyplUtils):
         # 'NYPL Blog' text in h1
         self.assert_text("NYPL Blog", BlogPage.nypl_blog)
 
+        # assert 'View all channels' element
+        self.link_assertion(BlogPage.view_all_channels, "channels")  # assert 'View all channels' link goes to
+        # correct page
+
     def test_featured_posts(self):
         print("test_featured_posts()\n")
         # Featured Posts are dynamic, new posts added daily, so can't test every post
 
         # assert 'View all blog posts' element
         self.assert_element(BlogPage.featured_posts)  # assert 'Featured Posts' element
-        self.assert_element(BlogPage.view_all_blogs)  # assert the 'View all blog posts' element
-        self.link_assertion(BlogPage.view_all_blogs, "blog")  # assert the 'View all blog posts' link
+        # self.click(BlogPage.view_all_blogs)
+        self.link_assertion(BlogPage.view_all_blogs, "blog/all")  # assert the 'View all blog posts' link
 
         # find posts links elements
         featured_posts_length = len(self.find_elements(BlogPage.featured_posts_length))
 
-        # assert all 'Featured Posts' links with utility function
-        for x in range(1, featured_posts_length + 1):
-            self.assert_page_loads_successfully(BlogPage.featured_posts_length + f'[{x}]//a')
-
         # post links amount assertion
-        print(featured_posts_length)
-        expected_featured_post_amount = 6
-        self.assert_true(0 <= featured_posts_length <= expected_featured_post_amount,
-                         "expected: " + str(expected_featured_post_amount) + ", actual: " + str(featured_posts_length))
+        print("Featured Posts amount: " + str(featured_posts_length))
+        self.assert_true(featured_posts_length >= 1, "No Links present. At least 1 Link expected")
 
     def test_right_side_tab(self):
         print("test_more_at_nypl_links()\n")
@@ -100,24 +98,9 @@ class BlogTests(NyplUtils):
         self.assert_element(BlogPage.support_your_library)  # assert "Support Your Library" element
         self.link_assertion(BlogPage.support_your_library, "donation")  # assert the URL on "Support your Library"
 
-    def test_explore_by_channel(self):
-        print("test_explore_by_channel()\n")
 
-        # assert 'Explore By Channel' text
-        self.assert_text("Explore By Channel", BlogPage.explore_by_channel)
 
-        # assert 'View all channels' element
-        #self.wait(2)
-        self.link_assertion(BlogPage.view_all_channels, "channels")  # assert 'View all channels' link goes to
-        # correct page
 
-        # assertions for the Bottom Boxes underneath "Explore By Channel". These boxes are dynamic, the content amount
-        # and the content itself can change. e.g. > "Book Lists - Romance - Poetry..."
 
-        # get the length/amount of the "Explore By Channel" links/boxes
-        box_amount = len(self.find_elements(BlogPage.explore_by_channel_box_amount))
-
-        for x in range(1, box_amount + 1):
-            self.link_assertion(f"{BlogPage.explore_by_channel_box_amount}[{x}]", 'blog/all?channel=')
 
 

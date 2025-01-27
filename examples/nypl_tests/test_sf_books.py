@@ -36,24 +36,9 @@ class BooksTest(NyplUtils):
         self.assert_element(BooksPage.home_button)  # home
         self.assert_element(BooksPage.books)  # events
 
+        # assert all links on the page
+        self.assert_links_valid(BooksPage.all_links)
+
         # assert Newsletter Subscription
         self.assert_newsletter_signup(BooksPage)
-
-    def test_books_links(self):
-        print("test_books_music_movies_links()\n")
-
-        # Assert 'h3' links for each 'h2' on the page
-        total_h2_amount = len(self.find_elements(BooksPage.total_h2))
-        print("total h2(x) amount is = " + str(total_h2_amount))
-
-        for x in range(1, total_h2_amount + 1):
-            total_h3 = len(self.find_elements('(' + BooksPage.total_h2 + f'[{x}]//..//a)'))
-            print("total h3(y) amount is = " + str(total_h3))
-            for y in range(1, total_h3 + 1):
-                if x == 4 and y == 3:
-                    continue
-                print("x = " + str(x))
-                print("y = " + str(y))
-                self.assert_page_loads_successfully('(' + BooksPage.total_h2 + f'[{x}]//..//a)[{y}]')
-            print("===============================\n")
 
