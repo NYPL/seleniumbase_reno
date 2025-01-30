@@ -1,0 +1,16 @@
+nypl_tests/test_home.py::HomePageTest::test_home_page
+--------------------------------------------------------------------
+Last Page: https://www.nypl.org/
+ Duration: 45.57s
+  Browser: Chrome 132.0.6834.111 / headless
+   Driver: chromedriver 132.0.6834.110
+Timestamp: 1738087278  (Unix Timestamp)
+     Date: Tuesday, January 28, 2025
+     Time: 1:01:18 PM  (EDT, UTC-04:00)
+--------------------------------------------------------------------
+Traceback:
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_tests/test_home.py", line 38, in test_home_page
+    self.assert_links_valid(HomePage.all_links)
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_utility/utility.py", line 333, in assert_links_valid_2
+    assert False, f"Failed to verify link at position {x} after {retries} attempts."
+Exception: Failed to verify link at position 5 after 3 attempts.
