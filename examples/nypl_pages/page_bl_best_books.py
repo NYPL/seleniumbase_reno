@@ -19,12 +19,15 @@ class BestBooksPage(BaseCase):
     submit = '(//*[contains(text(), "Submit")])[1]'
     selected_year = '//*[@id="year"]/option[@selected=""]'
 
+    clear_all_filters = '(//*[contains(text(), "Clear All Filters")])[1]'
     filter_results_below = '(//*[contains(text(), "Filter Results Below")])[1]'
     left_side_filter = '(//*[contains(text(), "Filter By Tags")]//..//a)'
     additional_info_h3 = '(//*[contains(text(), "Additional Info")])[1]'
     additional_info_links = '(//*[contains(text(), "Additional Information")]//..//a)'
     filter_results = '//*[contains(text(), "Filtered by")]'
     book_results = '(//*[@id="block-nypl-emulsify-content"]//h3)[1]'
+
+    error_locator = '//*[@aria-label="Error message"]'
 
     def open_best_books_page(self, category='adults'):
         # Determine the base URLs
@@ -47,8 +50,8 @@ class BestBooksPage(BaseCase):
 
         # Open the appropriate URL based on the environment
         if self.env == "qa":
-            print(f"Running on QA Env: Opening {category} page with URL: {qa_url}")
+            print(f"Running on QA Env: Opening {category} page with URL: {qa_url}\n")
             self.open(qa_url)
         else:
-            print(f"Running on Production Env: Opening {category} page with URL: {url}")
+            print(f"Running on Production Env: Opening {category} page with URL: {url}\n")
             self.open(url)
