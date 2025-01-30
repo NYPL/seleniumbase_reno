@@ -28,37 +28,37 @@ class BookListsBestBooks(NyplUtils):
         print('test_best_books_adults()\n')
         self.open_best_books_page(category='adults')
 
-        # # assert images on the page
-        # self.image_assertion()
-        #
-        # # assert all links on the page
-        # self.assert_links_valid(BestBooksPage.all_links)
+        # assert images on the page
+        self.image_assertion()
 
-        # # assert breadcrumbs and page elements
-        # self.assert_element(BestBooksPage.home)
-        # self.assert_element(BestBooksPage.books_and_more)
-        # self.assert_element(BestBooksPage.recommendations)
-        # self.assert_element(BestBooksPage.h1_heading)
-        # self.assert_true("Best Books" in self.get_text(BestBooksPage.h1_heading))
-        # self.assert_element(BestBooksPage.adults_tab)
-        # self.assert_element(BestBooksPage.submit)
-        # self.assert_element(BestBooksPage.filter_results_below)
-        # self.assert_element(BestBooksPage.additional_info_h3)
-        # self.wait(1)
+        # assert all links on the page
+        self.assert_links_valid(BestBooksPage.all_links)
 
-        # assert left side filter number is more than the given amount, == 1
+        # assert breadcrumbs and page elements
+        self.assert_element(BestBooksPage.home)
+        self.assert_element(BestBooksPage.books_and_more)
+        self.assert_element(BestBooksPage.recommendations)
+        self.assert_element(BestBooksPage.h1_heading)
+        self.assert_true("Best Books" in self.get_text(BestBooksPage.h1_heading))
+        self.assert_element(BestBooksPage.adults_tab)
+        self.assert_element(BestBooksPage.submit)
+        self.assert_element(BestBooksPage.filter_results_below)
+        self.assert_element(BestBooksPage.additional_info_h3)
+        self.wait(1)
+
+        # assert left side filter number is more than the given amount, 1.
         left_filter_length = len(self.find_elements(BestBooksPage.left_side_filter))
         # optional print of the length of left side filter, 10 as of June 2022
         print("left side filter length is " + str(left_filter_length))
-        # assert that filter is greater than wanted amount, 1 for now
+        # assert that filter is greater than wanted amount, 1.
         self.assert_true(left_filter_length > 1, "left side filter does not have any result")
 
         # asserting left side filter and "Clear All Filters" button displayed when a filter is applied
         for x in range(1, left_filter_length + 1):
-            # x = random.randint(1, left_filter_length)  # choosing a random library in range 1-89 inc.
             filter_text = self.get_text(BestBooksPage.left_side_filter + "[" + str(x) + "]")
             self.click(BestBooksPage.left_side_filter + "[" + str(x) + "]")
             self.wait(1)
+
             # asser no error message displayed after clicking filters
             self.assert_element_not_visible(BestBooksPage.error_locator)
 
@@ -109,42 +109,45 @@ class BookListsBestBooks(NyplUtils):
         self.assert_element(BestBooksPage.additional_info_h3)
         self.wait(1)
 
-        # # assert 'Additional Information' Section by clicking all the links
-        # additional_info_length = len(self.find_elements(BestBooksPage.additional_info_links))
-        # print("additional info length is = " + str(additional_info_length))
-        #
-        # for x in range(1, additional_info_length + 1):
-        #     self.assert_page_loads_successfully(BestBooksPage.additional_info_links + "[" + str(x) + "]")
-
-        # assert left side filter number is more than the given amount, == 1
+        # assert left side filter number is more than the given amount, 1.
         left_filter_length = len(self.find_elements(BestBooksPage.left_side_filter))
         # optional print of the length of left side filter, 10 as of June 2022
         print("left side filter length is " + str(left_filter_length))
-        # assert that filter is greater than wanted amount, 1 for now
+        # assert that filter is greater than wanted amount, 1.
         self.assert_true(left_filter_length > 1, "left side filter does not have any result")
 
-        # asserting left side filter content when it is clicked
-        for x in range(1, 10):
-            x = random.randint(1, left_filter_length)  # choosing a random library in range 1-89 inc.
+        # asserting left side filter and "Clear All Filters" button displayed when a filter is applied
+        for x in range(1, left_filter_length + 1):
             filter_text = self.get_text(BestBooksPage.left_side_filter + "[" + str(x) + "]")
             self.click(BestBooksPage.left_side_filter + "[" + str(x) + "]")
             self.wait(1)
+
+            # asser no error message displayed after clicking filters
+            self.assert_element_not_visible(BestBooksPage.error_locator)
+
+            # asserting "Clear All Filters" button displayed after filter is applied
+            try:
+                self.assert_element(BestBooksPage.clear_all_filters)
+                print("✅ 'Clear All Filters' button is displayed.")
+            except Exception as e:
+                print("❌ Test Failed: 'Clear All Filters' button not found.")
+                raise  # Ensures the test still fails
+
+            # asserting filter text matches the result text
             result_text = self.get_text(BestBooksPage.filter_results)
-            # assert if the filter text matches the filtered actual text when clicked
             self.assert_true(filter_text in result_text, "clicked '" + filter_text + "' and '" + result_text + "' don't"
                                                                                                                "match")
             # optional print of filters and results
-            print(x)  # optional filter number print
-            print(filter_text + " =? " + result_text)  # optional filter text vs results text comparison print
+            print("\nFilter no: " + str(x))  # optional filter number print
+            print(filter_text + " ==? " + result_text)  # optional filter text vs results text comparison print
             # going back after clicking, receiving and checking the texts
             self.go_back()
 
         # assert book number in the page >= 1
-        # item amount in the h3
-        h3_amount = int(self.get_text(BestBooksPage.book_results).split()[0])
-        print("h3 amount is = " + str(h3_amount))  # optional print of the amount seen in h3 element
+        h3_amount = int(self.get_text(BestBooksPage.book_results).split()[0])  # book result amount
+        print("\nBook result amount is = " + str(h3_amount))  # optional print of the amount seen in h3 element
         # optional print of the number of the displayed books in the page
-        self.assert_true(h3_amount >= 1, "Teens book number and amount no >= 1")
+        self.assert_true(h3_amount >= 1, "Adults book number and amount no >= 1")
 
     def test_best_books_kids(self):
         # https://www.nypl.org/books-more/recommendations/best-books/kids
@@ -169,42 +172,46 @@ class BookListsBestBooks(NyplUtils):
         self.assert_element(BestBooksPage.additional_info_h3)
         self.wait(1)
 
-        # # assert 'Additional Information' Section by clicking all the links
-        # additional_info_length = len(self.find_elements(BestBooksPage.additional_info_links))
-        # print("additional info length is = " + str(additional_info_length))
-        #
-        # for x in range(1, additional_info_length + 1):
-        #     self.assert_page_loads_successfully(BestBooksPage.additional_info_links + "[" + str(x) + "]")
-
-        # assert left side filter number is more than the given amount, == 1
+        # assert left side filter number is more than the given amount, 1.
         left_filter_length = len(self.find_elements(BestBooksPage.left_side_filter))
         # optional print of the length of left side filter, 10 as of June 2022
         print("left side filter length is " + str(left_filter_length))
-        # assert that filter is greater than wanted amount, 1 for now
+        # assert that filter is greater than wanted amount, 1.
         self.assert_true(left_filter_length > 1, "left side filter does not have any result")
 
-        # asserting left side filter content when it is clicked
-        for x in range(1, 10):
-            x = random.randint(1, left_filter_length)  # choosing a random library in range 1-89 inc.
+        # asserting left side filter and "Clear All Filters" button displayed when a filter is applied
+        for x in range(1, left_filter_length + 1):
             filter_text = self.get_text(BestBooksPage.left_side_filter + "[" + str(x) + "]")
             self.click(BestBooksPage.left_side_filter + "[" + str(x) + "]")
             self.wait(1)
+
+            # asser no error message displayed after clicking filters
+            self.assert_element_not_visible(BestBooksPage.error_locator)
+
+            # asserting "Clear All Filters" button displayed after filter is applied
+            try:
+                self.assert_element(BestBooksPage.clear_all_filters)
+                print("✅ 'Clear All Filters' button is displayed.")
+            except Exception as e:
+                print("❌ Test Failed: 'Clear All Filters' button not found.")
+                raise  # Ensures the test still fails
+
+            # asserting filter text matches the result text
             result_text = self.get_text(BestBooksPage.filter_results)
-            # assert if the filter text matches the filtered actual text when clicked
             self.assert_true(filter_text in result_text, "clicked '" + filter_text + "' and '" + result_text + "' don't"
                                                                                                                "match")
             # optional print of filters and results
-            print(x)  # optional filter number print
-            print(filter_text + " =? " + result_text)  # optional filter text vs results text comparison print
+            print("\nFilter no: " + str(x))  # optional filter number print
+            print(filter_text + " ==? " + result_text)  # optional filter text vs results text comparison print
             # going back after clicking, receiving and checking the texts
             self.go_back()
 
         # assert book number in the page >= 1
-        # item amount in the h3
-        h3_amount = int(self.get_text(BestBooksPage.book_results).split()[0])
-        print("h3 amount is = " + str(h3_amount))  # optional print of the amount seen in h3 element
+        h3_amount = int(self.get_text(BestBooksPage.book_results).split()[0])  # book result amount
+        print("\nBook result amount is = " + str(h3_amount))  # optional print of the amount seen in h3 element
         # optional print of the number of the displayed books in the page
-        self.assert_true(h3_amount >= 1, "Kids book number and amount no >= 1")
+        self.assert_true(h3_amount >= 1, "Adults book number and amount no >= 1")
+
 
     def test_best_books_year_dropdown(self):
         # https://www.nypl.org/books-more/recommendations/best-books/adults
