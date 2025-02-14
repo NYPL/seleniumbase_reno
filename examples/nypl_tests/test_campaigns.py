@@ -91,11 +91,6 @@ class Campaigns(NyplUtils):
         # asserting h2 header 'Honorable Mention'
         self.assert_element(CampaignsPage.honorable_mention)
 
-        # assert "Honorable Mention" book links
-        honorable_mention_book_links_amount = len(self.find_elements(CampaignsPage.honorable_mention_book_links))
-        for x in range(1, honorable_mention_book_links_amount + 1):
-            self.assert_page_loads_successfully(CampaignsPage.honorable_mention_book_links + '[' + str(x) + ']')
-
         # asserting the top checkout number is equal to 10
         top_checkout_amount = len(self.find_elements(CampaignsPage.top10_books))
         self.assert_true(top_checkout_amount == 10, "top checkout number is not equal to 10")

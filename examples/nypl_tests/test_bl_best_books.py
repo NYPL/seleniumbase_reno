@@ -212,7 +212,6 @@ class BookListsBestBooks(NyplUtils):
         # optional print of the number of the displayed books in the page
         self.assert_true(h3_amount >= 1, "Adults book number and amount no >= 1")
 
-
     def test_best_books_year_dropdown(self):
         # https://www.nypl.org/books-more/recommendations/best-books/adults
         print('test_best_books_year_dropdown()\n')

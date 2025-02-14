@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-import pytest
+import pytest, requests
 from selenium.common import NoSuchElementException
 
 from examples.nypl_pages.page_header import HeaderPage
@@ -144,7 +144,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             self.click(self.submit)
 
     """ 
-    below is the login method to Artifles & Databases pages such as;
+    below is the login method to Articles & Databases pages such as;
     # https://www.nypl.org/research/collections/articles-databases/17th-18th-century-burney-collection-newspapers
     """
     # These are SELECTORS for the login page for Collections and Articles & Databases
@@ -215,42 +215,6 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
         # Go to the previous page
         self.go_back()
-
-    """ dynamic element link assertion:
-    using link_assertion() method, click a link and assert the text in the URL,
-    taking 2 parameters, 'locator' to be clicked and 'text' to be checked"""
-
-    def dynamic_element_link_assertion(self, locator, text):
-        # find the element with the locator and get the length
-        exhibitions_length = len(self.find_elements(locator))
-
-        # for loop to iterate over every element and asserting the link and text with link_assertion() method
-        for x in range(1, exhibitions_length + 1):
-            self.link_assertion(
-                locator + '[' + str(x) + ']', text)
-
-    """a method to assert all the links on a page.
-    pros: asserts all the links on a page with the given 'url' parameter.
-    cons: asserts header and footer links as well.
-    """
-
-    def assert_all_links(self, url):
-        self.open(url)
-        link_elements = self.find_elements('a')
-        num_links = len(link_elements)
-        print(f"Number of links on the page: {num_links}")
-        for index, link_element in enumerate(link_elements):
-            url = link_element.get_attribute('href')
-            print(f"\nLink {index + 1} of {num_links}: {url}")
-            response = requests.head(url)
-            if response.status_code == 301:
-                print(
-                    f"WARNING: The requested resource at {url} has been definitively moved to the URL given by the "
-                    f"Location headers")
-            assert response.status_code < 400, f"Link {url} is broken"
-        print("\nAll links on the page are valid!")
-
-    import requests
 
     def assert_links_valid(self, locator):
         """
@@ -323,34 +287,6 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 assert False, f"Failed to verify link at position {x} after {retries} attempts."
 
         print("\n=====================================================\n")
-
-    def assert_page_loads_successfully(self, link_locator):
-        """Clicks a link and asserts the resulting page loads with a status code between 200 and 400.
-        Difference between assert_links_valid and assert_page_loads_successfully
-        # assert_links_valid: checks child li elements
-        # assert_page_loa...: check only 1 link"""
-
-        # Click the link using SeleniumBase
-        self.click(link_locator)
-
-        # Wait for a moment to ensure the new page is loaded
-        # self.sleep(2)
-
-        # Get the current URL
-        current_url = self.get_current_url()
-
-        # Now use requests library to check the status code of the current page
-        response = requests.get(current_url)
-
-        # print the current URL
-        print(self.get_current_url())
-
-        # Check that the status code is in the desired range
-        assert 200 <= response.status_code < 400, (f"Status code {response.status_code} not in expected range [200, "
-                                                   f"400) for URL: {current_url}")
-
-        # Go back to the original page for subsequent checks
-        self.go_back()
 
     def image_assertion(self):
         # skipping this function since 'img' locator finds unnecessary images
