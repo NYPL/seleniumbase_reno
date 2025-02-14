@@ -36,7 +36,7 @@ class HomePageTest(NyplUtils):
 
         # assert all links on the page
         # self.assert_links_valid(HomePage.all_links)
-        # todo skipping above assertion until the double html issue resolved on the homepage
+        # TODO skipping above assertion until the double html issue resolved on the homepage
 
         # assert all the h2  and 'See More' buttons ("Spotlight", "What's on", "Discover", "Staff Picks",
         # "New & Noteworthy", "From Our Blog", "Updates") in a loop
