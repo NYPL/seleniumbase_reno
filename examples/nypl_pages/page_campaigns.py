@@ -18,7 +18,6 @@ class CampaignsPage(BaseCase):
     # /topcheckouts
     checkouts_h1 = '(//*[contains(text(), "Top 10 Checkouts of All Time")])[2]'  # /checkouts path h1
     honorable_mention = '//*[contains(text(), "Honorable Mention")]'
-    honorable_mention_book_links = '(//*[contains(text(), "Honorable Mention")]//..//..//a)'  # book link amount
     top10_books = '((//*[@class= "top-checkouts"])[1]//li)'
 
     def open_campaigns_page(self, category=''):

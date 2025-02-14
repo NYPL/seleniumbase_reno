@@ -45,7 +45,10 @@ class NewArrivals(NyplUtils):
         self.click(self.filter_button)  # Click 'Filter' button
         self.click(self.filter_book)  # Click 'Book' filter
         self.click(self.filter_adult)  # Click 'Adult' filter
-        self.click(self.filter_english)  # Click 'English' filter
+
+        # self.click(self.filter_english)  # Click 'English' filter  # RENO-4463 needs to be fixed
+        # TODO https://newyorkpubliclibrary.atlassian.net/browse/RENO-4463
+
         self.click(self.filter_fiction)  # Click 'All fiction' filter
         self.click(self.button_apply)  # Click 'Apply' button
         self.assert_element(self.selected_filters)  # Assert the selected filters are present
