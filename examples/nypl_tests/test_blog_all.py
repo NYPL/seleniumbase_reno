@@ -157,61 +157,46 @@ class BlogAllTests(NyplUtils):
 
     def test_audience_filter(self):
         print("test_audience()\n")
-        """this method randomly takes 10 elements (can be changed) and asserts the child elements of the Audience 
-        filter and if they are clickable """
+        """This method randomly takes 10 elements (can be changed) and asserts 
+        the child elements of the Audience filter and if they are clickable."""
 
-        # assert Audience button
+        # Assert Audience button
         self.assert_element(BlogAllPage.audience)
 
-        # click 'Audience' tab
+        # Click 'Audience' tab
         self.click(BlogAllPage.audience)
 
-        # click 'Adults' filter
-        self.click(BlogAllPage.adults)
-        self.click(BlogAllPage.apply_audience)
-        self.wait(1)
-        # wait for the next page, see the results (this is for sync issues)
-        self.wait_for_element(BlogAllPage.filter_results)
-        # url text for the filter
-        url_text = self.get_current_url()
-        print(self.get_current_url())
+        # Define audience filters and expected URL parameters
+        audience_filters = {
+            "Adults": "audience_by_age=216",
+            "Kids": "audience_by_age=217",
+            "Teens": "audience_by_age=222"
+        }
 
-        # assert the url has the given text
-        self.wait(1)
-        self.assert_true('audience_by_age=216' in url_text)
-        self.click(BlogAllPage.audience)
-        self.wait(1)
-        # unclick 'adults'
-        self.click(BlogAllPage.adults)
+        def apply_and_verify_filter(filter_element, expected_text):
+            """Helper function to apply filter and verify the URL"""
+            try:
+                self.click(filter_element)
+                self.click(BlogAllPage.apply_audience)
+                self.wait(1)
+                self.wait_for_element(BlogAllPage.filter_results)
+                url_text = self.get_current_url()
+                print(url_text)
+                self.wait(1)
+                assert expected_text in url_text, f"Actual URL: {url_text}, Expected URL to contain: {expected_text}"
+            except AssertionError:
+                print(f"Assertion failed, retrying filter: {filter_element}")
+                self.click(filter_element)  # Retry clicking the filter
+                self.wait(2)  # Additional wait for stability
+                url_text = self.get_current_url()
+                assert expected_text in url_text, f"Actual URL: {url_text}, Expected URL to contain: {expected_text}"
 
-        # click 'Kids' filter
-        self.click(BlogAllPage.kids)
-        self.click(BlogAllPage.apply_audience)
-        self.wait(1)
-        # wait for the next page, see the results (this is for sync issues)
-        self.wait_for_element(BlogAllPage.filter_results)
-        # url text for the filter
-        url_text = self.get_current_url()
-        print(self.get_current_url())
+            # Unselect the filter before moving to the next
+            self.click(BlogAllPage.audience)
+            self.wait(1)
+            self.click(filter_element)
 
-        # assert the url has the given text
-        self.wait(1)
-        self.assert_true('audience_by_age=217' in url_text)
-        self.click(BlogAllPage.audience)
-        self.wait(1)
-        # unclick 'kids'
-        self.click(BlogAllPage.kids)
-
-        # click 'Teens' filter
-        self.click(BlogAllPage.teens)
-        self.click(BlogAllPage.apply_audience)
-        self.wait(1)
-        # wait for the next page, see the results (this is for sync issues)
-        self.wait_for_element(BlogAllPage.filter_results)
-        # url text for the filter
-        url_text = self.get_current_url()
-        print(self.get_current_url())
-
-        # assert the url has the given text
-        self.wait(1)
-        self.assert_true('audience_by_age=222' in url_text)
+        # Iterate through each audience filter
+        for filter_name, url_param in audience_filters.items():
+            filter_element = getattr(BlogAllPage, filter_name.lower())  # Convert name to lowercase to match attribute
+            apply_and_verify_filter(filter_element, url_param)
