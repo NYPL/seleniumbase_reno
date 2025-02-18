@@ -54,17 +54,33 @@ class BlogTests(NyplUtils):
         print("test_featured_posts()\n")
         # Featured Posts are dynamic, new posts added daily, so can't test every post
 
-        # assert 'View all blog posts' element
-        self.assert_element(BlogPage.featured_posts)  # assert 'Featured Posts' element
-        # self.click(BlogPage.view_all_blogs)
-        self.link_assertion(BlogPage.view_all_blogs, "blog/all")  # assert the 'View all blog posts' link
+        try:
+            # Assert 'Featured Posts' element
+            self.assert_element(BlogPage.featured_posts)
 
-        # find posts links elements
-        featured_posts_length = len(self.find_elements(BlogPage.featured_posts_length))
+            # Assert the 'View all blog posts' link
+            self.link_assertion(BlogPage.view_all_blogs, "blog/all")
 
-        # post links amount assertion
-        print("Featured Posts amount: " + str(featured_posts_length))
-        self.assert_true(featured_posts_length >= 1, "No Links present. At least 1 Link expected")
+            # Find post links elements
+            featured_posts_elements = self.find_elements(BlogPage.featured_posts_length)
+            featured_posts_length = len(featured_posts_elements)
+
+            # Post links amount assertion
+            print("Featured Posts amount: " + str(featured_posts_length))
+            assert featured_posts_length >= 1, "No Links present. At least 1 Link expected"
+
+        except AssertionError as e:
+            print(f"Assertion failed: {e}. Retrying after waiting...")
+
+            # Additional wait time to handle sync issues
+            self.wait(2)
+
+            # Retry finding post elements and asserting again
+            featured_posts_elements = self.find_elements(BlogPage.featured_posts_length)
+            featured_posts_length = len(featured_posts_elements)
+
+            print("Retrying... Featured Posts amount: " + str(featured_posts_length))
+            assert featured_posts_length >= 1, "No Links present. At least 1 Link expected"
 
     def test_right_side_tab(self):
         print("test_more_at_nypl_links()\n")

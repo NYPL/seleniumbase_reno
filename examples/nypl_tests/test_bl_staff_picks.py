@@ -215,11 +215,12 @@ class StaffPicks(NyplUtils):
 
                 # Getting the season and year text
                 selected_season = self.get_text(f'//*[@id="season"]/option[{x}]')
-                print("Selected season " + selected_season)
+                print("Selected season: " + selected_season)
 
                 # Getting the text from the h2 heading
                 h2_heading = self.get_text(h2_heading_locator)
-                print("h2 heading = " + h2_heading)  # Optional print
+                print("h2 heading: " + h2_heading)  # Optional print
 
                 # Asserting both texts
-                self.assert_true(selected_season in h2_heading)
+                self.assert_true(selected_season in h2_heading, "selected season: " + selected_season + ", h2_heading: " + h2_heading)
+
