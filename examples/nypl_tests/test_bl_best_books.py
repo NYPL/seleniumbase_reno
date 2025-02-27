@@ -46,39 +46,8 @@ class BookListsBestBooks(NyplUtils):
         self.assert_element(BestBooksPage.additional_info_h3)
         self.wait(1)
 
-        # assert left side filter number is more than the given amount, 1.
-        left_filter_length = len(self.find_elements(BestBooksPage.left_side_filter))
-        # optional print of the length of left side filter, 10 as of June 2022
-        print("left side filter length is " + str(left_filter_length))
-        # assert that filter is greater than wanted amount, 1.
-        self.assert_true(left_filter_length > 1, "left side filter does not have any result")
-
-        # asserting left side filter and "Clear All Filters" button displayed when a filter is applied
-        for x in range(1, left_filter_length + 1):
-            filter_text = self.get_text(BestBooksPage.left_side_filter + "[" + str(x) + "]")
-            self.click(BestBooksPage.left_side_filter + "[" + str(x) + "]")
-            self.wait(1)
-
-            # asser no error message displayed after clicking filters
-            self.assert_element_not_visible(BestBooksPage.error_locator)
-
-            # asserting "Clear All Filters" button displayed after filter is applied
-            try:
-                self.assert_element(BestBooksPage.clear_all_filters)
-                print("✅ 'Clear All Filters' button is displayed.")
-            except Exception as e:
-                print("❌ Test Failed: 'Clear All Filters' button not found.")
-                raise  # Ensures the test still fails
-
-            # asserting filter text matches the result text
-            result_text = self.get_text(BestBooksPage.filter_results)
-            self.assert_true(filter_text in result_text, "clicked '" + filter_text + "' and '" + result_text + "' don't"
-                                                                                                               "match")
-            # optional print of filters and results
-            print("\nFilter no: " + str(x))  # optional filter number print
-            print(filter_text + " ==? " + result_text)  # optional filter text vs results text comparison print
-            # going back after clicking, receiving and checking the texts
-            self.go_back()
+        # assert left side filter
+        self.assert_left_side_filters(BestBooksPage)
 
         # assert book number in the page >= 1
         h3_amount = int(self.get_text(BestBooksPage.book_results).split()[0])  # book result amount
@@ -109,39 +78,8 @@ class BookListsBestBooks(NyplUtils):
         self.assert_element(BestBooksPage.additional_info_h3)
         self.wait(1)
 
-        # assert left side filter number is more than the given amount, 1.
-        left_filter_length = len(self.find_elements(BestBooksPage.left_side_filter))
-        # optional print of the length of left side filter, 10 as of June 2022
-        print("left side filter length is " + str(left_filter_length))
-        # assert that filter is greater than wanted amount, 1.
-        self.assert_true(left_filter_length > 1, "left side filter does not have any result")
-
-        # asserting left side filter and "Clear All Filters" button displayed when a filter is applied
-        for x in range(1, left_filter_length + 1):
-            filter_text = self.get_text(BestBooksPage.left_side_filter + "[" + str(x) + "]")
-            self.click(BestBooksPage.left_side_filter + "[" + str(x) + "]")
-            self.wait(1)
-
-            # asser no error message displayed after clicking filters
-            self.assert_element_not_visible(BestBooksPage.error_locator)
-
-            # asserting "Clear All Filters" button displayed after filter is applied
-            try:
-                self.assert_element(BestBooksPage.clear_all_filters)
-                print("✅ 'Clear All Filters' button is displayed.")
-            except Exception as e:
-                print("❌ Test Failed: 'Clear All Filters' button not found.")
-                raise  # Ensures the test still fails
-
-            # asserting filter text matches the result text
-            result_text = self.get_text(BestBooksPage.filter_results)
-            self.assert_true(filter_text in result_text, "clicked '" + filter_text + "' and '" + result_text + "' don't"
-                                                                                                               "match")
-            # optional print of filters and results
-            print("\nFilter no: " + str(x))  # optional filter number print
-            print(filter_text + " ==? " + result_text)  # optional filter text vs results text comparison print
-            # going back after clicking, receiving and checking the texts
-            self.go_back()
+        # assert left side filter
+        self.assert_left_side_filters(BestBooksPage)
 
         # assert book number in the page >= 1
         h3_amount = int(self.get_text(BestBooksPage.book_results).split()[0])  # book result amount
@@ -172,39 +110,8 @@ class BookListsBestBooks(NyplUtils):
         self.assert_element(BestBooksPage.additional_info_h3)
         self.wait(1)
 
-        # assert left side filter number is more than the given amount, 1.
-        left_filter_length = len(self.find_elements(BestBooksPage.left_side_filter))
-        # optional print of the length of left side filter, 10 as of June 2022
-        print("left side filter length is " + str(left_filter_length))
-        # assert that filter is greater than wanted amount, 1.
-        self.assert_true(left_filter_length > 1, "left side filter does not have any result")
-
-        # asserting left side filter and "Clear All Filters" button displayed when a filter is applied
-        for x in range(1, left_filter_length + 1):
-            filter_text = self.get_text(BestBooksPage.left_side_filter + "[" + str(x) + "]")
-            self.click(BestBooksPage.left_side_filter + "[" + str(x) + "]")
-            self.wait(1)
-
-            # asser no error message displayed after clicking filters
-            self.assert_element_not_visible(BestBooksPage.error_locator)
-
-            # asserting "Clear All Filters" button displayed after filter is applied
-            try:
-                self.assert_element(BestBooksPage.clear_all_filters)
-                print("✅ 'Clear All Filters' button is displayed.")
-            except Exception as e:
-                print("❌ Test Failed: 'Clear All Filters' button not found.")
-                raise  # Ensures the test still fails
-
-            # asserting filter text matches the result text
-            result_text = self.get_text(BestBooksPage.filter_results)
-            self.assert_true(filter_text in result_text, "clicked '" + filter_text + "' and '" + result_text + "' don't"
-                                                                                                               "match")
-            # optional print of filters and results
-            print("\nFilter no: " + str(x))  # optional filter number print
-            print(filter_text + " ==? " + result_text)  # optional filter text vs results text comparison print
-            # going back after clicking, receiving and checking the texts
-            self.go_back()
+        # assert left side filter
+        self.assert_left_side_filters(BestBooksPage)
 
         # assert book number in the page >= 1
         h3_amount = int(self.get_text(BestBooksPage.book_results).split()[0])  # book result amount
