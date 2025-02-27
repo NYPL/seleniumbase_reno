@@ -44,25 +44,8 @@ class StaffPicks(NyplUtils):
         # assert all links on the page
         self.assert_links_valid(StaffPicksPage.all_links)
 
-        left_filter_length = len(self.find_elements(StaffPicksPage.left_side_filter))
-        # optional print of the length of left side filter, 14 as of June 2022
-        print("left side filter length is " + str(left_filter_length))
-        # assert that filter is greater than wanted amount, 1 for now
-        self.assert_true(left_filter_length > 1, "left side filter amount is not greater than given amount")
-
-        # asserting left side filter content
-        for x in range(1, left_filter_length + 1):
-            filter_text = self.get_text(StaffPicksPage.left_side_filter + "[" + str(x) + "]/span")
-            self.click(StaffPicksPage.left_side_filter + "[" + str(x) + "]")
-            self.wait(1)
-            result_text = self.get_text(StaffPicksPage.filter_results)
-            # assert if the filter text matches the filtered actual text when clicked
-            self.assert_true(filter_text in result_text,
-                             "clicked " + filter_text + " and " + result_text + " don't match")
-            # optional print of filters and results
-            # print(filter_text + " =? " + result_text)
-            # going back after clicking, receiving and checking the texts
-            self.go_back()
+        # assert left side filter
+        self.assert_left_side_filters(StaffPicksPage)
 
         # assert book number in the page equal to the amount in the h3
         book_amount = len(self.find_elements(StaffPicksPage.total_books_found))
@@ -84,25 +67,8 @@ class StaffPicks(NyplUtils):
         # assert all links on the page
         self.assert_links_valid(StaffPicksPage.all_links)
 
-        left_filter_length = len(self.find_elements(StaffPicksPage.left_side_filter))
-        # optional print of the length of left side filter, 14 as of June 2022
-        print("left side filter length is " + str(left_filter_length))
-        # assert that filter is greater than wanted amount, 1 for now
-        self.assert_true(left_filter_length > 1, "left side filter amount is not greater than given amount")
-
-        # asserting left side filter content
-        for x in range(1, left_filter_length + 1):
-            filter_text = self.get_text(StaffPicksPage.left_side_filter + "[" + str(x) + "]/span")
-            self.click(StaffPicksPage.left_side_filter + "[" + str(x) + "]")
-            self.wait(1)
-            result_text = self.get_text(StaffPicksPage.filter_results)
-            # assert if the filter text matches the filtered actual text when clicked
-            self.assert_true(filter_text in result_text,
-                             "clicked " + filter_text + " and " + result_text + " don't match")
-            # optional print of filters and results
-            # print(filter_text + " =? " + result_text)
-            # going back after clicking, receiving and checking the texts
-            self.go_back()
+        # assert left side filter
+        self.assert_left_side_filters(StaffPicksPage)
 
         # assert book number in the page equal to the amount in the h3
         book_amount = len(self.find_elements(StaffPicksPage.total_books_found))
@@ -124,25 +90,8 @@ class StaffPicks(NyplUtils):
         # assert all links on the page
         self.assert_links_valid(StaffPicksPage.all_links)
 
-        left_filter_length = len(self.find_elements(StaffPicksPage.left_side_filter))
-        # optional print of the length of left side filter, 14 as of June 2022
-        print("left side filter length is " + str(left_filter_length))
-        # assert that filter is greater than wanted amount, 1 for now
-        self.assert_true(left_filter_length > 1, "left side filter amount is not greater than given amount")
-
-        # asserting left side filter content
-        for x in range(1, left_filter_length + 1):
-            filter_text = self.get_text(StaffPicksPage.left_side_filter + "[" + str(x) + "]/span")
-            self.click(StaffPicksPage.left_side_filter + "[" + str(x) + "]")
-            self.wait(1)
-            result_text = self.get_text(StaffPicksPage.filter_results)
-            # assert if the filter text matches the filtered actual text when clicked
-            self.assert_true(filter_text in result_text,
-                             "clicked " + filter_text + " and " + result_text + " don't match")
-            # optional print of filters and results
-            # print(filter_text + " =? " + result_text)
-            # going back after clicking, receiving and checking the texts
-            self.go_back()
+        # assert left side filter
+        self.assert_left_side_filters(StaffPicksPage)
 
         # assert book number in the page equal to the amount in the h3
         book_amount = len(self.find_elements(StaffPicksPage.total_books_found))

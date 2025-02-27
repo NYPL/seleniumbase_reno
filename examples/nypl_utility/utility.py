@@ -221,9 +221,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         assert links valid in a <li, List Item:
         A method to assert that the child links are not broken in a list item ('li' tag),
         using HTTP method HEAD, and checks if the response is between the acceptable limits (200-400)
-        Difference between assert_links_valid and assert_page_loads_successfully
-        # assert_links_valid: checks child li elements
-        # assert_page_loads_successfully: check only 1 link"""
+        """
 
         # List of keywords that are allowed to return a 403 status code
         allowed_403_keywords = [
@@ -406,3 +404,52 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 else:
                     # Raise the exception if all attempts are exhausted
                     raise AssertionError(f"Failed to complete newsletter signup after {retries} attempts.") from e
+
+    def assert_left_side_filters(self, Page):
+        """
+        Utility function to verify left side filters:
+          - Asserts that there is at least one filter.
+          - Iterates over each filter element:
+              - Retrieves its text.
+              - Clicks it and waits briefly.
+              - Asserts no error message is visible.
+              - Asserts that the "Clear All Filters" button is displayed.
+              - Verifies that the filter text is included in the result text.
+              - Navigates back after checking.
+        """
+        # Get the total number of filter elements on the left side.
+        left_filter_length = len(self.find_elements(Page.left_side_filter))
+        print("Left side filter length is " + str(left_filter_length))
+        self.assert_true(left_filter_length > 0, "Left side filter does not have any results")
+
+        # Loop through each filter element.
+        for x in range(1, left_filter_length + 1):
+            # Build the locator for the current filter element.
+            filter_locator = Page.left_side_filter + "[" + str(x) + "]"
+            filter_text = self.get_text(filter_locator)
+
+            self.click(filter_locator)
+            self.wait(1)
+
+            # Assert that no error message is displayed after clicking the filter.
+            self.assert_element_not_visible(Page.error_locator)
+
+            # Verify that the filter text is present in the result text.
+            result_text = self.get_text(Page.filter_results)
+            self.assert_true(filter_text in result_text,
+                             "Clicked '" + filter_text + "' and '" + result_text + "' don't match")
+
+            # Optional prints for debugging.
+            print("\nFilter no: " + str(x))
+            print(filter_text + " ==? " + result_text)
+
+            # Assert that the "Clear All Filters" button is visible.
+            try:
+                self.assert_element(Page.clear_all_filters)
+                print("✅ 'Clear All Filters' button is displayed.\n")
+            except Exception as e:
+                print("❌ Test Failed: 'Clear All Filters' button not found.\n")
+                raise
+
+            # Navigate back after clicking and checking the filter.
+            self.go_back()

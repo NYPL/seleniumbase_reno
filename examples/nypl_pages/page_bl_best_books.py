@@ -21,7 +21,7 @@ class BestBooksPage(BaseCase):
 
     clear_all_filters = '(//*[contains(text(), "Clear All Filters")])[1]'
     filter_results_below = '(//*[contains(text(), "Filter Results Below")])[1]'
-    left_side_filter = '(//*[contains(text(), "Filter By Tags")]//..//a)'
+    left_side_filter = "(//*[contains(text(), 'Filter Results Below')]/following-sibling::nav//li//label/span)"
     additional_info_h3 = '(//*[contains(text(), "Additional Info")])[1]'
     additional_info_links = '(//*[contains(text(), "Additional Information")]//..//a)'
     filter_results = '//*[contains(text(), "Filtered by")]'

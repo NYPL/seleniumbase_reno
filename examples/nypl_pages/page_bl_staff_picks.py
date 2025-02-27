@@ -20,8 +20,10 @@ class StaffPicksPage(BaseCase):
     submit = '(//*[contains(text(), "Submit")])[1]'
     # selected_year = '//*[@id="year"]/option[@selected=""]'
     season_dropdown = '//*[@id="season"]'
+    error_locator = '//*[@aria-label="Error message"]'
 
-    left_side_filter = '(//*[contains(text(), "Filter By Tags")]//..//a)'
+    clear_all_filters = '(//*[contains(text(), "Clear All Filters")])[1]'
+    left_side_filter = "(//*[contains(text(), 'Filter Results Below')]/following-sibling::nav//li//label/span)"
     filter_results = '//*[contains(text(), "Filtered by")]'
     h3_book_results = '(//*[@id="block-nypl-emulsify-content"]//h3)[1]'
 
