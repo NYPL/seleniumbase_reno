@@ -41,8 +41,9 @@ from examples.nypl_pages.page_bl_best_books import BestBooksPage
 from examples.nypl_pages.page_bl_staff_picks import StaffPicksPage
 from examples.nypl_pages.page_sf_events import EventsPage
 from examples.nypl_pages.page_sf_books import BooksPage
-# from examples.nypl_pages.page_lca import LibraryCardPage  # add LibraryCardPage in class
+from examples.nypl_pages.page_lca import LibraryCardPage
 from examples.nypl_pages.page_sf_new_arrivals import NewArrivalsPage
+from examples.nypl_pages.page_speakout import SpeakoutPage
 
 # from examples.nypl_tests.test_dxp_images import FrontendImages
 
@@ -61,7 +62,8 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 SnflPage, SnflTeenPage, BillyRosePage, RequestVisitPage, PosadaPage, WorldLiteraturePage,
                 ArticlesBurneyPage, ArticlesHomeworkPage, BlogChannelsPage, BlogIndividualPage, PressPage,
                 PressIndividualPage, EducationPage, EarlyLiteracyPage, EducationTeensPage, EducatorsPage, BestBooksPage,
-                StaffPicksPage, EducationKidsPage, EducationAdultsPage, EventsPage, BooksPage, NewArrivalsPage):
+                StaffPicksPage, EducationKidsPage, EducationAdultsPage, EventsPage, BooksPage, NewArrivalsPage,
+                LibraryCardPage, SpeakoutPage):
     login_button = '//*[@id="loginButton"]'
     login_catalog = '//*[contains(text(), "Go To The Catalog")]'
     login_research_catalog = '//*[contains(text(), "Go To The Research Catalog")]'
@@ -153,6 +155,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
     ad_login_button = '//*[@type="submit"]'  # Selector for login button
 
     def login_ad_catalog(self):
+        # articles & databases login. the page is moved to a third party by fall 2024 and this test is redundant now
         """
         Logs into A&D pages using above locators and credentials stored in environment variables.
         """
@@ -245,6 +248,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                     # Attempt to find the link element and retrieve URL
                     link_element = self.find_element(locator + f'[{x}]')
                     url = link_element.get_attribute('href')
+                    print("\n2- " + url)
 
                     # Check if the URL is a 'mailto@nypl.org' link and skip if so
                     if url.startswith("mailto:"):
@@ -260,7 +264,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
                     if response.status_code == 301:
                         print(
-                            f"WARNING: The requested resource at {url} has been definitively moved to the URL given by the Location headers")
+                            f"\nWARNING: The requested resource at {url} has been definitively moved to the URL given by the Location headers")
 
                     # Check if the link is allowed to return 403 based on keyword
                     if response.status_code == 403 and any(keyword in url for keyword in allowed_403_keywords):
@@ -276,7 +280,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                     break  # Exit retry loop if successful
 
                 except Exception as e:
-                    print(f"Attempt {attempt + 1} failed for link {x} with error: {e}. Retrying...")
+                    print(f"\nAttempt {attempt + 1} failed for link {x} with error: {e}. Retrying...")
                     self.wait(2)  # Wait 2 seconds before retrying
 
             # Final check if all retries failed
@@ -390,7 +394,6 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 # Step 5: Go Back to Previous Page
                 self.refresh()
 
-
                 # If everything succeeds, break out of the retry loop
                 break
 
@@ -405,7 +408,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                     # Raise the exception if all attempts are exhausted
                     raise AssertionError(f"Failed to complete newsletter signup after {retries} attempts.") from e
 
-    def assert_left_side_filters(self, Page):
+    def assert_left_side_filters(self, page):
         """
         Utility function to verify left side filters:
           - Asserts that there is at least one filter.
@@ -418,24 +421,24 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
               - Navigates back after checking.
         """
         # Get the total number of filter elements on the left side.
-        left_filter_length = len(self.find_elements(Page.left_side_filter))
+        left_filter_length = len(self.find_elements(page.left_side_filter))
         print("Left side filter length is " + str(left_filter_length))
         self.assert_true(left_filter_length > 0, "Left side filter does not have any results")
 
         # Loop through each filter element.
         for x in range(1, left_filter_length + 1):
             # Build the locator for the current filter element.
-            filter_locator = Page.left_side_filter + "[" + str(x) + "]"
+            filter_locator = page.left_side_filter + "[" + str(x) + "]"
             filter_text = self.get_text(filter_locator)
 
             self.click(filter_locator)
             self.wait(1)
 
             # Assert that no error message is displayed after clicking the filter.
-            self.assert_element_not_visible(Page.error_locator)
+            self.assert_element_not_visible(page.error_locator)
 
             # Verify that the filter text is present in the result text.
-            result_text = self.get_text(Page.filter_results)
+            result_text = self.get_text(page.filter_results)
             self.assert_true(filter_text in result_text,
                              "Clicked '" + filter_text + "' and '" + result_text + "' don't match")
 
@@ -445,7 +448,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
             # Assert that the "Clear All Filters" button is visible.
             try:
-                self.assert_element(Page.clear_all_filters)
+                self.assert_element(page.clear_all_filters)
                 print("✅ 'Clear All Filters' button is displayed.\n")
             except Exception as e:
                 print("❌ Test Failed: 'Clear All Filters' button not found.\n")
@@ -453,3 +456,50 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
             # Navigate back after clicking and checking the filter.
             self.go_back()
+
+    def click_with_fallback(self, locator):
+        """
+        Attempts to click on an element using multiple locators as fallbacks.
+
+        :param locator: The base locator to use for clicking.
+        :raises Exception: If none of the locators are found.
+        """
+        locators = [
+            locator,
+            locator + "//..",
+            "(" + locator + "//..//..)[1]"
+        ]
+
+        for loc in locators:
+            try:
+                self.click(loc)
+                return  # Exit the function once a successful click is made
+            except NoSuchElementException:
+                print(f"{loc} did not work, trying next locator")
+
+        print("Element not found at any level")
+        raise Exception("Test Failed: Element not found")  # Raise an error to fail the test
+
+    def assert_with_fallback(self, locator):
+        """
+        Attempts to click on an element using multiple locators as fallbacks.
+
+        :param locator: The base locator to use for clicking.
+        :raises Exception: If none of the locators are found.
+        """
+        locators = [
+            locator,
+            locator + "//..",
+            "(" + locator + "//..//..)[1]"
+        ]
+
+        for loc in locators:
+            try:
+                self.assert_element(loc)
+                return  # Exit the function once a successful click is made
+            except NoSuchElementException:
+                print(f"{loc} did not work, trying next locator")
+
+        print("Element not found at any level")
+        raise Exception("Test Failed: Element not found")  # Raise an error to fail the test
+
