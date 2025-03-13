@@ -22,7 +22,7 @@ Base interpreter is Python 3.10 for this test suite.
  cd into the nypl_tests files under examples (examples/nypl_tests) file and type 'pytest file_name'
  
  for instance: - cd ~/examples/nypl_tests 
-               - pytest test_sign_up.py
+               - pytest -k test_sign_up.py --headless
                
  try adding --demo for a slower run:
  pytest test_sign_up.py --demo
@@ -44,38 +44,6 @@ Base interpreter is Python 3.10 for this test suite.
  
  To test the mobile tests in 'test_mobile.py', the test should be run with --mobile command on terminal, for instance:
  pytest test_mobile.py --headless --mobile
-
-
-
-# Page Object Modeling has been used for the following pages:
-
-header:           - https://www.nypl.org/
-footer:           - https://www.nypl.org/
-
-
-
-blog:             - https://www.nypl.org/blog
-blog/all:         - https://www.nypl.org/blog/all
-
-booklists:        - https://www.nypl.org/books-more/recommendations/125/adults
-                  - https://www.nypl.org/books-more/recommendations/best-books/adults
-                  - https://www.nypl.org/books-more/recommendations/staff-picks/adults
-           
-campaigns:        - https://www.nypl.org/125
-                  - https://www.nypl.org/125/timeline
-                  - https://www.nypl.org/125/topcheckouts
-           
-exhibitions:      - https://www.nypl.org/events/exhibitions
-                  - https://www.nypl.org/events/exhibitions/upcoming
-                  - https://www.nypl.org/events/exhibitions/past
-                  - https://www.nypl.org/events/exhibitions/archived-exhibition-resources
-                  - https://www.nypl.org/events/exhibitions/community-showcases
-                  - https://www.nypl.org/events/exhibitions/online
-                  - https://www.nypl.org/events/exhibitions/stonewall50
-             
-locations:        - https://www.nypl.org/locations
-
-online resources: - https://www.nypl.org/research/collections/articles-databases
 
 
 
