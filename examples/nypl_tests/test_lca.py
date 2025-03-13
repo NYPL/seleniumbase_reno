@@ -13,7 +13,7 @@ load_dotenv()
 
 
 @pytest.mark.smoke
-@pytest.mark.skip
+# @pytest.mark.skip
 class LibraryCard(NyplUtils):
     # https://www.nypl.org/library-card/new
 
