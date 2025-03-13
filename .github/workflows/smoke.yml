@@ -59,8 +59,19 @@ jobs:
         nosetests nothing2.py
         
 
-    # NYPL smoke tests for the following pages;
-    # footer, header, blog, locations, home
+    - name: Send GitHub Action trigger data to Slack workflow
+      id: slack
+      uses: slackapi/slack-github-action@v1.24.0
+      if: failure()
+      with:
+        # This data can be any valid JSON from a previous step in the GitHub Action
+        payload: |
+          {
+            "property": "DXP RENO",
+            "test_repo": "https://github.com/NYPL/seleniumbase_reno/actions"
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 
     - name: Run smoke test
