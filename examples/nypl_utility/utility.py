@@ -248,7 +248,6 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                     # Attempt to find the link element and retrieve URL
                     link_element = self.find_element(locator + f'[{x}]')
                     url = link_element.get_attribute('href')
-                    print("\n2- " + url)
 
                     # Check if the URL is a 'mailto@nypl.org' link and skip if so
                     if url.startswith("mailto:"):
@@ -256,15 +255,12 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                         link_checked = True  # Mark as checked to avoid failing at the end
                         break  # Exit inner retry loop and move to the next link in the outer loop
 
-                    print(f"\nurl: {url}")
-
                     # Make a HEAD request to verify the URL
                     response = requests.head(url)
-                    print(response.status_code)
+                    # print(response.status_code)
 
-                    if response.status_code == 301:
-                        print(
-                            f"\nWARNING: The requested resource at {url} has been definitively moved to the URL given by the Location headers")
+                    #if response.status_code == 301:
+                        #print(f"\nWARNING: The requested resource at {url} has been definitively moved to the URL given by the Location headers")
 
                     # Check if the link is allowed to return 403 based on keyword
                     if response.status_code == 403 and any(keyword in url for keyword in allowed_403_keywords):

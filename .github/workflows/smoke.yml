@@ -16,6 +16,7 @@ jobs:
       CATALOG_USERNAME: ${{ secrets.CATALOG_USERNAME}}
       CATALOG_PASSWORD: ${{ secrets.CATALOG_PASSWORD}}
       LCA_PASSWORD: ${{ secrets.LCA_PASSWORD}}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
