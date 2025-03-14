@@ -77,5 +77,6 @@ jobs:
     - name: Run smoke test
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --headless --browser=chrome --rs -v -s -n=6 --reruns=2 --reruns-delay=1 -m smoke
+        pytest examples/nypl_tests --pspec --headless -n=6 --reruns=2 --reruns-delay=2 -m smoke
+
         
