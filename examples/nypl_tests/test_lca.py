@@ -84,6 +84,9 @@ class LibraryCard(NyplUtils):
         self.assert_element(LibraryCardPage.previous_button)
         self.click(LibraryCardPage.next_button)
 
+        current_url = self.get_current_url()
+        print(current_url)
+
         # Step 3 of 5: Address Verification
         try:
             self.assert_element(LibraryCardPage.address_verification_1)
