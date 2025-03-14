@@ -28,7 +28,7 @@ class Locations(NyplUtils):
         print("=================================")
         super().tearDown()
 
-    @pytest.mark.smoke
+    #@pytest.mark.smoke
     def test_locations_main(self):
         # https://www.nypl.org/locations
         print("test_locations_main()\n")
@@ -51,7 +51,7 @@ class Locations(NyplUtils):
         self.assert_element(LocationsPage.bottom_promo_3)  # Brooklyn Public Library link
         self.assert_element(LocationsPage.bottom_promo_4)  # Queens Public Library link
 
-    @pytest.mark.smoke
+    #@pytest.mark.smoke
     def test_locations_filters(self):
 
         # page elements
@@ -81,7 +81,7 @@ class Locations(NyplUtils):
         # self.check_if_unchecked(LocationsPage.open_now_check_box)  # throws ElementClickInterceptedException
         self.assert_true(total_library_number >= open_library_number)
 
-    @pytest.mark.smoke
+    #@pytest.mark.smoke
     @pytest.mark.skip(reason="RENO-3468 needs to be fixed")
     def test_locations_search_functionality(self):
         print("test_locations_search_functionalities()\n")
@@ -331,7 +331,7 @@ class Locations(NyplUtils):
         self.assert_true(media_types_len > 1, "media types filter smaller than expected")
 
     @pytest.mark.skip(reason="These tests are divided into 3 parts to save time")
-    @pytest.mark.smoke
+    #@pytest.mark.smoke
     def test_open_hours_1(self):
         print("test_open_hours_1()\n")
 
@@ -408,7 +408,7 @@ class Locations(NyplUtils):
         self.assert_true(total_count == open_count + closed_count + neither_count, "Library counts don't add up")
 
     @pytest.mark.regression
-    @pytest.mark.smoke
+    #@pytest.mark.smoke
     def test_open_hours_2(self):
         # this test runs between 1-40 libraries
 
@@ -482,7 +482,7 @@ class Locations(NyplUtils):
         self.assert_true(total_count == open_count + closed_count + neither_count, "Library counts don't add up")
 
     @pytest.mark.regression
-    @pytest.mark.smoke
+    #@pytest.mark.smoke
     def test_open_hours_3(self):
         # this test runs between 40-80 libraries
 
@@ -556,7 +556,7 @@ class Locations(NyplUtils):
         self.assert_true(total_count == open_count + closed_count + neither_count, "Library counts don't add up")
 
     @pytest.mark.regression
-    @pytest.mark.smoke
+    #@pytest.mark.smoke
     def test_open_hours_4(self):
         # this test runs between 80-last libraries
 
