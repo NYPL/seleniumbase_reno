@@ -1,4 +1,4 @@
-name: Prod Smoke Test
+name: Prod Smoke
 
 on:
   #push:
