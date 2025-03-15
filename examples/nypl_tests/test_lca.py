@@ -84,17 +84,23 @@ class LibraryCard(NyplUtils):
         self.assert_element(LibraryCardPage.previous_button)
         self.click(LibraryCardPage.next_button)
 
-        current_url = self.get_current_url()
-        print(current_url)
+        # Alternate Address
+        if self.is_element_visible(LibraryCardPage.alternate_address):
+            self.send_keys(LibraryCardPage.work_address, "123 East 45th Street")
+            self.send_keys(LibraryCardPage.work_apartment, "3F")
+            self.send_keys(LibraryCardPage.work_city, "New York")
+            self.send_keys(LibraryCardPage.work_state, "NY")
+            self.send_keys(LibraryCardPage.work_zip, "10017")
 
-        # Step 3 of 5: Address Verification
-        try:
-            self.assert_element(LibraryCardPage.address_verification_1)
-            self.assert_element(LibraryCardPage.address_verification_2)
             self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
-        except NoSuchElementException:
-            print("Skipping Address Verification step as elements were not found.")
+
+        # Step 3 of 5: Address Verification
+        self.assert_element(LibraryCardPage.address_verification_1)
+        self.assert_element(LibraryCardPage.address_verification_2)
+
+        self.assert_element(LibraryCardPage.previous_button)
+        self.click(LibraryCardPage.next_button)
 
         # Step 4 of 5: Customize Your Account
 

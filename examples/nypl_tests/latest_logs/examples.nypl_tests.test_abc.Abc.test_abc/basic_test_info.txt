@@ -1,0 +1,19 @@
+nypl_tests/test_abc.py::
+
+--------------------------------------------------------------------
+Last Page: data:,
+ Duration: 0.30s
+  Browser: Chrome 134.0.6998.89
+   Driver: chromedriver 134.0.6998.88
+Timestamp: 1741965259  (Unix Timestamp)
+     Date: Friday, March 14, 2025
+     Time: 11:14:19 AM  (EDT, UTC-04:00)
+--------------------------------------------------------------------
+Traceback:
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_tests/test_abc.py", line 15, in test_abc
+    self.assert_true(2 + 2 == 5, "2 + 2 not equal 5")
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/seleniumbase/fixtures/base_case.py", line 6875, in assert_true
+    self.assertTrue(expr, msg=msg)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/unittest/case.py", line 687, in assertTrue
+    raise self.failureException(msg)
+Exception: False is not true : 2 + 2 not equal 5

@@ -36,6 +36,14 @@ class LibraryCardPage(BaseCase):
     address_verification_1 = "//*[@id='mainContent']//*[contains(text(), 'Please select the correct address')]"
     address_verification_2 = "//*[@id='mainContent']//*[contains(text(), 'Home Address')]"
 
+    # Alternate Address
+    alternate_address = "(//*[@id='mainContent']//*[contains(text(), 'Alternate Address')])[1]"
+    work_address = "//*[@id='line1-work']"
+    work_apartment = "//*[@id='line2-work']"
+    work_city = "//*[@id='city-work']"
+    work_state = "//*[@id='state-work']"
+    work_zip = "//*[@id='zip-work']"
+
     # Step 4 of 5: Customize Your Account
     username_box = "//*[@id='username']"
     password_box = "//*[@id='password']"
