@@ -251,7 +251,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
                     # Check if the URL is a 'mailto@nypl.org' link and skip if so
                     if url.startswith("mailto:"):
-                        print(f"\nSkipping email link: {url}")
+                        # print(f"\nSkipping email link: {url}")
                         link_checked = True  # Mark as checked to avoid failing at the end
                         break  # Exit inner retry loop and move to the next link in the outer loop
 
