@@ -1,9 +1,6 @@
 name: Test
 
 on:
-  #push:
-  #  branches:
-  #    - master
   workflow_dispatch:
 
 jobs:
@@ -24,56 +21,24 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
+
     - name: Setup Chrome and ChromeDriver
-      uses: browser-actions/setup-chrome@latest
+      uses: browser-actions/setup-chrome@v1
       with:
         chrome-version: stable
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install --upgrade wheel
         pip install -r requirements.txt
-    - name: Install SeleniumBase
-      run: |
-        python setup.py install
-    - name: Update SeleniumBase
-      run: |
         pip install -U seleniumbase
-    - name: Check the console scripts interface
-      run: |
-        seleniumbase
-        sbase
-    - name: Make sure pytest is working
-      run: |
-        echo "def test_1(): pass" > nothing.py
-        pytest nothing.py
-    - name: Make sure nosetests is working
-      run: |
-        echo "def test_2(): pass" > nothing2.py
-        nosetests nothing2.py
-        
-
-    - name: Send GitHub Action trigger data to Slack workflow
-      id: slack
-      uses: slackapi/slack-github-action@v1.24.0
-      if: failure()
-      with:
-        # This data can be any valid JSON from a previous step in the GitHub Action
-        payload: |
-          {
-            "property": "DXP RENO",
-            "test_repo": "https://github.com/NYPL/seleniumbase_reno/actions"
-          }
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
 
     - name: Run test
       continue-on-error: true
       run: |
         pytest examples/nypl_tests --headless -m test
-
