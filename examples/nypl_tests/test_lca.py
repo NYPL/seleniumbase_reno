@@ -92,6 +92,8 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.work_state, "NY")
             self.send_keys(LibraryCardPage.work_zip, "10017")
 
+            current_url = self.get_current_url()
+            print(current_url)
             self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
@@ -99,6 +101,8 @@ class LibraryCard(NyplUtils):
         self.assert_element(LibraryCardPage.address_verification_1)
         self.assert_element(LibraryCardPage.address_verification_2)
 
+        current_url = self.get_current_url()
+        print(current_url)
         self.assert_element(LibraryCardPage.previous_button)
         self.click(LibraryCardPage.next_button)
 
@@ -125,6 +129,8 @@ class LibraryCard(NyplUtils):
         self.send_keys(LibraryCardPage.home_library_box, "Stephen A. Schwarzman Building")
         self.click(LibraryCardPage.terms_checkbox)
 
+        current_url = self.get_current_url()
+        print(current_url)
         self.assert_element(LibraryCardPage.previous_button)
         self.click(LibraryCardPage.next_button)
 
@@ -132,6 +138,9 @@ class LibraryCard(NyplUtils):
         self.assert_element(LibraryCardPage.edit_personal)
         self.assert_element(LibraryCardPage.edit_address)
         self.assert_element(LibraryCardPage.edit_create)
+
+        current_url = self.get_current_url()
+        print(current_url)
         self.click_with_fallback(LibraryCardPage.showPasswordReview)
         self.click(LibraryCardPage.next_button)
 
@@ -155,6 +164,9 @@ class LibraryCard(NyplUtils):
         issued_date_length = len(issued_date.strip())
         print("\nIssued date: " + issued_date, ", Date length: " + str(issued_date_length))
         self.assert_true(issued_date_length >= 6, "Issued date is too short or missing")
+
+        current_url = self.get_current_url()
+        print(current_url)
 
         # assert all links on the confirmation page
         self.assert_links_valid(LibraryCardPage.all_links)

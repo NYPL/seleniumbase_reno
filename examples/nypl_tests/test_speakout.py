@@ -28,11 +28,11 @@ class LibraryCard(NyplUtils):
         # fill out personal info and assert all the fields
         self.send_keys(SpeakoutPage.first_name, "Joe")
         self.send_keys(SpeakoutPage.last_name, "Doe")
-        self.send_keys(SpeakoutPage.street_address, "123 East 45th Street")
+        self.send_keys(SpeakoutPage.street_address, "451 e 22nd street")
         self.send_keys(SpeakoutPage.apartment, "3F")
-        self.send_keys(SpeakoutPage.city, "New York")
+        self.send_keys(SpeakoutPage.city, "Brooklyn")
         self.send_keys(SpeakoutPage.state, "New York")
-        self.send_keys(SpeakoutPage.postal, "10017")
+        self.send_keys(SpeakoutPage.postal, "11226")
         self.send_keys(SpeakoutPage.email, "joedoe_nypl@gmail.com")
 
         self.send_keys(SpeakoutPage.favorite_location, "Stephen A. Schwarzman Building")
