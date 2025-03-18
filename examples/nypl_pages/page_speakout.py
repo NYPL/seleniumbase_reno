@@ -25,7 +25,7 @@ class SpeakoutPage(BaseCase):
 
         base_url = "https://www.nypl.org/speakout"
         # qa_base_url = "https://qa-www.nypl.org/speakout"
-        qa_base_url = "https://scout-git-reno-4508-locations-dropdown-nypl.vercel.app/speakout"
+        qa_base_url = "https://qa-www.nypl.org/speakout"
 
         url = f"{base_url}{category}"
         qa_url = f"{qa_base_url}{category}"
