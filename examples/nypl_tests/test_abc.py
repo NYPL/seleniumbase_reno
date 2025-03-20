@@ -2,12 +2,12 @@ import pytest
 from examples.nypl_utility.utility import NyplUtils
 
 
+@pytest.mark.test
 class Abc(NyplUtils):
     """
     This test is intentionally designed to fail for testing GitHub Actions purposes.
     """
 
-    @pytest.mark.test
     def test_abc(self):
         print("test_abc()\n")
 
