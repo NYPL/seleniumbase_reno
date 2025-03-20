@@ -1,1 +1,11 @@
+# Environment and Secret Files
 .env
+
+# Logs and Debug Files
+basic_test_info.txt
+page_source.html
+pytestdebug.log
+
+# tests
+test_lca_locust.py
+test_lca_imperva.py

@@ -31,13 +31,25 @@ class LibraryCard(NyplUtils):
         print("=================================")
         super().tearDown()
 
+    def alternate_address(self):
+        """Reusable method to fill Alternate Address fields"""
+        if self.is_element_visible(LibraryCardPage.alternate_address):
+            self.send_keys(LibraryCardPage.work_address, "123 East 45th Street")
+            self.send_keys(LibraryCardPage.work_apartment, "3F")
+            self.send_keys(LibraryCardPage.work_city, "New York")
+            self.send_keys(LibraryCardPage.work_state, "NY")
+            self.send_keys(LibraryCardPage.work_zip, "10017")
+
+            print(self.get_current_url())
+            self.assert_element(LibraryCardPage.previous_button)
+            self.click(LibraryCardPage.next_button)
+
     @pytest.mark.smoke
     def test_library_card_new(self):
         # https://www.nypl.org/library-card/new
         print("test_library_card_new()\n")
 
-        current_url = self.get_current_url()
-        print(current_url)
+        print(self.get_current_url())
 
         # Landing page
 
@@ -59,13 +71,15 @@ class LibraryCard(NyplUtils):
 
         # Step 1 of 5: Personal Information
         # https://www.nypl.org/library-card/personal?newCard=true
-        current_url = self.get_current_url()
-        print(current_url)
+        print(self.get_current_url())
+
+        # create a unique email with UUID
+        email = f"joedoe_nypl_lca_qa_{uuid.uuid4().hex[:8]}@gmail.com"
 
         self.send_keys(LibraryCardPage.first_name, "Joe")
         self.send_keys(LibraryCardPage.last_name, "Doe")
         self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
-        self.send_keys(LibraryCardPage.email, "joedoe_nypl@gmail.com")
+        self.send_keys(LibraryCardPage.email, email)
 
         self.assert_element(LibraryCardPage.previous_button)
         self.click(LibraryCardPage.next_button)
@@ -73,8 +87,7 @@ class LibraryCard(NyplUtils):
         # Step 2 of 5: Address
         # https://www.nypl.org/library-card/location?&newCard=true
         self.wait(2)
-        current_url = self.get_current_url()
-        print(current_url)
+        print(self.get_current_url())
 
         self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
         self.send_keys(LibraryCardPage.apartment, "3F")
@@ -86,24 +99,33 @@ class LibraryCard(NyplUtils):
         self.click(LibraryCardPage.next_button)
 
         # Alternate Address
-        if self.is_element_visible(LibraryCardPage.alternate_address):
-            self.send_keys(LibraryCardPage.work_address, "123 East 45th Street")
-            self.send_keys(LibraryCardPage.work_apartment, "3F")
-            self.send_keys(LibraryCardPage.work_city, "New York")
-            self.send_keys(LibraryCardPage.work_state, "NY")
-            self.send_keys(LibraryCardPage.work_zip, "10017")
+        self.alternate_address()  # check if alternate address page visible
 
-            current_url = self.get_current_url()
-            print(current_url)
-            self.assert_element(LibraryCardPage.previous_button)
-            self.click(LibraryCardPage.next_button)
+        # Attempt Address Verification up to 3 times
+        max_attempts = 3
 
-        # Step 3 of 5: Address Verification
-        self.assert_element(LibraryCardPage.address_verification_1)
-        self.assert_element(LibraryCardPage.address_verification_2)
+        for attempt in range(1, max_attempts + 1):
+            try:
+                # Step 3 of 5: Address Verification
+                self.assert_element(LibraryCardPage.address_verification_1)
+                self.assert_element(LibraryCardPage.address_verification_2)
 
-        current_url = self.get_current_url()
-        print(current_url)
+                break  # Exit loop if successful
+
+            except NoSuchElementException:
+                print(f"⚠️ Address verification elements not found (Attempt {attempt}/{max_attempts})")
+
+                if attempt < max_attempts:
+                    print("⏳ Retrying after waiting...")
+                    self.wait(3)
+
+                    # Retry Alternate Address step before the next attempt
+                    self.alternate_address()
+                else:
+                    print("❌ Address verification failed after 3 attempts. Raising exception.")
+                    raise  # Fails test after all attempts
+
+        print(self.get_current_url())
         self.assert_element(LibraryCardPage.previous_button)
         self.click(LibraryCardPage.next_button)
 
@@ -117,7 +139,8 @@ class LibraryCard(NyplUtils):
 
         # Debug print statements to check if the variables are set
         print(f"\nUsername: {username}")
-        print(f"Password: {password}\n")
+        print(f"Password: {password}")
+        print(f"Email: {email}\n")
 
         # Ensure username and password are not None
         if not username or not password:
@@ -130,8 +153,7 @@ class LibraryCard(NyplUtils):
         self.send_keys(LibraryCardPage.home_library_box, "Stephen A. Schwarzman Building")
         self.click(LibraryCardPage.terms_checkbox)
 
-        current_url = self.get_current_url()
-        print(current_url)
+        print(self.get_current_url())
         self.assert_element(LibraryCardPage.previous_button)
         self.click(LibraryCardPage.next_button)
 
@@ -140,8 +162,7 @@ class LibraryCard(NyplUtils):
         self.assert_element(LibraryCardPage.edit_address)
         self.assert_element(LibraryCardPage.edit_create)
 
-        current_url = self.get_current_url()
-        print(current_url)
+        print(self.get_current_url())
         self.click_with_fallback(LibraryCardPage.showPasswordReview)
         self.click(LibraryCardPage.next_button)
 
@@ -166,8 +187,7 @@ class LibraryCard(NyplUtils):
         print("\nIssued date: " + issued_date, ", Date length: " + str(issued_date_length))
         self.assert_true(issued_date_length >= 6, "Issued date is too short or missing")
 
-        current_url = self.get_current_url()
-        print(current_url)
+        print(self.get_current_url())
 
         # assert all links on the confirmation page
         self.assert_links_valid(LibraryCardPage.all_links)
