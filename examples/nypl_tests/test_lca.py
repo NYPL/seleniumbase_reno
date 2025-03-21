@@ -12,9 +12,9 @@ from seleniumbase.common.exceptions import NoSuchElementException
 load_dotenv()
 
 
-@pytest.mark.smoke
-@pytest.mark.test
+# @pytest.mark.test
 # @pytest.mark.skip
+@pytest.mark.smoke
 class LibraryCard(NyplUtils):
     # https://www.nypl.org/library-card/new
 
