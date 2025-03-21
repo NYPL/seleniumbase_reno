@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      max-parallel: 6
+      max-parallel: 60
       matrix:
         python-version: ["3.10"]
 
@@ -77,7 +77,7 @@ jobs:
     - name: Run smoke test
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --pspec --headless -n=6 --reruns=2 --reruns-delay=2 -m "smoke and not test"
+        pytest examples/nypl_tests --pspec --headless -n=60 --reruns=2 --reruns-delay=2 -m "smoke and not test"
 
 
         
