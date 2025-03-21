@@ -43,10 +43,9 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.work_zip, "10017")
 
             print(self.get_current_url())
-            # self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
-    def test_library_card_new_1(self):
+    def test_library_card_new_01(self):
         # https://www.nypl.org/library-card/new
         print("test_library_card_new()\n")
 
@@ -75,12 +74,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -89,7 +86,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -120,7 +116,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -148,19 +143,14 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
 
-    def test_library_card_new_2(self):
+    def test_library_card_new_02(self):
         # https://www.nypl.org/library-card/new
         print("test_library_card_new()\n")
 
@@ -189,12 +179,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -203,7 +191,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -234,7 +221,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -262,19 +248,14 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
 
-    def test_library_card_new_3(self):
+    def test_library_card_new_03(self):
         # https://www.nypl.org/library-card/new
         print("test_library_card_new()\n")
 
@@ -303,12 +284,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -317,7 +296,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -348,7 +326,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -376,19 +353,14 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
 
-    def test_library_card_new_4(self):
+    def test_library_card_new_04(self):
         # https://www.nypl.org/library-card/new
         print("test_library_card_new()\n")
 
@@ -417,12 +389,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -431,7 +401,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -462,7 +431,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -490,19 +458,14 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
 
-    def test_library_card_new_5(self):
+    def test_library_card_new_05(self):
         # https://www.nypl.org/library-card/new
         print("test_library_card_new()\n")
 
@@ -531,12 +494,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -545,7 +506,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -576,7 +536,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -604,19 +563,14 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
 
-    def test_library_card_new_6(self):
+    def test_library_card_new_06(self):
         # https://www.nypl.org/library-card/new
         print("test_library_card_new()\n")
 
@@ -645,12 +599,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -659,7 +611,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -690,7 +641,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -718,19 +668,14 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
 
-    def test_library_card_new_7(self):
+    def test_library_card_new_07(self):
         # https://www.nypl.org/library-card/new
         print("test_library_card_new()\n")
 
@@ -759,12 +704,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -773,7 +716,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -804,7 +746,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -832,19 +773,14 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
 
-    def test_library_card_new_8(self):
+    def test_library_card_new_08(self):
         # https://www.nypl.org/library-card/new
         print("test_library_card_new()\n")
 
@@ -873,12 +809,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -887,7 +821,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -918,7 +851,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -946,19 +878,14 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
 
-    def test_library_card_new_9(self):
+    def test_library_card_new_09(self):
         # https://www.nypl.org/library-card/new
         print("test_library_card_new()\n")
 
@@ -987,12 +914,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -1001,7 +926,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -1032,7 +956,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -1060,14 +983,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -1101,12 +1019,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -1115,7 +1031,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -1146,7 +1061,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -1174,14 +1088,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -1215,12 +1124,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -1229,7 +1136,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -1260,7 +1166,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -1288,14 +1193,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -1329,12 +1229,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -1343,7 +1241,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -1374,7 +1271,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -1402,14 +1298,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -1443,12 +1334,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -1457,7 +1346,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -1488,7 +1376,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -1516,14 +1403,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -1557,12 +1439,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -1571,7 +1451,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -1602,7 +1481,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -1630,14 +1508,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -1671,12 +1544,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -1685,7 +1556,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -1716,7 +1586,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -1744,14 +1613,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -1785,12 +1649,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -1799,7 +1661,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -1830,7 +1691,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -1858,14 +1718,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -1899,12 +1754,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -1913,7 +1766,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -1944,7 +1796,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -1972,14 +1823,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -2013,12 +1859,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -2027,7 +1871,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -2058,7 +1901,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -2086,14 +1928,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -2127,12 +1964,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -2141,7 +1976,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -2172,7 +2006,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -2200,14 +2033,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -2241,12 +2069,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -2255,7 +2081,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -2286,7 +2111,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -2314,14 +2138,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -2355,12 +2174,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -2369,7 +2186,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -2400,7 +2216,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -2428,14 +2243,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -2469,12 +2279,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -2483,7 +2291,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -2514,7 +2321,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -2542,14 +2348,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -2583,12 +2384,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -2597,7 +2396,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -2628,7 +2426,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -2656,14 +2453,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -2697,12 +2489,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -2711,7 +2501,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -2742,7 +2531,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -2770,14 +2558,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
@@ -2811,12 +2594,10 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
             self.send_keys(LibraryCardPage.email, email)
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 2 of 5: Address
             # https://www.nypl.org/library-card/location?&newCard=true
-            self.wait(2)
             print(self.get_current_url())
 
             self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -2825,7 +2606,6 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.state, "NY")
             self.send_keys(LibraryCardPage.zip, "10017")
 
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Alternate Address
@@ -2856,7 +2636,6 @@ class LibraryCard(NyplUtils):
                         raise  # Fails test after all attempts
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 4 of 5: Customize Your Account
@@ -2884,17 +2663,9 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-            #self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
-            #self.assert_element(LibraryCardPage.edit_personal)
-            #self.assert_element(LibraryCardPage.edit_address)
-            #self.assert_element(LibraryCardPage.edit_create)
-
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
-
-
-
