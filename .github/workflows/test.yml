@@ -41,4 +41,4 @@ jobs:
     - name: Run test
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --pspec --headless -n=6 --reruns=2 --reruns-delay=2 --env=qa -m "test and lca"
+        pytest examples/nypl_tests --pspec --headless -n=25 --reruns=2 --reruns-delay=2 --env=qa -m "test and lca"
