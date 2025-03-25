@@ -3,6 +3,7 @@ import pytest
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_speakout import SpeakoutPage
 
+
 class LibraryCard(NyplUtils):
     # https://www.nypl.org/library-card/new
 
@@ -65,7 +66,3 @@ class LibraryCard(NyplUtils):
 
         self.wait(2)
         print(self.get_current_url())
-
-
-
-
