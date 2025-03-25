@@ -17,6 +17,7 @@ run_count = 1  # Modify this value to change how many times the test executes
 
 @pytest.mark.test
 @pytest.mark.lca
+@pytest.mark.imperva
 class LibraryCard(NyplUtils):
     # https://www.nypl.org/library-card/new
 

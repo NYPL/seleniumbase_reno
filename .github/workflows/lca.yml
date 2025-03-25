@@ -44,4 +44,4 @@ jobs:
       continue-on-error: true
       run: |
         echo "Running test instance ${{ matrix.instance }}"
-        pytest examples/nypl_tests --pspec --headless --reruns=2 --reruns-delay=2 --env=qa -m "test and lca"
+        pytest examples/nypl_tests --pspec --headless --reruns=2 --reruns-delay=2 --env=qa -m "test and lca and imperva"
