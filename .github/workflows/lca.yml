@@ -1,4 +1,4 @@
-name: Test
+name: LCA
 
 on:
   workflow_dispatch:
