@@ -128,9 +128,9 @@ class LibraryCard(NyplUtils):
             password = os.getenv('LCA_PASSWORD')
 
             # Debug print statements to check if the variables are set
-            print(f"\nUsername: {username}")
-            print(f"Password: {password}")
-            print(f"Email: {email}\n")
+            # print(f"\nUsername: {username}")
+            # print(f"Password: {password}")
+            # print(f"Email: {email}\n")
 
             # Ensure username and password are not None
             if not username or not password:
