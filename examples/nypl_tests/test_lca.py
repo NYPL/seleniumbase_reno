@@ -3,6 +3,7 @@ import os
 import pytest
 import uuid
 from dotenv import load_dotenv
+from selenium.webdriver import Keys
 
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_lca import LibraryCardPage
@@ -151,6 +152,7 @@ class LibraryCard(NyplUtils):
         self.send_keys(LibraryCardPage.verify_password_box, password)
         self.click_with_fallback(LibraryCardPage.show_password)
         self.send_keys(LibraryCardPage.home_library_box, "Stephen A. Schwarzman Building")
+        self.send_keys(LibraryCardPage.home_library_box, Keys.ENTER)
         self.click(LibraryCardPage.terms_checkbox)
 
         print(self.get_current_url())
