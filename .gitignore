@@ -7,5 +7,4 @@ page_source.html
 pytestdebug.log
 
 # tests
-test_lca_locust.py
 # test_lca_imperva.py
