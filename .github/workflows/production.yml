@@ -1,25 +1,23 @@
 name: Prod Regression
 
 on:
-  #push:
-  #  branches:
-  #    - master
   workflow_dispatch:
 
 jobs:
   build:
-
     env:
       PY_COLORS: "1"
-      CATALOG_USERNAME: ${{ secrets.CATALOG_USERNAME}}
-      CATALOG_PASSWORD: ${{ secrets.CATALOG_PASSWORD}}
-      LCA_PASSWORD: ${{ secrets.LCA_PASSWORD}}
+      CATALOG_USERNAME: ${{ secrets.CATALOG_USERNAME }}
+      CATALOG_PASSWORD: ${{ secrets.CATALOG_PASSWORD }}
+      LCA_PASSWORD: ${{ secrets.LCA_PASSWORD }}
+
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       max-parallel: 60
       matrix:
-        python-version: ["3.10"] 
+        python-version: ["3.10"]
 
     steps:
     - uses: actions/checkout@v4
@@ -34,52 +32,17 @@ jobs:
       with:
         chrome-version: stable
 
-    - name: Install Flake8
-      run: pip install flake8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip wheel
+        pip install -r requirements.txt
+        pip install -U seleniumbase flake8
 
     - name: Run Flake8 Linter
       continue-on-error: true
       run: flake8 examples/nypl_tests --max-line-length=120 --statistics --count || true
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install --upgrade wheel
-        pip install -r requirements.txt
-
-    - name: Install SeleniumBase
-      run: |
-        python setup.py install
-
-    - name: Update SeleniumBase
-      run: |
-        pip install -U seleniumbase
-
-    - name: Check the console scripts interface
-      run: |
-        seleniumbase
-        sbase
-
-    - name: Make sure pytest is working
-      run: |
-        echo "def test_1(): pass" > nothing.py
-        pytest nothing.py
-
-    - name: Make sure nosetests is working
-      run: |
-        echo "def test_2(): pass" > nothing2.py
-        nosetests nothing2.py
-        
-        
-    # NYPL tests for the following pages;
-    # footer, header, blog, blog all, book lists, campaigns, exhibitions, locations, articles & databases, home, give,
-    # schwarzman, research, research_support, SNFL, SNFL teen, billy rose, request visit, posada exhibition, world literature,
-    # articles burney, articles homework, blog channels, blog individual, press, press individual
-
-
     - name: Run all tests
       continue-on-error: true
       run: |
         pytest examples/nypl_tests --pspec --headless -n=60 --reruns=2 --reruns-delay=2 -m "not test"
-
-        
