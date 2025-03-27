@@ -5,7 +5,7 @@ class WorldLiteraturePage(BaseCase):
     home = '(//*[contains(text(), "Home")])[1]'
     spotlight = '(//*[contains(text(), "Spotlight")])[1]'
 
-    world_literature_title = "NYPL's World Literature Festival | The New York Public Library"
+    world_literature_title = "NYPL's World Literature & Arts Festival | The New York Public Library"
 
     hero = '//*[@id="block-content-hero-header"]'
 
