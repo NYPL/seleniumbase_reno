@@ -68,7 +68,6 @@ class LibraryCardPage(BaseCase):
 
     previous_button = '//a[contains(text(), "Previous")]'
     next_button = "//input[@type='submit']"
-    next_button_2 = "//input[@value='Next']"
 
     def open_library_card_page(self, category=''):
         # self.open("https://www.nypl.org/library-card/new")
