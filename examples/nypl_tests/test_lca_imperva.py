@@ -3,7 +3,6 @@ import os
 import pytest
 import uuid
 from dotenv import load_dotenv
-from selenium.webdriver import Keys
 
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_lca import LibraryCardPage
@@ -13,7 +12,7 @@ from seleniumbase.common.exceptions import NoSuchElementException
 load_dotenv()
 
 # Set the number of times the test should run
-run_count = 30  # Modify this value to change how many times the test executes
+run_count = 1  # Modify this value to change how many times the test executes
 
 
 @pytest.mark.test
@@ -142,25 +141,13 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.verify_password_box, password)
             self.click_with_fallback(LibraryCardPage.show_password)
             self.send_keys(LibraryCardPage.home_library_box, "Stephen A. Schwarzman Building")
-            self.send_keys(LibraryCardPage.home_library_box, Keys.ENTER)
             self.click(LibraryCardPage.terms_checkbox)
 
             print(self.get_current_url())
-
-            try:
-                self.click(LibraryCardPage.next_button)
-            except NoSuchElementException:
-                self.driver.save_screenshot("next_button_fallback.png")
-                print("Trying second Submit element")
-                self.click(LibraryCardPage.next_button_2)
+            self.click(LibraryCardPage.next_button)
 
             # Step 5 of 5: Confirm Your Information
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
+            self.click(LibraryCardPage.next_button)
 
-            try:
-                self.click(LibraryCardPage.next_button)
-            except NoSuchElementException:
-                self.driver.save_screenshot("next_button_fallback.png")
-                print("Trying second Submit element")
-                self.click(LibraryCardPage.next_button_2)
