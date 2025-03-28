@@ -7,9 +7,9 @@ class WorldLiteraturePage(BaseCase):
 
     world_literature_title = "NYPL's World Literature & Arts Festival | The New York Public Library"
 
-    hero = '//*[@id="block-content-hero-header"]'
+    hero = '//*[@data-testid="hero"]'
 
-    all_links = '((//*[@id="block-nypl-emulsify-content"]//li)//a)'  # all links locator for 'Emulsify'
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # all links locator for 'Emulsify'
 
     def open_world_literature_page(self):
         # self.open("https://www.nypl.org/spotlight/world-literature-festival")

@@ -4,8 +4,9 @@ from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_speakout import SpeakoutPage
 
 
+@pytest.mark.skip("Page/Form Not Published as of March 2025")
 class LibraryCard(NyplUtils):
-    # https://www.nypl.org/library-card/new
+    # https://www.nypl.org/speakout
 
     def setUp(self):
         super().setUp()
