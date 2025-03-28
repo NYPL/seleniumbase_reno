@@ -237,7 +237,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         print(f"\nNumber of links on the page: {block_length}")
 
         # Assert that links are found; if not, fail the test
-        assert block_length > 0, "No links found. Expected at least one link under the locator 'page-container--content-primaryy'."
+        assert block_length > 0, "No links found. Expected at least one link under the locator."
 
         for x in range(1, block_length + 1):
             retries = 3  # Number of retries

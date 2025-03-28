@@ -5,7 +5,7 @@ class CampaignsPage(BaseCase):
     home = '(//*[contains(text(), "Home")])[1]'  # breadcrumb for all paths
     timeline_h1 = '(//*[contains(text(), "The New York Public Library Through the Years")])[2]'  # /timeline h1
 
-    all_links = '((//*[@id="block-nypl-emulsify-content"])//a)'
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'
 
     # /125 locators
     slide_images = '(//*[@class="slideshow"]//li//img)'  # list XPaths for the /125 slideshow
