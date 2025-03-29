@@ -41,3 +41,30 @@ jobs:
       continue-on-error: true
       run: |
         pytest examples/nypl_tests --pspec --headless -n auto --reruns=2 --reruns-delay=2 --env=qa -m test
+
+    - name: Send Slack notification on failure
+      if: failure()
+      uses: slackapi/slack-github-action@v1.24.0
+      with:
+        payload: |
+          {
+            "blocks": [
+              {
+                "type": "header",
+                "text": {
+                  "type": "plain_text",
+                  "text": "🚨 DXP RENO - *Test Failed* in smoke-test-results",
+                  "emoji": true
+                }
+              },
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Repository:* <https://github.com/NYPL/seleniumbase_reno|seleniumbase_reno>\n*Workflow:* ${{ github.workflow }}\n*Branch:* ${{ github.ref_name }}\n*Run:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Click here to view the failed run>"
+                }
+              }
+            ]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
