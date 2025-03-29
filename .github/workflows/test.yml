@@ -15,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      max-parallel: 50
       matrix:
         python-version: ["3.10"]
 
@@ -41,4 +40,4 @@ jobs:
     - name: Run test
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --pspec --headless -n=50 --reruns=2 --reruns-delay=2 --env=qa -m test
+        pytest examples/nypl_tests --pspec --headless -n auto --reruns=2 --reruns-delay=2 --env=qa -m test
