@@ -43,7 +43,7 @@ jobs:
       continue-on-error: true
       run: |
         set -e
-        pytest_output=$(pytest examples/nypl_tests --pspec --headless -n auto --reruns=2 --reruns-delay=2 --env=qa -m test --json-report || true)
+        pytest_output=$(pytest examples/nypl_tests --pspec --headless -n auto --reruns=0 --reruns-delay=2 --env=qa -m test --json-report || true)
 
         if [ -f .report.json ]; then
           passed=$(jq '.summary.passed' .report.json)
