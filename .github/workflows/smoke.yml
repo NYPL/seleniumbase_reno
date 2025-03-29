@@ -43,7 +43,7 @@ jobs:
     - name: Run smoke test
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --pspec --headless -n auto --reruns=2 --reruns-delay=2 -m "smoke and not test"
+        pytest examples/nypl_tests --pspec --headless -n=6 --reruns=2 --reruns-delay=2 -m "smoke and not test"
 
     - name: Send Slack notification on failure
       if: failure()
