@@ -15,7 +15,6 @@ jobs:
 
     strategy:
       fail-fast: false
-      max-parallel: 60
       matrix:
         python-version: ["3.10"]
 
@@ -45,4 +44,4 @@ jobs:
     - name: Run all tests
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --pspec --headless -n=60 --reruns=2 --reruns-delay=2 -m "not test"
+        pytest examples/nypl_tests --pspec --headless -n auto --reruns=2 --reruns-delay=2 -m "not test"
