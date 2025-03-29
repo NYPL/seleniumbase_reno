@@ -51,8 +51,24 @@ jobs:
       with:
         payload: |
           {
-            "property": "DXP RENO",
-            "test_repo": "https://github.com/NYPL/seleniumbase_reno/actions"
+            "blocks": [
+              {
+                "type": "header",
+                "text": {
+                  "type": "plain_text",
+                  "text": "🚨 DXP RENO - *Test Failed* in smoke-test-results",
+                  "emoji": true
+                }
+              },
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Repository:* <https://github.com/NYPL/seleniumbase_reno|seleniumbase_reno>\n*Workflow:* ${{ github.workflow }}\n*Branch:* ${{ github.ref_name }}\n*Run:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Click here to view the failed run>"
+                }
+              }
+            ]
           }
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
