@@ -5,13 +5,13 @@ on:
 
 jobs:
   build:
-
     env:
       PY_COLORS: "1"
-      CATALOG_USERNAME: ${{ secrets.CATALOG_USERNAME}}
-      CATALOG_PASSWORD: ${{ secrets.CATALOG_PASSWORD}}
-      LCA_PASSWORD: ${{ secrets.LCA_PASSWORD}}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL}}
+      CATALOG_USERNAME: ${{ secrets.CATALOG_USERNAME }}
+      CATALOG_PASSWORD: ${{ secrets.CATALOG_PASSWORD }}
+      LCA_PASSWORD: ${{ secrets.LCA_PASSWORD }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -33,17 +33,40 @@ jobs:
 
     - name: Install dependencies
       run: |
+        sudo apt-get update && sudo apt-get install -y jq
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -U seleniumbase
 
     - name: Run test
+      id: run_tests
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --pspec --headless -n auto --reruns=2 --reruns-delay=2 --env=qa -m test
+        set -e
+        pytest_output=$(pytest examples/nypl_tests --pspec --headless -n auto --reruns=2 --reruns-delay=2 --env=qa -m test --json-report || true)
+
+        if [ -f .report.json ]; then
+          passed=$(jq '.summary.passed' .report.json)
+          failed=$(jq '.summary.failed' .report.json)
+          skipped=$(jq '.summary.skipped' .report.json)
+        else
+          passed=0
+          failed=1
+          skipped=0
+        fi
+
+        echo "passed=$passed" >> $GITHUB_ENV
+        echo "failed=$failed" >> $GITHUB_ENV
+        echo "skipped=$skipped" >> $GITHUB_ENV
+
+        if [ "$failed" -gt 0 ]; then
+          echo "tests_failed=true" >> $GITHUB_ENV
+        else
+          echo "tests_failed=false" >> $GITHUB_ENV
+        fi
 
     - name: Send Slack notification on failure
-      if: failure()
+      if: env.tests_failed == 'true'
       uses: slackapi/slack-github-action@v1.24.0
       with:
         payload: |
@@ -53,16 +76,38 @@ jobs:
                 "type": "header",
                 "text": {
                   "type": "plain_text",
-                  "text": "🚨 DXP RENO - *Test Failed* in smoke-test-results",
+                  "text": "❌ Smoke Test Failed: ${{ github.workflow }}",
                   "emoji": true
                 }
               },
               {
                 "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*Repository:* <https://github.com/NYPL/seleniumbase_reno|seleniumbase_reno>\n*Workflow:* ${{ github.workflow }}\n*Branch:* ${{ github.ref_name }}\n*Run:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Click here to view the failed run>"
-                }
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Branch:*\n${{ github.ref_name }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Run:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|#${{ github.run_number }}> 🔗"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Passed:*\n${{ env.passed }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Failed:*\n${{ env.failed }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Skipped:*\n${{ env.skipped }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Channel:*\n#smoke-test-results"
+                  }
+                ]
               }
             ]
           }
