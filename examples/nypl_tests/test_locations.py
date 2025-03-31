@@ -330,12 +330,12 @@ class Locations(NyplUtils):
 
         self.assert_true(media_types_len > 1, "media types filter smaller than expected")
 
-    @pytest.mark.skip(reason="These tests are divided into 3 parts to save time")
+    @pytest.mark.skip(reason="These tests are divided into 4 parts to cut down on time")
     @pytest.mark.smoke
     def test_open_hours_1(self):
         print("test_open_hours_1()\n")
 
-        # this test runs the whole libraries from 1st to last (131st) in 1 run. below tests are divided into 3 parts
+        # this test runs the whole libraries from 1st to last (130th) in 1 run. below tests are divided into 4 parts
 
         failure_messages = []
         library_amount = len(self.find_elements(LocationsPage.library_info))
@@ -410,7 +410,7 @@ class Locations(NyplUtils):
     @pytest.mark.regression
     @pytest.mark.smoke
     def test_open_hours_2(self):
-        # this test runs between 1-40 libraries
+        # this test runs between 1st-33rd libraries
 
         print("test_open_hours_2()\n")
 
@@ -423,7 +423,7 @@ class Locations(NyplUtils):
         closed_count = 0
         neither_count = 0
 
-        for x in range(1, 40):  # Adjust range as needed
+        for x in range(1, 33):  # Adjust range as needed
             library = LocationsPage.library_link + '[' + str(x) + ']'
 
             # Try-except block to handle NoSuchElementException and retry after a short delay
@@ -484,7 +484,7 @@ class Locations(NyplUtils):
     @pytest.mark.regression
     @pytest.mark.smoke
     def test_open_hours_3(self):
-        # this test runs between 40-80 libraries
+        # this test runs between 33rd-66th libraries
 
         print("test_open_hours_3()\n")
 
@@ -497,7 +497,7 @@ class Locations(NyplUtils):
         closed_count = 0
         neither_count = 0
 
-        for x in range(40, 80):  # Adjust range as needed
+        for x in range(33, 66):  # Adjust range as needed
             library = LocationsPage.library_link + '[' + str(x) + ']'
 
             # Try-except block to handle NoSuchElementException and retry after a short delay
@@ -558,7 +558,7 @@ class Locations(NyplUtils):
     @pytest.mark.regression
     @pytest.mark.smoke
     def test_open_hours_4(self):
-        # this test runs between 80-last libraries
+        # this test runs between 66th-99th libraries
 
         print("test_open_hours_4()\n")
 
@@ -571,7 +571,7 @@ class Locations(NyplUtils):
         closed_count = 0
         neither_count = 0
 
-        for x in range(80, library_amount + 1):  # Adjust range as needed
+        for x in range(66, 99):  # Adjust range as needed
             library = LocationsPage.library_link + '[' + str(x) + ']'
 
             # Try-except block to handle NoSuchElementException and retry after a short delay
@@ -628,3 +628,78 @@ class Locations(NyplUtils):
 
         # Optional: assert on total counts
         self.assert_true(total_count == open_count + closed_count + neither_count, "Library counts don't add up")
+
+    @pytest.mark.regression
+    @pytest.mark.smoke
+    def test_open_hours_5(self):
+        # this test runs between 100th-last libraries
+
+        print("test_open_hours_5()\n")
+
+        failure_messages = []
+        library_amount = len(self.find_elements(LocationsPage.library_info))
+
+        open_text = "today's hours"
+        total_count = 0
+        open_count = 0
+        closed_count = 0
+        neither_count = 0
+
+        for x in range(99, library_amount + 1):  # Adjust range as needed
+            library = LocationsPage.library_link + '[' + str(x) + ']'
+
+            # Try-except block to handle NoSuchElementException and retry after a short delay
+            try:
+                library_name = self.get_text(library)
+            except NoSuchElementException:
+                print(f"Element {library} not found. Retrying after 4 seconds...")
+                self.wait(4)  # Sleep for 4 seconds before retrying
+                library_name = self.get_text(library)  # Retry the action
+
+            library_info = self.get_text(LocationsPage.library_info + "[" + str(x) + "]").lower()
+
+            if "closed" in library_info:
+                print("\n\n================================================")
+                print("CLOSED - " + library_name + " (" + str(x) + ")")
+
+                self.click(library)
+                location_info_text = self.find_element(LocationsPage.location_info).text.lower()
+
+                if not ("temporarily closed" in location_info_text or "closed today" in location_info_text):
+                    failure_messages.append(
+                        f"{library_name} does not display 'Temporarily Closed' or 'Closed Today' status")
+
+                print("================================================\n\n")
+                closed_count += 1
+            elif open_text in library_info:
+                print("\nOPEN - " + library_name + " (" + str(x) + ")" + "\n")
+                open_count += 1
+
+                self.click(library)
+                location_info_text = self.get_text(LocationsPage.location_info).lower()
+
+                if "open today" not in location_info_text:
+                    failure_messages.append(f"{library_name} does not display Open today status")
+            else:
+                print("\n\n================================================")
+                print("NEITHER OPEN OR CLOSED - " + library_name + " (" + str(x) + ")")
+                print(library_info)
+                print("================================================\n\n")
+                neither_count += 1
+
+            total_count += 1
+            self.goto(LocationsPage.locations_page_link)  # go back to locations page
+
+        print("\nTotal Libraries: " + str(library_amount))
+        print("Total OPEN = " + str(open_count))
+        print("Total CLOSED = " + str(closed_count))
+        print("Total NEITHER = " + str(neither_count))
+        print("Total gone thru: " + str(total_count))
+
+        # Check for any accumulated errors
+        if failure_messages:
+            raise AssertionError("\n".join(failure_messages))
+
+        # Optional: assert on total counts
+        self.assert_true(total_count == open_count + closed_count + neither_count, "Library counts don't add up")
+
