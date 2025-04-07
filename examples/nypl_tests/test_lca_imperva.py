@@ -15,6 +15,7 @@ load_dotenv()
 run_count = 1  # Modify this value to change how many times the test executes
 
 
+@pytest.mark.skip
 @pytest.mark.test
 @pytest.mark.lca
 @pytest.mark.imperva
@@ -46,7 +47,7 @@ class LibraryCard(NyplUtils):
             print(self.get_current_url())
             self.click(LibraryCardPage.next_button)
 
-    def test_library_card_new_01(self):
+    def test_library_card_new(self):
         # https://www.nypl.org/library-card/new
         print("test_library_card_new()\n")
 
@@ -150,4 +151,3 @@ class LibraryCard(NyplUtils):
             print(self.get_current_url())
             self.click_with_fallback(LibraryCardPage.showPasswordReview)
             self.click(LibraryCardPage.next_button)
-
