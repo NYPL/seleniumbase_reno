@@ -4,7 +4,9 @@ from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_speakout import SpeakoutPage
 
 
-@pytest.mark.skip("Page/Form Not Published as of March 2025")
+#@pytest.mark.skip("Only to be un on QA")
+@pytest.mark.qa
+@pytest.mark.smoke
 class LibraryCard(NyplUtils):
     # https://www.nypl.org/speakout
 

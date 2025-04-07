@@ -445,7 +445,7 @@ class Locations(NyplUtils):
 
                 if not ("temporarily closed" in location_info_text or "closed today" in location_info_text):
                     failure_messages.append(
-                        f"{library_name} does not display 'Temporarily Closed' or 'Closed Today' status")
+                        f"{library_name} does not display 'Temporarily Closed' or 'Closed today' status")
 
                 print("================================================\n\n")
                 closed_count += 1
