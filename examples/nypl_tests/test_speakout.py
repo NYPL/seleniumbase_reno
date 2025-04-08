@@ -4,7 +4,7 @@ from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_speakout import SpeakoutPage
 
 
-#@pytest.mark.skip("Only to be un on QA")
+#@pytest.mark.skip("Only to be run on QA")
 @pytest.mark.qa
 @pytest.mark.smoke
 class LibraryCard(NyplUtils):

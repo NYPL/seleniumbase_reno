@@ -5,20 +5,20 @@ class CampaignsPage(BaseCase):
     home = '(//*[contains(text(), "Home")])[1]'  # breadcrumb for all paths
     timeline_h1 = '(//*[contains(text(), "The New York Public Library Through the Years")])[2]'  # /timeline h1
 
-    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'
+    all_links = '((//*[@id="page-container--content-primary"])//a)'
 
     # /125 locators
-    slide_images = '(//*[@class="slideshow"]//li//img)'  # list XPaths for the /125 slideshow
+    slide_images = '((//*[@id="slideshow-4cba29de-8c1c-4623-8375-7dfba10ad990"]//img))'  # list XPaths for the /125 slideshow
 
     # /timeline
     _125_years = '(//*[contains(text(), "125 Years of The")])[1]'  # breadcrumb for /timeline and /topcheckouts paths
-    h2_cards = '(//*[@id="block-nypl-emulsify-content"]//h2)'  # h2 cards on the page
-    main_h2 = '//*[@id="featured-card--heading--1579"]'  # first h2 of the page, 'Celebrating 125 Years of' ...
+    h2_cards = '((//*[@id="page-container--content-primary"]//h2))'  # h2 cards on the page
+    main_h2 = '//*[@id="5af88053-71d0-4f19-83d5-702001d087e8"]'  # first h2 of the page, 'Celebrating 125 Years of' ...
 
     # /topcheckouts
     checkouts_h1 = '(//*[contains(text(), "Top 10 Checkouts of All Time")])[2]'  # /checkouts path h1
     honorable_mention = '//*[contains(text(), "Honorable Mention")]'
-    top10_books = '((//*[@class= "top-checkouts"])[1]//li)'
+    top10_books = '(//*[contains(text(), "Request Book")])'
 
     def open_campaigns_page(self, category=''):
         # self.open("https://www.nypl.org/125")

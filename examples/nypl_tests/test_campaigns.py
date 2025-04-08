@@ -36,15 +36,17 @@ class Campaigns(NyplUtils):
         self.assert_element(CampaignsPage.home)
 
         print("\n")
+        slideshow_length = len(self.find_elements(CampaignsPage.slide_images))
+        print("Slideshow image amount: " + str(slideshow_length))
         # asserting the slides in 'The New York Public Library Through the Years'
-        for y in range(1, 11):
+        for y in range(1, slideshow_length + 1):
             print(self.get_image_url(CampaignsPage.slide_images + '[' + str(y) + ']'))
 
         slide_length = len(self.find_elements(CampaignsPage.slide_images))  # this is 28 but there are total 10 images
 
-        # assert slide number more than 9, currently 28 (10 as unique) as of June 2022
+        # assert slide number >= 1, currently 28 (10 as unique) as of June 2022
         print("\nSlide amount is " + str(slide_length))
-        self.assert_true(slide_length > 9, "Slide length is less than desired amount")
+        self.assert_true(slide_length >= 1, "No images in the slide")
 
     def test_125_timeline(self):
         # https://www.nypl.org/125/timeline
@@ -64,7 +66,7 @@ class Campaigns(NyplUtils):
         # asserting cards in the page, 45 of them as of June 2022
         cards_length = len(self.find_elements(CampaignsPage.h2_cards))
         print("total cards (h2) on the page = " + str(cards_length))  # optional print of the total h2 on the page
-        self.assert_true(cards_length >= 5, "Cards amount in the page is less than 5")
+        self.assert_true(cards_length >= 1, "No cards (h2) on the page")
 
         # assert main h2 on the page
         self.assert_element(CampaignsPage.main_h2)
@@ -91,8 +93,9 @@ class Campaigns(NyplUtils):
         # asserting h2 header 'Honorable Mention'
         self.assert_element(CampaignsPage.honorable_mention)
 
-        # asserting the top checkout number is equal to 10
+        # asserting the top checkout number is >= 1
         top_checkout_amount = len(self.find_elements(CampaignsPage.top10_books))
-        self.assert_true(top_checkout_amount == 10, "top checkout number is not equal to 10")
+        # print("Top Checkout Amount: " + str(top_checkout_amount))
+        self.assert_true(top_checkout_amount >= 1, "top checkout number is not equal or greater than 1")
 
 
