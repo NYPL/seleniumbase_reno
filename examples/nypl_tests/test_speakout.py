@@ -4,9 +4,9 @@ from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_speakout import SpeakoutPage
 
 
-#@pytest.mark.skip("Only to be run on QA")
+@pytest.mark.skip("Only to be run on QA")
 @pytest.mark.qa
-@pytest.mark.smoke
+# @pytest.mark.smoke
 class Speakout(NyplUtils):
     # https://www.nypl.org/speakout
 
