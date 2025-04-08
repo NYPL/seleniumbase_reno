@@ -7,7 +7,7 @@ from examples.nypl_pages.page_speakout import SpeakoutPage
 #@pytest.mark.skip("Only to be run on QA")
 @pytest.mark.qa
 @pytest.mark.smoke
-class LibraryCard(NyplUtils):
+class Speakout(NyplUtils):
     # https://www.nypl.org/speakout
 
     def setUp(self):
