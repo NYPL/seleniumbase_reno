@@ -8,3 +8,5 @@ pytestdebug.log
 
 # tests
 # test_lca_imperva.py
+test_speakout_districts.py
+test_speakout_districts_2.py
