@@ -7,7 +7,7 @@ examples/example_logs/page_source.html
 examples/nypl_tests/pytestdebug.log
 
 # tests
-# test_lca_imperva.py
+examples/nypl_tests/test_lca_imperva.py
 examples/nypl_tests/test_speakout_districts.py
 examples/nypl_tests/test_speakout_districts_2.py
 examples/nypl_tests/test_lca_2.py
