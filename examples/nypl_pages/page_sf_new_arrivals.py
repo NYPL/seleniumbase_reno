@@ -4,6 +4,8 @@ from seleniumbase import BaseCase
 class NewArrivalsPage(BaseCase):
     side_bar_bmm = '//a[contains(text(), "BOOKS/MUSIC/MOVIES")]'  # sidebar 'books/music/movies' arrow/link
 
+    book_amount = '(//*[@id="isotopesContainer"]//li)'  # book amount on the page
+
     toggle_display = '//*[@class="toggleDisplay"]'  # toggle display item bar
 
     switch_display = '//*[@class="switch"]'  # toggle display item for 'new arrivals/on order'

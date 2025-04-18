@@ -30,6 +30,11 @@ class NewArrivals(NyplUtils):
         # Assert page elements
         self.assert_element(NewArrivalsPage.side_bar_bmm)  # Assert sidebar/anchor tag 'Books/Music/Movies' element
 
+        # Assert there are books/data on the page
+        book_amount = len(self.find_elements(NewArrivalsPage.book_amount))
+        # print(book_amount)  # print statement for debugging purposes
+        self.assert_true(book_amount >= 1, "No Books displayed on the New Arrivals Page")
+
         # Assert toggle bar
         self.assert_element(NewArrivalsPage.toggle_display)  # Assert toggle display bar
         # Assert 'new arrivals/on order' toggle
