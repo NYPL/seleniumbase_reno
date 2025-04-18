@@ -2,11 +2,14 @@
 .env
 
 # Logs and Debug Files
-basic_test_info.txt
-page_source.html
-pytestdebug.log
+examples/example_logs/basic_test_info.txt
+examples/example_logs/page_source.html
+examples/nypl_tests/pytestdebug.log
 
 # tests
 # test_lca_imperva.py
-test_speakout_districts.py
-test_speakout_districts_2.py
+examples/nypl_tests/test_speakout_districts.py
+examples/nypl_tests/test_speakout_districts_2.py
+examples/nypl_tests/test_lca_2.py
+examples/nypl_tests/page_lca_2.py
+
