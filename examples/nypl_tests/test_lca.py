@@ -54,18 +54,18 @@ class LibraryCard(NyplUtils):
 
         # Landing page
 
-        # # assert languages
-        # self.assert_element(LibraryCardPage.arabic)
-        # self.assert_element(LibraryCardPage.bengali)
-        # self.assert_element(LibraryCardPage.chinese)
-        # self.assert_element(LibraryCardPage.english)
-        # self.assert_element(LibraryCardPage.french)
-        # self.assert_element(LibraryCardPage.haitian)
-        # self.assert_element(LibraryCardPage.korean)
-        # self.assert_element(LibraryCardPage.polish)
-        # self.assert_element(LibraryCardPage.russian)
-        # self.assert_element(LibraryCardPage.spanish)
-        # self.assert_element(LibraryCardPage.urdu)
+        # assert languages
+        self.assert_element(LibraryCardPage.arabic)
+        self.assert_element(LibraryCardPage.bengali)
+        self.assert_element(LibraryCardPage.chinese)
+        self.assert_element(LibraryCardPage.english)
+        self.assert_element(LibraryCardPage.french)
+        self.assert_element(LibraryCardPage.haitian)
+        self.assert_element(LibraryCardPage.korean)
+        self.assert_element(LibraryCardPage.polish)
+        self.assert_element(LibraryCardPage.russian)
+        self.assert_element(LibraryCardPage.spanish)
+        self.assert_element(LibraryCardPage.urdu)
 
         # click & assert "Get Started" button
         self.click(LibraryCardPage.get_started)
