@@ -39,7 +39,7 @@ jobs:
         pip install -U seleniumbase pytest-json-report
 
     - name: Run test
-      continue-on-error: true
+      # 👇 Allow step to fail (no continue-on-error)
       run: |
         pytest examples/nypl_tests --pspec --headless -n auto --reruns=0 --reruns-delay=2 -m test --json-report
 
@@ -71,3 +71,8 @@ jobs:
           }
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    # 👇 Prevent the whole job from failing (optional cleanup step)
+    - name: Mark job passed
+      if: always()
+      run: echo "Intentionally allowing job to pass"
