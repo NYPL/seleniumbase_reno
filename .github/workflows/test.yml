@@ -36,7 +36,7 @@ jobs:
         sudo apt-get update && sudo apt-get install -y jq
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install -U seleniumbase
+        pip install -U seleniumbase pytest-json-report
 
     - name: Run test
       id: run_tests
