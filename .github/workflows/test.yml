@@ -55,14 +55,17 @@ jobs:
           skipped=0
         fi
 
-        echo "passed=$passed" >> $GITHUB_ENV
-        echo "failed=$failed" >> $GITHUB_ENV
-        echo "skipped=$skipped" >> $GITHUB_ENV
+        echo "passed=$passed" >> $GITHUB_OUTPUT
+        echo "failed=$failed" >> $GITHUB_OUTPUT
+        echo "skipped=$skipped" >> $GITHUB_OUTPUT
+
+        # Show test output in GitHub Actions UI
+        echo "$pytest_output"
 
     - name: Set test status
       id: set_status
       run: |
-        if [ "$failed" -gt 0 ]; then
+        if [ "${{ steps.run_tests.outputs.failed }}" -gt 0 ]; then
           echo "tests_failed=true" >> $GITHUB_OUTPUT
         else
           echo "tests_failed=false" >> $GITHUB_OUTPUT
@@ -98,15 +101,15 @@ jobs:
                   },
                   {
                     "type": "mrkdwn",
-                    "text": "*Passed:*\n${{ env.passed }}"
+                    "text": "*Passed:*\n${{ steps.run_tests.outputs.passed }}"
                   },
                   {
                     "type": "mrkdwn",
-                    "text": "*Failed:*\n${{ env.failed }}"
+                    "text": "*Failed:*\n${{ steps.run_tests.outputs.failed }}"
                   },
                   {
                     "type": "mrkdwn",
-                    "text": "*Skipped:*\n${{ env.skipped }}"
+                    "text": "*Skipped:*\n${{ steps.run_tests.outputs.skipped }}"
                   },
                   {
                     "type": "mrkdwn",
