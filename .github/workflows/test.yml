@@ -39,40 +39,12 @@ jobs:
         pip install -U seleniumbase pytest-json-report
 
     - name: Run test
-      id: run_tests
       continue-on-error: true
       run: |
-        set -e
-        pytest_output=$(pytest examples/nypl_tests --pspec --headless -n auto --reruns=0 --reruns-delay=2 -m test --json-report || true)
-
-        if [ -f .report.json ]; then
-          passed=$(jq '.summary.passed' .report.json)
-          failed=$(jq '.summary.failed' .report.json)
-          skipped=$(jq '.summary.skipped' .report.json)
-        else
-          passed=0
-          failed=1
-          skipped=0
-        fi
-
-        echo "passed=$passed" >> $GITHUB_OUTPUT
-        echo "failed=$failed" >> $GITHUB_OUTPUT
-        echo "skipped=$skipped" >> $GITHUB_OUTPUT
-
-        # Show test output in GitHub Actions UI
-        echo "$pytest_output"
-
-    - name: Set test status
-      id: set_status
-      run: |
-        if [ "${{ steps.run_tests.outputs.failed }}" -gt 0 ]; then
-          echo "tests_failed=true" >> $GITHUB_OUTPUT
-        else
-          echo "tests_failed=false" >> $GITHUB_OUTPUT
-        fi
+        pytest examples/nypl_tests --pspec --headless -n auto --reruns=0 --reruns-delay=2 -m test --json-report
 
     - name: Send Slack notification on failure
-      if: steps.set_status.outputs.tests_failed == 'true'
+      if: failure()
       continue-on-error: true
       uses: slackapi/slack-github-action@v1.24.0
       with:
@@ -90,32 +62,10 @@ jobs:
               },
               {
                 "type": "section",
-                "fields": [
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Branch:*\n${{ github.ref_name }}"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Run:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|#${{ github.run_number }}> 🔗"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Passed:*\n${{ steps.run_tests.outputs.passed }}"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Failed:*\n${{ steps.run_tests.outputs.failed }}"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Skipped:*\n${{ steps.run_tests.outputs.skipped }}"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Channel:*\n#smoke-test-results"
-                  }
-                ]
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Repository:* <https://github.com/${{ github.repository }}|${{ github.repository }}>\n*Workflow:* ${{ github.workflow }}\n*Branch:* ${{ github.ref_name }}\n*Run:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Click here to view the failed run>"
+                }
               }
             ]
           }
