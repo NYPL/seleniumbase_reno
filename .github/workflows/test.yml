@@ -60,9 +60,9 @@ jobs:
       uses: slackapi/slack-github-action@v1.24.0
       with:
         # This data can be any valid JSON from a previous step in the GitHub Action
-        text: "Test Failed"
         payload: |
           {
+            "text": "Tests Failed",
             "property": "Reno",
             "test_repo": "https://github.com/NYPL/seleniumbase_reno/actions",
             "failed_tests": "${{ steps.parse_report.outputs.failed_tests }}"
