@@ -59,24 +59,29 @@ jobs:
         echo "failed=$failed" >> $GITHUB_ENV
         echo "skipped=$skipped" >> $GITHUB_ENV
 
+    - name: Set test status
+      id: set_status
+      run: |
         if [ "$failed" -gt 0 ]; then
-          echo "tests_failed=true" >> $GITHUB_ENV
+          echo "tests_failed=true" >> $GITHUB_OUTPUT
         else
-          echo "tests_failed=false" >> $GITHUB_ENV
+          echo "tests_failed=false" >> $GITHUB_OUTPUT
         fi
 
     - name: Send Slack notification on failure
-      if: env.tests_failed == 'true'
+      if: steps.set_status.outputs.tests_failed == 'true'
+      continue-on-error: true
       uses: slackapi/slack-github-action@v1.24.0
       with:
         payload: |
           {
+            "text": "❌ Test Failed: ${{ github.workflow }}",
             "blocks": [
               {
                 "type": "header",
                 "text": {
                   "type": "plain_text",
-                  "text": "❌ Smoke Test Failed: ${{ github.workflow }}",
+                  "text": "❌ Test Failed: ${{ github.workflow }}",
                   "emoji": true
                 }
               },
