@@ -54,31 +54,17 @@ jobs:
         echo "Parsing JSON report..."
         python -c "import json; import os; f = open('report.json'); report = json.load(f); f.close(); failed_tests = [test['nodeid'] for test in report['tests'] if test['outcome'] == 'failed']; failed_tests_str = ','.join(failed_tests); output_path = os.environ['GITHUB_OUTPUT']; gh_output = open(output_path, 'a'); gh_output.write(f'failed_tests={failed_tests_str}\\n'); gh_output.close()"
 
-    - name: Send Slack notification on failure
-      if: steps.parse_report.outputs.failed_tests != ''
-      continue-on-error: true
+    - name: Send GitHub Action trigger data to Slack workflow
+      id: slack
+      if: failure()
       uses: slackapi/slack-github-action@v1.24.0
       with:
+        # This data can be any valid JSON from a previous step in the GitHub Action
         payload: |
           {
-            "text": "❌ Test Failed: ${{ github.workflow }}",
-            "blocks": [
-              {
-                "type": "header",
-                "text": {
-                  "type": "plain_text",
-                  "text": "❌ Test Failed: ${{ github.workflow }}",
-                  "emoji": true
-                }
-              },
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*Repository:* <https://github.com/${{ github.repository }}|${{ github.repository }}>\n*Workflow:* ${{ github.workflow }}\n*Branch:* ${{ github.ref_name }}\n*Run:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Click to view the run>\n*Failed Tests:* `${{ steps.parse_report.outputs.failed_tests }} `"
-                }
-              }
-            ]
+            "property": "Research Catalog",
+            "test_repo": "https://github.com/NYPL/seleniumbase_rc/actions",
+            "failed_tests": "${{ steps.parse_report.outputs.failed_tests }}"
           }
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
