@@ -34,17 +34,28 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update && sudo apt-get install -y jq
-        python -m pip install --upgrade pip
+        python -m pip install --upgrade pip wheel
         pip install -r requirements.txt
         pip install -U seleniumbase pytest-json-report
 
-    - name: Run test
-      # 👇 Allow step to fail (no continue-on-error)
+    - name: Run tests
+      continue-on-error: true
       run: |
-        pytest examples/nypl_tests --pspec --headless -n auto --reruns=0 --reruns-delay=2 -m test --json-report
+        pytest examples/nypl_tests --pspec --headless -n auto --reruns=0 --reruns-delay=2 --json-report --json-report-file=report.json
+
+    - name: List report files
+      if: always()
+      run: ls -l
+
+    - name: Parse JSON Report
+      id: parse_report
+      if: always()
+      run: |
+        echo "Parsing JSON report..."
+        python -c "import json; import os; f = open('report.json'); report = json.load(f); f.close(); failed_tests = [test['nodeid'] for test in report['tests'] if test['outcome'] == 'failed']; failed_tests_str = ','.join(failed_tests); output_path = os.environ['GITHUB_OUTPUT']; gh_output = open(output_path, 'a'); gh_output.write(f'failed_tests={failed_tests_str}\\n'); gh_output.close()"
 
     - name: Send Slack notification on failure
-      if: failure()
+      if: steps.parse_report.outputs.failed_tests != ''
       continue-on-error: true
       uses: slackapi/slack-github-action@v1.24.0
       with:
@@ -64,15 +75,10 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*Repository:* <https://github.com/${{ github.repository }}|${{ github.repository }}>\n*Workflow:* ${{ github.workflow }}\n*Branch:* ${{ github.ref_name }}\n*Run:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Click here to view the failed run>"
+                  "text": "*Repository:* <https://github.com/${{ github.repository }}|${{ github.repository }}>\n*Workflow:* ${{ github.workflow }}\n*Branch:* ${{ github.ref_name }}\n*Run:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Click to view the run>\n*Failed Tests:* `${{ steps.parse_report.outputs.failed_tests }} `"
                 }
               }
             ]
           }
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-    # 👇 Prevent the whole job from failing (optional cleanup step)
-    - name: Mark job passed
-      if: always()
-      run: echo "Intentionally allowing job to pass"
