@@ -62,8 +62,8 @@ jobs:
         # This data can be any valid JSON from a previous step in the GitHub Action
         payload: |
           {
-            "property": "Research Catalog",
-            "test_repo": "https://github.com/NYPL/seleniumbase_rc/actions",
+            "property": "Reno",
+            "test_repo": "https://github.com/NYPL/seleniumbase_reno/actions",
             "failed_tests": "${{ steps.parse_report.outputs.failed_tests }}"
           }
       env:
