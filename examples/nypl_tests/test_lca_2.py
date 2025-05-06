@@ -11,7 +11,7 @@ load_dotenv()
 
 
 @pytest.mark.test
-@pytest.mark.smoke
+# @pytest.mark.smoke
 @pytest.mark.qa
 class LibraryCard(NyplUtils):
 
