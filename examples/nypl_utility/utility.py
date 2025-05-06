@@ -42,7 +42,7 @@ from examples.nypl_pages.page_bl_staff_picks import StaffPicksPage
 from examples.nypl_pages.page_sf_events import EventsPage
 from examples.nypl_pages.page_sf_books import BooksPage
 from examples.nypl_pages.page_lca import LibraryCardPage
-# from examples.nypl_pages.page_lca_2 import LibraryCardPageNew  # temporary class
+from examples.nypl_pages.page_lca_2 import LibraryCardPageNew  # temporary class
 from examples.nypl_pages.page_sf_new_arrivals import NewArrivalsPage
 from examples.nypl_pages.page_speakout import SpeakoutPage
 
@@ -64,7 +64,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 ArticlesBurneyPage, ArticlesHomeworkPage, BlogChannelsPage, BlogIndividualPage, PressPage,
                 PressIndividualPage, EducationPage, EarlyLiteracyPage, EducationTeensPage, EducatorsPage, BestBooksPage,
                 StaffPicksPage, EducationKidsPage, EducationAdultsPage, EventsPage, BooksPage, NewArrivalsPage,
-                LibraryCardPage, SpeakoutPage):
+                LibraryCardPage, SpeakoutPage, LibraryCardPageNew):
     login_button = '//*[@id="loginButton"]'
     login_catalog = '//*[contains(text(), "Go To The Catalog")]'
     login_research_catalog = '//*[contains(text(), "Go To The Research Catalog")]'
@@ -260,8 +260,8 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                     response = requests.head(url)
                     # print(response.status_code)
 
-                    #if response.status_code == 301:
-                        #print(f"\nWARNING: The requested resource at {url} has been definitively moved to the URL given by the Location headers")
+                    # if response.status_code == 301:
+                    # print(f"\nWARNING: The requested resource at {url} has been definitively moved to the URL given by the Location headers")
 
                     # Check if the link is allowed to return 403 based on keyword
                     if response.status_code == 403 and any(keyword in url for keyword in allowed_403_keywords):
@@ -284,8 +284,6 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             if not link_checked:
                 print(f"Failed to verify link {x} after {retries} attempts.")
                 assert False, f"Failed to verify link at position {x} after {retries} attempts."
-
-        print("\n=====================================================\n")
 
     def image_assertion(self):
         # skipping this function since 'img' locator finds unnecessary images
@@ -499,4 +497,3 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
         print("Element not found at any level")
         raise Exception("Test Failed: Element not found")  # Raise an error to fail the test
-
