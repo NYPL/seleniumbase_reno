@@ -41,7 +41,7 @@ jobs:
     - name: Run tests
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --pspec --headless -n auto --reruns=0 --reruns-delay=2 -m test --json-report --json-report-file=report.json
+        pytest examples/nypl_tests --spec --headless -n auto --reruns=0 --reruns-delay=2 -m test --json-report --json-report-file=report.json
 
     - name: List report files
       if: always()
