@@ -1,21 +1,40 @@
-# junk files
+# Byte-compiled / junk / system files
 __pycache__/
-*.pyc
+*.py[cod]
 .DS_Store
 
+# Python virtual environments
+env/
+venv/
+ENV/
+.venv/
+.ENV/
 
-# Environment and Secret Files
+# IDE project files
+.idea/
+*.iml
+.vscode/
+
+# Pytest and coverage
+.pytest_cache/
+*.log
+htmlcov/
+.coverage
+
+# Environment and secret files
 .env
+*.env
 
-# Logs and Debug Files
-examples/example_logs/basic_test_info.txt
-examples/example_logs/page_source.html
+# Debug logs and output
+examples/example_logs/
 examples/nypl_tests/pytestdebug.log
 
-# tests
+# Tests to ignore
 examples/nypl_tests/test_lca_imperva.py
 examples/nypl_tests/test_speakout_districts.py
 examples/nypl_tests/test_speakout_districts_2.py
 #examples/nypl_tests/test_lca_2.py
 #examples/nypl_pages/page_lca_2.py
 
+# Binary / external downloads
+chromedriver-mac-arm64.zip
