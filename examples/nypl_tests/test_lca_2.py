@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 from selenium.webdriver import Keys
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_lca_2 import LibraryCardPageNew
-from seleniumbase.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException
+
 
 load_dotenv()
 

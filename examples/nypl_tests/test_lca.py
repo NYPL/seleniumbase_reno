@@ -7,7 +7,7 @@ from selenium.webdriver import Keys
 
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_lca import LibraryCardPage
-from seleniumbase.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException
 
 # Load environment variables from .env file
 load_dotenv()

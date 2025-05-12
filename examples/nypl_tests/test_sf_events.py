@@ -13,7 +13,7 @@ class EventsTest(NyplUtils):
         print("\n=================================")
         print("RUNNING BEFORE EACH TEST")
 
-        self.set_window_size(1920, 1080)
+        # self.set_window_size(1920, 1080)
 
         # open main page
         self.open_events_page()

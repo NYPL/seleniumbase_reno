@@ -9,7 +9,9 @@ import time
 import requests
 import re
 
-from seleniumbase.common.exceptions import TextNotVisibleException, NoSuchElementException
+from seleniumbase.common.exceptions import TextNotVisibleException
+from selenium.common.exceptions import NoSuchElementException
+
 
 
 class Locations(NyplUtils):
