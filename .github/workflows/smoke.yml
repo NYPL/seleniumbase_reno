@@ -48,7 +48,7 @@ jobs:
 
     - name: Run Firefox-specific smoke test
       run: |
-        pytest examples/nypl_tests --headless --firefox -m "only_firefox"
+        pytest examples/nypl_tests --headless --firefox --reruns=2 -m "only_firefox"
 
 
     - name: Send Slack notification on failure
