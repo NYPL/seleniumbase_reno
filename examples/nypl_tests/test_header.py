@@ -1,5 +1,6 @@
 import pytest
 import os
+import re
 
 import requests
 from dotenv import load_dotenv
@@ -102,12 +103,14 @@ class HeaderTest(NyplUtils):
         self.nypl_login_catalog(username, password)
 
         # assert that the login is successful and the new URL is 'https://borrow.nypl.org/'
-
-        # self.wait(7)
-        current_url_text = self.get_current_url()
-        print(current_url_text)
-        self.assert_true('borrow' in current_url_text)
-
+        try:
+            print(self.get_current_url())
+            assert 'borrow' in self.get_current_url()
+        except AssertionError:
+            print("in except clause, trying again after waiting for a few seconds...")
+            self.wait(3)  # wait and try again
+            print(self.get_current_url())
+            assert 'borrow' in self.get_current_url()
         # assert title 'NYPL catalog'
         self.assert_title('New York Public Library')
         # assert 'my bookshelf' tab
@@ -209,41 +212,89 @@ class HeaderTest(NyplUtils):
             self.wait(3)
             self.click(HeaderPage.research_catalog_logout)  # retry clicking logout after waiting for 2 seconds
 
+    @pytest.mark.smoke
     def test_search_books_music_movies(self):
         # asserting the search results with keywords
         self.click(HeaderPage.search_tab)
         keyword = 'midtown'.lower()  # keyword in lowercase
         print("keyword: " + keyword)  # optional print
-        self.click(HeaderPage.circulating_catalog_1)
+        self.click(HeaderPage.circulating_catalog)
         self.send_keys(HeaderPage.search_bar, keyword)  # searching for keyword
         self.click(HeaderPage.search_submit_button)  # submitting the keyword
 
         try:
-            assert 'borrow' in self.get_current_url()
             print(self.get_current_url())
+            assert 'borrow' in self.get_current_url()
         except AssertionError:
             print("in except clause, trying again after waiting for a few seconds...")
             self.wait(3)  # wait and try again
             print(self.get_current_url())
             assert 'borrow' in self.get_current_url()
 
-    def test_search_library_website(self):
+    @pytest.mark.smoke
+    def test_search_research_catalog(self):
         # asserting the search results with keywords
         self.click(HeaderPage.search_tab)
         keyword = 'midtown'.lower()  # keyword in lowercase
         print("keyword: " + keyword)  # optional print
-        self.click(HeaderPage.research_catalog_1)
+        self.click(HeaderPage.research_catalog)
         self.send_keys(HeaderPage.search_bar, keyword)  # searching for keyword
         self.click(HeaderPage.search_submit_button)  # submitting the keyword
 
+
+        # assert search results is greater than 0
+        # 1- using anchor links amounts
+        search_result_amount_1 = len(self.find_elements(HeaderPage.search_result_rc_1))
+        print("Search result: " + str(search_result_amount_1))
+        self.assert_true(search_result_amount_1 >= 1)
+
+        # 2- using the result text and extracting the number from that
+        text = self.get_text(HeaderPage.search_result_rc_2)
+        print("Raw result text:", text)  # <--- ADD THIS
+        match = re.search(r'(?:about|of)\s+([\d,]+)\s+results', text)
+        if match:
+            total_results = int(match.group(1).replace(',', ''))
+            print("Total results: " + str(total_results))
+            self.assert_true(total_results >= 1)
+        else:
+            self.fail("Could not extract total result count from search result text")
+
         try:
-            assert 'borrow' in self.get_current_url()
             print(self.get_current_url())
+            assert 'research' in self.get_current_url()
         except AssertionError:
             print("in except clause, trying again after waiting for a few seconds...")
             self.wait(3)  # wait and try again
             print(self.get_current_url())
             assert 'research' in self.get_current_url()
+
+    @pytest.mark.smoke
+    def test_search_library_website(self):
+        # asserting the search results with keywords
+        self.click(HeaderPage.search_tab)
+        keyword = 'midtown'.lower()  # keyword in lowercase
+        print("keyword: " + keyword)  # optional print
+        self.click(HeaderPage.website_search)
+        self.send_keys(HeaderPage.search_bar, keyword)  # searching for keyword
+        self.click(HeaderPage.search_submit_button)  # submitting the keyword
+
+        # assert search results is greater than 0
+        # 1- using anchor links amounts
+        search_result_amount_1 = len(self.find_elements(HeaderPage.search_result_slw_1))
+        print("Search result: " + str(search_result_amount_1))
+        self.assert_true(search_result_amount_1 >= 1)
+
+        # 2- using the result text and extracting the number from that
+        text = self.get_text(HeaderPage.search_result_slw_2)
+        print("Raw result text:", text)  # <--- ADD THIS
+        match = re.search(r'(?:about|of)\s+([\d,]+)\s+results', text)
+        if match:
+            total_results = int(match.group(1).replace(',', ''))
+            print("Total results: " + str(total_results))
+            self.assert_true(total_results >= 1)
+        else:
+            self.fail("Could not extract total result count from search result text")
+
 
 # todo: left here > add a try except for _1 and _2 locators and also change the library_website assertion
 # todo: for the research catalog to be have more depth
