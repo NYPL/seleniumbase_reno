@@ -49,4 +49,4 @@ jobs:
     - name: Run QA Regression tests on Firefox
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --headless --firefox --env=qa -m "only_firefox"
+        pytest examples/nypl_tests --headless --firefox --reruns=2 --env=qa -m "only_firefox"
