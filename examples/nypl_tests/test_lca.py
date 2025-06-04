@@ -15,7 +15,6 @@ load_dotenv()
 
 # @pytest.mark.test
 # @pytest.mark.skip
-@pytest.mark.only_firefox
 @pytest.mark.smoke
 class LibraryCard(NyplUtils):
     # https://www.nypl.org/library-card/new
@@ -59,6 +58,7 @@ class LibraryCard(NyplUtils):
             self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
+    @pytest.mark.only_firefox
     @pytest.mark.smoke
     def test_library_card_new(self):
 
