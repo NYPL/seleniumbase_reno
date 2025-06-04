@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.10"]
+        python-version: ["3.11"]
 
     steps:
     - uses: actions/checkout@v4
@@ -41,7 +41,12 @@ jobs:
       continue-on-error: true
       run: flake8 examples/nypl_tests --max-line-length=120 --statistics --count || true
 
-    - name: Run all tests
+    - name: Run QA Regression tests on Chrome
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 --env=qa -m "not test"
+        pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 --env=qa -m "not test and not only_firefox"
+
+    - name: Run QA Regression tests on Firefox
+      continue-on-error: true
+      run: |
+        pytest examples/nypl_tests --headless --firefox --env=qa -m "only_firefox"

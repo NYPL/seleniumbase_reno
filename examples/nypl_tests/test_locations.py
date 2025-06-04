@@ -94,7 +94,7 @@ class Locations(NyplUtils):
 
         # text of first result
         search_result_text = self.get_text(LocationsPage.first_result)
-        # print(search_result_text)  # optional print
+        print(search_result_text)  # optional print
 
         expected_text = "The New York Public Library for the Performing Arts"
 
@@ -105,6 +105,9 @@ class Locations(NyplUtils):
         except (NoSuchElementException, AssertionError):
             print("First attempt failed. Waiting 2 seconds before retrying...")
             self.wait(2)
+            # text of the first result
+            search_result_text = self.get_text(LocationsPage.first_result)
+            print(search_result_text)  # optional print
             # Optionally re-fetch search_result_text here if needed
             self.assert_true(expected_text in search_result_text,
                              'Expected result = "' + expected_text + '" vs Actual result = "' + search_result_text + '"')
@@ -348,8 +351,6 @@ class Locations(NyplUtils):
 
         failure_messages = []
         library_amount = len(self.find_elements(LocationsPage.library_info))
-
-        # todo: test takes too long. consider using API for this test
 
         open_text = "today's hours"
         total_count = 0

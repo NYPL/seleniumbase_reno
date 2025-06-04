@@ -6,7 +6,7 @@ from selenium.common import NoSuchElementException
 
 from examples.nypl_pages.page_header import HeaderPage
 from examples.nypl_pages.page_schwarzman import SchwarzmanPage
-from examples.nypl_pages.page_give import GivePage
+from examples.nypl_pages.page_sf_give import GivePage
 from examples.nypl_pages.page_home import HomePage
 
 from examples.nypl_pages.page_blog import BlogPage
@@ -46,6 +46,7 @@ from examples.nypl_pages.page_lca_2 import LibraryCardPageNew  # temporary class
 from examples.nypl_pages.page_sf_new_arrivals import NewArrivalsPage
 from examples.nypl_pages.page_speakout import SpeakoutPage
 from examples.nypl_pages.page_sf_get_help import GetHelpPage
+from examples.nypl_pages.page_sf_contact_us import ContactUsPage
 
 # from examples.nypl_tests.test_dxp_images import FrontendImages
 
@@ -65,7 +66,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 ArticlesBurneyPage, ArticlesHomeworkPage, BlogChannelsPage, BlogIndividualPage, PressPage,
                 PressIndividualPage, EducationPage, EarlyLiteracyPage, EducationTeensPage, EducatorsPage, BestBooksPage,
                 StaffPicksPage, EducationKidsPage, EducationAdultsPage, EventsPage, BooksPage, NewArrivalsPage,
-                LibraryCardPage, SpeakoutPage, LibraryCardPageNew, GetHelpPage):
+                LibraryCardPage, SpeakoutPage, LibraryCardPageNew, GetHelpPage, ContactUsPage):
     login_button = '//*[@id="loginButton"]'
     login_catalog = '//*[contains(text(), "Go To The Catalog")]'
     login_research_catalog = '//*[contains(text(), "Go To The Research Catalog")]'
@@ -192,7 +193,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
     def link_assertion(self, link, text, retry_wait=3):
         try:
-            print("\nin try/except for 'link assertion' function")
+            # print("\nin try/except for 'link assertion' function")
             self.click(link)
             current_url = self.get_current_url()
             # print(text)  # text keyword to assert
@@ -279,7 +280,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
                 except Exception as e:
                     print(f"\nAttempt {attempt + 1} failed for link {x} with error: {e}. Retrying...")
-                    self.wait(2)  # Wait 2 seconds before retrying
+                    time.sleep(2)  # Wait 2 seconds before retrying
 
             # Final check if all retries failed
             if not link_checked:

@@ -1,0 +1,18 @@
+lca_3.py:198:SB
+--------------------------------------------------------------------
+Last Page: https://qa-www.nypl.org/library-card/congrats?&newCard=true
+ Duration: 41.38s
+  Browser: Chrome 136.0.7103.49
+   Driver: chromedriver 136.0.7103.94
+Timestamp: 1749055050  (Unix Timestamp)
+     Date: Wednesday, June 4, 2025
+     Time: 12:37:30 PM  (EDT, UTC-04:00)
+--------------------------------------------------------------------
+Traceback:
+  Traceback (most recent call last):
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_tests/lca_3.py", line 129, in <module>
+    NyplUtils.assert_links_valid(sb, LibraryCardPage.all_links)
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_utility/utility.py", line 288, in assert_links_valid
+    assert False, f"Failed to verify link at position {x} after {retries} attempts."
+           ^^^^^
+AssertionError: Failed to verify link at position 1 after 3 attempts.

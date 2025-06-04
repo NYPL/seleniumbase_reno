@@ -13,10 +13,24 @@ class HeaderPage(BaseCase):
     password = '//*[@id="pin"]'
     submit = '//*[contains(@value, "Submit")]'
 
+    # search bar
+    search_tab = '//*[@id="searchButton"]'
+    search_bar = '//*[@id="searchInput"]'
+    search_submit_button = '//*[@id="search-btn"]'
+
+    circulating_catalog_1 = '//*[@id="circulatingCatalogSearch-wrapper"]'
+    circulating_catalog_2 = '//*[@id="circulatingCatalogSearch"]'
+    research_catalog_1 = '//*[@id="researchcatalogSearch-wrapper"]'
+    research_catalog_2 = '//*[@id="researchcatalogSearch"]'
+    catalog_website_1 = '//*[@id="catalogWebsiteSearch-wrapper"]'
+    catalog_website_2 = '//*[@id="catalogWebsiteSearch"]'
+
+    # catalog/vega
     catalog_searchbar = '//*[@aria-label="search"]'
     catalog_login = '//*[@id="user-login-button"]'
     catalog_logout = '//*[contains(text(), "Sign out")]'
 
+    # research catalog
     research_catalog_logout = '//*[contains(text(), "Log Out")]'
     research_catalog_searchbar = '//*[@id="searchbar-textinput-mainContent"]'
     h2_display_result = '//*[@id="mainContent"]//*[@data-testid="search-results-heading"]'
@@ -24,12 +38,23 @@ class HeaderPage(BaseCase):
     my_bookshelf = '//*[@id="bookshelf-title"]'
     my_account_research_catalog = '//*[@id="my-account-profile-header-heading"]'
 
+    catalog_search_tab = '//*[@id="__next"]//*[contains(text(), "Search")]'
+    subject_heading_explorer_tab = '//*[@id="__next"]//*[contains(text(), "Subject Heading Explorer")]'
+    my_account_tab = '(//*[@id="__next"]//*[contains(text(), "My Account")])[1]'
+    log_out_tab = '(//*[@id="__next"]//*[contains(text(), "Log Out")])'
+
+    checkouts_tab = '(//*[@id="__next"]//*[contains(text(), "Checkouts")])'
+    requests_tab = '(//*[@id="__next"]//*[contains(text(), "Requests")])'
+    account_settings_tab = '(//*[@id="__next"]//*[contains(text(), "Account settings")])'
+
+    # top navigation
     locations = '//*[@id="header-nav-upper"]/li//a[contains(text(), "Locations")]'
     get_a_library_card = '//*[@id="header-nav-upper"]/li//a[contains(text(), "Get A Library Card")]'
     get_email_updates = '//*[@id="header-nav-upper"]/li//a[contains(text(), "Get Email Updates")]'
     donate = '(//*[contains(text(), "Donate")])[1]'
     shop = '//*[@id="header-nav-upper"]/li//a[contains(text(), "Shop")]'
 
+    # section fronts
     books_music_movies = '//*[contains(text(), "Books/Music/Movies")]'
     research = '(//*[contains(text(), "Research")])[1]'
     education = '//*[contains(text(), "Education")]'
@@ -38,15 +63,6 @@ class HeaderPage(BaseCase):
     give = '(//*[contains(text(), "Give")])[1]'
     get_help = '(//*[contains(text(), "Get Help")])[1]'
     search_button = '(//*[contains(text(), "Search")])[1]'
-
-    search_tab = '//*[@id="__next"]//*[contains(text(), "Search")]'
-    subject_heading_explorer_tab = '//*[@id="__next"]//*[contains(text(), "Subject Heading Explorer")]'
-    my_account_tab = '(//*[@id="__next"]//*[contains(text(), "My Account")])[1]'
-    log_out_tab = '(//*[@id="__next"]//*[contains(text(), "Log Out")])'
-
-    checkouts_tab = '(//*[@id="__next"]//*[contains(text(), "Checkouts")])'
-    requests_tab = '(//*[@id="__next"]//*[contains(text(), "Requests")])'
-    account_settings_tab = '(//*[@id="__next"]//*[contains(text(), "Account settings")])'
 
     # header is using same page as page_home
     """

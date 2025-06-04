@@ -15,16 +15,30 @@ load_dotenv()
 
 # @pytest.mark.test
 # @pytest.mark.skip
+@pytest.mark.only_firefox
 @pytest.mark.smoke
 class LibraryCard(NyplUtils):
     # https://www.nypl.org/library-card/new
 
+    # def setUp(self):
+    #     super().setUp()
+    #     print("\n=================================")
+    #     print("RUNNING BEFORE EACH TEST")
+    #
+    #     # open locations page
+    #     self.open_library_card_page()
+
     def setUp(self):
+        self.uc = True  # or False for CDP mode
+        self.chromium_arg = "--user-data-dir=/tmp/clean-profile"
+        self.chromium_arg = "--disable-extensions"
+        self.chromium_arg = "--no-first-run"
+        self.chromium_arg = "--no-default-browser-check"
+        self.chromium_arg = "--disable-popup-blocking"
         super().setUp()
         print("\n=================================")
         print("RUNNING BEFORE EACH TEST")
 
-        # open locations page
         self.open_library_card_page()
 
     def tearDown(self):
@@ -47,10 +61,15 @@ class LibraryCard(NyplUtils):
 
     @pytest.mark.smoke
     def test_library_card_new(self):
+
+        print("Driver path:", self.driver.service.path)
+
         # https://www.nypl.org/library-card/new
         print("test_library_card_new()\n")
 
         print(self.get_current_url())
+        self.execute_script("console.log(navigator.userAgent)")
+        print(self.driver.execute_script("return navigator.userAgent"))
 
         # Landing page
 
@@ -87,7 +106,7 @@ class LibraryCard(NyplUtils):
 
         # Step 2 of 5: Address
         # https://www.nypl.org/library-card/location?&newCard=true
-        self.wait(2)
+        # self.wait(2)
         print(self.get_current_url())
 
         self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
@@ -151,11 +170,22 @@ class LibraryCard(NyplUtils):
         self.send_keys(LibraryCardPage.password_box, password)
         self.send_keys(LibraryCardPage.verify_password_box, password)
         self.click_with_fallback(LibraryCardPage.show_password)
-        self.send_keys(LibraryCardPage.home_library_box, "Stephen A. Schwarzman Building")
-        self.send_keys(LibraryCardPage.home_library_box, Keys.ENTER)
+
+        print(self.get_current_url())
+
+        # self.wait(2455)
+        # todo: update the new home library dropdown
+        # self.send_keys(LibraryCardPage.home_library_box, "Stephen A. Schwarzman Building")
+        # self.send_keys(LibraryCardPage.home_library_box, Keys.ENTER)
         self.click(LibraryCardPage.terms_checkbox)
 
         print(self.get_current_url())
+        # Right before the assertion
+        print("Dumping current page source:")
+        page_source = self.driver.page_source
+        with open("page_dump_account.html", "w", encoding="utf-8") as f:
+            f.write(page_source)
+
         self.assert_element(LibraryCardPage.previous_button)
         self.click(LibraryCardPage.next_button)
 

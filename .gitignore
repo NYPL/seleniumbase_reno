@@ -35,6 +35,32 @@ examples/nypl_tests/test_speakout_districts.py
 examples/nypl_tests/test_speakout_districts_2.py
 #examples/nypl_tests/test_lca_2.py
 #examples/nypl_pages/page_lca_2.py
+examples/nypl_tests/lca_3.py
 
 # Binary / external downloads
+chromedriver
+geckodriver
 chromedriver-mac-arm64.zip
+disable_csp.zip
+recorder.zip
+grid-node
+grid-hub
+start-grid-hub.*
+register-grid-node.*
+*.lock
+
+# Output / generated files
+*.png
+*.html
+*.ico
+font_color
+
+# Third-party libraries and frontend assets
+messenger-*.css
+messenger-*.js
+jquery-confirm.min.*
+html-inspector.min.js
+
+# JSON/Configs not to track
+key-metrics.json.lock
+pytest_configs.json
