@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.10"]
+        python-version: ["3.11"]
 
     steps:
     - uses: actions/checkout@v4
@@ -40,10 +40,16 @@ jobs:
         pip install -r requirements.txt
         pip install -U seleniumbase
 
-    - name: Run smoke test
+    - name: Run smoke tests on Chrome
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 -m "smoke and not test and not qa"
+        pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 -m "smoke and not only_firefox"
+
+
+    - name: Run Firefox-specific smoke test
+      run: |
+        pytest examples/nypl_tests --headless --firefox -m "only_firefox"
+
 
     - name: Send Slack notification on failure
       if: failure()

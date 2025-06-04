@@ -103,7 +103,7 @@ class BlogTests(NyplUtils):
 
         # need help? ASK NYPL assertions
         self.assert_element(BlogPage.need_help_1)  # assert 'Email us your question' element
-        self.link_assertion(BlogPage.need_help_1, "libanswers")  # assert 'Email us your question' link
+        self.link_assertion(BlogPage.need_help_1, "libanswers")  # 'Chat with a Librarian' link
         self.assert_element(BlogPage.need_help_3)  # assert 'Text (917) 983-4584' element
         self.assert_element(BlogPage.need_help_4)  # assert 'Call (917) ASK-NYPL' element
         self.assert_element(BlogPage.need_help_5)  # assert '(917) 275-6975' element

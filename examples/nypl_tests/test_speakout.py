@@ -4,7 +4,7 @@ from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_speakout import SpeakoutPage
 
 
-@pytest.mark.skip("Only to be run on QA")
+#@pytest.mark.skip("Only to be run on QA")
 @pytest.mark.qa
 # @pytest.mark.smoke
 class Speakout(NyplUtils):
@@ -67,5 +67,5 @@ class Speakout(NyplUtils):
         print(self.get_text(SpeakoutPage.district_rep))  # optional print of the District and Council Members
         self.click(SpeakoutPage.send_letter)
 
-        self.wait(2)
+        self.wait(1)
         print(self.get_current_url())

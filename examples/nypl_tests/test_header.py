@@ -1,5 +1,7 @@
 import pytest
 import os
+
+import requests
 from dotenv import load_dotenv
 
 from selenium.common import NoSuchElementException
@@ -165,7 +167,7 @@ class HeaderTest(NyplUtils):
         # assert tabs
 
         # assert 'Search' tab
-        self.assert_element(HeaderPage.search_tab)
+        self.assert_element(HeaderPage.catalog_search_tab)
         # assert 'Subject Heading Explorer'
         self.assert_element(HeaderPage.subject_heading_explorer_tab)
         # assert "My Account" tab
@@ -183,7 +185,7 @@ class HeaderTest(NyplUtils):
         # assert search functionality
         # search for a keyword
         keyword = "book"
-        self.click(HeaderPage.search_tab)
+        self.click(HeaderPage.catalog_search_tab)
         self.send_keys(HeaderPage.research_catalog_searchbar, keyword)  # search for a title
         self.send_keys(HeaderPage.research_catalog_searchbar, Keys.ENTER)  # press Enter
 
@@ -206,3 +208,42 @@ class HeaderTest(NyplUtils):
             print("inside except block, will wait for a few seconds")
             self.wait(3)
             self.click(HeaderPage.research_catalog_logout)  # retry clicking logout after waiting for 2 seconds
+
+    def test_search_books_music_movies(self):
+        # asserting the search results with keywords
+        self.click(HeaderPage.search_tab)
+        keyword = 'midtown'.lower()  # keyword in lowercase
+        print("keyword: " + keyword)  # optional print
+        self.click(HeaderPage.circulating_catalog_1)
+        self.send_keys(HeaderPage.search_bar, keyword)  # searching for keyword
+        self.click(HeaderPage.search_submit_button)  # submitting the keyword
+
+        try:
+            assert 'borrow' in self.get_current_url()
+            print(self.get_current_url())
+        except AssertionError:
+            print("in except clause, trying again after waiting for a few seconds...")
+            self.wait(3)  # wait and try again
+            print(self.get_current_url())
+            assert 'borrow' in self.get_current_url()
+
+    def test_search_library_website(self):
+        # asserting the search results with keywords
+        self.click(HeaderPage.search_tab)
+        keyword = 'midtown'.lower()  # keyword in lowercase
+        print("keyword: " + keyword)  # optional print
+        self.click(HeaderPage.research_catalog_1)
+        self.send_keys(HeaderPage.search_bar, keyword)  # searching for keyword
+        self.click(HeaderPage.search_submit_button)  # submitting the keyword
+
+        try:
+            assert 'borrow' in self.get_current_url()
+            print(self.get_current_url())
+        except AssertionError:
+            print("in except clause, trying again after waiting for a few seconds...")
+            self.wait(3)  # wait and try again
+            print(self.get_current_url())
+            assert 'research' in self.get_current_url()
+
+# todo: left here > add a try except for _1 and _2 locators and also change the library_website assertion
+# todo: for the research catalog to be have more depth

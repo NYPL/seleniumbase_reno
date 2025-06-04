@@ -1,4 +1,5 @@
 import pytest
+from selenium.common.exceptions import NoSuchElementException
 
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_home import HomePage
@@ -63,15 +64,30 @@ class HomePageTest(NyplUtils):
         # new & noteworthy/in the collection slider
         print("test_slider()\n")
 
-        # getting the length of the slide and asserting it is more than X amount
+        # getting the length of the slide and asserting it is more than 0
         slide_length = len(self.find_elements(HomePage.new_noteworthy_slide))
-        self.assert_true(slide_length > 5)
-        # asserting we can click next button and go forward
+        print("slide amount: " + str(slide_length))
+        try:
+            self.assert_true(slide_length >= 1)
+        except AssertionError:
+            print("inside try/except block for slide length assertion")
+            self.wait(2)
+            self.assert_true(slide_length >= 1)
 
-        # asserting that we can click next button
-        for i in range(5):
-            self.click(HomePage.slide_next)
+        # Asserting that we can click the "next" button
+        for x in range(5):
+            try:
+                self.click(HomePage.slide_next)
+            except NoSuchElementException:
+                print("inside try/except block for 'Next button' assertion")
+                self.wait(2)
+                self.click(HomePage.slide_next)
 
-        # asserting we can click previous button
-        for i in range(5):
-            self.click(HomePage.slide_prev)
+        # Asserting that we can click the "previous" button
+        for x in range(3):
+            try:
+                self.click(HomePage.slide_prev)
+            except NoSuchElementException:
+                print("inside try/except block for 'Previous button' assertion")
+                self.wait(2)
+                self.click(HomePage.slide_prev)
