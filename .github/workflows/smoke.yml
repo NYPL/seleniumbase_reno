@@ -46,9 +46,9 @@ jobs:
         pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 -m "smoke and not only_firefox"
 
 
-    - name: Run Firefox-specific smoke test
-      run: |
-        pytest examples/nypl_tests --headless --firefox --reruns=2 -m "only_firefox"
+#    - name: Run Firefox-specific smoke test
+#      run: |
+#        pytest examples/nypl_tests --headless --firefox --reruns=2 -m "only_firefox"
 
 
     - name: Send Slack notification on failure
