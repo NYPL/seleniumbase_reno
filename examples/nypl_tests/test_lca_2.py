@@ -11,7 +11,7 @@ from selenium.common.exceptions import NoSuchElementException
 load_dotenv()
 
 
-@pytest.mark.test
+# @pytest.mark.test
 # @pytest.mark.smoke
 @pytest.mark.qa
 class LibraryCard(NyplUtils):
