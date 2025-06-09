@@ -44,26 +44,83 @@ jobs:
       id: run_tests
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --spec --headless -m test --json-report --json-report-file=report.json
+        pytest examples/nypl_tests --spec --headless -m test 
 
-    - name: Parse JSON Report
-      id: parse_report
+    - name: Send test results to Slack
       if: always()
       run: |
-        echo "Parsing JSON report..."
-        python -c "import json; import os; f = open('report.json'); report = json.load(f); f.close(); failed_tests = [test['nodeid'] for test in report['tests'] if test['outcome'] == 'failed']; failed_tests_str = ','.join(failed_tests); output_path = os.environ['GITHUB_OUTPUT']; gh_output = open(output_path, 'a'); gh_output.write(f'failed_tests={failed_tests_str}\\n'); gh_output.close()"
-
-    - name: Send GitHub Action trigger data to Slack workflow
-      id: slack
-      if: steps.run_tests.outcome != 'success'
-      uses: slackapi/slack-github-action@v1.24.0
-      with:
-        payload: |
-          {
-            "property": "DXP Reno",
-            "test_repo": "https://github.com/NYPL/seleniumbase_reno/actions",
-            "failed_tests": "${{ steps.parse_report.outputs.failed_tests }}"
-          }
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
+        if [ "${{ steps.run_tests.outcome }}" == "success" ]; then
+          STATUS="✅ PASSED"
+          COLOR="good"
+          MESSAGE="Smoke tests completed successfully!"
+        else
+          STATUS="❌ FAILED"
+          COLOR="danger"
+          MESSAGE="Smoke tests failed. Please check the logs for details."
+        fi
+        
+        PAYLOAD=$(cat <<EOF
+        {
+          "channel": "#smoke-test-results",
+          "attachments": [
+            {
+              "color": "$COLOR",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "🧪 Smoke Test Results"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Status:* $STATUS"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Repository:* ${{ github.repository }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Branch:* ${{ github.ref_name }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Commit:* <${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>"
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "$MESSAGE"
+                  }
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "View Workflow Run"
+                      },
+                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        EOF
+        )
+        
+        curl -X POST -H 'Content-type: application/json' \
+          --data "$PAYLOAD" \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
