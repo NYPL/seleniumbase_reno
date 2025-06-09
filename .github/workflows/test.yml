@@ -46,31 +46,21 @@ jobs:
       run: |
         pytest examples/nypl_tests --spec --headless -m test 
 
-    - name: Send test results to Slack
-      if: always()
+    - name: Send failure notification to Slack
+      if: steps.run_tests.outcome == 'failure'
       run: |
-        if [ "${{ steps.run_tests.outcome }}" == "success" ]; then
-          STATUS="✅ PASSED"
-          COLOR="good"
-          MESSAGE="Smoke tests completed successfully!"
-        else
-          STATUS="❌ FAILED"
-          COLOR="danger"
-          MESSAGE="Smoke tests failed. Please check the logs for details."
-        fi
-        
         PAYLOAD=$(cat <<EOF
         {
           "channel": "#smoke-test-results",
           "attachments": [
             {
-              "color": "$COLOR",
+              "color": "danger",
               "blocks": [
                 {
                   "type": "header",
                   "text": {
                     "type": "plain_text",
-                    "text": "🧪 Smoke Test Results"
+                    "text": "🚨 Smoke Test Failure"
                   }
                 },
                 {
@@ -78,7 +68,7 @@ jobs:
                   "fields": [
                     {
                       "type": "mrkdwn",
-                      "text": "*Status:* $STATUS"
+                      "text": "*Status:* ❌ FAILED"
                     },
                     {
                       "type": "mrkdwn",
@@ -98,7 +88,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "$MESSAGE"
+                    "text": "Smoke tests failed. Please check the logs for details."
                   }
                 },
                 {
@@ -108,7 +98,7 @@ jobs:
                       "type": "button",
                       "text": {
                         "type": "plain_text",
-                        "text": "View Workflow Run"
+                        "text": "View Failed Run"
                       },
                       "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                     }
