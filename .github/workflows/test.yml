@@ -40,7 +40,7 @@ jobs:
         pip install -r requirements.txt
         pip install -U seleniumbase
 
-    - name: Run smoke tests on Chrome
+    - name: Run smoke tests
       continue-on-error: true
       run: |
         pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 -m "smoke and not only_firefox"
