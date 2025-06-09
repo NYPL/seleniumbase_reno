@@ -41,13 +41,13 @@ jobs:
         pip install -U seleniumbase
 
     - name: Run smoke tests
+      id: run_tests
       continue-on-error: true
       run: |
         pytest examples/nypl_tests --spec --headless -m test
 
-
-    - name: Send Slack notification on failure
-      if: ${{ job.status != 'success' }}
+    - name: Send Slack notification on test failure
+      if: steps.run_tests.outcome != 'success'
       uses: slackapi/slack-github-action@v1.24.0
       with:
         payload: |
@@ -72,4 +72,3 @@ jobs:
           }
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
