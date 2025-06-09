@@ -48,69 +48,66 @@ jobs:
 
     - name: Send failure notification to Slack
       if: steps.run_tests.outcome == 'failure'
-      run: |
-        PAYLOAD=$(cat <<EOF
-        {
-          "channel": "#smoke-test-results",
-          "attachments": [
-            {
-              "color": "danger",
-              "blocks": [
-                {
-                  "type": "header",
-                  "text": {
-                    "type": "plain_text",
-                    "text": "🚨 Smoke Test Failure"
-                  }
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Status:* ❌ FAILED"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Repository:* ${{ github.repository }}"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Branch:* ${{ github.ref_name }}"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Commit:* <${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>"
+      uses: slackapi/slack-github-action@v1.24.0
+      with:
+        payload: |
+          {
+            "channel": "#smoke-test-results",
+            "attachments": [
+              {
+                "color": "danger",
+                "blocks": [
+                  {
+                    "type": "header",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "🚨 Smoke Test Failure"
                     }
-                  ]
-                },
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Smoke tests failed. Please check the logs for details."
-                  }
-                },
-                {
-                  "type": "actions",
-                  "elements": [
-                    {
-                      "type": "button",
-                      "text": {
-                        "type": "plain_text",
-                        "text": "View Failed Run"
+                  },
+                  {
+                    "type": "section",
+                    "fields": [
+                      {
+                        "type": "mrkdwn",
+                        "text": "*Status:* ❌ FAILED"
                       },
-                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                      {
+                        "type": "mrkdwn",
+                        "text": "*Repository:* ${{ github.repository }}"
+                      },
+                      {
+                        "type": "mrkdwn",
+                        "text": "*Branch:* ${{ github.ref_name }}"
+                      },
+                      {
+                        "type": "mrkdwn",
+                        "text": "*Commit:* <${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "Smoke tests failed. Please check the logs for details."
                     }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-        EOF
-        )
-        
-        curl -X POST -H 'Content-type: application/json' \
-          --data "$PAYLOAD" \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
+                  },
+                  {
+                    "type": "actions",
+                    "elements": [
+                      {
+                        "type": "button",
+                        "text": {
+                          "type": "plain_text",
+                          "text": "View Failed Run"
+                        },
+                        "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
