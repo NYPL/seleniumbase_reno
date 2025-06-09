@@ -40,23 +40,11 @@ jobs:
         pip install -r requirements.txt
         pip install -U seleniumbase
 
-#    - name: Run smoke tests on Chrome
-#      continue-on-error: true
-#      run: |
-#        pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 -m "smoke and not only_firefox"
-
-    - name: Setup Firefox and Geckodriver
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y firefox
-        wget https://github.com/mozilla/geckodriver/releases/download/v0.34.0/geckodriver-v0.34.0-linux64.tar.gz
-        tar -xzf geckodriver-v0.34.0-linux64.tar.gz
-        sudo mv geckodriver /usr/local/bin/
-
-    - name: Run Firefox-specific smoke test
+    - name: Run smoke tests on Chrome
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --headless --firefox --reruns=2 --reruns-delay=2 -m "only_firefox"
+        pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 -m "smoke and not only_firefox"
+
 
     - name: Send Slack notification on failure
       if: failure()
