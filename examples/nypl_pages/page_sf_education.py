@@ -2,8 +2,11 @@ from seleniumbase import BaseCase
 
 
 class EducationPage(BaseCase):
+
+    # breadcrumbs
     home_button = '(//*[contains(text(), "Home")])[1]'
-    title = "Education | The New York Public Library"
+
+    title = "Education | The New York Public Library"  # title
 
     all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
 
