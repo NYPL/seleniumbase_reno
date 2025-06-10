@@ -40,41 +40,77 @@ jobs:
         pip install -r requirements.txt
         pip install -U seleniumbase
 
-    - name: Run smoke tests on Chrome
+    - name: Run smoke tests
+      id: run_tests
       continue-on-error: true
       run: |
         pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 -m "smoke and not only_firefox"
 
-
-#    - name: Run Firefox-specific smoke test
-#      run: |
-#        pytest examples/nypl_tests --headless --firefox --reruns=2 -m "only_firefox"
-
-
-    - name: Send Slack notification on failure
-      if: failure()
-      uses: slackapi/slack-github-action@v1.24.0
-      with:
-        payload: |
-          {
-            "blocks": [
-              {
-                "type": "header",
-                "text": {
-                  "type": "plain_text",
-                  "text": "🚨 DXP RENO - *Test Failed* in smoke-test-results",
-                  "emoji": true
+    - name: Send failure notification to Slack
+      if: steps.run_tests.outcome == 'failure'
+      run: |
+        PAYLOAD=$(cat <<EOF
+        {
+          "channel": "#dxp-scrum-team",
+          "attachments": [
+            {
+              "color": "danger",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "🚨 Smoke Test Failure"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Status:* ❌ FAILED"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Repository:* ${{ github.repository }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Branch:* ${{ github.ref_name }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Commit:* <${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>"
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Smoke tests failed. Please check the logs for details."
+                  }
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "View Failed Run"
+                      },
+                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    }
+                  ]
                 }
-              },
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*Repository:* <https://github.com/NYPL/seleniumbase_reno|seleniumbase_reno>\n*Workflow:* ${{ github.workflow }}\n*Branch:* ${{ github.ref_name }}\n*Run:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Click here to view the failed run>"
-                }
-              }
-            ]
-          }
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-    
+              ]
+            }
+          ]
+        }
+        EOF
+        )
+        
+        curl -X POST -H 'Content-type: application/json' \
+          --data "$PAYLOAD" \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
