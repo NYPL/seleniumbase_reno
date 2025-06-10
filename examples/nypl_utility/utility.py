@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 
 import pytest, requests
 from selenium.common import NoSuchElementException
+from selenium.webdriver import Keys
 
 from examples.nypl_pages.page_header import HeaderPage
 from examples.nypl_pages.page_schwarzman import SchwarzmanPage
@@ -47,6 +48,7 @@ from examples.nypl_pages.page_sf_new_arrivals import NewArrivalsPage
 from examples.nypl_pages.page_speakout import SpeakoutPage
 from examples.nypl_pages.page_sf_get_help import GetHelpPage
 from examples.nypl_pages.page_sf_contact_us import ContactUsPage
+from examples.nypl_pages.page_sf_connect import ConnectPage
 
 # from examples.nypl_tests.test_dxp_images import FrontendImages
 
@@ -66,7 +68,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 ArticlesBurneyPage, ArticlesHomeworkPage, BlogChannelsPage, BlogIndividualPage, PressPage,
                 PressIndividualPage, EducationPage, EarlyLiteracyPage, EducationTeensPage, EducatorsPage, BestBooksPage,
                 StaffPicksPage, EducationKidsPage, EducationAdultsPage, EventsPage, BooksPage, NewArrivalsPage,
-                LibraryCardPage, SpeakoutPage, LibraryCardPageNew, GetHelpPage, ContactUsPage):
+                LibraryCardPage, SpeakoutPage, LibraryCardPageNew, GetHelpPage, ContactUsPage, ConnectPage):
     login_button = '//*[@id="loginButton"]'
     login_catalog = '//*[contains(text(), "Go To The Catalog")]'
     login_research_catalog = '//*[contains(text(), "Go To The Research Catalog")]'
@@ -383,7 +385,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 self.send_keys(page.email_subs_input, "joedoe@gmail.com")
 
                 # Step 3: Click Submit
-                self.click(page.submit_email)
+                self.send_keys(page.email_subs_input, Keys.ENTER)
 
                 # Step 4: Verify Subscription Confirmation
                 self.assert_element(page.subs_confirmation)

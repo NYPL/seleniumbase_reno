@@ -2,7 +2,7 @@ from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_sf_contact_us import ContactUsPage
 
 
-class ContactUs(NyplUtils):
+class ContactUsTest(NyplUtils):
 
     # https://www.nypl.org/get-help/contact-us
 
@@ -11,7 +11,7 @@ class ContactUs(NyplUtils):
         print("=================================")
         print("\nRUNNING BEFORE EACH TEST")
 
-        # open blog page
+        # open contact us page
         self.open_contact_us_page()
 
     def tearDown(self):

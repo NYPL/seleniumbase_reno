@@ -18,7 +18,7 @@ class EducatorsPage(BaseCase):
     # newsletter signup locators
     email_subscription = '(//*[contains(text(), "Sign Up for the CES Newsletter")])[1]'
     email_subs_input = '//*[@id="email-input"]'
-    submit_email = '(//*[contains(text(), "Submit")])[1]'
+    # submit_email = '(//*[contains(text(), "Submit")])[1]'
     subs_confirmation = '(//*[contains(text(), "Sign Up for the CES Newsletter")])[1]//..//..//*[contains(text(), "Thank you!")]'
 
     def open_educators_page(self):
