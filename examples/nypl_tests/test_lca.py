@@ -20,25 +20,12 @@ load_dotenv()
 class LibraryCard(NyplUtils):
     # https://www.nypl.org/library-card/new
 
-    # def setUp(self):
-    #     super().setUp()
-    #     print("\n=================================")
-    #     print("RUNNING BEFORE EACH TEST")
-    #
-    #     # open locations page
-    #     self.open_library_card_page()
-
     def setUp(self):
-        self.uc = True  # or False for CDP mode
-        self.chromium_arg = "--user-data-dir=/tmp/clean-profile"
-        self.chromium_arg = "--disable-extensions"
-        self.chromium_arg = "--no-first-run"
-        self.chromium_arg = "--no-default-browser-check"
-        self.chromium_arg = "--disable-popup-blocking"
         super().setUp()
         print("\n=================================")
         print("RUNNING BEFORE EACH TEST")
 
+        # open locations page
         self.open_library_card_page()
 
     def tearDown(self):
@@ -60,16 +47,12 @@ class LibraryCard(NyplUtils):
             self.click(LibraryCardPage.next_button)
 
     def test_library_card_new(self):
-
-        print("Driver path:", self.driver.service.path)
-
         # https://www.nypl.org/library-card/new
         print("test_library_card_new()\n")
 
-        print(self.get_current_url())
-        self.execute_script("console.log(navigator.userAgent)")
-        print(self.driver.execute_script("return navigator.userAgent"))
+        print("Driver path:", self.driver.service.path)
 
+        print(self.get_current_url())
         # Landing page
 
         # assert languages
@@ -85,7 +68,7 @@ class LibraryCard(NyplUtils):
         self.assert_element(LibraryCardPage.spanish)
         self.assert_element(LibraryCardPage.urdu)
 
-        # click & assert "Get Started" button
+        # click and assert "Get Started" button
         self.click(LibraryCardPage.get_started)
 
         # Step 1 of 5: Personal Information
@@ -172,17 +155,10 @@ class LibraryCard(NyplUtils):
 
         print(self.get_current_url())
 
-        # todo: update the new home library dropdown
+        # todo: update the new home library dropdown after SCC-4660
         # self.send_keys(LibraryCardPage.home_library_box, "Stephen A. Schwarzman Building")
         # self.send_keys(LibraryCardPage.home_library_box, Keys.ENTER)
         self.click(LibraryCardPage.terms_checkbox)
-
-        print(self.get_current_url())
-        # Right before the assertion
-        print("Dumping current page source:")
-        page_source = self.driver.page_source
-        with open("page_dump_account.html", "w", encoding="utf-8") as f:
-            f.write(page_source)
 
         self.assert_element(LibraryCardPage.previous_button)
         self.click(LibraryCardPage.next_button)
@@ -197,7 +173,6 @@ class LibraryCard(NyplUtils):
         self.click(LibraryCardPage.next_button)
 
         # Congrats Page
-
         self.assert_element(LibraryCardPage.congrats_text)  # asserting Congrats text
 
         # asserting Barcode number
