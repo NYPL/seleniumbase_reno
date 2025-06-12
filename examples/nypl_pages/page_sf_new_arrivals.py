@@ -20,9 +20,14 @@ class NewArrivalsPage(BaseCase):
     filter_book = '//*[@id="label-BOOK/TEXT"]'  # 'book' filter
     filter_adult = '//*[@id="label-Adult"]'  # 'adult' filter
     filter_english = '//*[@id="label-English"]'  # 'english' filter
+    filter_spanish = '//*[@id="label-Spanish"]'  # 'spanish' filter
+    filter_italian = '//*[@id="label-Italian"]'  # 'italian' filter
+    filter_arabic = '//*[@id="label-Arabic"]'  # 'arabic' filter
     filter_fiction = '//*[@id="label-fiction"]'  # 'all fiction' filter
     button_apply = '//*[@class="PillButton apply"]'  # 'apply' button
     selected_filters = '//*[@class="selectedFilters"]'  # selected filters
+
+    serch_result = '//*[@class="catalogItems"]//li'
 
     load_more_button = '//*[@id="page-button-list-number"]'  # 'Load More' button at the end of the page
 

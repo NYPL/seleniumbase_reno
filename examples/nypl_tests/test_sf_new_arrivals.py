@@ -51,12 +51,22 @@ class NewArrivals(NyplUtils):
         self.click(self.filter_book)  # Click 'Book' filter
         self.click(self.filter_adult)  # Click 'Adult' filter
 
-        # self.click(self.filter_english)  # Click 'English' filter  # RENO-4463 needs to be fixed
-        # TODO https://newyorkpubliclibrary.atlassian.net/browse/RENO-4463
+        self.click(self.filter_spanish)  # Click 'Spanish' filter
+        self.click(self.filter_italian)  # Click 'Italian' filter
+        self.click(self.filter_arabic)  # Click 'Arabic' filter
+        self.click(self.filter_english)  # Click 'English' filter
+
+        # if there is an issue with indexing service that services new-arrivals, it won’t update solr. check below ticket
+        # https://newyorkpubliclibrary.atlassian.net/browse/RENO-4463
 
         self.click(self.filter_fiction)  # Click 'All fiction' filter
         self.click(self.button_apply)  # Click 'Apply' button
         self.assert_element(self.selected_filters)  # Assert the selected filters are present
+
+        # assert the search result is > 1
+        search_result_amount = len(self.find_elements(NewArrivalsPage.serch_result))
+        print("Search result amount: " + str(search_result_amount))
+        self.assert_true(search_result_amount > 1)
 
         # Assert 'load more' button and click it
         self.assert_element(NewArrivalsPage.load_more_button)  # Assert 'load more' button
