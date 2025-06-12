@@ -44,9 +44,4 @@ jobs:
     - name: Run QA Regression tests on Chrome
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 --env=qa -m "not test and not only_firefox"
-
-    - name: Run QA Regression tests on Firefox
-      continue-on-error: true
-      run: |
-        pytest examples/nypl_tests --headless --firefox --reruns=2 --env=qa -m "only_firefox"
+        pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 --env=qa -m "not test"

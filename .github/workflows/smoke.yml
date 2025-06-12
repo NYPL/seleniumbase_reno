@@ -44,7 +44,7 @@ jobs:
       id: run_tests
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 -m "smoke and not only_firefox"
+        pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 -m "smoke"
 
     - name: Send failure notification to Slack
       if: steps.run_tests.outcome == 'failure'
