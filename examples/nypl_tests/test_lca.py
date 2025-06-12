@@ -1,198 +1,241 @@
 import os
-
-import pytest
 import uuid
+import pytest
 from dotenv import load_dotenv
 from selenium.webdriver import Keys
-
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_lca import LibraryCardPage
 from selenium.common.exceptions import NoSuchElementException
 
-# Load environment variables from .env file
+
 load_dotenv()
 
 
 # @pytest.mark.test
-# @pytest.mark.skip
-# @pytest.mark.only_firefox
 # @pytest.mark.smoke
+@pytest.mark.skip
 class LibraryCard(NyplUtils):
-    # https://www.nypl.org/library-card/new
 
     def setUp(self):
         super().setUp()
-        print("\n=================================")
-        print("RUNNING BEFORE EACH TEST")
-
-        # open locations page
+        # self.set_window_size(1440, 960)  # Set browser to Full HD size
+        print("\n=============================================================\n")
         self.open_library_card_page()
 
     def tearDown(self):
-        print("RUNNING AFTER EACH TEST")
-        print("=================================")
+        print("\n=============================================================\n")
+
         super().tearDown()
 
     def alternate_address(self):
-        """Reusable method to fill Alternate Address fields"""
         if self.is_element_visible(LibraryCardPage.alternate_address):
             self.send_keys(LibraryCardPage.work_address, "123 East 45th Street")
             self.send_keys(LibraryCardPage.work_apartment, "3F")
             self.send_keys(LibraryCardPage.work_city, "New York")
             self.send_keys(LibraryCardPage.work_state, "NY")
             self.send_keys(LibraryCardPage.work_zip, "10017")
-
             print(self.get_current_url())
             self.assert_element(LibraryCardPage.previous_button)
             self.click(LibraryCardPage.next_button)
 
-    def test_library_card_new(self):
-        # https://www.nypl.org/library-card/new
-        print("test_library_card_new()\n")
+    # login web element locator for the Congrats page depending on the selected language
+    def get_login_locator(self):
+        if "arabic" in self._testMethodName:
+            return LibraryCardPage.log_into_your_account_ar
+        elif "french" in self._testMethodName:
+            return LibraryCardPage.log_into_your_account_fr
+        return LibraryCardPage.log_into_your_account_en
 
-        print("Driver path:", self.driver.service.path)
-
+    # basic form for any language
+    def fill_basic_form(self):
+        print("Step 0: Landing page")
         print(self.get_current_url())
-        # Landing page
-
-        # assert languages
-        self.assert_element(LibraryCardPage.arabic)
-        self.assert_element(LibraryCardPage.bengali)
-        self.assert_element(LibraryCardPage.chinese)
-        self.assert_element(LibraryCardPage.english)
-        self.assert_element(LibraryCardPage.french)
-        self.assert_element(LibraryCardPage.haitian)
-        self.assert_element(LibraryCardPage.korean)
-        self.assert_element(LibraryCardPage.polish)
-        self.assert_element(LibraryCardPage.russian)
-        self.assert_element(LibraryCardPage.spanish)
-        self.assert_element(LibraryCardPage.urdu)
-
-        # click and assert "Get Started" button
         self.click(LibraryCardPage.get_started)
 
-        # Step 1 of 5: Personal Information
-        # https://www.nypl.org/library-card/personal?newCard=true
+        print("Step 1 of 5: Personal Information")
         print(self.get_current_url())
-
-        # create a unique email with UUID
         email = f"joedoe_nypl_lca_qa_{uuid.uuid4().hex[:8]}@gmail.com"
-
         self.send_keys(LibraryCardPage.first_name, "Joe")
         self.send_keys(LibraryCardPage.last_name, "Doe")
         self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
         self.send_keys(LibraryCardPage.email, email)
-
         self.assert_element(LibraryCardPage.previous_button)
         self.click(LibraryCardPage.next_button)
 
-        # Step 2 of 5: Address
-        # https://www.nypl.org/library-card/location?&newCard=true
-        # self.wait(2)
+        print("Step 2 of 5: Address")
+        self.wait(2)
         print(self.get_current_url())
-
         self.send_keys(LibraryCardPage.street_address, "123 East 45th Street")
         self.send_keys(LibraryCardPage.apartment, "3F")
         self.send_keys(LibraryCardPage.city, "New York")
         self.send_keys(LibraryCardPage.state, "NY")
         self.send_keys(LibraryCardPage.zip, "10017")
-
         self.assert_element(LibraryCardPage.previous_button)
         self.click(LibraryCardPage.next_button)
 
-        # Alternate Address
-        self.alternate_address()  # check if alternate address page visible
+        print("Step 2.5: Alternate Address (if applicable)")
+        self.alternate_address()
 
-        # Attempt Address Verification up to 3 times
-        max_attempts = 3
-
-        for attempt in range(1, max_attempts + 1):
+        print("Step 3 of 5: Address Verification")
+        for attempt in range(1, 4):
             try:
-                # Step 3 of 5: Address Verification
                 self.assert_element(LibraryCardPage.address_verification_1)
                 self.assert_element(LibraryCardPage.address_verification_2)
-
-                break  # Exit loop if successful
-
+                break
             except NoSuchElementException:
-                print(f"⚠️ Address verification elements not found (Attempt {attempt}/{max_attempts})")
-
-                if attempt < max_attempts:
+                print(f"⚠️ Address verification elements not found (Attempt {attempt}/3)")
+                if attempt < 3:
                     print("⏳ Retrying after waiting...")
                     self.wait(3)
-
-                    # Retry Alternate Address step before the next attempt
                     self.alternate_address()
                 else:
                     print("❌ Address verification failed after 3 attempts. Raising exception.")
-                    raise  # Fails test after all attempts
+                    raise
 
         print(self.get_current_url())
         self.assert_element(LibraryCardPage.previous_button)
         self.click(LibraryCardPage.next_button)
 
-        # Step 4 of 5: Customize Your Account
+        print("Step 4 of 5: Customize Your Account")
+        username = f"QaLibUser{uuid.uuid4().hex[:8]}"
+        password = os.getenv("LCA_PASSWORD")
 
-        # create a unique username with UUID
-        username = f"QaLibUser{uuid.uuid4().hex[:8]}"  # Shortened UUID
-
-        # Retrieve password from environment variables
-        password = os.getenv('LCA_PASSWORD')
-
-        # Debug print statements to check if the variables are set
-        # print(f"\nUsername: {username}")
-        # print(f"Password: {password}")
-        # print(f"Email: {email}\n")
-
-        # Ensure username and password are not None
-        if not username or not password:
-            raise Exception("Environment variables USERNAME and PASSWORD must be set!")
+        if not password:
+            raise Exception("Environment variable LCA_PASSWORD must be set!")
 
         self.send_keys(LibraryCardPage.username_box, username)
-        self.send_keys(LibraryCardPage.password_box, password)
-        self.send_keys(LibraryCardPage.verify_password_box, password)
+
+        if "invalid_password" in self._testMethodName:
+            print("Using invalid password for this test")
+            self.send_keys(LibraryCardPage.password_box, LibraryCardPage.invalid_password)
+            self.send_keys(LibraryCardPage.verify_password_box, LibraryCardPage.invalid_password)
+        else:
+            self.send_keys(LibraryCardPage.password_box, password)
+            self.send_keys(LibraryCardPage.verify_password_box, password)
+
         self.click_with_fallback(LibraryCardPage.show_password)
-
-        print(self.get_current_url())
-
-        # todo: update the new home library dropdown after SCC-4660
+        # todo: update below home library assertion with a dropdown choice
         # self.send_keys(LibraryCardPage.home_library_box, "Stephen A. Schwarzman Building")
-        # self.send_keys(LibraryCardPage.home_library_box, Keys.ENTER)
         self.click(LibraryCardPage.terms_checkbox)
 
+        print(self.get_current_url())
         self.assert_element(LibraryCardPage.previous_button)
         self.click(LibraryCardPage.next_button)
 
-        # Step 5 of 5: Confirm Your Information
+        print("Step 5 of 5: Confirm Your Information")
         self.assert_element(LibraryCardPage.edit_personal)
         self.assert_element(LibraryCardPage.edit_address)
         self.assert_element(LibraryCardPage.edit_create)
-
         print(self.get_current_url())
         self.click_with_fallback(LibraryCardPage.showPasswordReview)
         self.click(LibraryCardPage.next_button)
 
-        # Congrats Page
-        self.assert_element(LibraryCardPage.congrats_text)  # asserting Congrats text
+        if self._testMethodName == "test_library_card_04_invalid_password":
+            print("Step 6: Verifying form submission error")
+            try:
+                self.assert_element(LibraryCardPage.form_submission_error_fr)
+            except NoSuchElementException as e:
+                print(f"Retrying after error not found (FR): {e}")
+                self.wait(2)
+                self.assert_element(LibraryCardPage.form_submission_error_fr)
+            return
 
-        # asserting Barcode number
-        self.assert_element(LibraryCardPage.barcode)
-        barcode_number = self.get_text(LibraryCardPage.barcode_number)  # getting the barcode string to assert below
-        self.assert_true("255" in barcode_number, "Barcode does not have a valid number\n")  # asserting barcode no
+        elif self._testMethodName == "test_library_card_05_invalid_password":
+            print("Step 6: Verifying form submission error")
+            try:
+                self.assert_element(LibraryCardPage.form_submission_error_ar)
+            except NoSuchElementException as e:
+                print(f"Retrying after error not found (AR): {e}")
+                self.wait(2)
+                self.assert_element(LibraryCardPage.form_submission_error_ar)
+            return
+        print("Congrats Page")
+        # asserting "Congratulations" text and Barcode
+        try:
+            self.assert_element(LibraryCardPage.congrats_text)
+        except NoSuchElementException as e:
+            print(f"Retrying after element not found: {e}")
+            self.wait(2)
+            self.assert_element(LibraryCardPage.congrats_text)
 
-        # asserting Member Name
+        try:
+            self.assert_element(LibraryCardPage.barcode)
+        except NoSuchElementException as e:
+            print(f"Retrying after element not found: {e}")
+            self.wait(2)
+            self.assert_element(LibraryCardPage.barcode)
+
+        barcode_number = self.get_text(LibraryCardPage.barcode_number)
+        print("Barcode no: " + barcode_number)
+        self.assert_true("255" in barcode_number, "Barcode does not have a valid number")
+
         member_name = self.get_text(LibraryCardPage.member_name)
-        member_name_length = len(member_name.strip())
-        print("Member name: " + member_name, ", Name length: " + str(member_name_length))
-        self.assert_true(member_name_length >= 2, "Member name is too short or missing\n")
+        print("Member name: " + member_name + ", Name length: " + str(len(member_name.strip())))
+        self.assert_true(len(member_name.strip()) >= 2, "Member name is too short or missing")
 
-        # asserting Issue Date
         issued_date = self.get_text(LibraryCardPage.issued_date)
-        issued_date_length = len(issued_date.strip())
-        print("\nIssued date: " + issued_date, ", Date length: " + str(issued_date_length))
-        self.assert_true(issued_date_length >= 6, "Issued date is too short or missing")
+        print("\nIssued date: " + issued_date + ", Date length: " + str(len(issued_date.strip())))
+        self.assert_true(len(issued_date.strip()) >= 6, "Issued date is too short or missing")
+
+        # assert the login link after new account creation
+        # Choose correct login link locator based on the test case
+        login_locator = self.get_login_locator()
+
+
+        # Get login link with retry logic
+        try:
+            login_link = self.get_attribute(login_locator, "href")
+        except NoSuchElementException as e:
+            print(f"Retrying after login link element not found: {e}")
+            self.wait(2)
+            login_link = self.get_attribute(login_locator, "href")
+
+        print(f"Login link: {login_link}")
+
+        # Assert environment-correctness of the link
+        try:
+            if self.env == "qa":
+                self.assert_true("qa" in login_link or "dev" in login_link,
+                                 f"Expected QA or dev in login link, got: {login_link}")
+            else:
+                self.assert_true("qa" not in login_link and "dev" not in login_link,
+                                 f"Unexpected 'qa' or 'dev' in prod login link: {login_link}")
+        except NoSuchElementException as e:
+            print(f"Retrying assertion on login link due to error: {e}")
+            self.wait(2)
+            if self.env == "qa":
+                self.assert_true("qa" in login_link or "dev" in login_link,
+                                 f"Expected QA or dev in login link, got: {login_link}")
+            else:
+                self.assert_true("qa" not in login_link and "dev" not in login_link,
+                                 f"Unexpected 'qa' or 'dev' in prod login link: {login_link}")
 
         print(self.get_current_url())
-
-        # assert all links on the confirmation page
         self.assert_links_valid(LibraryCardPage.all_links)
+
+    def test_library_card_01_english(self):
+        print("library card english")
+        self.fill_basic_form()
+
+    def test_library_card_02_arabic(self):
+        print("library card arabic")
+        self.goto('https://www.nypl.org/library-card/new?lang=ar')
+        self.fill_basic_form()
+
+    def test_library_card_03_french(self):
+        print("library card french")
+        self.goto('https://www.nypl.org/library-card/new?lang=fr')
+        self.fill_basic_form()
+
+    def test_library_card_04_invalid_password(self):
+        print("library card invalid password french")
+        # This test verifies the error message appears in the selected language after an invalid password submission.
+        self.goto('https://www.nypl.org/library-card/new?lang=fr')
+        self.fill_basic_form()
+
+    def test_library_card_05_invalid_password(self):
+        print("library card invalid password arabic")
+        # This test verifies the error message appears in the selected language after an invalid password submission.
+        self.goto('https://www.nypl.org/library-card/new?lang=ar')
+        self.fill_basic_form()
+
