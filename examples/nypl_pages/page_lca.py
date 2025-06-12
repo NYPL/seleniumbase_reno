@@ -17,7 +17,7 @@ class LibraryCardPage(BaseCase):
     urdu = '//a[contains(text(), "Urdu")]'
 
     # 'get started' button
-    get_started = '//a[contains(text(), "Get Started")]'
+    get_started = "//*[@id='routing-links-next']"
 
     # Step 1 of 5: Personal Information
     first_name = "//*[@id='firstName']"
@@ -33,11 +33,11 @@ class LibraryCardPage(BaseCase):
     zip = "//*[@id='zip-home']"
 
     # Step 3 of 5: Address Verification
-    address_verification_1 = "//*[@id='mainContent']//*[contains(text(), 'Please select the correct address')]"
-    address_verification_2 = "//*[@id='mainContent']//*[contains(text(), 'Home Address')]"
+    address_verification_1 = "//*[@id='select-address-heading']"
+    address_verification_2 = "//*[@id='verify-address-heading']"
 
     # Alternate Address
-    alternate_address = "(//*[@id='mainContent']//*[contains(text(), 'Alternate Address')])[1]"
+    alternate_address = "(//*[@id='work-address-container']"
     work_address = "//*[@id='line1-work']"
     work_apartment = "//*[@id='line2-work']"
     work_city = "//*[@id='city-work']"
@@ -51,22 +51,29 @@ class LibraryCardPage(BaseCase):
     home_library_box = "//*[@id='librarylist-autosuggest']"
     terms_checkbox = "//*[@id='acceptTerms']"
     show_password = "//*[@id='showPassword']"  # exclusively for Step 4
+    invalid_password = "aaaaaaaa"
 
     # Step 5 of 5: Confirm Your Information
     edit_personal = "//*[@id='editSectionButton-Personal Information']"
     edit_address = "//*[@id='editAddressButton']"
     edit_create = "//*[@id='editSectionButton-Create Your Account']"
-    showPasswordReview = '//*[@id="showPasswordReview"]'  # exclusive for Step 5
+    # exclusive for Step 5
+    showPasswordReview = '//*[@id="showPasswordReview"]'
+    form_submission_error_fr = '//*[@id="mainContent"]//*[contains(text(), "Erreur de soumission du formulaire")]'
+    form_submission_error_ar = '//*[@id="mainContent"]//*[contains(text(), "خطأ في إرسال النموذج")]'
 
     # Step 6
-    congrats_text = "//*[@id='mainContent']//*[contains(text(), 'Congratulations')]"
+    congrats_text = "//*[@id='congratulations']"
     barcode = "//*[@id='barcodeCanvas']"
     barcode_number = "//*[@id='barcodeCanvas']//following-sibling::*"
-    member_name = "//*[@id='mainContent']//*[contains(text(), 'MEMBER NAME')]//div"
-    issued_date = "//*[@id='mainContent']//*[contains(text(), 'ISSUED')]//div"
+    member_name = "//*[@id='member-name']"
+    issued_date = "//*[@id='issued']"
+    log_into_your_account_en = '//a[contains(text(), "Log into your account")]'
+    log_into_your_account_ar = '//a[contains(text(), "سجِّل الدخول إلى حسابك")]'
+    log_into_your_account_fr = '//a[contains(text(), "Connectez-vous à votre compte")]'
     all_links = '(//*[@id="mainContent"]//a)'
 
-    previous_button = '//a[contains(text(), "Previous")]'
+    previous_button = "//*[@id='routing-links-previous']"
     next_button = "//input[@type='submit']"
 
     def open_library_card_page(self, category=''):
@@ -80,7 +87,7 @@ class LibraryCardPage(BaseCase):
 
         # Open the appropriate URL based on the environment
         if self.env == "qa":
-            print(f"Running on QA Env: Opening {category} page with URL: {qa_url}")
+            print(f"\nRunning on QA Env: Opening {category} page with URL: {qa_url}")
             self.open(qa_url)
         else:
             print(f"Running on Production Env: Opening {category} page with URL: {url}")

@@ -43,7 +43,6 @@ from examples.nypl_pages.page_bl_staff_picks import StaffPicksPage
 from examples.nypl_pages.page_sf_events import EventsPage
 from examples.nypl_pages.page_sf_books import BooksPage
 from examples.nypl_pages.page_lca import LibraryCardPage
-from examples.nypl_pages.page_lca_2 import LibraryCardPageNew  # temporary class
 from examples.nypl_pages.page_sf_new_arrivals import NewArrivalsPage
 from examples.nypl_pages.page_speakout import SpeakoutPage
 from examples.nypl_pages.page_sf_get_help import GetHelpPage
@@ -68,7 +67,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 ArticlesBurneyPage, ArticlesHomeworkPage, BlogChannelsPage, BlogIndividualPage, PressPage,
                 PressIndividualPage, EducationPage, EarlyLiteracyPage, EducationTeensPage, EducatorsPage, BestBooksPage,
                 StaffPicksPage, EducationKidsPage, EducationAdultsPage, EventsPage, BooksPage, NewArrivalsPage,
-                LibraryCardPage, SpeakoutPage, LibraryCardPageNew, GetHelpPage, ContactUsPage, ConnectPage):
+                LibraryCardPage, SpeakoutPage, GetHelpPage, ContactUsPage, ConnectPage):
     login_button = '//*[@id="loginButton"]'
     login_catalog = '//*[contains(text(), "Go To The Catalog")]'
     login_research_catalog = '//*[contains(text(), "Go To The Research Catalog")]'
