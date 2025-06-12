@@ -44,8 +44,4 @@ jobs:
     - name: Run Prod Regression tests on Chrome
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 -m "not test and not qa and not only_firefox"
-
-#    - name: Run Prod Regression tests on Firefox
-#      run: |
-#        pytest examples/nypl_tests --headless --firefox --reruns=2 -m "only_firefox"
+        pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 -m "not test and not qa"
