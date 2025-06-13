@@ -16,10 +16,10 @@ class FooterPage(BaseCase):
     about_nypl = '//*[@id="nypl-footer"]//*[contains(text(), "About NYPL")]'
     language = '//*[@id="nypl-footer"]//*[contains(text(), "Language")]'
 
-    facebook = '//*[@id="nypl-footer"]//*[contains(text(), "NYPL on Facebook")]/..'
-    twitter = '//*[@id="nypl-footer"]//*[contains(text(), "NYPL on Twitter")]/..'
-    instagram = '//*[@id="nypl-footer"]//*[contains(text(), "NYPL on Instagram")]/..'
-    youtube = '//*[@id="nypl-footer"]//*[contains(text(), "NYPL on Youtube")]/..'
+    facebook = '(//*[@data-testid="social-media-links"]//li)[1]//a'
+    twitter = '(//*[@data-testid="social-media-links"]//li)[2]//a'
+    instagram = '(//*[@data-testid="social-media-links"]//li)[3]//a'
+    youtube = '(//*[@data-testid="social-media-links"]//li)[4]//a'
 
     # footer is using same page as page_home
     """

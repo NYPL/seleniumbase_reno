@@ -38,31 +38,8 @@ class FooterTest(NyplUtils):
         self.link_assertion(FooterPage.about_nypl, "about")
         self.link_assertion(FooterPage.language, "language")
 
-        # social media links assertions
-        # assert facebook
-        self.assert_element(FooterPage.facebook)
-        self.click(FooterPage.facebook)
-        self.assert_true('www.facebook.com/nypl' in self.get_current_url())
-        # print(self.get_current_url())  # optional print
-        self.open_home_page()
-
-        # assert twitter
-        self.assert_element(FooterPage.twitter)
-        self.click(FooterPage.twitter)
-        self.assert_true('x.com/nypl' in self.get_current_url())
-        # print(self.get_current_url())  # optional print
-        self.open_home_page()
-
-        # assert instagram
-        self.assert_element(FooterPage.instagram)
-        self.click(FooterPage.instagram)
-        self.assert_true('instagram.com/' in self.get_current_url())
-        # print(self.get_current_url())  # optional print
-        self.open_home_page()
-
-        # assert youtube
-        self.assert_element(FooterPage.youtube)
-        self.click(FooterPage.youtube)
-        self.assert_true('www.youtube.com/user/NewYorkPublicLibrary' in self.get_current_url())
-        # print(self.get_current_url())  # optional print
-        self.open_home_page()
+        # social media links assertions with 'link assertion' utility function to verify they go to the correct URL
+        self.link_assertion(FooterPage.facebook, "facebook.com/nypl")
+        self.link_assertion(FooterPage.twitter, "x.com/nypl")
+        self.link_assertion(FooterPage.instagram, "instagram.com/nypl")
+        self.link_assertion(FooterPage.youtube, "youtube.com/user/NewYorkPublicLibrary")
