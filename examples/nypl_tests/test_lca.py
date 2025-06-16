@@ -13,7 +13,7 @@ load_dotenv()
 
 # @pytest.mark.test
 # @pytest.mark.smoke
-@pytest.mark.skip
+@pytest.mark.test
 class LibraryCard(NyplUtils):
 
     def setUp(self):
