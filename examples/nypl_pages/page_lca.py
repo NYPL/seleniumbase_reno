@@ -46,9 +46,13 @@ class LibraryCardPage(BaseCase):
 
     # Step 4 of 5: Customize Your Account
     username_box = "//*[@id='username']"
+    check_username = "//*[@id='mainContent']//*[contains(text(), 'Check if username is available')]"
+    username_valid = "//*[@id='mainContent']//*[contains(text(), 'This username is available')]"
+    username_invalid = "//*[@id='mainContent']//*[contains(text(), 'This username is unavailable. Please try another.')]"
     password_box = "//*[@id='password']"
     verify_password_box = "//*[@id='verifyPassword']"
-    home_library_box = "//*[@id='librarylist-autosuggest']"
+    home_library_dropdown = "//*[@id='librarylist-select']"
+    total_dropdown = "//*[@id='librarylist-select']//option"
     terms_checkbox = "//*[@id='acceptTerms']"
     show_password = "//*[@id='showPassword']"  # exclusively for Step 4
     invalid_password = "aaaaaaaa"
