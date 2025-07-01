@@ -1,4 +1,5 @@
 import os
+import random
 import uuid
 import pytest
 from dotenv import load_dotenv
@@ -46,15 +47,15 @@ class LibraryCard(NyplUtils):
             return LibraryCardPage.log_into_your_account_fr
         return LibraryCardPage.log_into_your_account_en
 
-    # basic form for any language
-    def fill_basic_form(self):
+    def fill_library_card_form(self):
         print("Step 0: Landing page")
         print(self.get_current_url())
         self.click(LibraryCardPage.get_started)
 
         print("Step 1 of 5: Personal Information")
         print(self.get_current_url())
-        email = f"joedoe_nypl_lca_qa_{uuid.uuid4().hex[:8]}@gmail.com"
+        uid = uuid.uuid4().hex[:8]
+        email = f"joedoe_nypl_lca_qa_{uid}@gmail.com"
         self.send_keys(LibraryCardPage.first_name, "Joe")
         self.send_keys(LibraryCardPage.last_name, "Doe")
         self.send_keys(LibraryCardPage.date_of_birth, "05/15/2001")
@@ -97,14 +98,35 @@ class LibraryCard(NyplUtils):
         self.click(LibraryCardPage.next_button)
 
         print("Step 4 of 5: Customize Your Account")
-        username = f"QaLibUser{uuid.uuid4().hex[:8]}"
+        username = f"QaLibUser{uid}"
+        # username = "LibUser12345678"  # invalid username for debugging purposes
+        print(f"username: {username}")
         password = os.getenv("LCA_PASSWORD")
 
         if not password:
             raise Exception("Environment variable LCA_PASSWORD must be set!")
 
-        self.send_keys(LibraryCardPage.username_box, username)
+        # Check if username is invalid
+        attempts = 0
+        max_attempts = 5
 
+        while attempts < max_attempts:
+            self.clear(LibraryCardPage.username_box)
+            self.send_keys(LibraryCardPage.username_box, username)
+            self.click(LibraryCardPage.check_username)
+            self.wait(3)
+
+            if not self.is_element_visible(LibraryCardPage.username_invalid):
+                print("username is valid")
+                break
+
+            print(username + " is not available, will try with a different one")
+            attempts += 1
+            print("Attempt:", attempts)
+            username = f"QaLibUser{uuid.uuid4().hex[:8]}"
+            print(f"new username: {username}")
+        else:
+            raise Exception("Failed to find a valid username after several attempts.")
         if "invalid_password" in self._testMethodName:
             print("Using invalid password for this test")
             self.send_keys(LibraryCardPage.password_box, LibraryCardPage.invalid_password)
@@ -114,9 +136,26 @@ class LibraryCard(NyplUtils):
             self.send_keys(LibraryCardPage.verify_password_box, password)
 
         self.click_with_fallback(LibraryCardPage.show_password)
-        # todo: update below home library assertion with a dropdown choice
-        # self.send_keys(LibraryCardPage.home_library_box, "Stephen A. Schwarzman Building")
-        self.click(LibraryCardPage.terms_checkbox)
+
+        # selecting a home library
+        self.click(LibraryCardPage.home_library_dropdown)
+
+        # Get list length
+        total_library_options = len(self.find_elements(LibraryCardPage.total_dropdown))
+        # asserting library amount in the dropdown
+        self.assert_true(total_library_options >= 2, "Not enough library options in the dropdown")
+        print("total home library number: " + str(total_library_options))
+
+        # Select random library from visible range
+        library_option_index = random.randint(2, total_library_options)
+        selected_library_option = LibraryCardPage.total_dropdown + f"[{library_option_index}]"
+
+        # Click a random library
+        # self.wait(1)  # Optional wait before library selection
+        print("selected library index: " + str(library_option_index))
+        print("selected library: " + self.get_text(selected_library_option))
+
+        self.click(LibraryCardPage.terms_checkbox)  # check the terms box
 
         print(self.get_current_url())
         self.assert_element(LibraryCardPage.previous_button)
@@ -213,29 +252,29 @@ class LibraryCard(NyplUtils):
         print(self.get_current_url())
         self.assert_links_valid(LibraryCardPage.all_links)
 
+
     def test_library_card_01_english(self):
         print("library card english")
-        self.fill_basic_form()
+        self.fill_library_card_form()
 
     def test_library_card_02_arabic(self):
         print("library card arabic")
         self.goto('https://www.nypl.org/library-card/new?lang=ar')
-        self.fill_basic_form()
+        self.fill_library_card_form()
 
     def test_library_card_03_french(self):
         print("library card french")
         self.goto('https://www.nypl.org/library-card/new?lang=fr')
-        self.fill_basic_form()
+        self.fill_library_card_form()
 
     def test_library_card_04_invalid_password(self):
         print("library card invalid password french")
         # This test verifies the error message appears in the selected language after an invalid password submission.
         self.goto('https://www.nypl.org/library-card/new?lang=fr')
-        self.fill_basic_form()
+        self.fill_library_card_form()
 
     def test_library_card_05_invalid_password(self):
         print("library card invalid password arabic")
         # This test verifies the error message appears in the selected language after an invalid password submission.
         self.goto('https://www.nypl.org/library-card/new?lang=ar')
-        self.fill_basic_form()
-
+        self.fill_library_card_form()
