@@ -52,8 +52,8 @@ class NewArrivals(NyplUtils):
         self.click(self.filter_adult)  # Click 'Adult' filter
 
         self.click(self.filter_spanish)  # Click 'Spanish' filter
-        self.click(self.filter_italian)  # Click 'Italian' filter
-        self.click(self.filter_arabic)  # Click 'Arabic' filter
+        # self.click(self.filter_italian)  # Click 'Italian' filter  # this lang is not available when book count < 100
+        # self.click(self.filter_arabic)  # Click 'Arabic' filter  # this lang is not available when book count < 100
         self.click(self.filter_english)  # Click 'English' filter
 
         # if there is an issue with indexing service that services new-arrivals, it won’t update solr. check below ticket
