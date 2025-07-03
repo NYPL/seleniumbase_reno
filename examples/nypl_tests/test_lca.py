@@ -28,6 +28,7 @@ class LibraryCard(NyplUtils):
 
         super().tearDown()
 
+    # alternate address step for patrons out of NYC
     def alternate_address(self):
         if self.is_element_visible(LibraryCardPage.alternate_address):
             self.send_keys(LibraryCardPage.work_address, "123 East 45th Street")
