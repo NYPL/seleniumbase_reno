@@ -39,8 +39,8 @@ class HomePageTest(NyplUtils):
         # self.assert_links_valid(HomePage.all_links)
         # TODO skipping above assertion until the double html issue resolved on the homepage
 
-        # assert all the h2  and 'See More' buttons ("Spotlight", "What's on", "Discover", "Staff Picks",
-        # "New & Noteworthy", "From Our Blog", "Updates") in a loop
+        # assert all the h2 and 'See More' buttons ("Spotlight", "What's on", "Discover", "Staff Picks",
+        # "In the Collections", "From Our Blog", "Updates") in a loop
         h2_amount = len(self.find_elements(HomePage.h2_heading))  # getting the length
         for x in range(1, h2_amount + 1):
             # asserting h2 elements

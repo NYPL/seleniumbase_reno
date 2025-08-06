@@ -7,7 +7,7 @@ class SnflTeenPage(BaseCase):
     locations = '(//*[contains(text(), "Locations")])[2]'
     snfl = '(//*[contains(text(), "Stavros Niarchos")])[1]'
 
-    all_links = '((//*[@id="block-nypl-emulsify-content"]//li)//a)'  # all links locator for 'Emulsify'
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # all links locator for 'Emulsify'
 
     # left side tab locators
     directions = '(//*[contains(text(), "Directions")])[1]'
