@@ -8,7 +8,7 @@ class SchwarzmanPage(BaseCase):
     visit = '(//*[contains(text(), "Research")])[2]//..//..//*[contains(text(), "Visit")][1]'
     research = '(//*[contains(text(), "Visit")][1]//..//..//*[contains(text(), "Research")])[1]'
 
-    all_links = '((//*[@id="block-nypl-emulsify-content"]//li)//a)'  # all links locator for 'Emulsify'
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # all links locator for 'Emulsify'
 
     sidebar = '//*[@id="block-entityviewcontent"]'
     holiday_closings = '(//*[contains(text(), "Holiday Closings")])[1]'

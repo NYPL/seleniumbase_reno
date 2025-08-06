@@ -18,7 +18,7 @@ class LocationsPage(BaseCase):
     library_amount = '(//*[@id="locations-list"])//li'  # total library amount
 
     library_info = '(//*[@id="locations-list"]//li)'  # library info on the /locations page
-    location_info = '//*[@id="block-entityviewcontent"]'  # library info on the library's individual page
+    location_info = '//*[@id="page-container--content-secondary"]'  # library info on the library's individual page
     library_link = '((//*[@id="locations-list"]//li)//h2//a)'  # retrieves the h2 for Library names
 
     all_libraries = '//*[@id="locations-list"]//li'

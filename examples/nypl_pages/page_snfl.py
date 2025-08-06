@@ -4,11 +4,11 @@ from seleniumbase import BaseCase
 class SnflPage(BaseCase):
     home = '(//*[contains(text(), "Home")])[1]'
 
-    visit = '//*[@id="audience-navigation--"]//*[contains(text(), "Visit")]'
-    explore = '//*[@id="audience-navigation--"]//*[contains(text(), "Explore")]'
-    read = '//*[@id="audience-navigation--"]//*[contains(text(), "Read")]'
+    visit = '(//*[@id="mainContent"]//*[contains(text(), "Visit")])[1]'
+    explore = '(//*[@id="mainContent"]//*[contains(text(), "Explore")])[1]'
+    read = '(//*[@id="mainContent"]//*[contains(text(), "Read")])[1]'
 
-    all_links = '((//*[@id="block-nypl-emulsify-content"]//li)//a)'  # all links locator for 'Emulsify'
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # all links locator for 'Emulsify'
 
     # left side tab locators
     directions = '(//*[contains(text(), "Directions")])[1]'
