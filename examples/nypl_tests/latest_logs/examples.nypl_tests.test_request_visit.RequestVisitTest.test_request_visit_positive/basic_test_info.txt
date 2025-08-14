@@ -1,0 +1,25 @@
+examples/nypl_tests/test_request_visit.py::RequestVisitTest::test_request_visit_positive
+--------------------------------------------------------------------
+Last Page: https://www.nypl.org/locations/request-visit
+ Duration: 12.97s
+  Browser: Chrome 138.0.7204.101
+   Driver: chromedriver 138.0.7204.92
+Timestamp: 1755109126  (Unix Timestamp)
+     Date: Wednesday, August 13, 2025
+     Time: 2:18:46 PM  (EDT, UTC-04:00)
+--------------------------------------------------------------------
+Traceback:
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/examples/nypl_tests/test_request_visit.py", line 76, in test_request_visit_positive
+    self.wait_for_text("Thank You!")
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/.venv/lib/python3.11/site-packages/seleniumbase/fixtures/base_case.py", line 9735, in wait_for_text
+    return self.wait_for_text_visible(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/.venv/lib/python3.11/site-packages/seleniumbase/fixtures/base_case.py", line 9684, in wait_for_text_visible
+    return page_actions.wait_for_text_visible(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/.venv/lib/python3.11/site-packages/seleniumbase/fixtures/page_actions.py", line 639, in wait_for_text_visible
+    timeout_exception(TextNotVisibleException, message)
+  File "/Users/alkimcevik/PycharmProjects/Sbase_Reno/.venv/lib/python3.11/site-packages/seleniumbase/fixtures/page_actions.py", line 267, in timeout_exception
+    raise exc(msg)
+Exception: 
+ Expected text substring {Thank You!} for {html} was not visible after 10 seconds!

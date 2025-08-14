@@ -13,7 +13,7 @@ class BlogPage(BaseCase):
     view_all_blogs = '(//*[contains(text(), "View all blog posts")])'
 
     get_a_library_card = '(//*[contains(text(),"Get a Library Card")])[1]'
-    find_your_next_book = '(//*[contains(text(),"Find Your Next")])[1]'
+    find_your_next_book = '(//*[contains(text(),"Find Your Next Book")])[1]'
     search_library_locations = '//*[contains(text(),"Search Library Loca")]'
     reserve_a_computer = '(//*[contains(text(),"Reserve a Compu")])[1]'
 
