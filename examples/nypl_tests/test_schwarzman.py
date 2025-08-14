@@ -55,15 +55,15 @@ class Schwarzman(NyplUtils):
 
         # assert all links on the page
         self.assert_links_valid(SchwarzmanPage.all_links)
+        # todo: update the assert_links_valid function so it wouldnt get bottom nav links like "Mor at NYPL" etc
 
     def test_schwarzman_left_sidebar(self):
         # assert address in the left panel
         expected_address = "Fifth Avenue and 42nd Street"
         actual_address = self.get_text(SchwarzmanPage.address)
+        print(actual_address)
         self.assert_true(expected_address in actual_address,
                          "Actual " + expected_address + " doesn't match the expected " + actual_address)
 
-        # assert sidebar, holiday closings, and
-        # using 'link_assertion' method from utility.py
-        self.assert_element(SchwarzmanPage.sidebar)  # assert sidebar
+        # assert holiday closings using 'link_assertion' method from utility.py
         self.link_assertion(SchwarzmanPage.holiday_closings, "nypl.org/help/closings")  # assert holiday schedule

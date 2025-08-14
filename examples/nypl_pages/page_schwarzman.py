@@ -5,14 +5,13 @@ class SchwarzmanPage(BaseCase):
     home = '(//*[contains(text(), "Home")])[1]'
     hero = '(//*[@id[contains(., "hero")]])//h1'
 
-    visit = '(//*[contains(text(), "Research")])[2]//..//..//*[contains(text(), "Visit")][1]'
-    research = '(//*[contains(text(), "Visit")][1]//..//..//*[contains(text(), "Research")])[1]'
+    visit = '//*[@href="/locations/schwarzman"]'
+    research = '//*[@href="/locations/schwarzman/research"]'
 
     all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # all links locator for 'Emulsify'
 
-    sidebar = '//*[@id="block-entityviewcontent"]'
     holiday_closings = '(//*[contains(text(), "Holiday Closings")])[1]'
-    address = '//*[@id="location-info--fifth-avenue-and-42nd-street<br>new-york-ny-10018"]'
+    address = '//*[@id="page-container--content-secondary"]'
 
     def open_schwarzman_page(self):
         # self.open("https://www.nypl.org/locations/schwarzman")
