@@ -54,6 +54,7 @@ register-grid-node.*
 *.html
 *.ico
 font_color
+latest_logs/
 
 # Third-party libraries and frontend assets
 messenger-*.css
