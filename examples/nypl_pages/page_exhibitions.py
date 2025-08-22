@@ -3,9 +3,9 @@ from seleniumbase import BaseCase
 
 class ExhibitionsPage(BaseCase):
     # main page elements
-    home = '(//*[contains(text(), "Home")])[1]'
-    events = '(//*[contains(text(), "Events")])[2]'
-    exhibitions_h1 = '(//*[contains(text(), "Exhibitions")])[2]'
+    home = '//a[contains(@href, "/")]//span[contains(., "Home")]'
+    events = '//a[contains(@href, "/events")]//span[contains(., "Events")]'
+    exhibitions_h1 = '//a[contains(@href, "/events/exhibitions")]//span[contains(., "Exhibitions")]'
 
     all_links = '((//*[@id="page-container--content-primary"]//li)//a)'
 
