@@ -1,3 +1,5 @@
+import pytest
+
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_exhibitions import ExhibitionsPage
 
@@ -51,6 +53,7 @@ class Exhibitions(NyplUtils):
             self.click(f"{ExhibitionsPage.see_all}[{x}]")
             self.go_back()
 
+    @pytest.mark.skip(reason="Waiting for T2S migration")
     def test_exhibitions_upcoming(self):
         # https://www.nypl.org/events/exhibitions/upcoming
         print("test_exhibitions_upcoming()\n")
@@ -71,6 +74,7 @@ class Exhibitions(NyplUtils):
         self.assert_element(ExhibitionsPage.exhibitions)
         self.assert_element(ExhibitionsPage.upcoming_1)
 
+    @pytest.mark.skip(reason="Waiting for T2S migration")
     def test_exhibitions_past(self):
         # https://www.nypl.org/events/exhibitions/past
         print("test_exhibitions_past()\n")
