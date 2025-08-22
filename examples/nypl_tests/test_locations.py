@@ -492,7 +492,7 @@ class Locations(NyplUtils):
         # Optional: assert on total counts
         self.assert_true(total_count == open_count + closed_count + neither_count, "Library counts don't add up")
 
-    # @pytest.mark.skip(reason="Waiting for Refinery deprecation")
+    @pytest.mark.skip(reason="Waiting for Refinery deprecation")
     @pytest.mark.regression
     @pytest.mark.smoke
     def test_open_hours_2(self):
