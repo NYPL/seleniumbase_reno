@@ -7,7 +7,7 @@ class ExhibitionsPage(BaseCase):
     events = '(//*[contains(text(), "Events")])[2]'
     exhibitions_h1 = '(//*[contains(text(), "Exhibitions")])[2]'
 
-    all_links = '((//*[@id="block-nypl-emulsify-content"])//a)'
+    all_links = '((//*[@id="page-container--content-primary"]//li)//a)'
 
     current_exhibitions = '(//*[contains(text(), "Current Exhibitions")])[1]'
     see_all = '(//*[contains(text(), "See All")])'

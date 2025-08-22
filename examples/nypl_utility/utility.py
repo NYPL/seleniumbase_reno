@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 
 import pytest, requests
+from urllib.parse import urlparse
 from selenium.common import NoSuchElementException
 from selenium.webdriver import Keys
 
@@ -225,65 +226,69 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
     def assert_links_valid(self, locator):
         """
-        assert links valid in a <li, List Item:
-        A method to assert that the child links are not broken in a list item ('li' tag),
-        using HTTP method HEAD, and checks if the response is between the acceptable limits (200-400)
+        Assert links in an <li> aren't broken for HTTP(S). Skip non-web schemes (tel:, sms:, mailto:, etc.).
         """
 
-        # List of keywords that are allowed to return a 403 status code
-        allowed_403_keywords = [
-            "photoville",
-            "NYPLEducators",
-            ""
-        ]
+        allowed_403_keywords = ["photoville", "NYPLEducators", ""]
+
+        non_http_schemes_to_skip = {"mailto", "tel", "sms", "javascript", "data"}
 
         block_length = len(self.find_elements(locator))
         print(f"\nNumber of links on the page: {block_length}")
-
-        # Assert that links are found; if not, fail the test
         assert block_length > 0, "No links found. Expected at least one link under the locator."
 
         for x in range(1, block_length + 1):
-            retries = 3  # Number of retries
-            link_checked = False  # Flag to track if link was successfully checked
+            retries = 3
+            link_checked = False
 
             for attempt in range(retries):
                 try:
-                    # Attempt to find the link element and retrieve URL
-                    link_element = self.find_element(locator + f'[{x}]')
-                    url = link_element.get_attribute('href')
+                    el = self.find_element(locator + f'[{x}]')
+                    url = el.get_attribute('href') or ""
 
-                    # Check if the URL is a 'mailto@nypl.org' link and skip if so
-                    if url.startswith("mailto:"):
-                        # print(f"\nSkipping email link: {url}")
-                        link_checked = True  # Mark as checked to avoid failing at the end
-                        break  # Exit inner retry loop and move to the next link in the outer loop
+                    # If there's no href at all, treat as non-web (e.g., JS handlers) and skip
+                    if not url:
+                        print(f"Skipping element {x}: no href attribute.")
+                        link_checked = True
+                        break
+
+                    scheme = (urlparse(url).scheme or "").lower()
+
+                    # Skip non-HTTP(S) links: tel:, sms:, mailto:, javascript:, data:, etc.
+                    if scheme in non_http_schemes_to_skip:
+                        print(f"Skipping {scheme.upper()} link: {url}")
+                        link_checked = True
+                        break
+
+                    # If it’s protocol-relative or relative, requests can choke; normalize if needed
+                    if scheme not in {"http", "https"}:
+                        # Anything not recognized as http(s) by here, skip defensively
+                        print(f"Skipping non-HTTP(S) href for element {x}: {url}")
+                        link_checked = True
+                        break
 
                     # Make a HEAD request to verify the URL
-                    response = requests.head(url)
-                    # print(response.status_code)
+                    try:
+                        response = requests.head(url, allow_redirects=True, timeout=10)
+                    except requests.RequestException:
+                        # Some servers block HEAD; fallback to GET with stream to avoid heavy downloads
+                        response = requests.get(url, allow_redirects=True, timeout=10, stream=True)
 
-                    # if response.status_code == 301:
-                    # print(f"\nWARNING: The requested resource at {url} has been definitively moved to the URL given by the Location headers")
+                    status = response.status_code
 
-                    # Check if the link is allowed to return 403 based on keyword
-                    if response.status_code == 403 and any(keyword in url for keyword in allowed_403_keywords):
+                    if status == 403 and any(k in url for k in allowed_403_keywords):
                         print(f"URL {url} returned 403 but is allowed to pass due to keyword.")
                         link_checked = True
-                        break  # Exit retry loop
+                        break
 
-                    # Check if the link is not broken (status code < 400)
-                    assert response.status_code < 400, f"Link {url} is broken"
-
-                    # Set flag to true and break if everything succeeds
+                    assert status < 400, f"Link {url} is broken (status {status})"
                     link_checked = True
-                    break  # Exit retry loop if successful
+                    break
 
                 except Exception as e:
                     print(f"\nAttempt {attempt + 1} failed for link {x} with error: {e}. Retrying...")
-                    time.sleep(2)  # Wait 2 seconds before retrying
+                    time.sleep(2)
 
-            # Final check if all retries failed
             if not link_checked:
                 print(f"Failed to verify link {x} after {retries} attempts.")
                 assert False, f"Failed to verify link at position {x} after {retries} attempts."
