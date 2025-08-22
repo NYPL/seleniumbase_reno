@@ -164,7 +164,7 @@ class Locations(NyplUtils):
     def test_accessibility_full(self):
         print("test_accessibility_full()\n")
 
-        # assert  'Accessibility' filter
+        # assert 'Accessibility' filter
         self.click(LocationsPage.accessibility)  # click 'accessibility' filter
         self.click(LocationsPage.full_access)  # click 'full accessible' sub-filter
         self.click(LocationsPage.apply_access)  # click 'apply filters'
@@ -342,10 +342,10 @@ class Locations(NyplUtils):
 
         self.assert_true(media_types_len > 1, "media types filter smaller than expected")
 
-    @pytest.mark.skip(reason="These tests are divided into 4 parts to cut down on time")
+    @pytest.mark.skip(reason="These tests are divided into 4 parts to cut down on runtime")
     @pytest.mark.smoke
-    def test_open_hours_1(self):
-        print("test_open_hours_1()\n")
+    def test_open_hours(self):
+        print("test_open_hours()\n")
 
         # this test runs the whole libraries from 1st to last (130th) in 1 run. below tests are divided into 4 parts
 
@@ -417,12 +417,13 @@ class Locations(NyplUtils):
         # Optional: assert on total counts
         self.assert_true(total_count == open_count + closed_count + neither_count, "Library counts don't add up")
 
+    @pytest.mark.skip(reason="Waiting for Refinery deprecation")
     @pytest.mark.regression
     @pytest.mark.smoke
-    def test_open_hours_2(self):
+    def test_open_hours_1(self):
         # this test runs between 1st-33rd libraries
 
-        print("test_open_hours_2()\n")
+        print("test_open_hours_1()\n")
 
         failure_messages = []
         library_amount = len(self.find_elements(LocationsPage.library_info))
@@ -491,12 +492,13 @@ class Locations(NyplUtils):
         # Optional: assert on total counts
         self.assert_true(total_count == open_count + closed_count + neither_count, "Library counts don't add up")
 
+    # @pytest.mark.skip(reason="Waiting for Refinery deprecation")
     @pytest.mark.regression
     @pytest.mark.smoke
-    def test_open_hours_3(self):
+    def test_open_hours_2(self):
         # this test runs between 33rd-66th libraries
 
-        print("test_open_hours_3()\n")
+        print("test_open_hours_2()\n")
 
         failure_messages = []
         library_amount = len(self.find_elements(LocationsPage.library_info))
@@ -565,12 +567,13 @@ class Locations(NyplUtils):
         # Optional: assert on total counts
         self.assert_true(total_count == open_count + closed_count + neither_count, "Library counts don't add up")
 
+    @pytest.mark.skip(reason="Waiting for Refinery deprecation")
     @pytest.mark.regression
     @pytest.mark.smoke
-    def test_open_hours_4(self):
+    def test_open_hours_3(self):
         # this test runs between 66th-99th libraries
 
-        print("test_open_hours_4()\n")
+        print("test_open_hours_3()\n")
 
         failure_messages = []
         library_amount = len(self.find_elements(LocationsPage.library_info))
@@ -639,12 +642,13 @@ class Locations(NyplUtils):
         # Optional: assert on total counts
         self.assert_true(total_count == open_count + closed_count + neither_count, "Library counts don't add up")
 
+    @pytest.mark.skip(reason="Waiting for Refinery deprecation")
     @pytest.mark.regression
     @pytest.mark.smoke
-    def test_open_hours_5(self):
+    def test_open_hours_4(self):
         # this test runs between 100th-last libraries
 
-        print("test_open_hours_5()\n")
+        print("test_open_hours_4()\n")
 
         failure_messages = []
         library_amount = len(self.find_elements(LocationsPage.library_info))
