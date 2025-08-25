@@ -6,7 +6,6 @@ import random
 
 class RequestVisitTest(NyplUtils):
     # https://www.nypl.org/locations/request-visit
-    # todo: left here 04/12
 
     def setUp(self):
         super().setUp()
