@@ -18,9 +18,9 @@ class RequestVisitPage(BaseCase):
     school_or_organization = '//*[@id="organization"]'
 
     # age range
-    kids = '//*[@id="age-group-checkbox-group"]//*[contains(text(), "Kids")]'
-    teens = '//*[@id="age-group-checkbox-group"]//*[contains(text(), "Teens")]'
-    adults = '//*[@id="age-group-checkbox-group"]//*[contains(text(), "Adults")]'
+    kids = "(//*[@data-testid='ds-checkbox']//*[contains(., 'Kids')])[1]"
+    teens = "(//*[@data-testid='ds-checkbox']//*[contains(., 'Teens')])[1]"
+    adults = "(//*[@data-testid='ds-checkbox']//*[contains(., 'Adults')])[1]"
 
     contact_name = '//*[@id="contactName"]'
     contact_email = '//*[@id="contactEmail"]'

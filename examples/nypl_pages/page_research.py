@@ -9,12 +9,12 @@ class ResearchPage(BaseCase):
     all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
 
     search_the_research_catalog = '(//*[contains(text(), "Search the Research Catalog")])[1]'
-    search_bar = '//*[@id="external-search-form-input"]'
-    search_button = '//*[@id="external-search-form-button"]'
+    search_bar = '//*[@id="research-catalog-searchbar-textInput"]'
+    search_button = '//*[@data-testid="ds-button"]/*[contains(text(), "Search")]'
 
     # newsletter signup locators
     email_subscription = '(//*[contains(text(), "Sign Up for Our Newsletter")])[1]'
-    email_subs_input = '//*[@id="email-input"]'
+    email_subs_input = '//*[@name="email"]'
     submit_email = '(//*[contains(text(), "Submit")])[1]'
     subs_confirmation = '(//*[contains(text(), "Sign Up for Our Newsletter")])[1]//..//..//*[contains(text(), "Thank you!")]'
 

@@ -4,8 +4,8 @@ from seleniumbase import BaseCase
 class ConnectPage(BaseCase):
 
     # breadcrumbs
-    home = '//*[contains(@class, "breadcrumb-label") and contains(text(), "Home")]'
-    connect = '//*[contains(@class, "breadcrumb-label") and contains(text(), "Connect")]'
+    home = '//*[@data-testid="ds-breadcrumbs"]//*[contains(text(), "Home")]'
+    connect = '//*[@data-testid="ds-breadcrumbs"]//*[contains(text(), "Connect")]'
     h1 = '//*[@id="mainContent"]//h1'
 
     connect_title = 'Connect | The New York Public Library'  # title
@@ -19,7 +19,7 @@ class ConnectPage(BaseCase):
 
     # newsletter signup locators
     email_subscription = '(//*[contains(text(), "Get the Best of NYPL in Your Inbox")])[1]'
-    email_subs_input = '//*[@id="email-input"]'
+    email_subs_input = '//*[@name="email"]'
     # submit_email = '(//*[contains(text(), "Submit")])[1]'
     subs_confirmation = '(//*[contains(text(), "Get the Best of NYPL in Your Inbox")])[1]//..//..//*[contains(text(), "Thank you!")]'
 

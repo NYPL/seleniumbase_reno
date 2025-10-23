@@ -10,7 +10,7 @@ class EducationKidsPage(BaseCase):
 
     # kids newsletter signup locators
     email_subscription = '(//*[contains(text(), "Connect with Us")])[1]'
-    email_subs_input = '//*[@id="email-input"]'
+    email_subs_input = '//*[@name="email"]'
     submit_email = '(//*[contains(text(), "Submit")])[1]'
     subs_confirmation = '(//*[contains(text(), "Connect with Us")])[1]//..//..//*[contains(text(), "Thank you!")]'
 
