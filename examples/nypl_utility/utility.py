@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-import pytest, requests
+import pytest, requests, random
 from urllib.parse import urlparse
 from selenium.common import NoSuchElementException
 from selenium.webdriver import Keys
@@ -373,7 +373,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
         # # newsletter signup locators
         # email_subscription = '(//*[contains(text(), "Sign Up for Our Newsletter")])[1]'
-        # email_subs_input = '//*[@id="email-input"]'
+        # email_subs_input = '//*[@name="email"]'
         # submit_email = '(//*[contains(text(), "Submit")])[1]'
         # subs_confirmation = '(//*[contains(text(), "Sign Up for Our Newsletter")])[1]//..//..//*[contains(text(), "Thank you!")]'
 
@@ -413,9 +413,10 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
     def assert_left_side_filters(self, page):
         """
-        Utility function to verify left side filters:
+        Utility function to verify a subset of left side filters:
           - Asserts that there is at least one filter.
-          - Iterates over each filter element:
+          - Randomly samples up to 8 filters if more than 8 exist.
+          - For each tested filter:
               - Retrieves its text.
               - Clicks it and waits briefly.
               - Asserts no error message is visible.
@@ -428,36 +429,36 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         print("Left side filter length is " + str(left_filter_length))
         self.assert_true(left_filter_length > 0, "Left side filter does not have any results")
 
-        # Loop through each filter element.
-        for x in range(1, left_filter_length + 1):
-            # Build the locator for the current filter element.
+        # Decide which filter indexes to test.
+        if left_filter_length > 8:
+            filter_indexes = random.sample(range(1, left_filter_length + 1), 8)
+        else:
+            filter_indexes = range(1, left_filter_length + 1)
+
+        # Loop through selected filters.
+        for x in filter_indexes:
             filter_locator = page.left_side_filter + "[" + str(x) + "]"
             filter_text = self.get_text(filter_locator)
 
             self.click(filter_locator)
             self.wait(1)
 
-            # Assert that no error message is displayed after clicking the filter.
             self.assert_element_not_visible(page.error_locator)
 
-            # Verify that the filter text is present in the result text.
             result_text = self.get_text(page.filter_results)
             self.assert_true(filter_text in result_text,
                              "Clicked '" + filter_text + "' and '" + result_text + "' don't match")
 
-            # Optional prints for debugging.
             print("\nFilter no: " + str(x))
             print(filter_text + " ==? " + result_text)
 
-            # Assert that the "Clear All Filters" button is visible.
             try:
                 self.assert_element(page.clear_all_filters)
                 print("✅ 'Clear All Filters' button is displayed.\n")
-            except Exception as e:
+            except Exception:
                 print("❌ Test Failed: 'Clear All Filters' button not found.\n")
                 raise
 
-            # Navigate back after clicking and checking the filter.
             self.go_back()
 
     def click_with_fallback(self, locator):

@@ -9,8 +9,8 @@ class PressPage(BaseCase):
     all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
 
     page_link_amount = '(//*[@id="press-releases"]//h3//a)'
-    pagination_amount = '//*[@id="undefined-list"]/li'
-    previous_button = '//*[@id="undefined-Previous"]'
+    pagination_amount = '//*[@data-testid="ds-pagination"]//li'
+    previous_button = '//*[@data-testid="ds-list"]//*[contains(text(), "Previous")]'
 
     def open_press_page(self):
         prod_url = "https://www.nypl.org/press"

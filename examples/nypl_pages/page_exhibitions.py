@@ -15,7 +15,7 @@ class ExhibitionsPage(BaseCase):
     # /upcoming elements
     exhibitions = '(//*[contains(text(), "Exhibitions")])[2]'
     upcoming_1 = '(//*[contains(text(), "Upcoming Exhibitions")])[2]'
-    next_page = '(//*[contains(text(), "Next page")])'
+    next_page = "//*[@data-testid='ds-link'][contains(., 'Next')]"
 
     pagination_list = '(//*[contains(text(), "Pagination")]//..//li//a)'
 
@@ -24,7 +24,7 @@ class ExhibitionsPage(BaseCase):
 
     # /archived-exhibition-resources
     archived_h1 = '(//*[contains(text(), "Archived Exhibition Resources")])[2]'
-    archived_h2 = '//*[@id="44-archived-exhibition-resources-a-to-z"]'
+    archived_h2 = "(//*[contains(translate(text(), 'ARCHIVED EXHIBITION RESOURCES, A TO Z', 'archived exhibition resources, a to z'), 'archived exhibition resources, a to z')])[1]"
 
     # /community-showcases
     community_h1 = '(//*[contains(text(), "Community Showcases")])[2]'
