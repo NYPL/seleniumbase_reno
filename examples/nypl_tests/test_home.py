@@ -55,7 +55,7 @@ class HomePageTest(NyplUtils):
         self.link_assertion(HomePage.h2_heading + "[2]", "events")
         self.link_assertion(HomePage.h2_heading + "[3]", "remote")
         self.link_assertion(HomePage.h2_heading + "[4]", "staff")
-        self.link_assertion(HomePage.h2_heading + "[5]//a", "new")
+        self.link_assertion(HomePage.h2_heading + "[5]//a", "borrow")
         self.link_assertion(HomePage.h2_heading + "[6]", "blog")
         self.link_assertion(HomePage.h2_heading + "[7]", "locations")
 
