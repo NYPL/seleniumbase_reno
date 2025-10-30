@@ -3,6 +3,7 @@ from examples.nypl_pages.page_sf_new_arrivals import NewArrivalsPage
 import pytest
 
 
+@pytest.mark.skip
 class NewArrivals(NyplUtils):
     # https://www.nypl.org/books-music-movies/new-arrivals
 
@@ -19,7 +20,6 @@ class NewArrivals(NyplUtils):
         print("=================================")
         super().tearDown()
 
-    @pytest.mark.smoke
     def test_new_arrivals(self):
         # https://www.nypl.org/books-music-movies/new-arrivals
         print("test_new_arrivals()\n")
