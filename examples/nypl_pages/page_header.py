@@ -60,7 +60,7 @@ class HeaderPage(BaseCase):
     books_music_movies = '//*[contains(text(), "Books/Music/Movies")]'
     research = '(//*[contains(text(), "Research")])[1]'
     education = '//*[contains(text(), "Education")]'
-    events = '(//*[contains(text(), "Events")])[1]'
+    events = '//*[@id="header-nav-lower"]//*[contains(text(), "Events")][1]'
     connect = '(//*[contains(text(), "Connect")])[1]'
     give = '(//*[contains(text(), "Give")])[1]'
     get_help = '(//*[contains(text(), "Get Help")])[1]'
