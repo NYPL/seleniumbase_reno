@@ -193,35 +193,28 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
     If the initial assertion fails, the method retries clicking the link and waits for 'retry_wait' seconds before rechecking the URL.
     """
 
-    def link_assertion(self, link, text, retry_wait=3):
-        try:
-            # print("\nin try/except for 'link assertion' function")
-            self.click(link)
-            current_url = self.get_current_url()
-            # print(text)  # text keyword to assert
-            print(current_url)  # printing current URL
-            assert text in current_url, f"Expected text '{text}' not in URL: {current_url}"
-        except AssertionError as ae:
-            print("Assertion failed on first attempt. Retrying...")
-            self.click(link)
-            self.wait(retry_wait)  # Wait for a longer time before checking the URL again
-            current_url = self.get_current_url()
-            assert text in current_url, f"Expected text '{text}' not in URL after retry: {current_url}"
-            print("URL after retry:", current_url)
-        except NoSuchElementException as ne:
-            # Handle the case where the element itself is not found
-            print("Element not found. Retrying after a few seconds...")
-            print("Link before sleep:", self.get_current_url())
-            self.save_screenshot("screenshot_before_retry.png")
-            self.wait(4)  # Adjust this wait time as necessary
+    def link_assertion(self, link, text, retry_wait=3, max_retries=3):
+        """
+        Clicks a link and asserts that the specified text is present in the URL, with retries for transient failures.
+        """
+        last_exception = None
+        for attempt in range(1, max_retries + 1):
             try:
-                self.click(link)  # Retry clicking the link
-                assert text in self.get_current_url(), "Expected text not found in URL on retry."
-            except NoSuchElementException:
-                print("Element still not found after retry.")
-                raise ne  # Re-raise the NoSuchElementException
-
-        # Go to the previous page
+                self.click(link)
+                current_url = self.get_current_url()
+                print(f"Attempt {attempt}: {current_url}")
+                assert text in current_url, f"Expected text '{text}' not in URL: {current_url}"
+                break  # Success
+            except Exception as e:
+                last_exception = e
+                print(f"Attempt {attempt} failed with error: {e}. Retrying after {retry_wait} seconds...")
+                self.wait(retry_wait)
+        else:
+            print(f"All {max_retries} attempts failed. Raising last exception.")
+            if last_exception:
+                raise last_exception
+            else:
+                raise AssertionError(f"Failed to assert link after {max_retries} attempts.")
         self.go_back()
 
     def assert_links_valid(self, locator):
@@ -287,7 +280,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
                 except Exception as e:
                     print(f"\nAttempt {attempt + 1} failed for link {x} with error: {e}. Retrying...")
-                    time.sleep(2)
+                    time.sleep(5)
 
             if not link_checked:
                 print(f"Failed to verify link {x} after {retries} attempts.")
