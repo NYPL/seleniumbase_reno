@@ -33,7 +33,7 @@ class ResearchTest(NyplUtils):
         self.assert_element(ResearchPage.search_the_research_catalog)
         self.send_keys(ResearchPage.search_bar, "catcher in the rye")
         self.click(ResearchPage.search_button)
-        self.assert_title("Search Results | Research Catalog | NYPL")
+        self.assert_title("Search | Research Catalog | NYPL")
         self.go_back()
 
         # assert all links on the page
