@@ -23,7 +23,7 @@ class StaffPicksPage(BaseCase):
     error_locator = '//*[@aria-label="Error message"]'
 
     clear_all_filters = '(//*[contains(text(), "Clear All Filters")])[1]'
-    left_side_filter = "(//*[contains(text(), 'Filter Results Below')]/following-sibling::nav//li//label/span)"
+    left_side_filter = '//*[@id="block-booklistsappealterms"]'
     filter_results = '//*[contains(text(), "Filtered by")]'
     h3_book_results = '(//*[@id="block-nypl-emulsify-content"]//h3)[1]'
 
