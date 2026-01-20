@@ -57,14 +57,14 @@ class HeaderPage(BaseCase):
     shop = '//*[@id="header-nav-upper"]/li//a[contains(text(), "Shop")]'
 
     # section fronts
-    books_music_movies = '//*[contains(text(), "Books/Music/Movies")]'
-    research = '(//*[contains(text(), "Research")])[1]'
-    education = '//*[contains(text(), "Education")]'
+    books_music_movies = '//*[@id="header-nav-lower"]//*[contains(text(), "Books/Music/Movies")][1]'
+    research = '//*[@id="header-nav-lower"]//*[contains(text(), "Research")][1]'
+    education = '//*[@id="header-nav-lower"]//*[contains(text(), "Education")][1]'
     events = '//*[@id="header-nav-lower"]//*[contains(text(), "Events")][1]'
-    connect = '(//*[contains(text(), "Connect")])[1]'
-    give = '(//*[contains(text(), "Give")])[1]'
-    get_help = '(//*[contains(text(), "Get Help")])[1]'
-    search_button = '(//*[contains(text(), "Search")])[1]'
+    connect = '//*[@id="header-nav-lower"]//*[contains(text(), "Connect")][1]'
+    give = '//*[@id="header-nav-lower"]//*[contains(text(), "Give")][1]'
+    get_help = '//*[@id="header-nav-lower"]//*[contains(text(), "Get Help")][1]'
+    search_button = '//*[@id="header-nav-lower"]//*[contains(text(), "Search")][1]'
 
     # header is using same page as page_home
     """
