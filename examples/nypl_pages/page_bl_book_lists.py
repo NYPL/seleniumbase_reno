@@ -17,7 +17,7 @@ class BookListsPage(BaseCase):
 
     clear_all_filters = '(//*[contains(text(), "Clear All Filters")])[1]'
     filter_results_below = '(//*[contains(text(), "Filter Results Below")])[1]'
-    left_side_filter = '//*[@id="block-booklistsappealterms"]'
+    left_side_filter = '(//*[@id="block-booklistsappealterms"]//nav)[1]//a[@class="js-facets-link"]'
     additional_info = '(//*[contains(text(), "Additional Info")])[1]'
     filter_results = '//*[contains(text(), "Filtered by")]'
 
