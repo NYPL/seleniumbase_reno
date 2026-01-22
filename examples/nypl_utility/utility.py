@@ -230,6 +230,9 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         """
 
         allowed_403_keywords = ["photoville", "NYPLEducators"]
+        
+        # Twitter/X specifically blocks automated requests with 403
+        twitter_domains = {"twitter.com", "x.com"}
 
         non_http_schemes_to_skip = {"mailto", "tel", "sms", "javascript", "data"}
 
@@ -270,8 +273,12 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                     if scheme in non_http_schemes_to_skip:
                         print(f"Skipping {scheme.upper()} link: {url}")
                         link_checked = True
+                        break                    
+                    # Skip Twitter/X links (they block automated requests with 403)
+                    if any(domain in url.lower() for domain in twitter_domains):
+                        print(f"Skipping Twitter link: {url}")
+                        link_checked = True
                         break
-
                     # If it’s protocol-relative or relative, requests can choke; normalize if needed
                     if scheme not in {"http", "https"}:
                         # Anything not recognized as http(s) by here, skip defensively
@@ -302,15 +309,6 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                     link_checked = True
                     break
 
-                except StaleElementReferenceException:
-                    if attempt < retries - 1:
-                        print(f"Stale element for link #{index + 1} on attempt {attempt + 1}, retrying...")
-                        time.sleep(1)
-                        continue
-                    else:
-                        print(f"Stale element persisted after {retries} attempts for link #{index + 1}. Skipping...")
-                        link_checked = True
-                        break
                 except StaleElementReferenceException:
                     if attempt < retries - 1:
                         print(f"Stale element for link #{index + 1} on attempt {attempt + 1}, retrying...")
