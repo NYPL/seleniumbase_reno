@@ -28,26 +28,12 @@ class HeaderPage(BaseCase):
 
 
     # catalog/vega
-    catalog_searchbar = '//*[@aria-label="search"]'
+    catalog_searchbar = '//*[@id="input-search-value"]'
     catalog_login = '//*[@id="user-login-button"]'
-    catalog_logout = '//*[contains(text(), "Sign out")]'
+    catalog_logout = '//*[@data-automation-id="sign-out-button"]'
 
-    # research catalog
-    research_catalog_logout = '//*[contains(text(), "Log Out")]'
-    research_catalog_searchbar = '//*[@id="searchbar-textinput-mainContent"]'
-    h2_display_result = '//*[@id="mainContent"]//*[@data-testid="search-results-heading"]'
-
-    my_bookshelf = '//*[@id="bookshelf-title"]'
+    overview_tab = '//*[@aria-label="Overview"]'
     my_account_research_catalog = '//*[@id="my-account-profile-header-heading"]'
-
-    catalog_search_tab = '//*[@id="__next"]//*[contains(text(), "Search")]'
-    subject_heading_explorer_tab = '//*[@id="__next"]//*[contains(text(), "Subject Heading Explorer")]'
-    my_account_tab = '(//*[@id="__next"]//*[contains(text(), "My Account")])[1]'
-    log_out_tab = '(//*[@id="__next"]//*[contains(text(), "Log Out")])'
-
-    checkouts_tab = '(//*[@id="__next"]//*[contains(text(), "Checkouts")])'
-    requests_tab = '(//*[@id="__next"]//*[contains(text(), "Requests")])'
-    account_settings_tab = '(//*[@id="__next"]//*[contains(text(), "Account settings")])'
 
     # top navigation
     locations = '//*[@id="header-nav-upper"]/li//a[contains(text(), "Locations")]'

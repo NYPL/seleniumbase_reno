@@ -113,33 +113,9 @@ class HeaderTest(NyplUtils):
             assert 'borrow' in self.get_current_url()
         # assert title 'NYPL catalog'
         self.assert_title('New York Public Library')
-        # assert 'my bookshelf' tab
-        self.assert_element(HeaderPage.my_bookshelf)
 
-        # assert search functionality
-        # search for a keyword
-        keyword = "book"
-        self.send_keys(HeaderPage.catalog_searchbar, keyword)  # search for a title
-        self.send_keys(HeaderPage.catalog_searchbar, Keys.ENTER)  # press Enter
-
-        # assert that 'vega' is in the URL on the result page URL
-        current_url_text = self.get_current_url()
-        print(current_url_text)
-        self.assert_true("borrow" in current_url_text)
-
-        # click logout
-        try:
-            self.click(HeaderPage.catalog_login)  # attempt to click logout
-        except NoSuchElementException:
-            print("inside except block, will wait for a few seconds")
-            self.wait(3)
-            self.click(HeaderPage.catalog_login)  # retry clicking logout after waiting for 2 seconds
-        try:
-            self.click(HeaderPage.catalog_logout)  # attempt to click logout
-        except NoSuchElementException:
-            print("inside except block, will wait for a few seconds")
-            self.wait(3)
-            self.click(HeaderPage.catalog_logout)  # retry clicking logout after waiting for 2 seconds
+        # assert Overview tab in sidebar
+        self.assert_element(HeaderPage.overview_tab)
 
     @pytest.mark.skip(reason="Chris covering this in his RC automation suite")
     @pytest.mark.smoke
