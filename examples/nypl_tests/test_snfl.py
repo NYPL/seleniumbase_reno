@@ -1,3 +1,4 @@
+import pytest
 from examples.nypl_utility.utility import NyplUtils
 from examples.nypl_pages.page_snfl import SnflPage
 
@@ -65,6 +66,7 @@ class SnflTest(NyplUtils):
         # assert all links on the page
         self.assert_links_valid(SnflPage.all_links)
 
+    @pytest.mark.smoke
     def test_snfl_read(self):
         print("test_snfl_read()\n")
 
