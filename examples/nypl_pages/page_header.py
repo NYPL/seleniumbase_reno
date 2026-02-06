@@ -32,7 +32,7 @@ class HeaderPage(BaseCase):
     catalog_login = '//*[@id="user-login-button"]'
     catalog_logout = '//*[@data-automation-id="sign-out-button"]'
 
-    overview_tab = '//*[@aria-label="Overview"]'
+    my_bookshelf = '//*[@id="bookshelf-title"]'
     my_account_research_catalog = '//*[@id="my-account-profile-header-heading"]'
 
     # top navigation
