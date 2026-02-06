@@ -115,7 +115,8 @@ class HeaderTest(NyplUtils):
         self.assert_title('New York Public Library')
 
         # assert Overview tab in sidebar
-        self.assert_element(HeaderPage.my_bookshelf)
+        self.assert_element(HeaderPage.my_bookshelf) 
+        # self.assert_element(HeaderPage.overview_tab)
 
     @pytest.mark.skip(reason="Chris covering this in his RC automation suite")
     @pytest.mark.smoke
