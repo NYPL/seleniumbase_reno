@@ -167,7 +167,7 @@ setup(
         'charset-normalizer==2.1.0;python_version>="3.7"',  # Sync "requests"
         'urllib3==2.6.3',  # Stay in sync with "requests"
         'requests==2.27.1;python_version<"3.7"',
-        'requests==2.32.4;python_version>="3.7"',
+        'requests==2.32.3;python_version>="3.7"',
         "nose==1.3.7",
         'sniffio==1.2.0;python_version>="3.7"',
         'h11==0.13.0;python_version>="3.7"',
