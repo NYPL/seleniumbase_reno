@@ -225,7 +225,7 @@ setup(
         'decorator==5.1.1;python_version>="3.6"',
         'ipython==5.10.0;python_version<"3.6"',
         'ipython==7.16.1;python_version>="3.6" and python_version<"3.7"',
-        'ipython==7.34.0;python_version>="3.7"',  # Requires matplotlib-inline
+        'ipython==8.10.0;python_version>="3.7"',  # Requires matplotlib-inline
         'matplotlib-inline==0.1.3;python_version>="3.7"',  # ipython needs this
         "colorama==0.4.5",
         'importlib-metadata==2.1.3;python_version<"3.6"',
