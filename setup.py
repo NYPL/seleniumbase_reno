@@ -216,7 +216,7 @@ setup(
         'beautifulsoup4==4.11.1;python_version>="3.6"',
         'cryptography==2.9.2;python_version<"3.6"',
         'cryptography==36.0.2;python_version>="3.6" and python_version<"3.7"',
-        'cryptography==37.0.4;python_version>="3.7"',
+        'cryptography==46.0.5;python_version>="3.7"',
         'pygments==2.5.2;python_version<"3.6"',
         'pygments==2.12.0;python_version>="3.6"',
         'prompt-toolkit==1.0.18;python_version<"3.6"',
