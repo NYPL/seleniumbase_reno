@@ -159,7 +159,7 @@ setup(
         'jedi==0.17.2;python_version<"3.6"',
         'jedi==0.18.1;python_version>="3.6"',
         'idna==2.10;python_version<"3.6"',  # Must stay in sync with "requests"
-        'idna==3.3;python_version>="3.6"',  # Must stay in sync with "requests"
+        'idna==3.7;python_version>="3.6"',  # Must stay in sync with "requests"
         'chardet==3.0.4;python_version<"3.6"',  # Stay in sync with "requests"
         'chardet==4.0.0;python_version>="3.6" and python_version<"3.7"',
         'chardet==5.0.0;python_version>="3.7"',  # Stay in sync with "requests"
