@@ -8,6 +8,7 @@ for better isolation and reporting.
 import json
 import os
 import pytest
+from parameterized import parameterized
 from seleniumbase import BaseCase
 
 
@@ -23,6 +24,10 @@ def load_content_types():
 
 # Load data once
 CONTENT_TYPES = load_content_types()
+
+# Prepare test data for parameterized
+TWIG_TEST_DATA = [[ct["name"], ct["url"]] for ct in CONTENT_TYPES["twig"]]
+SCOUT_TEST_DATA = [[ct["name"], ct["url"]] for ct in CONTENT_TYPES["scout"]]
 
 
 class ContentTypeTests(BaseCase):
@@ -53,12 +58,10 @@ class ContentTypeTests(BaseCase):
 
     # Parametrized Twig content type tests - each runs as separate test
     @pytest.mark.regression
-    @pytest.mark.parametrize("content_type", CONTENT_TYPES["twig"], ids=lambda x: x["name"])
-    def test_twig_content_type(self, content_type):
+    @parameterized.expand(TWIG_TEST_DATA)
+    def test_twig_content_type(self, name, url):
         """Test individual Twig-rendered content type"""
         base_url = self.get_base_url()
-        name = content_type["name"]
-        url = content_type["url"]
         
         print(f"\nTesting {name} on {base_url}")
         self.open(f"{base_url}{url}")
@@ -66,12 +69,10 @@ class ContentTypeTests(BaseCase):
 
     # Parametrized Scout content type tests - each runs as separate test
     @pytest.mark.regression
-    @pytest.mark.parametrize("content_type", CONTENT_TYPES["scout"], ids=lambda x: x["name"])
-    def test_scout_content_type(self, content_type):
+    @parameterized.expand(SCOUT_TEST_DATA)
+    def test_scout_content_type(self, name, url):
         """Test individual Scout-rendered content type"""
         base_url = self.get_base_url()
-        name = content_type["name"]
-        url = content_type["url"]
         
         print(f"\nTesting {name} on {base_url}")
         self.open(f"{base_url}{url}")
