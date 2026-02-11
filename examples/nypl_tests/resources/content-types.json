@@ -1,0 +1,134 @@
+{
+  "twig": [
+    {
+      "name": "Exhibition page: Treasures",
+      "url": "/events/exhibitions/treasures"
+    },
+    {
+      "name": "Exhibition page: Artifacts Change",
+      "url": "/events/exhibitions/artifacts-change"
+    },
+    {
+      "name": "Exhibition page: Made at NYPL",
+      "url": "/events/exhibitions/madeatnypl"
+    },
+    {
+      "name": "Audio Guide: Treasures (English)",
+      "url": "/events/tours/audio-guides/treasures-audio-guide"
+    },
+    {
+      "name": "Audio Guide: Treasures (Spanish)",
+      "url": "/es/events/tours/audio-guides/audioguia-tesoros"
+    },
+    {
+      "name": "Audio Guide: Treasures (Chinese)",
+      "url": "/zh/events/tours/audio-guides/baocangzhanyinpindaolan"
+    },
+    {
+      "name": "Audio Guide: 100 Years Schomburg Center",
+      "url": "/events/tours/audio-guides/100-years-schomburg-center"
+    },
+    {
+      "name": "Gallery: Schomburg Center Origins",
+      "url": "/events/exhibitions/galleries/100-years-schomburg-center-origins"
+    },
+    {
+      "name": "Gallery Item: Schomburg Center Item 20568",
+      "url": "/events/exhibitions/galleries/100-years-schomburg-center-origins/item/20568"
+    },
+    {
+      "name": "Gallery Outro: Schomburg Center",
+      "url": "/events/exhibitions/galleries/100-years-schomburg-center-origins/outro"
+    },
+    {
+      "name": "Audio Guide Intro: Treasures (Chinese)",
+      "url": "/zh/events/tours/audio-guides/baocangzhanyinpindaolan/intro"
+    },
+    {
+      "name": "Audio Guide Item: Treasures Item 4094",
+      "url": "/events/tours/audio-guides/treasures-audio-guide/item/4094"
+    },
+    {
+      "name": "Audio Guide Outro: Treasures",
+      "url": "/events/tours/audio-guides/treasures-audio-guide/outro"
+    },
+    {
+      "name": "Book List: Staff Picks Adults",
+      "url": "/books-more/recommendations/staff-picks/adults"
+    },
+    {
+      "name": "Book List: Staff Picks Spring 2025",
+      "url": "/books-more/recommendations/staff-picks/adults?season=spring-2025"
+    },
+    {
+      "name": "Book List: Staff Picks Filtered (Activism)",
+      "url": "/books-more/recommendations/staff-picks/adults?season=spring-2025&f%5B0%5D=terms%3AActivism%20%26%20Social%20Justice"
+    },
+    {
+      "name": "Book List: Staff Picks Kids (Adventure)",
+      "url": "/books-more/recommendations/staff-picks/kids?f%5B0%5D=terms%3AAdventure"
+    },
+    {
+      "name": "Book List: Best Books Adults",
+      "url": "/books-more/recommendations/best-books/adults"
+    }
+  ],
+  "scout": [
+    {
+      "name": "Campaign: Treasures",
+      "url": "/spotlight/treasures"
+    },
+    {
+      "name": "Campaign: Schomburg Centennial",
+      "url": "/spotlight/schomburg-centennial"
+    },
+    {
+      "name": "Index: Exhibitions",
+      "url": "/events/exhibitions"
+    },
+    {
+      "name": "Index: Upcoming Exhibitions",
+      "url": "/events/exhibitions/upcoming"
+    },
+    {
+      "name": "Blog Post: Muslim American Heritage Month",
+      "url": "/blog/2026/01/05/celebrating-muslim-american-heritage-month-nypl"
+    },
+    {
+      "name": "Center: SNFL Marron Circulating",
+      "url": "/locations/snfl/marron-circulating"
+    },
+    {
+      "name": "Community Showcase: We Had a Garden",
+      "url": "/events/exhibitions/community-showcases/we-had-garden"
+    },
+    {
+      "name": "Division: Schomburg JBH Research Division",
+      "url": "/locations/schomburg/jbh-research-and-reference-division"
+    },
+    {
+      "name": "Library: Dongan Hills",
+      "url": "/locations/dongan-hills"
+    },
+    {
+      "name": "Library Tab: Dongan Hills Read",
+      "url": "/locations/dongan-hills/read"
+    },
+    {
+      "name": "Page: Income Tax Information",
+      "url": "/community/services/income-tax-information"
+    },
+    {
+      "name": "Press Release: Tom Verlaine Archive",
+      "url": "/press/archive-tom-verlaine-frontman-television-has-been-acquired-new-york-public-library-performing"
+    },
+    {
+      "name": "Section Front: Educators",
+      "url": "/education/educators"
+    },
+    {
+      "name": "Staff Profile: Hiba Abid",
+      "url": "/staff-profiles/hiba-abid"
+    }
+  ]
+}
