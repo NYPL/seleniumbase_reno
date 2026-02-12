@@ -31,10 +31,11 @@ class ResearchTest(NyplUtils):
 
         # assert search the research catalog
         self.assert_element(ResearchPage.search_the_research_catalog)
+        research_url = self.get_current_url()  # Capture URL before search
         self.send_keys(ResearchPage.search_bar, "catcher in the rye")
         self.click(ResearchPage.search_button)
         self.assert_title("Search | Research Catalog | NYPL")
-        self.go_back()
+        self.open(research_url)  # Return to research page instead of go_back()
 
         # assert all links on the page
         self.assert_links_valid(ResearchPage.all_links)
