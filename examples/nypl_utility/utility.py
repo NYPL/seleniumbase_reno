@@ -197,6 +197,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         """
         Clicks a link and asserts that the specified text is present in the URL, with retries for transient failures.
         """
+        original_url = self.get_current_url()
         last_exception = None
         for attempt in range(1, max_retries + 1):
             current_url = self.get_current_url()
@@ -205,8 +206,10 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 print(f"Current URL already contains expected text '{text}'. Passing assertion.")
                 break  # Success
             try:
+                self.wait_for_element_visible(link, timeout=10)
+                self.scroll_to(link)
                 self.click(link)
-                self.wait(0)  # Wait for the page to load after clicking the link
+                self.wait_for_ready_state_complete()
                 current_url = self.get_current_url()
                 print("Current URL after clicking the link: " + current_url)
                 assert text in current_url, f"Expected text '{text}' not in URL: {current_url}"
@@ -214,7 +217,9 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             except Exception as e:
                 last_exception = e
                 print(f"Attempt {attempt} failed with error: {e}. Retrying after {retry_wait} seconds...")
-                print("Current URL after clicking the link: " + current_url)
+                current_url = self.get_current_url()
+                print("Current URL after error: " + current_url)
+                self.open(original_url)  # Go back to original page before retry
                 self.wait(retry_wait)
         else:
             print(f"All {max_retries} attempts failed. Raising last exception.")
@@ -222,7 +227,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 raise last_exception
             else:
                 raise AssertionError(f"Failed to assert link after {max_retries} attempts.")
-        self.go_back()
+        self.open(original_url)
 
     def assert_links_valid(self, locator):
         """
@@ -462,6 +467,9 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         print(f"Left side filter length is {left_filter_length}")
         self.assert_true(left_filter_length > 0, "Left side filter does not have any results")
 
+        # Capture the original URL before any navigation
+        original_url = self.get_current_url()
+
         # Decide which filter indexes to test.
         if left_filter_length > 8:
             filter_indexes = random.sample(range(left_filter_length), 8)
@@ -470,7 +478,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
         # Loop through selected filters.
         for index in filter_indexes:
-            # Re-fetch elements on each iteration to avoid stale element issues after go_back()
+            # Re-fetch elements on each iteration to avoid stale element issues
             filters = self.find_elements(page.left_side_filter)
             filter_element = filters[index]
             filter_text = filter_element.text.strip()
@@ -493,7 +501,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             # Assert 'Clear All Filters' button is displayed (raises if not found)
             self.assert_element(page.clear_all_filters)
 
-            self.go_back()
+            self.open(original_url)  # Return to original URL instead of go_back()
 
     def click_with_fallback(self, locator):
         """

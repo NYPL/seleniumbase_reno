@@ -24,70 +24,76 @@ class HomePageTest(NyplUtils):
         super().tearDown()
 
     @pytest.mark.smoke
-    def test_home_page(self):
-        print("test_home_page()\n")
+    def test_homepage(self):
+        print("test_homepage()\n")
 
-        # check images on the page
         self.image_assertion()
-
-        # assert title
         self.assert_title(HomePage.home_title)
-        # assert hero h1
         self.assert_element(HomePage.hero)
 
-        # assert all links on the page
+        # TODO: Skipping assert_links_valid until the double html issue is resolved on the homepage
         # self.assert_links_valid(HomePage.all_links)
-        # TODO skipping above assertion until the double html issue resolved on the homepage
 
-        # assert all the h2 and 'See More' buttons ("Spotlight", "What's on", "Discover", "Staff Picks",
-        # "In the Collections", "From Our Blog", "Updates") in a loop
-        h2_amount = len(self.find_elements(HomePage.h2_heading))  # getting the length
+        # Assert all h2 headings and 'See More' buttons
+        h2_amount = len(self.find_elements(HomePage.h2_heading))
         for x in range(1, h2_amount + 1):
-            # asserting h2 elements
             self.assert_element(HomePage.h2_heading + "[" + str(x) + "]")
 
-        # assert 'See More' buttons. 'in the collection' excluded, one fewer than h2 elements
-        for x in range(1, h2_amount):  # Looping until h2_amount - 1
+        # 'In the Collection' section has no 'See More' button, so one fewer than h2 elements
+        for x in range(1, h2_amount):
             self.assert_element(HomePage.see_more + "[" + str(x) + "]")
 
-        # asserting h2 links by clicking and comparing the URL on the next page
-        self.link_assertion(HomePage.h2_heading + "[1]", "spotlight")
-        self.link_assertion(HomePage.h2_heading + "[2]", "events")
-        self.link_assertion(HomePage.h2_heading + "[3]", "remote")
-        self.link_assertion(HomePage.h2_heading + "[4]", "staff")
+        # Test each h2 link navigation
+        print("\n=== Testing H2 Link #1: Spotlight ===")
+        self.link_assertion(HomePage.h2_heading + "[1]//a", "spotlight")
+        print("✓ Spotlight link passed\n")
+        
+        print("=== Testing H2 Link #2: Events ===")
+        self.link_assertion(HomePage.h2_heading + "[2]//a", "events")
+        print("✓ Events link passed\n")
+        
+        print("=== Testing H2 Link #3: Remote ===")
+        self.link_assertion(HomePage.h2_heading + "[3]//a", "remote")
+        print("✓ Remote link passed\n")
+        
+        print("=== Testing H2 Link #4: Staff Picks ===")
+        self.link_assertion(HomePage.h2_heading + "[4]//a", "staff")
+        print("✓ Staff Picks link passed\n")
+        
+        print("=== Testing H2 Link #5: Borrow ===")
         self.link_assertion(HomePage.h2_heading + "[5]//a", "borrow")
-        self.link_assertion(HomePage.h2_heading + "[6]", "blog")
-        self.link_assertion(HomePage.h2_heading + "[7]", "locations")
+        print("✓ Borrow link passed\n")
+        
+        print("=== Testing H2 Link #6: Blog ===")
+        self.link_assertion(HomePage.h2_heading + "[6]//a", "blog")
+        print("✓ Blog link passed\n")
+        
+        print("=== Testing H2 Link #7: Locations ===")
+        self.link_assertion(HomePage.h2_heading + "[7]//a", "locations")
+        print("✓ Locations link passed\n")
 
     @pytest.mark.smoke
     def test_slider(self):
-        # new & noteworthy/in the collection slider
         print("test_slider()\n")
 
-        # getting the length of the slide and asserting it is more than 0
         slide_length = len(self.find_elements(HomePage.new_noteworthy_slide))
         print("slide amount: " + str(slide_length))
         try:
             self.assert_true(slide_length >= 1)
         except AssertionError:
-            print("inside try/except block for slide length assertion")
             self.wait(2)
             self.assert_true(slide_length >= 1)
 
-        # Asserting that we can click the "next" button
         for x in range(5):
             try:
                 self.click(HomePage.slide_next)
             except NoSuchElementException:
-                print("inside try/except block for 'Next button' assertion")
                 self.wait(2)
                 self.click(HomePage.slide_next)
 
-        # Asserting that we can click the "previous" button
         for x in range(3):
             try:
                 self.click(HomePage.slide_prev)
             except NoSuchElementException:
-                print("inside try/except block for 'Previous button' assertion")
                 self.wait(2)
                 self.click(HomePage.slide_prev)
