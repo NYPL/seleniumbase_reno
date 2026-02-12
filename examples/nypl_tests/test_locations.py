@@ -53,7 +53,6 @@ class Locations(NyplUtils):
         self.assert_element(LocationsPage.bottom_promo_3)  # Brooklyn Public Library link
         self.assert_element(LocationsPage.bottom_promo_4)  # Queens Public Library link
 
-    @pytest.mark.smoke
     def test_locations_filters(self):
 
         # page elements
