@@ -325,6 +325,9 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
                     assert status < 400, f"Link {url} is broken (status {status})"
                     link_checked = True
+                    
+                    # Small delay to avoid rate limiting in CI
+                    time.sleep(0.3)
                     break
 
                 except StaleElementReferenceException:
