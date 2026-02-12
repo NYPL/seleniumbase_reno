@@ -49,9 +49,19 @@ class Exhibitions(NyplUtils):
         # asserting 'See All' elements
         see_all_length = len(self.find_elements(ExhibitionsPage.see_all))
         print("Total 'See All' elements = " + str(see_all_length))  # optional print of the 'See All' links amount
+        
+        exhibitions_url = self.get_current_url()  # Save the exhibitions page URL
+        
         for x in range(1, see_all_length):
-            self.click(f"{ExhibitionsPage.see_all}[{x}]")
-            self.go_back()
+            print(f"\nTesting 'See All' link #{x} on page: {exhibitions_url}")
+            try:
+                self.click(f"{ExhibitionsPage.see_all}[{x}]", timeout=10)
+                print(f"✓ Successfully clicked 'See All' link #{x}")
+                # Navigate back to exhibitions page instead of using go_back()
+                self.open(exhibitions_url)
+            except Exception as e:
+                print(f"✗ Failed to click 'See All' link #{x} on {exhibitions_url}")
+                raise AssertionError(f"Failed to click 'See All' link #{x} on page {exhibitions_url}: {str(e)}")
 
     @pytest.mark.skip(reason="Waiting for T2S migration")
     def test_exhibitions_upcoming(self):
