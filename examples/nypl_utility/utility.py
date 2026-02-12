@@ -197,6 +197,8 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         """
         Clicks a link and asserts that the specified text is present in the URL, with retries for transient failures.
         """
+        from selenium.common.exceptions import ElementClickInterceptedException
+        
         original_url = self.get_current_url()
         last_exception = None
         for attempt in range(1, max_retries + 1):
@@ -208,7 +210,18 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
             try:
                 self.wait_for_element_visible(link, timeout=10)
                 self.scroll_to(link)
-                self.click(link)
+                self.wait(1)  # Wait for scroll animations and overlays to settle
+                
+                # Try regular click first, fallback to JS click if intercepted
+                try:
+                    self.click(link)
+                except ElementClickInterceptedException:
+                    print("Click intercepted, scrolling more and retrying...")
+                    self.scroll_to(link)
+                    self.execute_script("window.scrollBy(0, -200)")  # Scroll up slightly to avoid footer
+                    self.wait(1)
+                    self.click(link)
+                
                 self.wait_for_ready_state_complete()
                 current_url = self.get_current_url()
                 print("Current URL after clicking the link: " + current_url)
@@ -219,7 +232,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 print(f"Attempt {attempt} failed with error: {e}. Retrying after {retry_wait} seconds...")
                 current_url = self.get_current_url()
                 print("Current URL after error: " + current_url)
-                self.open(original_url)  # Go back to original page before retry
+                self.open(original_url)
                 self.wait(retry_wait)
         else:
             print(f"All {max_retries} attempts failed. Raising last exception.")
