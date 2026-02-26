@@ -30,6 +30,8 @@ TWIG_TEST_DATA = [[ct["name"], ct["url"]] for ct in CONTENT_TYPES["twig"]]
 SCOUT_TEST_DATA = [[ct["name"], ct["url"]] for ct in CONTENT_TYPES["scout"]]
 
 
+@pytest.mark.smoke
+@pytest.mark.regression
 class ContentTypeTests(BaseCase):
     """Test suite for content type regression tests"""
 
@@ -57,8 +59,6 @@ class ContentTypeTests(BaseCase):
                 raise AssertionError(f"Error page detected: '{selector}' is visible")
 
     # Parametrized Twig content type tests - each runs as separate test
-    @pytest.mark.regression
-    @pytest.mark.smoke
     @parameterized.expand(TWIG_TEST_DATA)
     def test_twig_content_type(self, name, url):
         """Test individual Twig-rendered content type"""
@@ -69,8 +69,6 @@ class ContentTypeTests(BaseCase):
         self.verify_not_error_page()
 
     # Parametrized Scout content type tests - each runs as separate test
-    @pytest.mark.regression
-    @pytest.mark.smoke
     @parameterized.expand(SCOUT_TEST_DATA)
     def test_scout_content_type(self, name, url):
         """Test individual Scout-rendered content type"""
