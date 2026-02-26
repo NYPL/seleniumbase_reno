@@ -58,6 +58,7 @@ class ContentTypeTests(BaseCase):
 
     # Parametrized Twig content type tests - each runs as separate test
     @pytest.mark.regression
+    @pytest.mark.smoke
     @parameterized.expand(TWIG_TEST_DATA)
     def test_twig_content_type(self, name, url):
         """Test individual Twig-rendered content type"""
@@ -69,6 +70,7 @@ class ContentTypeTests(BaseCase):
 
     # Parametrized Scout content type tests - each runs as separate test
     @pytest.mark.regression
+    @pytest.mark.smoke
     @parameterized.expand(SCOUT_TEST_DATA)
     def test_scout_content_type(self, name, url):
         """Test individual Scout-rendered content type"""
