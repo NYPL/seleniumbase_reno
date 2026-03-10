@@ -12,15 +12,15 @@ class RequestVisitPage(BaseCase):
     virtual_visit = '//*[text()="Virtual Visit"]'
     in_person_visit = '//*[text()="In-Person Visit"]'
 
-    reader_advisory = '//*[@id="services-container"]//*[contains(text(), "Reader Advisory")]'  # visible after clicking 'Virtual Visit'
-    group_tour = '//*[@id="request-type"]//*[contains(text(), "Group Tour")]'  # visible after clicking 'In-Person Visit'
+    reader_advisory = '//*[@id="services-container"]//*[contains(., "Reader Advisory")]'  # visible after clicking 'Virtual Visit'
+    group_tour = '//*[@id="services-container"]//*[contains(., "Group Tour")]'  # visible after clicking 'In-Person Visit'
 
     school_or_organization = '//*[@id="organization"]'
 
     # age range
-    kids = "(//*[@data-testid='ds-checkbox']//*[contains(., 'Kids')])[1]"
-    teens = "(//*[@data-testid='ds-checkbox']//*[contains(., 'Teens')])[1]"
-    adults = "(//*[@data-testid='ds-checkbox']//*[contains(., 'Adults')])[1]"
+    kids = '//*[@id="age-children"]'
+    teens = '//*[@id="age-teenagers"]'
+    adults = '//*[@id="age-adults"]'
 
     contact_name = '//*[@id="contactName"]'
     contact_email = '//*[@id="contactEmail"]'

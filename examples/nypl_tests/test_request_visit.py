@@ -66,7 +66,7 @@ class RequestVisitTest(NyplUtils):
             self.click(RequestVisitPage.kids)
             self.click(RequestVisitPage.teens)
             self.click(RequestVisitPage.adults)
-
+            
             self.send_keys(RequestVisitPage.contact_name, "Peter Parker")
             self.send_keys(RequestVisitPage.contact_email, 'peterparker@nypl.org')
 
