@@ -174,7 +174,7 @@ setup(
         'outcome==1.2.0;python_version>="3.7"',
         'trio==0.21.0;python_version>="3.7"',
         'trio-websocket==0.9.2;python_version>="3.7"',
-        'pyopenssl==22.0.0;python_version>="3.7"',
+        'pyopenssl==26.0.0;python_version>="3.7"',
         'wsproto==1.1.0;python_version>="3.7"',
         'selenium==3.141.0;python_version<"3.7"',
         'selenium==4.3.0;python_version>="3.7"',
