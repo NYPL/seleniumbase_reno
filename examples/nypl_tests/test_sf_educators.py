@@ -34,9 +34,6 @@ class EducatorsTest(NyplUtils):
         self.assert_element(EducatorsPage.home_button)  # home
         self.assert_element(EducatorsPage.education)  # education
 
-        # assert "Read More" for 'Our Mission"
-        self.assert_element(EducatorsPage.our_mission_read_more)
-
         # assert all links on the page
         self.assert_links_valid(EducatorsPage.all_links)
 

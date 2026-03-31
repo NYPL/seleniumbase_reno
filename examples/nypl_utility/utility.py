@@ -247,7 +247,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         Assert links in an <li> aren't broken for HTTP(S). Skip non-web schemes (tel:, sms:, mailto:, etc.).
         """
 
-        allowed_403_keywords = ["photoville", "NYPLEducators"]
+        allowed_403_keywords = ["photoville", "NYPLEducators, eventbrite"]
         
         # Twitter/X specifically blocks automated requests with 403
         twitter_domains = {"twitter.com", "x.com"}

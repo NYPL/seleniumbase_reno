@@ -6,8 +6,6 @@ class EducatorsPage(BaseCase):
     education = '(//*[contains(text(), "Education")])[2]'
     title = "Center for Educators & Schools | The New York Public Library"
 
-    our_mission_read_more = '//*[@id="nypl-link"]'
-
     all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
 
     # social media locators
