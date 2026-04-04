@@ -218,7 +218,7 @@ setup(
         'cryptography==36.0.2;python_version>="3.6" and python_version<"3.7"',
         'cryptography==46.0.5;python_version>="3.7"',
         'pygments==2.5.2;python_version<"3.6"',
-        'pygments==2.12.0;python_version>="3.6"',
+        'pygments==2.20.0;python_version>="3.6"',
         'prompt-toolkit==1.0.18;python_version<"3.6"',
         'prompt-toolkit==3.0.30;python_version>="3.6"',
         'decorator==4.4.2;python_version<"3.6"',
