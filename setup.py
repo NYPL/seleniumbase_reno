@@ -159,22 +159,22 @@ setup(
         'jedi==0.17.2;python_version<"3.6"',
         'jedi==0.18.1;python_version>="3.6"',
         'idna==2.10;python_version<"3.6"',  # Must stay in sync with "requests"
-        'idna==3.7;python_version>="3.6"',  # Must stay in sync with "requests"
+        'idna==3.13;python_version>="3.6"',  # Must stay in sync with "requests"
         'chardet==3.0.4;python_version<"3.6"',  # Stay in sync with "requests"
         'chardet==4.0.0;python_version>="3.6" and python_version<"3.7"',
         'chardet==5.0.0;python_version>="3.7"',  # Stay in sync with "requests"
         'charset-normalizer==2.0.12;python_version>="3.6" and python_version<"3.7"',  # noqa: E501
         'charset-normalizer==2.1.0;python_version>="3.7"',  # Sync "requests"
-        'urllib3>=1.26.20,<2.3.0',  # Stay in sync with "requests"
+        'urllib3>=1.26.20,<2.7.0',  # Stay in sync with "requests"
         'requests==2.27.1;python_version<"3.7"',
         'requests==2.32.4;python_version>="3.7"',
         "nose==1.3.7",
         'sniffio==1.2.0;python_version>="3.7"',
-        'h11==0.13.0;python_version>="3.7"',
+        'h11==0.16.0;python_version>="3.7"',
         'outcome==1.2.0;python_version>="3.7"',
         'trio==0.21.0;python_version>="3.7"',
         'trio-websocket==0.9.2;python_version>="3.7"',
-        'pyopenssl==22.0.0;python_version>="3.7"',
+        'pyopenssl==26.0.0;python_version>="3.7"',
         'wsproto==1.1.0;python_version>="3.7"',
         'selenium==3.141.0;python_version<"3.7"',
         'selenium==4.3.0;python_version>="3.7"',
@@ -216,7 +216,7 @@ setup(
         'beautifulsoup4==4.11.1;python_version>="3.6"',
         'cryptography==2.9.2;python_version<"3.6"',
         'cryptography==36.0.2;python_version>="3.6" and python_version<"3.7"',
-        'cryptography==46.0.5;python_version>="3.7"',
+        'cryptography==46.0.7;python_version>="3.7"',
         'pygments==2.5.2;python_version<"3.6"',
         'pygments==2.12.0;python_version>="3.6"',
         'prompt-toolkit==1.0.18;python_version<"3.6"',
@@ -225,14 +225,14 @@ setup(
         'decorator==5.1.1;python_version>="3.6"',
         'ipython==5.10.0;python_version<"3.6"',
         'ipython==7.16.1;python_version>="3.6" and python_version<"3.7"',
-        'ipython==8.10.0;python_version>="3.7"',  # Requires matplotlib-inline
+        'ipython==8.18.1;python_version>="3.7"',  # Requires matplotlib-inline
         'matplotlib-inline==0.1.3;python_version>="3.7"',  # ipython needs this
         "colorama==0.4.5",
         'importlib-metadata==2.1.3;python_version<"3.6"',
         'importlib-metadata==4.2.0;python_version>="3.6" and python_version<"3.8"',  # noqa: E501
         "pycparser==2.21",
         'pymysql==0.10.1;python_version<"3.6"',
-        'pymysql==1.0.2;python_version>="3.6"',
+        'pymysql==1.1.1;python_version>="3.6"',
         'pyotp==2.3.0;python_version<"3.6"',
         'pyotp==2.6.0;python_version>="3.6"',
         "cffi==1.15.1",
