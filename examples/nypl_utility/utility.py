@@ -48,7 +48,7 @@ from examples.nypl_pages.page_lca import LibraryCardPage
 from examples.nypl_pages.page_speakout import SpeakoutPage
 from examples.nypl_pages.page_sf_get_help import GetHelpPage
 from examples.nypl_pages.page_sf_contact_us import ContactUsPage
-from examples.nypl_pages.page_sf_connect import ConnectPage
+from examples.nypl_pages.page_sf_visit import VisitPage
 
 # from examples.nypl_tests.test_dxp_images import FrontendImages
 
@@ -68,7 +68,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 ArticlesBurneyPage, ArticlesHomeworkPage, BlogChannelsPage, BlogIndividualPage, PressPage,
                 PressIndividualPage, EducationPage, EarlyLiteracyPage, EducationTeensPage, EducatorsPage, BestBooksPage,
                 StaffPicksPage, EducationKidsPage, EducationAdultsPage, EventsPage, BooksPage,
-                LibraryCardPage, SpeakoutPage, GetHelpPage, ContactUsPage, ConnectPage):
+                LibraryCardPage, SpeakoutPage, GetHelpPage, ContactUsPage, VisitPage):
     login_button = '//*[@id="loginButton"]'
     login_catalog = '//*[contains(text(), "Go To The Catalog")]'
     login_research_catalog = '//*[contains(text(), "Go To The Research Catalog")]'

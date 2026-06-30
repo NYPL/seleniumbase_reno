@@ -69,8 +69,8 @@ class HeaderTest(NyplUtils):
         # assert Events
         self.link_assertion(HeaderPage.events, "events")
 
-        # assert Connect
-        self.link_assertion(HeaderPage.connect, "connect")
+        # assert Visit
+        self.link_assertion(HeaderPage.visit, "visit")
 
         # assert Give
         self.link_assertion(HeaderPage.give, "give")

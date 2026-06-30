@@ -1,14 +1,14 @@
 from seleniumbase import BaseCase
 
 
-class ConnectPage(BaseCase):
+class VisitPage(BaseCase):
 
     # breadcrumbs
     home = '//*[@data-testid="ds-breadcrumbs"]//*[contains(text(), "Home")]'
-    connect = '//*[@data-testid="ds-breadcrumbs"]//*[contains(text(), "Connect")]'
+    visit = '//*[@data-testid="ds-breadcrumbs"]//*[contains(text(), "Visit")]'
     h1 = '//*[@id="mainContent"]//h1'
 
-    connect_title = 'Connect | The New York Public Library'  # title
+    visit_title = 'Visit The New York Public Library | The New York Public Library'  # title
 
     all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
 
@@ -18,17 +18,17 @@ class ConnectPage(BaseCase):
     follow_us_facebook = "//a[@href='https://www.facebook.com/nypl']"
 
     # newsletter signup locators
-    email_subscription = '(//*[contains(text(), "Get the Best of NYPL in Your Inbox")])[1]'
+    email_subscription = '(//*[contains(text(), "Get the Latest News from NYPL!")])[1]'
     email_subs_input = '//*[@name="email"]'
     # submit_email = '(//*[contains(text(), "Submit")])[1]'
-    subs_confirmation = '(//*[contains(text(), "Get the Best of NYPL in Your Inbox")])[1]//..//..//*[contains(text(), "Thank you!")]'
+    subs_confirmation = '//*[@data-testid="ds-newsletterSignup-form"]//*[@data-testid="ds-text"][contains(text(), "Thank you!")]'
 
 
-    def open_connect_page(self):
-        # self.open("https://www.nypl.org/connect")
+    def open_visit_page(self):
+        # self.open("https://www.nypl.org/visit")
 
-        base_url = "https://www.nypl.org/connect"
-        qa_base_url = "https://qa-www.nypl.org/connect"
+        base_url = "https://www.nypl.org/visit"
+        qa_base_url = "https://qa-www.nypl.org/visit"
 
         url = f"{base_url}"
         qa_url = f"{qa_base_url}"

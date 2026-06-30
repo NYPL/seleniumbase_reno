@@ -47,7 +47,7 @@ class HeaderPage(BaseCase):
     research = '//*[@id="header-nav-lower"]//*[contains(text(), "Research")][1]'
     education = '//*[@id="header-nav-lower"]//*[contains(text(), "Education")][1]'
     events = '//*[@id="header-nav-lower"]//*[contains(text(), "Events")][1]'
-    connect = '//*[@id="header-nav-lower"]//*[contains(text(), "Connect")][1]'
+    visit = '//*[@id="header-nav-lower"]//*[contains(text(), "Visit")][1]'
     give = '//*[@id="header-nav-lower"]//*[contains(text(), "Give")][1]'
     get_help = '//*[@id="header-nav-lower"]//*[contains(text(), "Get Help")][1]'
     search_button = '//*[@id="header-nav-lower"]//*[contains(text(), "Search")][1]'
