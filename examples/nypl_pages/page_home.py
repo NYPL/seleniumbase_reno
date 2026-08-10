@@ -8,9 +8,17 @@ class HomePage(BaseCase):
     h2_heading = '(//*[@id="content-primary"]//h2)'
     see_more = '(//a[contains(text(), "See More")])'
 
+    section_spotlight = '//*[@id="content-primary"]//*[self::h2 and contains(., "Spotlight")]'
+    section_whats_on = '//*[@id="content-primary"]//*[self::h2 and contains(., "What")]'
+    section_discover = '//*[@id="content-primary"]//*[self::h2 and contains(., "Discover")]'
+    section_staff_picks = '//*[@id="content-primary"]//*[self::h2 and contains(., "Staff Picks")]'
+    section_in_collection = '//*[@id="content-primary"]//*[self::h2 and contains(., "In the Collection")]'
+    section_blog = '//*[@id="content-primary"]//*[self::h2 and contains(., "Blog")]'
+    section_explore = '//*[@id="content-primary"]//*[self::h2 and contains(., "Explore")]'
+
     slide_next = '//*[@id="slideshow-next-button"]'
     slide_prev = '//*[@id="slideshow-prev-button"]'
-    new_noteworthy_slide = '(//*[@id="content-primary"]//h2)[5]//..//..//..//li'
+    new_noteworthy_slide = '//*[@id="content-primary"]//*[self::h2 and contains(., "In the Collection")]/../../..//li'
 
     all_links = '((//*[@id="mainContent"]//h3)//a)'  # locator for all links on the page
 
