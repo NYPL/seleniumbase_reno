@@ -43,10 +43,9 @@ class HomePageTest(NyplUtils):
             self.assert_element(HomePage.see_more + "[" + str(x) + "]")
 
         # Test each section's h2 link navigation by name, not position
-        if self.is_element_present(HomePage.section_spotlight):
-            print("\n=== Testing Spotlight ===")
-            self.link_assertion(HomePage.section_spotlight + "//a", "spotlight")
-            print("✓ Spotlight link passed\n")
+        print("\n=== Testing Spotlight ===")
+        self.link_assertion(HomePage.section_spotlight + "//a", "spotlight")
+        print("✓ Spotlight link passed\n")
 
         print("=== Testing What's On ===")
         self.link_assertion(HomePage.section_whats_on + "//a", "events")
