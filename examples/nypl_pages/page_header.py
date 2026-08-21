@@ -21,8 +21,6 @@ class HeaderPage(BaseCase):
     circulating_catalog = '//*[@id="circulatingCatalogSearch-wrapper"]'
     research_catalog = '//*[@id="researchcatalogSearch-wrapper"]'
     website_search = '//*[@id="websiteSearch-wrapper"]'
-    search_result_rc_1 = '//*[@id="search-results-list"]//a'  # Search the Research Catalog locator 1- anchor links
-    search_result_rc_2 = '//*[@data-testid="search-results-heading"]'  # Search the Research Catalog locator 1- total
     search_result_slw_1 = '//*[@id="gs-results"]//a'  # search the library website locator 1- anchor links
     search_result_slw_2 = '//*[@id="search-results-summary"]'  # search the library website locator 2- total
 
