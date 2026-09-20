@@ -38,3 +38,12 @@ class HomePage(BaseCase):
         else:
             print(f"Running on Production Env: Opening : {url}")
             self.open(url)
+
+        # The header is a separately-loaded widget (ds-header.nypl.org) that
+        # occasionally hangs on first load. A refresh reliably fixes it.
+        try:
+            self.wait_for_element_present('//*[@id="loginButton"]', timeout=8)
+        except Exception:
+            print("Header did not load in time, refreshing page...")
+            self.refresh_page()
+            self.wait_for_element_present('//*[@id="loginButton"]', timeout=15)
