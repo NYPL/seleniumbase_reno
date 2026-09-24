@@ -80,7 +80,8 @@ class HeaderTest(NyplUtils):
 
         # assert Search
         self.click(HeaderPage.search_button)
-        self.assert_text("Close")
+        # TEMP: intentional failure to verify Slack notification. Revert after test.
+        self.assert_text("INTENTIONAL_FAILURE_SLACK_NOTIFICATION_CHECK")
 
     # @pytest.mark.skip(reason="Chris covering this in his RC automation suite")
     @pytest.mark.smoke
