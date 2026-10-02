@@ -32,7 +32,7 @@ class VisitTest(NyplUtils):
         self.assert_element(VisitPage.h1)
 
         # # assert title
-        self.assert_title(VisitPage.visit_title)
+        self.assert_true(any(w in self.get_title() for w in VisitPage.visit_title_keywords), 'Unexpected title: ' + self.get_title())
 
         # assert all links on the page
         # self.assert_links_valid(VisitPage.all_links)

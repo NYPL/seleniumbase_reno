@@ -14,10 +14,10 @@ class EducatorsPage(BaseCase):
     connect_with_us_facebook = "//a[@href='https://www.facebook.com/NYPLEducators']"
 
     # newsletter signup locators
-    email_subscription = '(//*[contains(text(), "Sign Up for the CES Newsletter")])[1]'
+    email_subscription = '//*[@data-testid="ds-newsletterSignup"]'  # component id, not heading text
     email_subs_input = '//*[@name="email"]'
     # submit_email = '(//*[contains(text(), "Submit")])[1]'
-    subs_confirmation = '(//*[contains(text(), "Sign Up for the CES Newsletter")])[1]//..//..//*[contains(text(), "Thank you!")]'
+    subs_confirmation = '//*[@data-testid="ds-newsletterSignup-form"]//*[@data-testid="ds-text"][contains(text(), "Thank you!")]'
 
     def open_educators_page(self):
         # self.open("https://www.nypl.org/education/educators")

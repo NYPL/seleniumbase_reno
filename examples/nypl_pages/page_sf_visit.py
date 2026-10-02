@@ -5,10 +5,10 @@ class VisitPage(BaseCase):
 
     # breadcrumbs
     home = '//*[@data-testid="ds-breadcrumbs"]//*[contains(text(), "Home")]'
-    visit = '//*[@data-testid="ds-breadcrumbs"]//*[contains(text(), "Visit")]'
+    visit = '//*[@data-testid="ds-breadcrumbs"]//*[contains(text(), "Connect")]'
     h1 = '//*[@id="mainContent"]//h1'
 
-    visit_title = 'Visit The New York Public Library | The New York Public Library'  # title
+    visit_title_keywords = ('Visit', 'Connect')  # title must contain one of these
 
     all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
 

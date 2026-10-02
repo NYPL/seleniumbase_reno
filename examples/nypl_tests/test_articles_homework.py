@@ -26,7 +26,9 @@ class ArticlesHomeworkTest(NyplUtils):
         print("test_articles_homework()\n")
 
         # assert title
-        self.assert_title('Homework Help')
+        # Homework Help redirects to libguides; assert the destination, not its title text
+        self.assert_true('libguides.nypl.org' in self.get_current_url(), 'Not redirected to libguides: ' + self.get_current_url())
+        self.assert_true(self.get_title().strip() != '', 'Empty page title')
 
         # assert images on the page
         self.image_assertion()

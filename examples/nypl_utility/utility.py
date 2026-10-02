@@ -264,6 +264,8 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         for index in range(block_length):
             retries = 3
             link_checked = False
+            last_url = ""
+            last_error = None
 
             for attempt in range(retries):
                 try:
@@ -278,6 +280,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                     
                     el = links[index]
                     url = el.get_attribute('href') or ""
+                    last_url = url
 
                     # If there's no href at all, treat as non-web (e.g., JS handlers) and skip
                     if not url:
@@ -340,12 +343,15 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                         link_checked = True
                         break
                 except Exception as e:
-                    print(f"\nAttempt {attempt + 1} failed for link #{index + 1} with error: {e}. Retrying...")
+                    last_error = e
+                    print(f"\nAttempt {attempt + 1} failed for link #{index + 1} ({last_url}) with error: {e}. Retrying...")
                     time.sleep(3)
 
             if not link_checked:
-                print(f"Failed to verify link #{index + 1} after {retries} attempts.")
-                assert False, f"Failed to verify link at position #{index + 1} after {retries} attempts."
+                msg = (f"Failed to verify link at position #{index + 1} after {retries} attempts. "
+                       f"URL: {last_url or 'unknown'}. Last error: {last_error}")
+                print(msg)
+                assert False, msg
 
     def image_assertion(self):
         # skipping this function since 'img' locator finds unnecessary images

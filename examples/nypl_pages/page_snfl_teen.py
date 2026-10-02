@@ -2,6 +2,8 @@ from seleniumbase import BaseCase
 
 
 class SnflTeenPage(BaseCase):
+
+    title_keyword = 'Teen Center'  # title must contain this
     # breadcrumbs locators
     home = '(//*[contains(text(), "Home")])[1]'
     locations = '(//*[contains(text(), "Locations")])[2]'

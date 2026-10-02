@@ -5,7 +5,7 @@ class ArticlesDatabasesPage(BaseCase):
 
     # breadcrumb locators
     home = '(//*[contains(text(), "Home")])[1]'
-    research = '(//*[contains(text(), "Research")])[2]'
+    research = '//*[@data-testid="ds-breadcrumbs"]//*[contains(text(), "Research")]'
     collections = '(//*[contains(text(), "Online Resources & Databases")])[2]'
 
     articles_databases_title = "Online Resources & Databases | The New York Public Library"  # title

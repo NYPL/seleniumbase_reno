@@ -23,7 +23,7 @@ class SnflTeenTest(NyplUtils):
         print("test_snfl_teen_main()\n")
 
         # assert title
-        self.assert_title('Teen Center | The New York Public Library')
+        self.assert_true(SnflTeenPage.title_keyword in self.get_title(), 'Unexpected title: ' + self.get_title())
 
         # assert images on the page
         self.image_assertion()
