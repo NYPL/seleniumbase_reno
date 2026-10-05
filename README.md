@@ -6,15 +6,17 @@ This is the repo for Python/SeleniumBase testing of nypl.org. The goal of this r
 
 Download Pycharm CE and create a new project and clone this repo.
 
-Go to terminal in PyCharm, and run command “pip3 install seleniumbase”. Sbase must be at least 4.11.3. To upgrade, use “pip3 install seleniumbase --upgrade” 
+Install requirements/dependencies with “pip install -r requirements.txt”. This installs SeleniumBase (4.43.2 or newer) and pytest. SeleniumBase downloads a matching chromedriver on its own.
 
 Type “sbase” or “seleniumbase” to check if it is installed. You should see its version and other related stuff.
 
-Install chromedriver with “sbase install chromedriver latest”.
-
-Install requirements/dependencies with “pip install -r requirements.txt”.
-
 Base interpreter is Python 3.11 for this test suite (same as CI).
+
+Tests that log in read credentials from a .env file in the repo root (not committed):
+
+ - CATALOG_USERNAME
+ - CATALOG_PASSWORD
+ - LCA_PASSWORD
 
 # Repo Layout
 
@@ -28,11 +30,12 @@ Base interpreter is Python 3.11 for this test suite (same as CI).
  
  From the repo root, run pytest against the tests folder or a single file
  
- for instance: - pytest tests/test_sign_up.py --headless
+ for instance: - pytest tests/test_locations.py --headless
                - pytest tests -m smoke --headless
+               - pytest tests --env=qa (runs against qa-www.nypl.org)
                
  try adding --demo for a slower run:
- pytest test_sign_up.py --demo
+ pytest tests/test_locations.py --demo
 
                
  ## In PyCharm CE
@@ -46,12 +49,5 @@ Base interpreter is Python 3.11 for this test suite (same as CI).
  Select the workflow you want to run from the list of workflows on the left.
  
  Click the "Run workflow" button on the right.
- 
- # Note
- 
- To test the mobile tests in 'test_mobile.py', the test should be run with --mobile command on terminal, for instance:
- pytest test_mobile.py --headless --mobile
 
-
-
-
+ Prod Smoke also runs every day at 11:00 UTC and posts failures to Slack.
