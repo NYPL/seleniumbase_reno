@@ -63,6 +63,8 @@ class Locations(NyplUtils):
         self.click(LocationsPage.borough)
         self.click(LocationsPage.bronx)
         self.click(LocationsPage.apply_boro)
+        # wait for the list to re-render before reopening the dropdown, or the click gets lost
+        self.assert_element(LocationsPage.first_address_with_text.format("Bronx"), timeout=20)
         self.click(LocationsPage.borough)
         self.click(LocationsPage.clear_boro)
 
@@ -92,62 +94,47 @@ class Locations(NyplUtils):
 
         expected_text = "The New York Public Library for the Performing Arts"
 
-        # result order is not stable (RENO-3468), so assert LPA is anywhere in the results
-        self.wait_for_element_visible(LocationsPage.first_result)
-        result_names = [el.text for el in self.find_elements(LocationsPage.all_results)]
-        print(result_names)  # optional print
+        # result order is not stable (RENO-3468), so assert LPA is anywhere in the results.
+        # assert_element keeps polling, so it rides out the list re-render after the search.
+        self.assert_element(LocationsPage.result_with_name.format(expected_text))
 
-        self.assert_true(any(expected_text in name for name in result_names),
-                         'Expected "' + expected_text + '" in results vs Actual results = ' + str(result_names))
+    def assert_borough_filter(self, borough_checkbox, expected_city):
+        # the list empties and re-renders after 'Apply Filters' (sometimes slower than
+        # the 7s default), so wait until the first address shows the filtered borough.
+        # If the page hangs (dropdown or list never renders), refresh once and retry.
+        for attempt in range(2):
+            try:
+                self.click(LocationsPage.borough)
+                self.click(borough_checkbox)
+                self.click(LocationsPage.apply_boro)
+                self.assert_element(LocationsPage.first_address_with_text.format(expected_city), timeout=20)
+                break
+            except Exception:
+                if attempt == 1:
+                    raise
+                print(expected_city + " filter did not load, refreshing page and retrying...")
+                self.refresh_page()
+                self.wait_for_element_present(LocationsPage.borough, timeout=15)
 
-    def test_locations_borough(self, wait_time=2):
+        addresses = self.execute_script(
+            "return [...document.querySelectorAll('#locations-list .address')].map(e => e.textContent);")
+        print(expected_city + ": " + str(len(addresses)) + " addresses")
+        not_matching = [a for a in addresses if expected_city not in a]
+        self.assert_true(len(addresses) > 0, "No addresses after filtering by " + expected_city)
+        self.assert_true(not not_matching,
+                         'Addresses without "' + expected_city + '": ' + str(not_matching))
+        self.click(LocationsPage.clear_all_search)
+
+    def test_locations_borough(self):
         print("test_borough()\n")
 
         # assert 'Borough' Filter web element
         self.assert_element(LocationsPage.borough)
 
-        # assert 'Bronx' text from a random(randrange(1, 35)) Bronx location
-        self.click(LocationsPage.borough)
-        self.click(LocationsPage.bronx)
-        self.click(LocationsPage.apply_boro)
-        try:
-            bronx_library_info = self.get_text(LocationsPage.random_bronx_library)
-        except Exception:
-            print("Fetching the Bronx Library info failed on first attempt. Retrying...")
-            self.wait(wait_time)
-            bronx_library_info = self.get_text(LocationsPage.random_bronx_library)
-        print(bronx_library_info)
-        self.assert_true("Bronx" in bronx_library_info)
-        self.click(LocationsPage.clear_all_search)
-
-        # assert 'Manhattan' text from a random(randrange(1, 76)) Manhattan location
-        print("\n===========================")
-        self.click(LocationsPage.borough)
-        self.click(LocationsPage.manhattan)
-        self.click(LocationsPage.apply_boro)
-        try:
-            manhattan_library_info = self.get_text(LocationsPage.random_manhattan_library)
-        except Exception:
-            print("Fetching the Manhattan Library info failed on first attempt. Retrying...")
-            self.wait(wait_time)
-            manhattan_library_info = self.get_text(LocationsPage.random_manhattan_library)
-        print(manhattan_library_info)
-        self.assert_true("New York" in manhattan_library_info)
-        self.click(LocationsPage.clear_all_search)
-
-        # assert 'Staten Island' text from a random(randrange(1, 14)) 'Staten Island' location
-        print("\n===========================")
-        self.click(LocationsPage.borough)
-        self.click(LocationsPage.richmond)
-        self.click(LocationsPage.apply_boro)
-        try:
-            richmond_library_info = self.get_text(LocationsPage.random_staten_library)
-        except Exception:
-            print("Fetching the Staten Island Library info failed on first attempt. Retrying...")
-            self.wait(wait_time)
-            richmond_library_info = self.get_text(LocationsPage.random_staten_library)
-        print(richmond_library_info)
-        self.assert_true("Staten" in richmond_library_info)
+        # every address in the filtered list should be in the selected borough
+        self.assert_borough_filter(LocationsPage.bronx, "Bronx")
+        self.assert_borough_filter(LocationsPage.manhattan, "New York")
+        self.assert_borough_filter(LocationsPage.richmond, "Staten Island")
 
     def test_accessibility_full(self):
         print("test_accessibility_full()\n")

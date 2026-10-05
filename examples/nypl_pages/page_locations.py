@@ -11,7 +11,7 @@ class LocationsPage(BaseCase):
     search_bar = '//*[@id="search-form__search-input"]'
     search_button = '//*[@id="search-form__submit"]'
     first_result = '(//*[@id="locations-list"]//h2)[1]'
-    all_results = '//*[@id="locations-list"]//h2'
+    result_with_name = '//*[@id="locations-list"]//h2[contains(., "{}")]'  # any result with the given name
 
     open_now_check_box = '//*[@id="checkbox-open-now"]//..'
     clear_all_search = '(//*[contains(text(), "Clear all search terms")])'
@@ -26,16 +26,14 @@ class LocationsPage(BaseCase):
     open_libraries = '//*[@id="locations-list"]//li'
 
     borough = '(//*[contains(text(), "Borough")])[1]'
-    apply_boro = '(//*[contains(text(), "Apply Filters")])[1]'
-    clear_boro = '(//*[contains(text(), "Clear")])[1]'
-    bronx = '(//*[contains(text(), "Bronx")])[2]'
-    manhattan = '(//*[contains(text(), "Manhattan")])[2]'
-    richmond = '(//*[contains(text(), "Staten")])[2]'
+    apply_boro = '//*[@id="button-save-filter-borough"]'
+    clear_boro = '//*[@id="button-clear-filter-borough"]'
+    bronx = '(//label[normalize-space()="Bronx"])[1]'  # [1] is the visible one, [2] is a hidden duplicate
+    manhattan = '(//label[normalize-space()="Manhattan"])[1]'  # [1] is the visible one, [2] is a hidden duplicate
+    richmond = '(//label[normalize-space()="Staten Island"])[1]'  # [1] is the visible one, [2] is a hidden duplicate
 
-    # random libraries for 3 boroughs
-    random_bronx_library = "(//*[contains(@class, 'address')])[' + str(randrange(1, 35)) + ']"
-    random_manhattan_library = "(//*[contains(@class, 'address')])[' + str(randrange(1, 76)) + ']"
-    random_staten_library = "(//*[contains(@class, 'address')])[' + str(randrange(1, 14)) + ']"
+    # first address in the (filtered) list containing the given text, e.g. "Bronx"
+    first_address_with_text = '(//*[@id="locations-list"]//*[contains(@class, "address")])[1][contains(., "{}")]'
 
     # accessibility filters locator
     library_h2_links = '(//*[@id="locations-list"]//li//h2//a)'  # library h2 URLs
@@ -77,3 +75,13 @@ class LocationsPage(BaseCase):
         else:
             print(f"Running on Production Env: Opening {category} page with URL: {url}")
             self.open(url)
+
+        # The filters and list render client-side and occasionally hang on first load.
+        # A refresh usually fixes it (same approach as the header in page_home.py).
+        if not category:
+            try:
+                self.wait_for_element_present(LocationsPage.borough, timeout=10)
+            except Exception:
+                print("Locations filters did not load in time, refreshing page...")
+                self.refresh_page()
+                self.wait_for_element_present(LocationsPage.borough, timeout=15)
