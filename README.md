@@ -12,17 +12,24 @@ Type “sbase” or “seleniumbase” to check if it is installed. You should s
 
 Install chromedriver with “sbase install chromedriver latest”.
 
-Install requirements/dependencies with “pip freeze > requirements.txt” for Github/Jenkins integration.
+Install requirements/dependencies with “pip install -r requirements.txt”.
 
-Base interpreter is Python 3.10 for this test suite.
+Base interpreter is Python 3.11 for this test suite (same as CI).
+
+# Repo Layout
+
+ - tests/ : test files (test_*.py) and test data (tests/resources)
+ - pages/ : page objects with locators, one file per page
+ - utility/ : shared helpers (NyplUtils), base class for all tests
+ - .github/workflows/ : CI workflows (smoke, regression, QA)
 
 # Running Tests
  ## By Command Line
  
- cd into the nypl_tests files under examples (examples/nypl_tests) file and type 'pytest file_name'
+ From the repo root, run pytest against the tests folder or a single file
  
- for instance: - cd ~/examples/nypl_tests 
-               - pytest -k test_sign_up.py --headless
+ for instance: - pytest tests/test_sign_up.py --headless
+               - pytest tests -m smoke --headless
                
  try adding --demo for a slower run:
  pytest test_sign_up.py --demo

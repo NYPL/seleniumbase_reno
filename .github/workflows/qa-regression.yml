@@ -39,9 +39,9 @@ jobs:
 
     - name: Run Flake8 Linter
       continue-on-error: true
-      run: flake8 examples/nypl_tests --max-line-length=120 --statistics --count || true
+      run: flake8 tests --max-line-length=120 --statistics --count || true
 
     - name: Run QA Regression tests on Chrome
       continue-on-error: true
       run: |
-        pytest examples/nypl_tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 --env=qa -m "not test"
+        pytest tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 --env=qa -m "not test"
