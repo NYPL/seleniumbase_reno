@@ -3,7 +3,7 @@ from seleniumbase import BaseCase
 
 class ResearchSupportPage(BaseCase):
     home = '(//*[contains(text(), "Home")])[1]'
-    research = '(//*[contains(text(), "Research")])[2]'
+    research = '//*[@data-testid="ds-breadcrumbs"]//*[contains(text(), "Research")]'
     h1 = '//*[@data-testid="ds-hero"]'
 
     all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'

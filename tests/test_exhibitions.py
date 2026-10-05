@@ -170,34 +170,32 @@ class Exhibitions(NyplUtils):
         # asserting the images on the page
         self.image_assertion()
 
-        # using 'try' and 'except' block since the webpage might have no exhibitions at all
-        try:  # if the page does not have any showcases, this 'try' block will take care of the test
-            # skip test if there is no current "Community Showcase"
-            no_community_showcase_text = self.get_text(ExhibitionsPage.no_community_showcase)
-            assertion_text = 'currently have no community showcases'
-            if assertion_text in no_community_showcase_text:
-                print("No Community Showcases, so nothing to assert.")
-        except:  # if there are showcases, this 'except' block will run and assert the elements
-            # assert breadcrumbs and page elements
-            self.assert_element(ExhibitionsPage.home)
-            self.assert_element(ExhibitionsPage.events)
-            self.assert_element(ExhibitionsPage.exhibitions)
-            self.assert_element(ExhibitionsPage.community_h1)
+        # assert breadcrumbs and page elements
+        self.assert_element(ExhibitionsPage.home)
+        self.assert_element(ExhibitionsPage.events)
+        self.assert_element(ExhibitionsPage.exhibitions)
+        self.assert_element(ExhibitionsPage.community_h1)
 
-            # assert all links on the page
-            self.assert_links_valid(ExhibitionsPage.all_links)
+        # the page may have no showcases at all; it no longer shows a "No Community Showcases" message,
+        # the list is just empty, so only assert links and pager when there are showcases
+        if not self.find_elements(ExhibitionsPage.all_links):
+            print("No Community Showcases, so no links or pager to assert.")
+            return
 
-            # asserting the pager links at the bottom of the page
-            pager_length = len(self.find_elements(ExhibitionsPage.pagination_list))
+        # assert all links on the page
+        self.assert_links_valid(ExhibitionsPage.all_links)
 
-            for x in range(1, pager_length):
-                self.click(ExhibitionsPage.pagination_list + '[' + str(x) + ']')
-                url_text = self.get_current_url()
-                print(url_text)  # optional print
-                # asserting if the url text contains page=random_number
-                print('page = ' + str(x - 1))
-                self.assert_true(str(x - 1) in url_text)
-                self.open_exhibitions_page(category='community-showcases')
+        # asserting the pager links at the bottom of the page
+        pager_length = len(self.find_elements(ExhibitionsPage.pagination_list))
+
+        for x in range(1, pager_length):
+            self.click(ExhibitionsPage.pagination_list + '[' + str(x) + ']')
+            url_text = self.get_current_url()
+            print(url_text)  # optional print
+            # asserting if the url text contains page=random_number
+            print('page = ' + str(x - 1))
+            self.assert_true(str(x - 1) in url_text)
+            self.open_exhibitions_page(category='community-showcases')
 
     def test_exhibitions_online(self):
         # https://www.nypl.org/events/exhibitions/online

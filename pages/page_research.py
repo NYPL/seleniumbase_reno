@@ -8,7 +8,8 @@ class ResearchPage(BaseCase):
 
     all_links = '((//*[@id="page-container--content-primary"]//li)//a)'  # locator for 'page-container'
 
-    search_the_research_catalog = '(//*[contains(text(), "Search the Research Catalog")])[1]'
+    # the site header has a hidden "Search the Research Catalog" too, so target the page heading
+    search_the_research_catalog = '//*[@data-testid="ds-heading" and contains(text(), "Search the Research Catalog")]'
     search_bar = '//*[@id="research-catalog-searchbar-textInput"]'
     search_button = '//*[@data-testid="ds-button"]/*[contains(text(), "Search")]'
 

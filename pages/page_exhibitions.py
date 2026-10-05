@@ -27,8 +27,7 @@ class ExhibitionsPage(BaseCase):
     archived_h2 = "(//*[contains(translate(text(), 'ARCHIVED EXHIBITION RESOURCES, A TO Z', 'archived exhibition resources, a to z'), 'archived exhibition resources, a to z')])[1]"
 
     # /community-showcases
-    community_h1 = '(//*[contains(text(), "Community Showcases")])[2]'
-    no_community_showcase = '(//*[contains(text(), "No Community Showcases")])'  # use this, delete above one
+    community_h1 = '//h1[contains(text(), "Community Showcases")]'
 
     # /online
     online_h1 = '(//*[contains(text(), "Online Exhibitions")])[2]'
