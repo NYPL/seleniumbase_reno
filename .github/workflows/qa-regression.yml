@@ -45,6 +45,5 @@ jobs:
       run: flake8 tests --max-line-length=120 --statistics --count || true
 
     - name: Run QA Regression tests on Chrome
-      continue-on-error: true
       run: |
         pytest tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 --env=qa -m "not test"

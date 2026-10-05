@@ -117,3 +117,8 @@ jobs:
         curl -X POST -H 'Content-type: application/json' \
           --data "$PAYLOAD" \
           ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    # continue-on-error above lets the Slack step run; this step then marks the run as failed
+    - name: Fail job if smoke tests failed
+      if: steps.run_tests.outcome == 'failure'
+      run: exit 1
