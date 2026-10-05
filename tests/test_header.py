@@ -131,10 +131,6 @@ class HeaderTest(NyplUtils):
         if not username or not password:
             raise Exception("Environment variables USERNAME and PASSWORD must be set!")
 
-        # Debug print statements to check if the variables are set
-        print(f"Username: {username}")
-        print(f"Password: {password}")
-
         # Proceed with the login process
         self.nypl_login_research(username, password)
 

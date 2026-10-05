@@ -168,9 +168,6 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         username = os.getenv("CATALOG_USERNAME")
         password = os.getenv("CATALOG_PASSWORD")
 
-        print("username: " + str(username))
-        print("password: " + str(password))
-
         if not username or not password:
             raise ValueError("Environment variables NYPL_USERNAME and NYPL_PASSWORD are not set.")
 
