@@ -11,6 +11,7 @@ class LocationsPage(BaseCase):
     search_bar = '//*[@id="search-form__search-input"]'
     search_button = '//*[@id="search-form__submit"]'
     first_result = '(//*[@id="locations-list"]//h2)[1]'
+    all_results = '//*[@id="locations-list"]//h2'
 
     open_now_check_box = '//*[@id="checkbox-open-now"]//..'
     clear_all_search = '(//*[contains(text(), "Clear all search terms")])'
