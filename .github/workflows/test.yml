@@ -5,6 +5,9 @@ on:
 #    - cron: '0 11 * * *'  # At 11:00 AM UTC, every day
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     env:
