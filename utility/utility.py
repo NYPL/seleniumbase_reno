@@ -561,13 +561,12 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 continue
 
             filter_element.click()
-            self.wait(1)
+
+            # wait until the results text shows the clicked filter, instead of a fixed 1s wait
+            # (raises with both texts in the message if it never does)
+            self.wait_for_text(filter_text, page.filter_results, timeout=15)
 
             self.assert_element_not_visible(page.error_locator)
-
-            result_text = self.get_text(page.filter_results)
-            self.assert_true(filter_text in result_text,
-                             f"Clicked '{filter_text}' and '{result_text}' don't match")
 
             print(f"\nFilter #{index + 1}: {filter_text} ✓")
 

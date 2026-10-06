@@ -39,19 +39,19 @@ class LocationsPage(BaseCase):
     library_h2_links = '(//*[@id="locations-list"]//li//h2//a)'  # library h2 URLs
 
     accessibility = '(//*[contains(text(), "Accessibility")])[1]'
-    apply_access = '(//*[contains(text(), "Apply Filters")])[2]'
-    full_access = '(//*[contains(text(), "Fully accessible")])[1]'
-    partial_access = '(//*[contains(text(), "Partially accessible")])[1]'
-    not_access = '(//*[contains(text(), "Not accessible")])[1]'
+    # every filter dropdown has its own 'Apply Filters' button; only the open dropdown's one is visible
+    apply_filters = '//button[normalize-space()="Apply Filters"]'
+    full_access = '(//label[normalize-space()="Fully accessible"])[1]'
+    partial_access = '(//label[normalize-space()="Partially accessible"])[1]'
+    not_access = '(//label[normalize-space()="Not accessible"])[1]'
 
     amenities = '(//*[contains(text(), "Amenities")])[1]'
     amenities_filters = "(//*[contains(text(), 'Amenities')])[1]/..//..//li"
 
     subject_specialties = '(//*[contains(text(), "Subject Specialties")])[1]'
-    apply_specialties = '(//*[contains(text(), "Apply Filters")])[4]'
-    art = '(//*[contains(text(), "Art")])[1]'
-    history = '//*[text()="History"]'
-    social_sciences = '//*[text()="Social Sciences"]'
+    art = '(//label[normalize-space()="Art"])[1]'
+    history = '(//label[normalize-space()="History"])[1]'
+    social_sciences = '(//label[normalize-space()="Social Sciences"])[1]'
 
     media_types_filters = "(//*[contains(text(), 'Media Types')])[1]/..//..//li"
 

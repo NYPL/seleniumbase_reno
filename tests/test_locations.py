@@ -113,6 +113,39 @@ class Locations(NyplUtils):
                 self.refresh_page()
                 self.wait_for_element_present(LocationsPage.borough, timeout=15)
 
+    def apply_filter_and_count(self, dropdown, option, timeout=20):
+        """
+        Opens a filter dropdown, picks an option, clicks its 'Apply Filters' and returns the number of
+        libraries listed. The list empties and re-renders after applying (sometimes several seconds),
+        so wait until the count is above 0 and below the unfiltered total, i.e. the filter really applied.
+        If the page hangs, refresh once and retry.
+        """
+        # unfiltered total, measured once per test on the fresh page (after 'Clear all search terms'
+        # the list may still be re-rendering, so re-counting then could pick up a filtered list)
+        if not hasattr(self, "_unfiltered_total"):
+            self._unfiltered_total = len(self.find_elements(LocationsPage.library_amount))
+        total = self._unfiltered_total
+        for attempt in range(2):
+            try:
+                self.click(dropdown)
+                self.click(option)
+                self.find_visible_elements(LocationsPage.apply_filters)[0].click()
+
+                end = time.time() + timeout
+                count = len(self.find_elements(LocationsPage.library_amount))
+                while not 0 < count < total and time.time() < end:
+                    time.sleep(0.5)
+                    count = len(self.find_elements(LocationsPage.library_amount))
+                self.assert_true(0 < count < total,
+                                 f"Filter did not apply within {timeout}s (count={count}, unfiltered total={total})")
+                return count
+            except Exception:
+                if attempt == 1:
+                    raise
+                print("Filter did not load, refreshing page and retrying...")
+                self.refresh_page()
+                self.wait_for_element_present(LocationsPage.borough, timeout=15)
+
     def assert_borough_filter(self, borough_checkbox, expected_city):
         self.apply_borough_filter(borough_checkbox, expected_city)
 
@@ -140,13 +173,7 @@ class Locations(NyplUtils):
         print("test_accessibility_full()\n")
 
         # assert 'Accessibility' filter
-        self.click(LocationsPage.accessibility)  # click 'accessibility' filter
-        self.click(LocationsPage.full_access)  # click 'full accessible' sub-filter
-        self.click(LocationsPage.apply_access)  # click 'apply filters'
-        self.wait(2)
-
-        # total number of libraries with full accessibility
-        total_lib = len(self.find_elements(LocationsPage.library_amount))
+        total_lib = self.apply_filter_and_count(LocationsPage.accessibility, LocationsPage.full_access)
         print(str(total_lib) + " libraries with Full Accessibility")
 
         # assertion for libraries that don't have 'full accessibility' but listen on the 'fully accessible'
@@ -169,13 +196,7 @@ class Locations(NyplUtils):
         print("test_partial_accessibility()\n")
 
         # assert 'partial access'
-        self.click(LocationsPage.accessibility)  # click 'accessibility' filter
-        self.click(LocationsPage.partial_access)  # click 'partially accessible' sub-filter
-        self.click(LocationsPage.apply_access)  # click 'apply filters'
-        self.wait(2)
-
-        # total number of libraries with partial accessibility
-        total_partial_lib = len(self.find_elements(LocationsPage.library_amount))
+        total_partial_lib = self.apply_filter_and_count(LocationsPage.accessibility, LocationsPage.partial_access)
         # print(str(total_partial_lib) + " total partial accessible libraries:\n")
 
         # for loop to assert locations have "partially accessible" text
@@ -193,13 +214,7 @@ class Locations(NyplUtils):
         print("test_not_accessible()\n")
 
         # assert 'not accessible' filter
-        self.click(LocationsPage.accessibility)  # click 'accessibility' filter
-        self.click(LocationsPage.not_access)  # click 'not accessible' filter
-        self.click(LocationsPage.apply_access)  # click 'apply filters'
-        self.wait(2)
-
-        # total number of libraries without accessibility
-        total_no_access_lib = len(self.find_elements(LocationsPage.library_amount))
+        total_no_access_lib = self.apply_filter_and_count(LocationsPage.accessibility, LocationsPage.not_access)
         print(str(total_no_access_lib) + " libraries with No Accessibility")
 
         # TODO: update below script after below ticket fixed - IN PROGRESS
@@ -232,78 +247,17 @@ class Locations(NyplUtils):
     def test_subject_specialties(self):
         print("test_subject_specialties()\n")
 
-        # assert subject_specialties filter  web element
-        self.assert_true(LocationsPage.subject_specialties)
+        # assert subject_specialties filter web element
+        self.assert_element(LocationsPage.subject_specialties)
 
-        # ========================================================================================
-
-        # assert 'art' filter
-        self.click(LocationsPage.subject_specialties)  # click 'subject specialties' filter
-        self.click(LocationsPage.art)  # click 'art' sub-filter
-        self.click(LocationsPage.apply_specialties)  # click apply
-
-        # length of the filter == 10 as of June 2022
-        art_filter_len = len(self.find_elements(LocationsPage.library_amount))
-        print("art filter length: " + str(art_filter_len))
-
-        # assert art filter length is more than 8
-        if art_filter_len == 0:
-            print("if clause: filter is 0, will wait a few seconds")
-            self.wait(3)
-            art_filter_len = len(self.find_elements(LocationsPage.library_amount))
-            self.assert_true(art_filter_len > 1)
-            print("New art filter length: " + str(art_filter_len))
-        else:
-            print("else clause: filter was visible on first try without waits")
-            self.assert_true(art_filter_len > 1)
-
-        self.click(LocationsPage.clear_all_search)
-
-        # ========================================================================================
-
-        # assert history filter
-        self.click(LocationsPage.subject_specialties)  # click 'subject specialties' filter
-        self.click(LocationsPage.history)  # click 'history' sub-filter
-        self.click(LocationsPage.apply_specialties)  # click apply
-
-        history_filter_len = len(self.find_elements(LocationsPage.library_amount))
-        print("\nhistory filter length: " + str(history_filter_len))
-
-        # assert history filter length greater than 8, currently 11 as of June 2022
-        if history_filter_len == 0:
-            print("if clause: filter is 0, will wait a few seconds")
-            self.wait(3)
-            history_filter_len = len(self.find_elements(LocationsPage.library_amount))
-            self.assert_true(history_filter_len > 1)
-            print("new history filter length: " + str(history_filter_len))
-        else:
-            print("else clause: filter was visible on first try without waits")
-            self.assert_true(history_filter_len > 1)
-
-        self.click(LocationsPage.clear_all_search)
-
-        # ========================================================================================
-
-        # assert social sciences filter
-        self.click(LocationsPage.subject_specialties)  # click 'subject specialties' filter
-        self.click(LocationsPage.social_sciences)  # click 'social sciences' sub-filter
-        self.click(LocationsPage.apply_specialties)  # click apply
-
-        social_sciences_len = len(self.find_elements(LocationsPage.library_amount))
-        print("\nsocial filter length: " + str(social_sciences_len))
-
-        # assert social sciences filter length greater than 8, which is 10, as of June 2022
-        if social_sciences_len == 0:
-            print("if clause: filter is 0, will wait a few seconds")
-            self.wait(3)
-            social_sciences_len = len(self.find_elements(LocationsPage.library_amount))
-            self.assert_true(social_sciences_len > 1)
-            print("new social filter length: " + str(social_sciences_len))
-        else:
-            print("else clause: filter was visible on first try without waits")
-            self.assert_true(social_sciences_len > 1)
-
-        self.click(LocationsPage.clear_all_search)
+        # each specialty should list more than one library (Art 9, History 11, Social Sciences 10 as of Oct 2026)
+        for name, option in (("art", LocationsPage.art),
+                             ("history", LocationsPage.history),
+                             ("social sciences", LocationsPage.social_sciences)):
+            count = self.apply_filter_and_count(LocationsPage.subject_specialties, option)
+            print(name + " filter length: " + str(count))
+            self.assert_true(count > 1, name + " filter should list more than one library")
+            self.click(LocationsPage.clear_all_search)
 
     def test_media_types(self):
         print("test_media_types()\n")
