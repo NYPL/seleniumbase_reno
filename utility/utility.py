@@ -61,6 +61,9 @@ import time
 # Load environment variables from .env file
 load_dotenv()
 
+# address used for newsletter signups in tests (a Gmail filter deletes mail sent to it)
+TEST_EMAIL = "alkimcevik+qa@nypl.org"
+
 
 class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAllPage, BookListsPage, CampaignsPage,
                 ExhibitionsPage, FooterPage, LocationsPage, ArticlesDatabasesPage, ResearchPage, ResearchSupportPage,
@@ -497,7 +500,7 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                 self.assert_element(page.email_subscription)
 
                 # Step 2: Input Email
-                self.send_keys(page.email_subs_input, "joedoe@gmail.com")
+                self.send_keys(page.email_subs_input, TEST_EMAIL)
 
                 # Step 3: Click Submit
                 self.send_keys(page.email_subs_input, Keys.ENTER)
