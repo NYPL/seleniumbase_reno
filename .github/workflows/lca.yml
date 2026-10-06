@@ -44,7 +44,18 @@ jobs:
         pip install -U seleniumbase
 
     - name: Run test instance ${{ matrix.instance }}
+      id: run_tests
       continue-on-error: true
       run: |
         echo "Running test instance ${{ matrix.instance }}"
         pytest tests --spec --headless --reruns=2 --reruns-delay=2 --env=qa -m "test and lca and imperva"
+
+    # keep SeleniumBase's failure logs (screenshot, page source, last URL per failed test)
+    - name: Upload failure logs
+      if: steps.run_tests.outcome == 'failure'
+      uses: actions/upload-artifact@v7
+      with:
+        name: latest-logs-${{ matrix.instance }}
+        path: latest_logs/
+        retention-days: 30
+        if-no-files-found: ignore

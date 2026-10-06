@@ -47,3 +47,13 @@ jobs:
     - name: Run Prod Regression tests on Chrome
       run: |
         pytest tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 -m "not test and not qa"
+
+    # keep SeleniumBase's failure logs (screenshot, page source, last URL per failed test)
+    - name: Upload failure logs
+      if: ${{ !cancelled() && failure() }}
+      uses: actions/upload-artifact@v7
+      with:
+        name: latest-logs
+        path: latest_logs/
+        retention-days: 30
+        if-no-files-found: ignore

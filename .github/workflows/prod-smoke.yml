@@ -118,6 +118,16 @@ jobs:
           --data "$PAYLOAD" \
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
+    # keep SeleniumBase's failure logs (screenshot, page source, last URL per failed test)
+    - name: Upload failure logs
+      if: steps.run_tests.outcome == 'failure'
+      uses: actions/upload-artifact@v7
+      with:
+        name: latest-logs
+        path: latest_logs/
+        retention-days: 30
+        if-no-files-found: ignore
+
     # continue-on-error above lets the Slack step run; this step then marks the run as failed
     - name: Fail job if smoke tests failed
       if: steps.run_tests.outcome == 'failure'
