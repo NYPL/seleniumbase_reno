@@ -2,7 +2,6 @@ import pytest
 
 from utility.utility import NyplUtils
 from pages.page_articles_databases import ArticlesDatabasesPage
-import requests
 
 
 class ArticlesDatabasesTest(NyplUtils):
@@ -48,15 +47,9 @@ class ArticlesDatabasesTest(NyplUtils):
         self.assert_element(ArticlesDatabasesPage.search_bar)
 
         # asserting the search results with keywords
-        # searching for the keyword and asserting it shows up on the first h3 result
         keyword = 'books'.lower()  # keyword in lowercase
         print(keyword)  # optional print
         self.send_keys(ArticlesDatabasesPage.search_bar, keyword)  # searching for keyword
         self.click(ArticlesDatabasesPage.submit_button)  # submitting the keyword
-        print(self.get_current_url())
-        assert 'research' in self.get_current_url()
-
-        # assert status is 300s
-        response = requests.head(self.get_current_url())
-        print(response.status_code)
-        self.assert_true(300 <= response.status_code <= 305, "Redirected Page status doesn't return between 300-305")
+        # the search hands off to a 3rd party (EBSCO); only check that the redirect works
+        self.assert_redirected_off_nypl()

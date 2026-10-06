@@ -1,5 +1,4 @@
 import requests
-from urllib.parse import urlparse
 
 from utility.utility import NyplUtils
 from pages.page_articles_homework import ArticlesHomeworkPage
@@ -26,10 +25,8 @@ class ArticlesHomeworkTest(NyplUtils):
     def test_articles_homework_main(self):
         print("test_articles_homework()\n")
 
-        # assert title
-        # Homework Help redirects to libguides; assert the destination, not its title text
-        self.assert_true(urlparse(self.get_current_url()).hostname == 'libguides.nypl.org', 'Not redirected to libguides: ' + self.get_current_url())
-        self.assert_true(self.get_title().strip() != '', 'Empty page title')
+        # Homework Help hands off to a 3rd party (LibGuides); only check that the redirect works
+        self.assert_redirected_off_nypl()
 
         # assert images on the page
         self.image_assertion()

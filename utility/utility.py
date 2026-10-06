@@ -426,6 +426,33 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
 
         print('\nTotal broken images on ' + self.get_current_url() + ' = ' + str(broken_image_count))"""
 
+    def assert_redirected_off_nypl(self, timeout=15):
+        """
+        High-level check for pages that hand off to a 3rd party (EBSCO, EZproxy, LibGuides, ...):
+        the browser left the NYPL site and the destination loaded with a status below 400.
+        Does not check the vendor's host, title or content, so vendor changes don't break it.
+        The status comes from the browser's own page load, since vendors and Imperva often
+        block scripted requests (requests.get/head) with 403s or challenge pages.
+        """
+        nypl_hosts = ("www.nypl.org", "qa-www.nypl.org")
+
+        # wait for the redirect to leave the NYPL site
+        for _ in range(timeout):
+            if urlparse(self.get_current_url()).hostname not in nypl_hosts:
+                break
+            self.sleep(1)
+        self.wait_for_ready_state_complete()
+
+        url = self.get_current_url()
+        print("Redirected to: " + url)
+        self.assert_true(urlparse(url).hostname not in nypl_hosts, "Still on the NYPL site, no redirect: " + url)
+
+        status = self.execute_script(
+            "var nav = performance.getEntriesByType('navigation')[0]; return nav ? nav.responseStatus : null;")
+        print("Destination status: " + str(status))
+        # 0/None means the browser didn't expose a status; only fail on a real error status
+        self.assert_true(not status or status < 400, "Destination returned HTTP " + str(status) + ": " + url)
+
     def assert_newsletter_signup(self, page):
 
         # # newsletter signup locators

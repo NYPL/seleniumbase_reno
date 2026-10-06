@@ -1,6 +1,5 @@
 from utility.utility import NyplUtils
 from pages.page_articles_burney import ArticlesBurneyPage
-import requests
 
 
 class ArticlesBurneyTest(NyplUtils):
@@ -14,7 +13,6 @@ class ArticlesBurneyTest(NyplUtils):
 
         # open main page
         self.open_articles_burney_page()
-        self.login_ad_catalog()
 
     def tearDown(self):
         print("RUNNING AFTER EACH TEST")
@@ -24,11 +22,6 @@ class ArticlesBurneyTest(NyplUtils):
     def test_articles_burney_main(self):
         print("test_articles_burney_main()\n")
 
-        # assert title
-        self.assert_title('Basic Search - Seventeenth and Eighteenth Century Burney Newspapers Collection')
-
-        # assert status is 300s
-        response = requests.head(self.get_current_url())
-        print(response.status_code)
-        self.assert_true(300 <= response.status_code <= 305, "Redirected Page status doesn't return between 300-305")
-
+        # the NYPL page hands off to a 3rd party (EZproxy login for the Gale database);
+        # only check that the redirect works, not the vendor's page
+        self.assert_redirected_off_nypl()
