@@ -60,11 +60,8 @@ class Locations(NyplUtils):
         self.assert_element(LocationsPage.open_now_check_box)
 
         # asserting 'Clear all search terms' Web-element
-        self.click(LocationsPage.borough)
-        self.click(LocationsPage.bronx)
-        self.click(LocationsPage.apply_boro)
-        # wait for the list to re-render before reopening the dropdown, or the click gets lost
-        self.assert_element(LocationsPage.first_address_with_text.format("Bronx"), timeout=20)
+        # waits for the list to re-render before reopening the dropdown, or the click gets lost
+        self.apply_borough_filter(LocationsPage.bronx, "Bronx")
         self.click(LocationsPage.borough)
         self.click(LocationsPage.clear_boro)
 
@@ -98,7 +95,7 @@ class Locations(NyplUtils):
         # assert_element keeps polling, so it rides out the list re-render after the search.
         self.assert_element(LocationsPage.result_with_name.format(expected_text))
 
-    def assert_borough_filter(self, borough_checkbox, expected_city):
+    def apply_borough_filter(self, borough_checkbox, expected_city):
         # the list empties and re-renders after 'Apply Filters' (sometimes slower than
         # the 7s default), so wait until the first address shows the filtered borough.
         # If the page hangs (dropdown or list never renders), refresh once and retry.
@@ -108,13 +105,16 @@ class Locations(NyplUtils):
                 self.click(borough_checkbox)
                 self.click(LocationsPage.apply_boro)
                 self.assert_element(LocationsPage.first_address_with_text.format(expected_city), timeout=20)
-                break
+                return
             except Exception:
                 if attempt == 1:
                     raise
                 print(expected_city + " filter did not load, refreshing page and retrying...")
                 self.refresh_page()
                 self.wait_for_element_present(LocationsPage.borough, timeout=15)
+
+    def assert_borough_filter(self, borough_checkbox, expected_city):
+        self.apply_borough_filter(borough_checkbox, expected_city)
 
         addresses = self.execute_script(
             "return [...document.querySelectorAll('#locations-list .address')].map(e => e.textContent);")

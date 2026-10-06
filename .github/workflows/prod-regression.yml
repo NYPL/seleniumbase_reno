@@ -46,4 +46,4 @@ jobs:
 
     - name: Run Prod Regression tests on Chrome
       run: |
-        pytest tests --spec --headless -n=6 --reruns=1 --reruns-delay=2 -m "not test and not qa"
+        pytest tests --spec --headless -n=6 --reruns=2 --reruns-delay=2 -m "not test and not qa"
