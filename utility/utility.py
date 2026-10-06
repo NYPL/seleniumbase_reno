@@ -242,13 +242,16 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
     def assert_links_valid(self, locator):
         """
         Assert links in an <li> aren't broken for HTTP(S). Skip non-web schemes (tel:, sms:, mailto:, etc.).
+        Only links to www.nypl.org (or qa-www.nypl.org) are checked. Links to any other host
+        (other .nypl.org sites like archives.nypl.org, or outside sites) are skipped, since
+        those sites aren't part of nypl.org.
         """
 
-        allowed_403_keywords = ["photoville", "NYPLEducators, eventbrite"]
-        
-        # Twitter/X specifically blocks automated requests with 403
-        twitter_domains = {"twitter.com", "x.com"}
+        allowed_403_keywords = ["photoville", "NYPLEducators", "eventbrite"]
 
+        # only links on these hosts are checked
+        nypl_hosts = {"www.nypl.org", "qa-www.nypl.org"}
+        
         non_http_schemes_to_skip = {"mailto", "tel", "sms", "javascript", "data"}
 
         # Wait for elements to be present before checking
@@ -292,9 +295,9 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
                         print(f"Skipping {scheme.upper()} link: {url}")
                         link_checked = True
                         break                    
-                    # Skip Twitter/X links (they block automated requests with 403)
-                    if any(domain in url.lower() for domain in twitter_domains):
-                        print(f"Skipping Twitter link: {url}")
+                    # Skip links outside www.nypl.org (archives.nypl.org, vendors, social media, ...)
+                    if scheme in {"http", "https"} and urlparse(url).hostname not in nypl_hosts:
+                        print(f"Skipping non-www.nypl.org link: {url}")
                         link_checked = True
                         break
                     # If it’s protocol-relative or relative, requests can choke; normalize if needed
@@ -446,7 +449,31 @@ class NyplUtils(HeaderPage, SchwarzmanPage, GivePage, HomePage, BlogPage, BlogAl
         url = self.get_current_url()
         print("Redirected to: " + url)
         self.assert_true(urlparse(url).hostname not in nypl_hosts, "Still on the NYPL site, no redirect: " + url)
+        self.assert_page_loaded_ok()
 
+    def assert_navigated_from(self, start_url, timeout=15):
+        """
+        High-level check for actions that move to another page on the same site (e.g. a search):
+        the page path changed from start_url and the new page loaded with a status below 400.
+        Compares paths, not full URLs, so a form reload like '/research?' doesn't count as navigation.
+        """
+        start_path = urlparse(start_url).path.rstrip("/")
+
+        # wait for the navigation to a different path
+        for _ in range(timeout):
+            if urlparse(self.get_current_url()).path.rstrip("/") != start_path:
+                break
+            self.sleep(1)
+        self.wait_for_ready_state_complete()
+
+        url = self.get_current_url()
+        print("Navigated to: " + url)
+        self.assert_true(urlparse(url).path.rstrip("/") != start_path, "Did not navigate away from " + start_url)
+        self.assert_page_loaded_ok()
+
+    def assert_page_loaded_ok(self):
+        """Asserts the current page loaded with an HTTP status below 400, read from the browser's own page load."""
+        url = self.get_current_url()
         status = self.execute_script(
             "var nav = performance.getEntriesByType('navigation')[0]; return nav ? nav.responseStatus : null;")
         print("Destination status: " + str(status))
