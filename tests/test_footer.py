@@ -40,6 +40,6 @@ class FooterTest(NyplUtils):
 
         # social media links assertions with 'link assertion' utility function to verify they go to the correct URL
         self.link_assertion(FooterPage.facebook, "facebook.com/nypl")
-        self.link_assertion(FooterPage.twitter, "x.com/nypl")
+        self.link_assertion(FooterPage.tiktok, "tiktok.com/@nypl")
         self.link_assertion(FooterPage.instagram, "instagram.com/nypl")
         self.link_assertion(FooterPage.youtube, "youtube.com/user/NewYorkPublicLibrary")

@@ -16,10 +16,11 @@ class FooterPage(BaseCase):
     about_nypl = '//*[@id="nypl-footer"]//a[contains(text(), "About NYPL")]'
     language = '//*[@id="nypl-footer"]//a[contains(text(), "Language")]'
 
-    facebook = '(//*[@data-testid="social-media-links"]//li)[1]//a'
-    twitter = '(//*[@data-testid="social-media-links"]//li)[2]//a'
-    instagram = '(//*[@data-testid="social-media-links"]//li)[3]//a'
-    youtube = '(//*[@data-testid="social-media-links"]//li)[4]//a'
+    # social links picked by their link, not position, so a reorder doesn't break them
+    facebook = '//*[@data-testid="social-media-links"]//a[contains(@href, "facebook.com")]'
+    instagram = '//*[@data-testid="social-media-links"]//a[contains(@href, "instagram.com")]'
+    youtube = '//*[@data-testid="social-media-links"]//a[contains(@href, "youtube.com")]'
+    tiktok = '//*[@data-testid="social-media-links"]//a[contains(@href, "tiktok.com")]'
 
     # footer is using same page as page_home
     """
