@@ -50,4 +50,6 @@ Tests that log in read credentials from a .env file in the repo root (not commit
  
  Click the "Run workflow" button on the right.
 
+ For which regressions to run during a release, see the [Release QA Checklist](https://github.com/NYPL/nypl-d8/blob/dev/docs/release-qa-checklist.md).
+
  Prod Smoke also runs every day at 11:00 UTC and posts failures to Slack.
