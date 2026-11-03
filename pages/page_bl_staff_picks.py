@@ -20,6 +20,7 @@ class StaffPicksPage(BaseCase):
     submit = '(//*[contains(text(), "Submit")])[1]'
     # selected_year = '//*[@id="year"]/option[@selected=""]'
     season_dropdown = '//*[@id="season"]'
+    selected_season_option = '//*[@id="season"]/option[@selected]'
     error_locator = '//*[@aria-label="Error message"]'
 
     clear_all_filters = '(//*[contains(text(), "Clear All Filters")])[1]'

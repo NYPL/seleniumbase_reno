@@ -118,10 +118,8 @@ class StaffPicks(NyplUtils):
             # Open staff picks page for the category
             self.open_staff_picks_page(category=category)
 
-            # Getting the season and year text
-            selected_season = self.get_text(StaffPicksPage.season_dropdown).split()[0]
-            selected_year = self.get_text(StaffPicksPage.season_dropdown).split()[1]
-            selected_time = selected_season + " " + selected_year
+            # Getting the selected season and year text (e.g. "Fall 2026")
+            selected_time = self.get_text(StaffPicksPage.selected_season_option).strip()
             print(selected_time)  # Optional print
 
             # Getting the text from the h2 heading
